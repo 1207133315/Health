@@ -9,11 +9,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.KeyEvent;
 
 
 import com.bw.health.util.LogUtils;
+import com.bw.health.util.StatusBarUtil;
 
 import butterknife.ButterKnife;
 
@@ -44,6 +45,15 @@ public abstract class WDActivity extends AppCompatActivity {
         LogUtils.e("getTaskId = " + getTaskId());
         initLoad();
         setContentView(getLayoutId());
+        StatusBarUtil.setRootViewFitsSystemWindows(this,false);
+        //设置状态栏透明
+        StatusBarUtil.setTranslucentStatus(this);
+        if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
+            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+            //这样半透明+白=灰, 状态栏的文字能看得清
+            StatusBarUtil.setStatusBarColor(this,0x55000000);
+        }
+
         ButterKnife.bind(this);//绑定布局
         initView();
     }

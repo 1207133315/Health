@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bw.login">
 
+<application>
+    <activity android:name="com.bw.health.MainActivity">
 
+
+    </activity>
+
+</application>
 
 </manifest>
