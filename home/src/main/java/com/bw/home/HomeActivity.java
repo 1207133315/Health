@@ -50,10 +50,13 @@ public class HomeActivity extends WDActivity {
     @OnClick({R2.id.home, R2.id.video, R2.id.circle})
     public void onClick(View v) {
       if (v.getId()==R.id.home){
+          home.setChecked(true);
           circle.setChecked(false);
       }else if (v.getId()==R.id.video){
+          video.setChecked(true);
           circle.setChecked(false);
       }else if (v.getId()==R.id.circle){
+          circle.setChecked(true);
           home.setChecked(false);
           video.setChecked(false);
       }
