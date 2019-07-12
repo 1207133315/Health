@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkManager {
 
     private static NetworkManager instance;
-    private Retrofit app_retrofit,baidu_retrofit;
+    public Retrofit app_retrofit,baidu_retrofit;
 
     private NetworkManager(){
         init();
