@@ -6,6 +6,7 @@ import com.bw.health.bean.BDResult;
 import com.bw.health.bean.Result;
 import com.bw.health.exception.ApiException;
 import com.bw.health.exception.CustomException;
+import com.bw.health.http.IAppRequest;
 import com.bw.health.http.NetworkManager;
 
 import java.lang.reflect.ParameterizedType;
@@ -46,6 +47,7 @@ public abstract class WDPresenter<T> {
     protected abstract Observable getModel(Object... args);
 
     public void reqeust(final Object... args) {
+
         if (running) {
             return;
         }
@@ -91,7 +93,7 @@ public abstract class WDPresenter<T> {
                 public void accept(BDResult result) throws Exception {
                     running = false;
                     if (result.getCode()==0) {
-                        dataCall.success(result.getData(), args);
+                        dataCall.success(result, args);
                     }else{
                         dataCall.fail(new ApiException(String.valueOf(result.getCode()),result.getMsg()));
                     }
@@ -103,7 +105,7 @@ public abstract class WDPresenter<T> {
                 public void accept(Result result) throws Exception {
                     running = false;
                     if (result.getStatus().equals("0000")) {
-                        dataCall.success(result.getResult(), args);
+                        dataCall.success(result, args);
                     }else{
                         dataCall.fail(new ApiException(result.getStatus(),result.getMessage()));
                     }
@@ -116,14 +118,14 @@ public abstract class WDPresenter<T> {
      * 请求类型，方便修改不同的IRequest接口和Rtrofit
      */
     protected int getRequestType() {
-        return REQUEST_TYPE_DEFAULT;
+        return 0;
     }
 
     /**
      * 返回值类型，方便多接口，应对大项目多数据结构
      */
     protected int getResponseType() {
-        return RESPONSE_TYPE_DEFAULT;
+        return 0;
     }
 
     /**
