@@ -1,5 +1,10 @@
 package com.bw.health.bean;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
+
+@Entity
 public class LoginBean {
 
     /**
@@ -17,12 +22,12 @@ public class LoginBean {
      * weight : 140
      * whetherBingWeChat : 2
      */
-
     private int age;
     private String email;
     private String headPic;
     private int height;
-    private int id;
+    @Id
+    private Long id;
     private String invitationCode;
     private String jiGuangPwd;
     private String nickName;
@@ -31,6 +36,28 @@ public class LoginBean {
     private String userName;
     private int weight;
     private int whetherBingWeChat;
+
+    @Generated(hash = 1989960626)
+    public LoginBean(int age, String email, String headPic, int height, Long id, String invitationCode, String jiGuangPwd, String nickName, String sessionId, int sex, String userName,
+            int weight, int whetherBingWeChat) {
+        this.age = age;
+        this.email = email;
+        this.headPic = headPic;
+        this.height = height;
+        this.id = id;
+        this.invitationCode = invitationCode;
+        this.jiGuangPwd = jiGuangPwd;
+        this.nickName = nickName;
+        this.sessionId = sessionId;
+        this.sex = sex;
+        this.userName = userName;
+        this.weight = weight;
+        this.whetherBingWeChat = whetherBingWeChat;
+    }
+
+    @Generated(hash = 1112702939)
+    public LoginBean() {
+    }
 
     public int getAge() {
         return age;
@@ -64,11 +91,11 @@ public class LoginBean {
         this.height = height;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

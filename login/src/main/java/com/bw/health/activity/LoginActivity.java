@@ -14,8 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bw.health.bean.LoginBean;
+import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDActivity;
+import com.bw.health.dao.DaoMaster;
+import com.bw.health.dao.DaoSession;
+import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.prenster.LoginPresenter;
 import com.bw.health.util.RsaCoder;
@@ -114,12 +119,19 @@ public class LoginActivity extends WDActivity {
 
         @Override
         public void success(Object data, Object... args) {
-
+            Result<LoginBean>result= (Result<LoginBean>) data;
+            LoginBean result1 = result.getResult();
+            DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(LoginActivity.this, "login");
+            DaoMaster daoMaster = new DaoMaster(helper.getWritableDb());
+            DaoSession daoSession = daoMaster.newSession();
+            LoginBeanDao loginBeanDao = daoSession.getLoginBeanDao();
+            loginBeanDao.insert(result1);
+            intentByRouter("/HomeActivity/");
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
-
+            Toast.makeText(LoginActivity.this, data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }
