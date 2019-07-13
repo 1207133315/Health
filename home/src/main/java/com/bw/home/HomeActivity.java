@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-@Route(path = "HomeActivity")
+@Route(path = "/HomeActivity/")
 public class HomeActivity extends WDActivity {
 
 
