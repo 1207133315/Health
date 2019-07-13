@@ -1,17 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    
     android:layout_height="match_parent"
-    >
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="刘浩牛逼"
-    android:textSize="30sp"
-    android:gravity="center"
-    />
+    android:background="@drawable/start"
+   >
 
-</LinearLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/firingpager"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.viewpager.widget.ViewPager>
+    <RadioGroup
+        android:id="@+id/yindao_group"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:layout_marginHorizontal="@dimen/dp_120"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_63"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/dp_12">
+        <RadioButton
+            android:id="@+id/btn_1"
+            android:gravity="center"
+            android:button="@null"
+            android:checked="true"
+            android:background="@drawable/yindao"
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_12" />
+        <RadioButton
+            android:id="@+id/btn_2"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="@dimen/dp_12"
+            android:gravity="center"
+            android:background="@drawable/yindao"
+            android:button="@null"
+            android:layout_height="@dimen/dp_12" />
+        <RadioButton
+            android:id="@+id/btn_3"
+            android:background="@drawable/yindao"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="@dimen/dp_12"
+            android:button="@null"
+            android:gravity="center"
+            android:layout_height="@dimen/dp_12" />
+        <RadioButton
+            android:id="@+id/btn_4"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="@dimen/dp_12"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/yindao"
+            android:layout_height="@dimen/dp_12" />
+        <RadioButton
+            android:id="@+id/btn_5"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="@dimen/dp_12"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/yindao"
+            android:layout_height="@dimen/dp_12" />
+    </RadioGroup>
+    <Button
+        android:id="@+id/msjr"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:text="马上进入"
+        android:textColor="#fff"
+        android:layout_marginBottom="@dimen/dp_108"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/loginbtn"
+        android:layout_height="@dimen/dp_33"
+        android:layout_marginHorizontal="@dimen/dp_138"/>
+</RelativeLayout>

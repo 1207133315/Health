@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/yidaoimage"
+        android:layout_width="@dimen/dp_205"
+        android:src="@mipmap/guide_pages_one"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_150"
+        android:layout_height="@dimen/dp_205" />
+    <TextView
+    android:id="@+id/yindao_text1"
+    android:layout_width="wrap_content"
+    android:textSize="@dimen/sp_14"
+        android:text="专业的在线问诊"
+    android:textColor="@color/textColor"
+    android:layout_below="@+id/yidaoimage"
+    android:layout_marginTop="@dimen/dp_85"
+    android:layout_centerHorizontal="true"
+    android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
