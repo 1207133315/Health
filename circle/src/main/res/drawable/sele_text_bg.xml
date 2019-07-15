@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <!--点击状态-->
+        <color android:color="#3087ea"/>
+    </item>
+    <item android:state_enabled="true">
+        <!--非点击状态-->
+        <color android:color="#999999"/>
+    </item>
+
+</selector>

@@ -34,10 +34,10 @@ public class HolderThree extends BaseHolder {
     }
 
     @Override
-    public void onBindView(List<MationBean> list, Context context, int i) {
-        text.setText(list.get(i).title);
-        name.setText(list.get(i).source);
-         long time = list.get(i).releaseTime;
+    public void onBindView( Context context, MationBean mationBean) {
+        text.setText(mationBean.title);
+        name.setText(mationBean.source);
+         long time = mationBean.releaseTime;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
          String format = sdf.format(new Date(time));
         this.time.setText(format);

@@ -4,6 +4,7 @@
 
     <application>
         <activity android:name=".activity.ZiXunActivity"></activity>
+        <activity android:name=".activity.YpOrBzActivity"></activity>
     </application>
 
 </manifest>
