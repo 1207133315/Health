@@ -26,17 +26,19 @@ public class LoginBeanDao extends AbstractDao<LoginBean, Long> {
     public static class Properties {
         public final static Property Age = new Property(0, int.class, "age", false, "AGE");
         public final static Property Email = new Property(1, String.class, "email", false, "EMAIL");
-        public final static Property HeadPic = new Property(2, String.class, "headPic", false, "HEAD_PIC");
-        public final static Property Height = new Property(3, int.class, "height", false, "HEIGHT");
-        public final static Property Id = new Property(4, Long.class, "id", true, "_id");
-        public final static Property InvitationCode = new Property(5, String.class, "invitationCode", false, "INVITATION_CODE");
-        public final static Property JiGuangPwd = new Property(6, String.class, "jiGuangPwd", false, "JI_GUANG_PWD");
-        public final static Property NickName = new Property(7, String.class, "nickName", false, "NICK_NAME");
-        public final static Property SessionId = new Property(8, String.class, "sessionId", false, "SESSION_ID");
-        public final static Property Sex = new Property(9, int.class, "sex", false, "SEX");
-        public final static Property UserName = new Property(10, String.class, "userName", false, "USER_NAME");
-        public final static Property Weight = new Property(11, int.class, "weight", false, "WEIGHT");
-        public final static Property WhetherBingWeChat = new Property(12, int.class, "whetherBingWeChat", false, "WHETHER_BING_WE_CHAT");
+        public final static Property Islogin = new Property(2, boolean.class, "islogin", false, "ISLOGIN");
+        public final static Property HeadPic = new Property(3, String.class, "headPic", false, "HEAD_PIC");
+        public final static Property Height = new Property(4, int.class, "height", false, "HEIGHT");
+        public final static Property Id = new Property(5, Long.class, "id", true, "_id");
+        public final static Property InvitationCode = new Property(6, String.class, "invitationCode", false, "INVITATION_CODE");
+        public final static Property JiGuangPwd = new Property(7, String.class, "jiGuangPwd", false, "JI_GUANG_PWD");
+        public final static Property NickName = new Property(8, String.class, "nickName", false, "NICK_NAME");
+        public final static Property SessionId = new Property(9, String.class, "sessionId", false, "SESSION_ID");
+        public final static Property Sex = new Property(10, int.class, "sex", false, "SEX");
+        public final static Property UserName = new Property(11, String.class, "userName", false, "USER_NAME");
+        public final static Property Weight = new Property(12, int.class, "weight", false, "WEIGHT");
+        public final static Property WhetherBingWeChat = new Property(13, int.class, "whetherBingWeChat", false, "WHETHER_BING_WE_CHAT");
+        public final static Property Pwd = new Property(14, String.class, "pwd", false, "PWD");
     }
 
 
@@ -54,17 +56,19 @@ public class LoginBeanDao extends AbstractDao<LoginBean, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"LOGIN_BEAN\" (" + //
                 "\"AGE\" INTEGER NOT NULL ," + // 0: age
                 "\"EMAIL\" TEXT," + // 1: email
-                "\"HEAD_PIC\" TEXT," + // 2: headPic
-                "\"HEIGHT\" INTEGER NOT NULL ," + // 3: height
-                "\"_id\" INTEGER PRIMARY KEY ," + // 4: id
-                "\"INVITATION_CODE\" TEXT," + // 5: invitationCode
-                "\"JI_GUANG_PWD\" TEXT," + // 6: jiGuangPwd
-                "\"NICK_NAME\" TEXT," + // 7: nickName
-                "\"SESSION_ID\" TEXT," + // 8: sessionId
-                "\"SEX\" INTEGER NOT NULL ," + // 9: sex
-                "\"USER_NAME\" TEXT," + // 10: userName
-                "\"WEIGHT\" INTEGER NOT NULL ," + // 11: weight
-                "\"WHETHER_BING_WE_CHAT\" INTEGER NOT NULL );"); // 12: whetherBingWeChat
+                "\"ISLOGIN\" INTEGER NOT NULL ," + // 2: islogin
+                "\"HEAD_PIC\" TEXT," + // 3: headPic
+                "\"HEIGHT\" INTEGER NOT NULL ," + // 4: height
+                "\"_id\" INTEGER PRIMARY KEY ," + // 5: id
+                "\"INVITATION_CODE\" TEXT," + // 6: invitationCode
+                "\"JI_GUANG_PWD\" TEXT," + // 7: jiGuangPwd
+                "\"NICK_NAME\" TEXT," + // 8: nickName
+                "\"SESSION_ID\" TEXT," + // 9: sessionId
+                "\"SEX\" INTEGER NOT NULL ," + // 10: sex
+                "\"USER_NAME\" TEXT," + // 11: userName
+                "\"WEIGHT\" INTEGER NOT NULL ," + // 12: weight
+                "\"WHETHER_BING_WE_CHAT\" INTEGER NOT NULL ," + // 13: whetherBingWeChat
+                "\"PWD\" TEXT);"); // 14: pwd
     }
 
     /** Drops the underlying database table. */
@@ -82,45 +86,51 @@ public class LoginBeanDao extends AbstractDao<LoginBean, Long> {
         if (email != null) {
             stmt.bindString(2, email);
         }
+        stmt.bindLong(3, entity.getIslogin() ? 1L: 0L);
  
         String headPic = entity.getHeadPic();
         if (headPic != null) {
-            stmt.bindString(3, headPic);
+            stmt.bindString(4, headPic);
         }
-        stmt.bindLong(4, entity.getHeight());
+        stmt.bindLong(5, entity.getHeight());
  
         Long id = entity.getId();
         if (id != null) {
-            stmt.bindLong(5, id);
+            stmt.bindLong(6, id);
         }
  
         String invitationCode = entity.getInvitationCode();
         if (invitationCode != null) {
-            stmt.bindString(6, invitationCode);
+            stmt.bindString(7, invitationCode);
         }
  
         String jiGuangPwd = entity.getJiGuangPwd();
         if (jiGuangPwd != null) {
-            stmt.bindString(7, jiGuangPwd);
+            stmt.bindString(8, jiGuangPwd);
         }
  
         String nickName = entity.getNickName();
         if (nickName != null) {
-            stmt.bindString(8, nickName);
+            stmt.bindString(9, nickName);
         }
  
         String sessionId = entity.getSessionId();
         if (sessionId != null) {
-            stmt.bindString(9, sessionId);
+            stmt.bindString(10, sessionId);
         }
-        stmt.bindLong(10, entity.getSex());
+        stmt.bindLong(11, entity.getSex());
  
         String userName = entity.getUserName();
         if (userName != null) {
-            stmt.bindString(11, userName);
+            stmt.bindString(12, userName);
         }
-        stmt.bindLong(12, entity.getWeight());
-        stmt.bindLong(13, entity.getWhetherBingWeChat());
+        stmt.bindLong(13, entity.getWeight());
+        stmt.bindLong(14, entity.getWhetherBingWeChat());
+ 
+        String pwd = entity.getPwd();
+        if (pwd != null) {
+            stmt.bindString(15, pwd);
+        }
     }
 
     @Override
@@ -132,50 +142,56 @@ public class LoginBeanDao extends AbstractDao<LoginBean, Long> {
         if (email != null) {
             stmt.bindString(2, email);
         }
+        stmt.bindLong(3, entity.getIslogin() ? 1L: 0L);
  
         String headPic = entity.getHeadPic();
         if (headPic != null) {
-            stmt.bindString(3, headPic);
+            stmt.bindString(4, headPic);
         }
-        stmt.bindLong(4, entity.getHeight());
+        stmt.bindLong(5, entity.getHeight());
  
         Long id = entity.getId();
         if (id != null) {
-            stmt.bindLong(5, id);
+            stmt.bindLong(6, id);
         }
  
         String invitationCode = entity.getInvitationCode();
         if (invitationCode != null) {
-            stmt.bindString(6, invitationCode);
+            stmt.bindString(7, invitationCode);
         }
  
         String jiGuangPwd = entity.getJiGuangPwd();
         if (jiGuangPwd != null) {
-            stmt.bindString(7, jiGuangPwd);
+            stmt.bindString(8, jiGuangPwd);
         }
  
         String nickName = entity.getNickName();
         if (nickName != null) {
-            stmt.bindString(8, nickName);
+            stmt.bindString(9, nickName);
         }
  
         String sessionId = entity.getSessionId();
         if (sessionId != null) {
-            stmt.bindString(9, sessionId);
+            stmt.bindString(10, sessionId);
         }
-        stmt.bindLong(10, entity.getSex());
+        stmt.bindLong(11, entity.getSex());
  
         String userName = entity.getUserName();
         if (userName != null) {
-            stmt.bindString(11, userName);
+            stmt.bindString(12, userName);
         }
-        stmt.bindLong(12, entity.getWeight());
-        stmt.bindLong(13, entity.getWhetherBingWeChat());
+        stmt.bindLong(13, entity.getWeight());
+        stmt.bindLong(14, entity.getWhetherBingWeChat());
+ 
+        String pwd = entity.getPwd();
+        if (pwd != null) {
+            stmt.bindString(15, pwd);
+        }
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4);
+        return cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5);
     }    
 
     @Override
@@ -183,17 +199,19 @@ public class LoginBeanDao extends AbstractDao<LoginBean, Long> {
         LoginBean entity = new LoginBean( //
             cursor.getInt(offset + 0), // age
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // email
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // headPic
-            cursor.getInt(offset + 3), // height
-            cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4), // id
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // invitationCode
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // jiGuangPwd
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // nickName
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // sessionId
-            cursor.getInt(offset + 9), // sex
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // userName
-            cursor.getInt(offset + 11), // weight
-            cursor.getInt(offset + 12) // whetherBingWeChat
+            cursor.getShort(offset + 2) != 0, // islogin
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // headPic
+            cursor.getInt(offset + 4), // height
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // id
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // invitationCode
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // jiGuangPwd
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // nickName
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // sessionId
+            cursor.getInt(offset + 10), // sex
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // userName
+            cursor.getInt(offset + 12), // weight
+            cursor.getInt(offset + 13), // whetherBingWeChat
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // pwd
         );
         return entity;
     }
@@ -202,17 +220,19 @@ public class LoginBeanDao extends AbstractDao<LoginBean, Long> {
     public void readEntity(Cursor cursor, LoginBean entity, int offset) {
         entity.setAge(cursor.getInt(offset + 0));
         entity.setEmail(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setHeadPic(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setHeight(cursor.getInt(offset + 3));
-        entity.setId(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
-        entity.setInvitationCode(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setJiGuangPwd(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setNickName(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setSessionId(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setSex(cursor.getInt(offset + 9));
-        entity.setUserName(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setWeight(cursor.getInt(offset + 11));
-        entity.setWhetherBingWeChat(cursor.getInt(offset + 12));
+        entity.setIslogin(cursor.getShort(offset + 2) != 0);
+        entity.setHeadPic(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setHeight(cursor.getInt(offset + 4));
+        entity.setId(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
+        entity.setInvitationCode(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setJiGuangPwd(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setNickName(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setSessionId(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setSex(cursor.getInt(offset + 10));
+        entity.setUserName(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setWeight(cursor.getInt(offset + 12));
+        entity.setWhetherBingWeChat(cursor.getInt(offset + 13));
+        entity.setPwd(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     
     @Override

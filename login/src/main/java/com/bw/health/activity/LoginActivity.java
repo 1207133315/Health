@@ -27,6 +27,8 @@ import com.bw.health.util.RsaCoder;
 import com.bw.login.R;
 import com.bw.login.R2;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -52,6 +54,7 @@ public class LoginActivity extends WDActivity {
     TextView qtdlfs;
     @BindView(R2.id.eye)
     ImageView eye;
+    String s = null;
     private LoginPresenter loginPresenter;
 
     @Override
@@ -85,7 +88,7 @@ public class LoginActivity extends WDActivity {
             if (TextUtils.isEmpty(email.getText().toString())||TextUtils.isEmpty(pwd.getText().toString())){
                 Toast.makeText(this, "输入信息不能为空", Toast.LENGTH_SHORT).show();
             }else {
-                String s = null;
+
                 try {
                     s = RsaCoder.encryptByPublicKey(pwd.getText().toString().trim());
                 } catch (Exception e) {
@@ -94,7 +97,8 @@ public class LoginActivity extends WDActivity {
                 loginPresenter.reqeust(email.getText().toString().trim(),s);
             }
         } else if (i == R.id.wjmm) {
-
+            Intent intent=new Intent(LoginActivity.this,ForgetPasswordActivity.class);
+            startActivity(intent);
         } else if (i == R.id.ljzc) {
             Intent intent=new Intent(this,RegisterActivity.class);
             startActivity(intent);
@@ -121,11 +125,17 @@ public class LoginActivity extends WDActivity {
         public void success(Object data, Object... args) {
             Result<LoginBean>result= (Result<LoginBean>) data;
             LoginBean result1 = result.getResult();
+            result1.islogin=true;
+            result1.setPwd(s);
             DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(LoginActivity.this, "login");
             DaoMaster daoMaster = new DaoMaster(helper.getWritableDb());
             DaoSession daoSession = daoMaster.newSession();
             LoginBeanDao loginBeanDao = daoSession.getLoginBeanDao();
-            loginBeanDao.insertOrReplaceInTx(result1);
+            List<LoginBean> list = loginBeanDao.queryBuilder().list();
+            for (LoginBean loginBean : list) {
+                loginBean.islogin=false;
+            }
+            loginBeanDao.insertOrReplace(result1);
             intentByRouter("/HomeActivity/");
         }
 
