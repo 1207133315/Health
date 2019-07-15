@@ -7,14 +7,16 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-
+        android:layout_marginTop="@dimen/dp_17"
         android:id="@+id/recyclerOne"
         ></androidx.recyclerview.widget.RecyclerView>
-    <androidx.recyclerview.widget.RecyclerView
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="3"
+        android:paddingLeft="@dimen/dp_2"
+
+        android:paddingRight="@dimen/dp_12"
         android:background="#fff"
         android:id="@+id/recyclerTwo"
-        ></androidx.recyclerview.widget.RecyclerView>
+        ></com.jcodecraeer.xrecyclerview.XRecyclerView>
 </LinearLayout>
