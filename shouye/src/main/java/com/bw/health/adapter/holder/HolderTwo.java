@@ -39,20 +39,16 @@ public class HolderTwo extends BaseHolder {
     }
 
     @Override
-    public void onBindView(List<MationBean> list, Context context, int i) {
-        final String[] split = list.get(i).thumbnail.split(";");
-        if (split.length==1){
-            img1.setImageURI(Uri.parse(split[0]));
-        }else if (split.length==3){
-            img1.setImageURI(Uri.parse(split[0]));
-            img2.setImageURI(Uri.parse(split[1]));
-            img3.setImageURI(Uri.parse(split[2]));
-        }
+    public void onBindView( Context context, MationBean mationBean) {
+        final String[] split = mationBean.thumbnail.split(";");
 
 
-        text.setText(list.get(i).title);
-        name.setText(list.get(i).source);
-         long time1 = list.get(i).releaseTime;
+        img1.setImageURI(Uri.parse(split[0]));
+        img2.setImageURI(Uri.parse(split[1]));
+        img3.setImageURI(Uri.parse(split[2]));
+        text.setText(mationBean.title);
+        name.setText(mationBean.source);
+         long time1 = mationBean.releaseTime;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
          String format = sdf.format(new Date(time1));
        time.setText(format);

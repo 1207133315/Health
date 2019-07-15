@@ -23,5 +23,5 @@ public abstract class BaseHolder extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-    public abstract void onBindView(List<MationBean> list, Context context, int i);
+    public abstract void onBindView( Context context,MationBean mationBean);
 }

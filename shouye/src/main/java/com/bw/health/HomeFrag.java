@@ -6,16 +6,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bw.health.adapter.DepartmentAdapter;
 import com.bw.health.adapter.MationListAdapter;
 import com.bw.health.adapter.PlateListAdapter;
 import com.bw.health.bean.BannerBean;
+import com.bw.health.bean.DepartmentBean;
 import com.bw.health.bean.MationBean;
 import com.bw.health.bean.PlateBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDFragment;
 import com.bw.health.exception.ApiException;
+import com.bw.health.presenter.DepartmentPresenter;
 import com.bw.health.presenter.MationListPresenter;
 import com.bw.health.presenter.PlateListPresenter;
 import com.bw.health.presenter.ShowBannerPresenter;
@@ -49,6 +53,14 @@ public class HomeFrag extends WDFragment {
     RecyclerView unplateRecycler;
     @BindView(R2.id.cotent)
     LinearLayout cotent;
+    @BindView(R2.id.keshiRecycler)
+    RecyclerView keshiRecycler;
+
+    @BindView(R2.id.bingzheng)
+    LinearLayout bingzheng;
+
+    @BindView(R2.id.yaopin)
+    LinearLayout yaopin;
     private ShowBannerPresenter showBannerPresenter;
     private PlateListPresenter plateListPresenter;
     private PlateListAdapter plateListAdapter;
@@ -56,6 +68,8 @@ public class HomeFrag extends WDFragment {
     private MationListAdapter mationListAdapter;
     @BindView(R2.id.scrollView)
     NestedScrollView scrollView;
+    private DepartmentPresenter departmentPresenter;
+    private DepartmentAdapter departmentAdapter;
 
     @Override
     public String getPageName() {
@@ -92,6 +106,13 @@ public class HomeFrag extends WDFragment {
             }
         });
 
+        //科室列表
+        departmentPresenter = new DepartmentPresenter(new Department());
+        keshiRecycler.setLayoutManager(new GridLayoutManager(getContext(),4));
+        departmentPresenter.reqeust();
+        departmentAdapter = new DepartmentAdapter(getContext());
+        keshiRecycler.setAdapter(departmentAdapter);
+        //吸顶
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
@@ -110,6 +131,21 @@ public class HomeFrag extends WDFragment {
 
     }
 
+    @OnClick({R2.id.bingzheng,R2.id.yaopin})
+    public void yaopinOrbingzheng(View view){
+        Bundle bundle = new Bundle();
+        final int id = view.getId();
+        if (id==R.id.bingzheng){
+            bundle.putInt("i",1);
+            intentByRouter("/YpOrBzActivity/",bundle);
+        }else if (id==R.id.yaopin){
+            bundle.putInt("i",2);
+            intentByRouter("/YpOrBzActivity/",bundle);
+        }else {
+
+        }
+    }
+
     @OnClick(R2.id.next)
     public void nextClick(){
          Bundle bundle = new Bundle();
@@ -117,6 +153,20 @@ public class HomeFrag extends WDFragment {
         bundle.putLong("id", plateBean.id);
         bundle.putString("title",plateBean.name);
         intentByRouter("/ZiXunActivity/",bundle);
+    }
+
+    public class Department implements DataCall<Result<List<DepartmentBean>>>{
+        @Override
+        public void success(Result<List<DepartmentBean>> data, Object... args) {
+            departmentAdapter.clear();
+            departmentAdapter.addList(data.getResult());
+            departmentAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+            Toast.makeText(getContext(), ""+data.getDisplayMessage()+data.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
     public class MationList implements DataCall<Result<List<MationBean>>>{
         @Override
@@ -146,7 +196,7 @@ public class HomeFrag extends WDFragment {
 
         }
     }
-        public  class PlateList implements DataCall<Result<List<PlateBean>>>{
+    public  class PlateList implements DataCall<Result<List<PlateBean>>>{
             @Override
             public void success(Result<List<PlateBean>> data, Object... args) {
 

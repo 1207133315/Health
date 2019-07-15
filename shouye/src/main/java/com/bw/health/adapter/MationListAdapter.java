@@ -35,21 +35,29 @@ public class MationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final int itemViewType = getItemViewType(viewType);
-        switch (itemViewType){
-            case 0:
-                return new HolderOne(LayoutInflater.from(context).inflate(R.layout.home_itme_one,parent,false));
-            case 1:
-              return   new HolderTwo(LayoutInflater.from(context).inflate(R.layout.home_itme_two,parent,false));
-            case 2:
-              return   new HolderThree(LayoutInflater.from(context).inflate(R.layout.home_itme_three,parent,false));
+        if (itemViewType == 1) {
+            return new HolderOne(LayoutInflater.from(context).inflate(R.layout.home_itme_one, parent, false));
+        } else if (itemViewType == 2) {
+            return new HolderTwo(LayoutInflater.from(context).inflate(R.layout.home_itme_two, parent, false));
+        } else if (itemViewType == 3) {
+            return new HolderThree(LayoutInflater.from(context).inflate(R.layout.home_itme_three, parent, false));
         }
         return null;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final BaseHolder baseHolder = (BaseHolder) holder;
-        baseHolder.onBindView(list,context,position);
+         int itemViewType = getItemViewType(position);
+        if (itemViewType == 1) {
+             HolderOne holderOne = (HolderOne) holder;
+            holderOne.onBindView(context,list.get(position));
+        }  if (itemViewType == 2) {
+             HolderTwo holderTwo = (HolderTwo) holder;
+            holderTwo.onBindView(context,list.get(position));
+        }  if (itemViewType == 3) {
+            HolderThree holderThree = (HolderThree) holder;
+            holderThree.onBindView(context,list.get(position));
+        }
     }
 
     @Override
@@ -61,12 +69,13 @@ public class MationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public int getItemViewType(int position) {
 
             if (list.get(position).aa==1){
-                return 0;
-            }else if (list.get(position).aa==2){
                 return 1;
-             }else {
+            }else if (list.get(position).aa==2){
                 return 2;
+             }else if (list.get(position).aa==3){
+                return 3;
             }
+            return 3;
 
 
     }

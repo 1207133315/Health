@@ -125,7 +125,7 @@ public class LoginActivity extends WDActivity {
             DaoMaster daoMaster = new DaoMaster(helper.getWritableDb());
             DaoSession daoSession = daoMaster.newSession();
             LoginBeanDao loginBeanDao = daoSession.getLoginBeanDao();
-            loginBeanDao.insert(result1);
+            loginBeanDao.insertOrReplaceInTx(result1);
             intentByRouter("/HomeActivity/");
         }
 
