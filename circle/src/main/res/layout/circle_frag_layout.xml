@@ -1,12 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/dp_20">
 
-    <TextView
-        android:id="@+id/circle_frag_text1"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/sp_25"
-        android:text="我是谁"/>
-</LinearLayout>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_90"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_90"
+                android:background="#F2F2F2"/>
+
+            <!--标题 -->
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_80"
+                android:background="@android:color/white"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin">
+
+                <RelativeLayout
+                    android:id="@+id/fl_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10">
+
+
+                    <!--急诊科-->
+                    <LinearLayout
+                        android:id="@+id/circle_linearlayout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_75"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/dp_20"
+                        android:paddingRight="@dimen/dp_20">
+
+                        <TextView
+                            android:id="@+id/circle_textView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="急诊科"
+                            android:textColor="#3087ea"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_circle_search"
+                            android:hint="    请输入病症名称或标题关键字"
+                            android:textColor="#999999"
+                            android:textColorHint="#999999"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:id="@+id/circle_image_message2"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@mipmap/common_nav_message_black_n" />
+                    </LinearLayout>
+
+
+                    <!--有登录头像-->
+                    <LinearLayout
+                        android:id="@+id/edit_dd"
+                        android:layout_width="match_parent"
+                        android:layout_height="75dp"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:id="@+id/circle_image_head"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@mipmap/girl" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:id="@+id/circle_image_message"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@mipmap/common_nav_message_black_s" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/n_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--科室列表-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+               <androidx.recyclerview.widget.RecyclerView
+                   android:id="@+id/circlr_frag_rc1"
+                   android:layout_width="0dp"
+                   android:layout_height="40dp"
+                   android:layout_weight="1">
+
+               </androidx.recyclerview.widget.RecyclerView>
+
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/ic_action_name" />
+            </LinearLayout>
+
+
+
+              <!--病友圈列表展示-->
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_6"
+               android:background="#F4F4F4" />
+             <androidx.recyclerview.widget.RecyclerView
+                 android:id="@+id/circlr_frag_rc2"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+
+             </androidx.recyclerview.widget.RecyclerView>
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
