@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
     android:background="#eee"
     android:layout_marginBottom="@dimen/dp_76"
+    android:id="@+id/scrollView"
     android:layout_height="match_parent">
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/cotent"
+        >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -56,6 +73,7 @@
 
             />
     </LinearLayout>
+
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -92,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:id="@+id/bingzheng"
             android:layout_marginRight="@dimen/dp_3"
             >
             <TextView
@@ -117,6 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_3"
+            android:id="@+id/yaopin"
             android:orientation="vertical"
             >
             <TextView
@@ -162,211 +182,16 @@
             />
     </LinearLayout>
     
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+
         android:layout_marginTop="@dimen/dp_2"
+        android:background="#ffffff"
+        android:id="@+id/keshiRecycler"
         >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#ffffff"
-            >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="@dimen/dp_56"
-                    android:layout_height="@dimen/dp_56"
-                    android:src="@mipmap/internal_medicine"
-                    android:id="@+id/nei"
-                    android:layout_marginTop="12dp"
-                    android:layout_gravity="center"
-                    />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="内科"
-                        android:textColor="#333333"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:gravity="center"
-                        />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="@dimen/dp_56"
-                    android:layout_height="@dimen/dp_56"
-                    android:src="@mipmap/ophthalmology"
-                    android:id="@+id/yan"
-                    android:layout_marginTop="12dp"
-                    android:layout_gravity="center"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="眼科"
-                    android:textColor="#333333"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:gravity="center"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="@dimen/dp_56"
-                    android:layout_height="@dimen/dp_56"
-                    android:src="@mipmap/orthopedics"
-                    android:id="@+id/gu"
-                    android:layout_marginTop="12dp"
-                    android:layout_gravity="center"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="骨科"
-                    android:textColor="#333333"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:gravity="center"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="@dimen/dp_56"
-                    android:layout_height="@dimen/dp_56"
-                    android:src="@mipmap/pediatrics"
-                    android:id="@+id/xiaoer"
-                    android:layout_marginTop="12dp"
-                    android:layout_gravity="center"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="小儿科"
-                    android:textColor="#333333"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:gravity="center"
-                    />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#ffffff"
-            >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="@dimen/dp_56"
-                    android:layout_height="@dimen/dp_56"
-                    android:src="@mipmap/infectious_disease"
-                    android:id="@+id/chuanran"
-                    android:layout_marginTop="12dp"
-                    android:layout_gravity="center"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="传染病科"
-                    android:textColor="#333333"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:gravity="center"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="@dimen/dp_56"
-                    android:layout_height="@dimen/dp_56"
-                    android:src="@mipmap/dermatology"
-                    android:id="@+id/pifu"
-                    android:layout_marginTop="12dp"
-                    android:layout_gravity="center"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="皮肤病科"
-                    android:textColor="#333333"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:gravity="center"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="@dimen/dp_56"
-                    android:layout_height="@dimen/dp_56"
-                    android:src="@mipmap/otolaryngology"
-                    android:id="@+id/erhoubi"
-                    android:layout_marginTop="12dp"
-                    android:layout_gravity="center"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="耳喉鼻科"
-                    android:textColor="#333333"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:gravity="center"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="@dimen/dp_56"
-                    android:layout_height="@dimen/dp_56"
-                    android:src="@mipmap/psychiatry"
-                    android:id="@+id/jingshenbing"
-                    android:layout_marginTop="12dp"
-                    android:layout_gravity="center"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="精神病科"
-                    android:textColor="#333333"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:gravity="center"
-                    />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+
+    </androidx.recyclerview.widget.RecyclerView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
@@ -418,64 +243,57 @@
             android:layout_marginLeft="@dimen/dp_10"
             />
     </LinearLayout>
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/rg"
-        android:background="#fff"
+</LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="@dimen/dp_2"
-        android:orientation="horizontal"
-        >
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:button="@null"
-            android:id="@+id/one"
-            android:textColor="@drawable/textcolor_bg"
-            android:text="健康要闻"
-            android:gravity="center"
-            android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:id="@+id/plateRecycler"
+        android:background="#fff"
+        ></androidx.recyclerview.widget.RecyclerView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:background="#eee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_2"
+        android:id="@+id/mationRecycler"
+        ></androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="#ffffff"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="@dimen/dp_13"
+            android:layout_height="@dimen/dp_12"
+            android:src="@mipmap/common_information_next_n"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_2"
+            android:id="@+id/n"
             />
-        <RadioButton
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:button="@null"
-            android:id="@+id/two"
-            android:textColor="@drawable/textcolor_bg"
-            android:text="医学动态"
-            android:gravity="center"
-            android:layout_weight="1"
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:button="@null"
-            android:id="@+id/three"
-            android:gravity="center"
-            android:textColor="@drawable/textcolor_bg"
-            android:text="医疗动态"
-            android:layout_weight="1"
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:button="@null"
-            android:id="@+id/four"
-            android:textColor="@drawable/textcolor_bg"
-            android:gravity="center"
-            android:text="养生美容"
-            android:layout_weight="1"
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:button="@null"
-            android:id="@+id/five"
-            android:gravity="center"
-            android:textColor="@drawable/textcolor_bg"
-            android:text="健身减肥"
-            android:layout_weight="1"
-            />
-    </RadioGroup>
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="@dimen/dp_6"
+            android:layout_toStartOf="@+id/n"
+            android:layout_toLeftOf="@+id/n"
+            android:text="查看更多"
+            android:id="@+id/next"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/sp_12" />
+
+    </RelativeLayout>
 </LinearLayout>
 </androidx.core.widget.NestedScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/dp_22"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:id="@+id/unplateRecycler"
+        android:visibility="gone"
+        android:background="#fff"
+        ></androidx.recyclerview.widget.RecyclerView>
+</RelativeLayout>

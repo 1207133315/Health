@@ -2,12 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bw.login">
 
-<application>
-    <activity android:name="com.bw.health.MainActivity">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <application>
+        <activity android:name="com.bw.health.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-    </activity>
-
-</application>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.bw.health.activity.LoginActivity" />
+        <activity android:name="com.bw.health.activity.RegisterActivity"></activity>
+    </application>
 
 </manifest>
