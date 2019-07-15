@@ -18,7 +18,11 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bw.health.adapter.YinDaoPagerAdapter;
+import com.bw.health.bean.LoginBean;
 import com.bw.health.core.WDActivity;
+import com.bw.health.dao.DaoMaster;
+import com.bw.health.dao.DaoSession;
+import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.fragment.Yindao1;
 import com.bw.login.R;
 
@@ -93,13 +97,14 @@ public class MainActivity extends WDActivity {
                         }
                     });
                 } else {
+                    DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(MainActivity.this, "login");
+                    DaoMaster daoMaster = new DaoMaster(helper.getWritableDb());
+                    DaoSession daoSession = daoMaster.newSession();
+                    LoginBeanDao loginBeanDao = daoSession.getLoginBeanDao();
+                    List<LoginBean> list = loginBeanDao.queryBuilder().list();
 
-
-                    if (false){
-
-//                        startActivity(new Intent(MainActivity.this,ShowActivity.class));
-//                        finish();
-
+                    if (list.size()>0&&list!=null){
+                        intentByRouter("/HomeActivity/");
                     }else {
 
                         startActivity(new Intent(MainActivity.this,LoginActivity.class));
