@@ -29,6 +29,8 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
         mList = new ArrayList<>();
     }
 
+
+
     @NonNull
     @Override
     public CircleListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -56,7 +58,12 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
         myViewHolder.tv_detail.setText(detail);
         myViewHolder.tv_shoucang_num.setText(collectionNum + "");
         myViewHolder.tv_jianyi_num.setText(commentNum + "");
-
+       holder.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               dataCall.showCall(mList.get(position));
+           }
+       });
 
     }
 
@@ -100,12 +107,12 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
     }
 
     public interface Call {
-        void showCall();
+        void showCall(CircleListBean circleListBean);
     }
 
-    public Call call;
+    public static Call dataCall;
 
-    public void setCall(Call call) {
-        this.call = call;
+    public static void setCall(Call call) {
+        dataCall = call;
     }
 }
