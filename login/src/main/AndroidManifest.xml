@@ -13,7 +13,9 @@
             </intent-filter>
         </activity>
         <activity android:name="com.bw.health.activity.LoginActivity" />
-        <activity android:name="com.bw.health.activity.RegisterActivity"></activity>
+        <activity android:name="com.bw.health.activity.RegisterActivity" />
+        <activity android:name="com.bw.health.activity.ForgetPasswordActivity" />
+        <activity android:name="com.bw.health.activity.ForgetPassword2Activity"></activity>
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ public class LoginBean {
      */
     private int age;
     private String email;
+    public boolean islogin;
     private String headPic;
     private int height;
     @Id
@@ -37,11 +38,12 @@ public class LoginBean {
     private int weight;
     private int whetherBingWeChat;
 
-    @Generated(hash = 1989960626)
-    public LoginBean(int age, String email, String headPic, int height, Long id, String invitationCode, String jiGuangPwd, String nickName, String sessionId, int sex, String userName,
-            int weight, int whetherBingWeChat) {
+    @Generated(hash = 295282713)
+    public LoginBean(int age, String email, boolean islogin, String headPic, int height, Long id, String invitationCode, String jiGuangPwd, String nickName, String sessionId, int sex,
+            String userName, int weight, int whetherBingWeChat) {
         this.age = age;
         this.email = email;
+        this.islogin = islogin;
         this.headPic = headPic;
         this.height = height;
         this.id = id;
@@ -161,5 +163,13 @@ public class LoginBean {
 
     public void setWhetherBingWeChat(int whetherBingWeChat) {
         this.whetherBingWeChat = whetherBingWeChat;
+    }
+
+    public boolean getIslogin() {
+        return this.islogin;
+    }
+
+    public void setIslogin(boolean islogin) {
+        this.islogin = islogin;
     }
 }

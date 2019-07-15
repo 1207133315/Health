@@ -24,5 +24,7 @@ public interface Irequset {
     @POST("user/v1/login")
     Observable<Result<LoginBean>>login(@Query("email")String email,
                                        @Query("pwd")String pwd);
+
+    
     /*刘浩*/
 }

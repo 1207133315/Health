@@ -94,7 +94,8 @@ public class LoginActivity extends WDActivity {
                 loginPresenter.reqeust(email.getText().toString().trim(),s);
             }
         } else if (i == R.id.wjmm) {
-
+            Intent intent=new Intent(LoginActivity.this,ForgetPasswordActivity.class);
+            startActivity(intent);
         } else if (i == R.id.ljzc) {
             Intent intent=new Intent(this,RegisterActivity.class);
             startActivity(intent);
@@ -121,11 +122,12 @@ public class LoginActivity extends WDActivity {
         public void success(Object data, Object... args) {
             Result<LoginBean>result= (Result<LoginBean>) data;
             LoginBean result1 = result.getResult();
+            result1.islogin=true;
             DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(LoginActivity.this, "login");
             DaoMaster daoMaster = new DaoMaster(helper.getWritableDb());
             DaoSession daoSession = daoMaster.newSession();
             LoginBeanDao loginBeanDao = daoSession.getLoginBeanDao();
-            loginBeanDao.insert(result1);
+            loginBeanDao.insertOrReplace(result1);
             intentByRouter("/HomeActivity/");
         }
 
