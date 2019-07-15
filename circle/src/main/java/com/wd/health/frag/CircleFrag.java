@@ -104,6 +104,7 @@ public class CircleFrag extends WDFragment {
             @Override
             public void showCall(Long id) {
                 circleListPresenter.reqeust(String.valueOf(id));
+                circleListAdapter.notifyDataSetChanged();
             }
         });
 
@@ -114,8 +115,7 @@ public class CircleFrag extends WDFragment {
         rc2 = getView().findViewById(R.id.circlr_frag_rc2);
         //关联presenter
         circleListPresenter = new CircleListPresenter(new CircleListCall());
-
-
+        circleListPresenter.reqeust(7);
         //布局管理器
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity());
         rc2.setLayoutManager(linearLayoutManager1);
