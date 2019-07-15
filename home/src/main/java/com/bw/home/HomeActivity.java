@@ -10,8 +10,13 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import com.bw.health.HomeFrag;
+import com.bw.health.bean.CircleListBean;
 import com.bw.health.core.WDActivity;
+import com.wd.health.adapter.CircleListAdapter;
 import com.wd.health.frag.CircleFrag;
+import com.wd.health.frag.FindSickCircleInfoFrag;
+
+import org.greenrobot.eventbus.EventBus;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -33,6 +38,7 @@ public class HomeActivity extends WDActivity {
     private FragmentTransaction transaction;
     private HomeFrag homeFrag;
     private CircleFrag circleFrag;
+    private FindSickCircleInfoFrag findSickCircleInfoFrag;
 
     @Override
     protected int getLayoutId() {
@@ -43,11 +49,21 @@ public class HomeActivity extends WDActivity {
     protected void initView() {
         homeFrag = new HomeFrag();
         //病友圈
-        circleFrag = new CircleFrag();
+
         currentFragment=homeFrag;
+        circleFrag = new CircleFrag();
+        findSickCircleInfoFrag = new FindSickCircleInfoFrag();
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.frame,homeFrag).show(homeFrag).commit();
         home.setChecked(true);
+        CircleListAdapter.setCall(new CircleListAdapter.Call() {
+            @Override
+            public void showCall(CircleListBean circleListBean) {
+                showFragment(findSickCircleInfoFrag);
+                EventBus.getDefault().postSticky(circleListBean);
+            }
+        });
+
     }
 
     @Override

@@ -47,7 +47,12 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
                 call.showCall(department_id);
             }
         });
-
+        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                call.showCall(mList.get(position).id);
+            }
+        });
     }
 
     @Override
@@ -75,7 +80,7 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
     }
     public Call call;
 
-    public void setCall(Call call) {
+    public  void setCall(Call call) {
         this.call = call;
     }
 }
