@@ -131,7 +131,7 @@ public class HomeFrag extends WDFragment {
 
     }
 
-    @OnClick({R2.id.bingzheng,R2.id.yaopin})
+    @OnClick({R2.id.bingzheng,R2.id.yaopin,R2.id.head})
     public void yaopinOrbingzheng(View view){
         Bundle bundle = new Bundle();
         final int id = view.getId();
@@ -141,8 +141,8 @@ public class HomeFrag extends WDFragment {
         }else if (id==R.id.yaopin){
             bundle.putInt("i",2);
             intentByRouter("/YpOrBzActivity/",bundle);
-        }else {
-
+        }else if (id==R.id.head){
+            intentByRouter("/MineActivity/");
         }
     }
 

@@ -1,1 +1,1 @@
-include ':app', ':common', ':login', ':home', ':circle',':shouye'
+include ':app', ':common', ':login', ':home', ':circle',':shouye', ':mine'

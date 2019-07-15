@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -91,6 +92,7 @@ public class LoginActivity extends WDActivity {
 
                 try {
                     s = RsaCoder.encryptByPublicKey(pwd.getText().toString().trim());
+                    Log.d("LoginActivityw", s);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
