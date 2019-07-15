@@ -37,10 +37,10 @@ public class LoginBean {
     private String userName;
     private int weight;
     private int whetherBingWeChat;
-
-    @Generated(hash = 295282713)
+    private String pwd;
+    @Generated(hash = 826566765)
     public LoginBean(int age, String email, boolean islogin, String headPic, int height, Long id, String invitationCode, String jiGuangPwd, String nickName, String sessionId, int sex,
-            String userName, int weight, int whetherBingWeChat) {
+            String userName, int weight, int whetherBingWeChat, String pwd) {
         this.age = age;
         this.email = email;
         this.islogin = islogin;
@@ -55,121 +55,100 @@ public class LoginBean {
         this.userName = userName;
         this.weight = weight;
         this.whetherBingWeChat = whetherBingWeChat;
+        this.pwd = pwd;
     }
-
     @Generated(hash = 1112702939)
     public LoginBean() {
     }
-
     public int getAge() {
-        return age;
+        return this.age;
     }
-
     public void setAge(int age) {
         this.age = age;
     }
-
     public String getEmail() {
-        return email;
+        return this.email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getHeadPic() {
-        return headPic;
-    }
-
-    public void setHeadPic(String headPic) {
-        this.headPic = headPic;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getInvitationCode() {
-        return invitationCode;
-    }
-
-    public void setInvitationCode(String invitationCode) {
-        this.invitationCode = invitationCode;
-    }
-
-    public String getJiGuangPwd() {
-        return jiGuangPwd;
-    }
-
-    public void setJiGuangPwd(String jiGuangPwd) {
-        this.jiGuangPwd = jiGuangPwd;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-    }
-
-    public int getSex() {
-        return sex;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
-    public int getWhetherBingWeChat() {
-        return whetherBingWeChat;
-    }
-
-    public void setWhetherBingWeChat(int whetherBingWeChat) {
-        this.whetherBingWeChat = whetherBingWeChat;
-    }
-
     public boolean getIslogin() {
         return this.islogin;
     }
-
     public void setIslogin(boolean islogin) {
         this.islogin = islogin;
     }
+    public String getHeadPic() {
+        return this.headPic;
+    }
+    public void setHeadPic(String headPic) {
+        this.headPic = headPic;
+    }
+    public int getHeight() {
+        return this.height;
+    }
+    public void setHeight(int height) {
+        this.height = height;
+    }
+    public Long getId() {
+        return this.id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getInvitationCode() {
+        return this.invitationCode;
+    }
+    public void setInvitationCode(String invitationCode) {
+        this.invitationCode = invitationCode;
+    }
+    public String getJiGuangPwd() {
+        return this.jiGuangPwd;
+    }
+    public void setJiGuangPwd(String jiGuangPwd) {
+        this.jiGuangPwd = jiGuangPwd;
+    }
+    public String getNickName() {
+        return this.nickName;
+    }
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+    public String getSessionId() {
+        return this.sessionId;
+    }
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+    public int getSex() {
+        return this.sex;
+    }
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+    public String getUserName() {
+        return this.userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public int getWeight() {
+        return this.weight;
+    }
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+    public int getWhetherBingWeChat() {
+        return this.whetherBingWeChat;
+    }
+    public void setWhetherBingWeChat(int whetherBingWeChat) {
+        this.whetherBingWeChat = whetherBingWeChat;
+    }
+    public String getPwd() {
+        return this.pwd;
+    }
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+    
 }

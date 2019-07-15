@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bw.health.adapter.YinDaoPagerAdapter;
@@ -107,7 +108,7 @@ public class MainActivity extends WDActivity {
                 }
 
             } else {
-
+                Toast.makeText(MainActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
             }
 
 

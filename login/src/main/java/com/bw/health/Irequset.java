@@ -4,7 +4,9 @@ import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
 
 import io.reactivex.Observable;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface Irequset {
@@ -25,6 +27,11 @@ public interface Irequset {
     Observable<Result<LoginBean>>login(@Query("email")String email,
                                        @Query("pwd")String pwd);
 
-    
+    //修改密码
+    @PUT("user/verify/v1/updateUserPwd")
+    Observable<Result>updateUserPwd(@Header("userId")int userId,
+                                    @Header("sessionId")String sessionId,
+                                    @Query("oldPwd")String oldPwd,
+                                    @Query("newPwd")String newPwd);
     /*刘浩*/
 }
