@@ -1,10 +1,13 @@
 package com.bw.health.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bw.health.R;
+import com.bw.health.activity.MationDetailActivity;
 import com.bw.health.adapter.holder.BaseHolder;
 import com.bw.health.adapter.holder.HolderOne;
 import com.bw.health.adapter.holder.HolderThree;
@@ -58,6 +61,14 @@ public class MationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             HolderThree holderThree = (HolderThree) holder;
             holderThree.onBindView(context,list.get(position));
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 Intent intent = new Intent(context, MationDetailActivity.class);
+                    intent.putExtra("id",list.get(position).id);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

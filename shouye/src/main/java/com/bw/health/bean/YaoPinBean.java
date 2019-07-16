@@ -10,4 +10,5 @@ public class YaoPinBean {
     public long id;
     public String name;
     public int rank;
+    public boolean isChecked;
 }

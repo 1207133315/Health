@@ -14,10 +14,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bw.health.adapter.YinDaoPagerAdapter;
+import com.bw.health.bean.LoginBean;
 import com.bw.health.core.WDActivity;
+import com.bw.health.dao.DaoMaster;
+import com.bw.health.dao.DaoSession;
+import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.fragment.Yindao1;
 import com.bw.login.R;
 
@@ -92,22 +97,12 @@ public class MainActivity extends WDActivity {
                         }
                     });
                 } else {
-
-
-                    if (false){
-
-//                        startActivity(new Intent(MainActivity.this,ShowActivity.class));
-//                        finish();
-
-                    }else {
-
-                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                        finish();
-                    }
+                    intentByRouter("/HomeActivity/");
+                    finish();
                 }
 
             } else {
-
+                Toast.makeText(MainActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -145,6 +140,7 @@ public class MainActivity extends WDActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

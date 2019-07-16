@@ -1,7 +1,9 @@
 package com.bw.health.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,12 @@ import android.widget.TextView;
 
 import com.bw.health.R;
 import com.bw.health.R2;
+import com.bw.health.activity.YpOrBzActivity;
 import com.bw.health.bean.DepartmentBean;
+import com.bw.health.bean.InedxOrId;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +50,18 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.img.setImageURI(Uri.parse(list.get(position).pic));
         holder.name.setText(list.get(position).departmentName);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 Intent intent = new Intent(context, YpOrBzActivity.class);
+                final Bundle bundle = new Bundle();
+                bundle.putInt("i",1);
+                intent.putExtras(bundle);
+                final InedxOrId inedxOrId = new InedxOrId(position, list.get(position).id);
+                EventBus.getDefault().postSticky(inedxOrId);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

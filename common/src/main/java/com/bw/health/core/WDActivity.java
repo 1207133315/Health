@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.KeyEvent;
 
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bw.health.util.LogUtils;
 import com.bw.health.util.StatusBarUtil;
 
@@ -87,7 +88,8 @@ public abstract class WDActivity extends AppCompatActivity {
      * @param path 传送Activity的
      */
     public void intentByRouter(String path) {
-
+        ARouter.getInstance().build(path)
+                .navigation(this);
     }
 
     /**
