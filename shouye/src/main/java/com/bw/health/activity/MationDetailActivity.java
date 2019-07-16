@@ -2,6 +2,8 @@ package com.bw.health.activity;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -24,6 +26,7 @@ import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.presenter.AddInfoPresenter;
 import com.bw.health.presenter.MationDetailPresenter;
+import com.bw.health.presenter.WatchInfoRewardsPresenter;
 import com.bw.health.util.GetDaoUtil;
 
 import java.text.SimpleDateFormat;
@@ -67,6 +70,17 @@ public class MationDetailActivity extends WDActivity {
     private String js;
     private AddInfoPresenter addInfoPresenter;
 
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what==1){
+                watchInfoRewardsPresenter.reqeust(user.getId(),user.getSessionId(),id);
+            }
+        }
+    };
+    private WatchInfoRewardsPresenter watchInfoRewardsPresenter;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_mation_detail;
@@ -78,6 +92,7 @@ public class MationDetailActivity extends WDActivity {
         LoginBeanDao userDao = GetDaoUtil.getGetDaoUtil().getUserDao();
         user = userDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).unique();
 
+        watchInfoRewardsPresenter = new WatchInfoRewardsPresenter(new Reward());
 
         setWeb();
         if (user != null) {
@@ -92,7 +107,17 @@ public class MationDetailActivity extends WDActivity {
 
     }
 
+    public class Reward implements DataCall<Result>{
+        @Override
+        public void success(Result data, Object... args) {
+            yes.setVisibility(View.VISIBLE);
+        }
 
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
 
     private void setScrollview() {
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -149,6 +174,7 @@ public class MationDetailActivity extends WDActivity {
              }else {
                  shoucang.setChecked(false);
              }
+             handler.sendEmptyMessageDelayed(1,10000);
         }
 
         @Override
