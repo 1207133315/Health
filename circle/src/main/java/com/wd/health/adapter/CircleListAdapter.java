@@ -58,6 +58,16 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
         myViewHolder.tv_detail.setText(detail);
         myViewHolder.tv_shoucang_num.setText(collectionNum + "");
         myViewHolder.tv_jianyi_num.setText(commentNum + "");
+
+        //增加的悬赏额度,等于0则没有额外悬赏
+        if (amount==0){
+            myViewHolder.tv_image_hbi.setVisibility(View.GONE);
+            myViewHolder.tv_hbi_num.setVisibility(View.GONE);
+        }else{
+            myViewHolder.tv_image_hbi.setVisibility(View.VISIBLE);
+            myViewHolder.tv_hbi_num.setVisibility(View.VISIBLE);
+        }
+
        holder.itemView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {

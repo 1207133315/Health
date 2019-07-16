@@ -104,7 +104,7 @@ public class CircleFrag extends WDFragment {
             @Override
             public void showCall(Long id) {
                 circleListPresenter.reqeust(String.valueOf(id));
-                circleListAdapter.notifyDataSetChanged();
+              //  circleListAdapter.notifyDataSetChanged();
             }
         });
 
@@ -115,7 +115,7 @@ public class CircleFrag extends WDFragment {
         rc2 = getView().findViewById(R.id.circlr_frag_rc2);
         //关联presenter
         circleListPresenter = new CircleListPresenter(new CircleListCall());
-        circleListPresenter.reqeust(7);
+        circleListPresenter.reqeust("7");
         //布局管理器
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity());
         rc2.setLayoutManager(linearLayoutManager1);
@@ -123,11 +123,10 @@ public class CircleFrag extends WDFragment {
         circleListAdapter = new CircleListAdapter(getActivity());
         rc2.setAdapter(circleListAdapter);
 
-
         //-----病友圈列表展示----------------------------------
     }
 
-    //-----科室列表----------------------------------
+    //-----科室列表----------成功--失败---的方法------------------------
     class CircleFindDepartmentCall implements DataCall<Result<List<CircleFindDepartmentBean>>> {
 
 
@@ -144,8 +143,9 @@ public class CircleFrag extends WDFragment {
         }
     }
 
-    //-----科室列表----------------------------------
-    //-----病友圈列表展示----------------------------------
+    //-----科室列表----------成功--失败---的方法------------------------
+
+    //-----病友圈列表展示------成功--失败---的方法----------------------------
     class CircleListCall implements DataCall<Result<List<CircleListBean>>> {
 
         @Override
@@ -162,7 +162,7 @@ public class CircleFrag extends WDFragment {
     }
 
 
-    //-----病友圈列表展示----------------------------------
+    //-----病友圈列表展示-----------成功--失败---的方法-----------------------
 
 
 }
