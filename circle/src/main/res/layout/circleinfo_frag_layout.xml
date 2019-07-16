@@ -1,11 +1,360 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="aaa"
-        />
-</LinearLayout>
+        android:layout_marginBottom="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_20"
+        android:orientation="vertical">
+        <!--标题有登录头像-->
+        <LinearLayout
+            android:id="@+id/edit_dd"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <ImageView
+                android:id="@+id/circle_image_head"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@mipmap/girl" />
+
+            <TextView
+                android:id="@+id/circleinfo_farg_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="标题："
+                android:textColor="#333333"
+                android:textSize="@dimen/sp_16" />
+
+            <ImageView
+                android:id="@+id/circle_image_message"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@mipmap/common_nav_message_black_n" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="#F2F2F2" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--详情-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/circleinfo_farg_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:text="张三"
+                    android:textColor="#3087ea"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="[病症]"
+                    android:textColor="#3087ea"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/circleinfo_farg_bingzheng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="面神经炎"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="[科室]"
+                    android:textColor="#3087ea"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/circleinfo_farg_keshi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="内科"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="[病症详情]"
+                    android:textColor="#3087ea"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/circleinfo_farg_bingzhengInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="周围性神经炎，下巴斜的，口齿不清，眼睛闭合不了，右边脸明显动不了"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="[治疗经历]"
+                    android:textColor="#3087ea"
+                    android:textSize="@dimen/sp_12" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/circleinfo_farg_yiyuan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="北京天坛医院"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/circleinfo_farg_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2019-12-10"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/sp_12" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/circleinfo_farg_zhiliaojinli"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:text="每天进行扎针和按摩，现在情况已经好转了，眼睛基本可以闭合了，说话也没那么费劲了"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="[相关图片]"
+                    android:textColor="#3087ea"
+                    android:textSize="@dimen/sp_12" />
+
+                <ImageView
+                    android:id="@+id/circleinfo_farg_bingli"
+                    android:layout_width="@dimen/dp_329"
+                    android:layout_height="@dimen/dp_154"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:src="@mipmap/circle_bingli" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <CheckBox
+                        android:id="@+id/circleinfo_farg_shoucang"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:background="@drawable/sele_circle_shoucang"
+                        android:button="@null" />
+
+                    <TextView
+                        android:id="@+id/circleinfo_farg_shoucang_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_6"
+                        android:text="3"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/sp_12" />
+
+                    <CheckBox
+                        android:id="@+id/circleinfo_farg_shouna"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:background="@drawable/sele_circle_shouna"
+                        android:button="@null" />
+
+                    <TextView
+                        android:id="@+id/circleinfo_farg_shouna_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_6"
+                        android:text="102"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/sp_12" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="20dp"
+                        android:background="#3087ea" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:text="被采纳的建议"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/circleinfo_farg_caina_image"
+                        android:layout_width="@dimen/dp_32"
+                        android:layout_height="@dimen/dp_32"
+                        android:src="@mipmap/girl" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/circleinfo_farg_caina_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:text="猪小妹"
+                            android:textColor="#333333"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:id="@+id/circleinfo_farg_caina_hbi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:text="获得的H币"
+                            android:textColor="#ffab26"
+                            android:textSize="@dimen/sp_10" />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/circleinfo_farg_caina_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:text="2018.09.20"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/sp_12" />
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/circleinfo_farg_caina_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="我来解答了"
+                    android:lines="3"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/sp_12" />
+
+            </LinearLayout>
+
+
+        </ScrollView>
+    </LinearLayout>
+
+      <!--浮层引导-->
+    <RelativeLayout
+        android:id="@+id/circleinfo_farg_yindao1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#50000000">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="100dp"
+            android:layout_marginBottom="260dp"
+            android:src="@mipmap/know"/>
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="100dp"
+            android:layout_marginBottom="190dp"
+            android:src="@mipmap/copywriting"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="70dp"
+            android:src="@mipmap/arrow"/>
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/selsct"/>
+    </RelativeLayout>
+
+</RelativeLayout>

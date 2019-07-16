@@ -10,8 +10,11 @@ import com.bw.health.bean.YaoPinTwoBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -42,5 +45,15 @@ public interface ShouYeRequest {
     Observable<Result<MationDetail>> findmationDetail(@Header("userId")long userId,
                                                           @Header("sessionId")String sessionId,
                                                           @Query("infoId")long infoId);
+    @POST("user/verify/v1/watchInfoRewards")
+    @FormUrlEncoded
+    Observable<Result> watchInfoRewards(@Header("userId")long userId,
+                                        @Header("sessionId")String sessionId,
+                                        @Query("infoId")long infoId);
 
+    @POST("user/verify/v1/addInfoCollection")
+    @FormUrlEncoded
+    Observable<Result> addInfo(@Header("userId")long userId,
+                                        @Header("sessionId")String sessionId,
+                                        @Field("infoId") long infoId);
 }

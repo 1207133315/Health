@@ -34,6 +34,11 @@ public class BzOneAdapter extends RecyclerView.Adapter<BzOneAdapter.ViewHolder> 
     public BzOneAdapter(Context context) {
         this.context = context;
     }
+    private int index=0;
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     @NonNull
     @Override
@@ -46,7 +51,10 @@ public class BzOneAdapter extends RecyclerView.Adapter<BzOneAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DepartmentBean departmentBean = list.get(position);
         holder.name.setText(departmentBean.departmentName);
-        if (position==0){
+        if (index==position){
+            departmentBean.isChecked=aa;
+        }
+        if (position==0&&index==0){
             departmentBean.isChecked=aa;
         }
         if (departmentBean.isChecked){
@@ -61,7 +69,7 @@ public class BzOneAdapter extends RecyclerView.Adapter<BzOneAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                  DepartmentBean tag = (DepartmentBean) view.getTag();
-                if (position>0){
+                if (position!=index){
                     aa=false;
                 }else {
                     aa=true;
