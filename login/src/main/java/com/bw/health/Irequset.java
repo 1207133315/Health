@@ -33,5 +33,6 @@ public interface Irequset {
                                     @Header("sessionId")String sessionId,
                                     @Query("oldPwd")String oldPwd,
                                     @Query("newPwd")String newPwd);
+
     /*刘浩*/
 }

@@ -97,19 +97,8 @@ public class MainActivity extends WDActivity {
                         }
                     });
                 } else {
-                    DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(MainActivity.this, "login");
-                    DaoMaster daoMaster = new DaoMaster(helper.getWritableDb());
-                    DaoSession daoSession = daoMaster.newSession();
-                    LoginBeanDao loginBeanDao = daoSession.getLoginBeanDao();
-                    List<LoginBean> list = loginBeanDao.queryBuilder().list();
-
-                    if (list.size()>0&&list!=null){
-                        intentByRouter("/HomeActivity/");
-                    }else {
-
-                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                        finish();
-                    }
+                    intentByRouter("/HomeActivity/");
+                    finish();
                 }
 
             } else {
@@ -151,6 +140,7 @@ public class MainActivity extends WDActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

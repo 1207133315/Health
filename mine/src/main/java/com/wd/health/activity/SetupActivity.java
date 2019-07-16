@@ -1,12 +1,14 @@
-package com.wd.health;
+package com.wd.health.activity;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bw.health.core.WDActivity;
-@Route(path = "/MineActivity/")
-public class MineActivity extends WDActivity {
+import com.wd.health.R;
+
+public class SetupActivity extends WDActivity {
+
+
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_setup;
     }
 
     @Override
