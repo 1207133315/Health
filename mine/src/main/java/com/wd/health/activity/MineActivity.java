@@ -116,6 +116,8 @@ public class MineActivity extends WDActivity {
         } else if (i == R.id.guanzhu) {
         } else if (i == R.id.renwu) {
         } else if (i == R.id.shezhiguanli) {
+            Intent intent=new Intent(MineActivity.this,SetupActivity.class);
+            startActivity(intent);
         } else if (i == R.id.jianyi) {
         } else if (i == R.id.shipin) {
         } else if (i == R.id.bingyouquan) {

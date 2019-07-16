@@ -98,6 +98,7 @@ public class MainActivity extends WDActivity {
                     });
                 } else {
                     intentByRouter("/HomeActivity/");
+                    finish();
                 }
 
             } else {
@@ -139,6 +140,7 @@ public class MainActivity extends WDActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
