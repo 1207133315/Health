@@ -6,7 +6,7 @@ import com.bw.health.core.WDActivity;
 public class MineActivity extends WDActivity {
     @Override
     protected int getLayoutId() {
-        return R.layout.layout;
+        return 0;
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDActivity;
+import com.bw.health.core.WDApplication;
 import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.DaoSession;
 import com.bw.health.dao.LoginBeanDao;
@@ -127,16 +128,11 @@ public class LoginActivity extends WDActivity {
         public void success(Object data, Object... args) {
             Result<LoginBean>result= (Result<LoginBean>) data;
             LoginBean result1 = result.getResult();
-            result1.islogin=true;
+            result1.setIslogin(true);
             result1.setPwd(s);
-            DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(LoginActivity.this, "login");
-            DaoMaster daoMaster = new DaoMaster(helper.getWritableDb());
-            DaoSession daoSession = daoMaster.newSession();
-            LoginBeanDao loginBeanDao = daoSession.getLoginBeanDao();
-            List<LoginBean> list = loginBeanDao.queryBuilder().list();
-            for (LoginBean loginBean : list) {
-                loginBean.islogin=false;
-            }
+             LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
+            loginBeanDao.deleteAll();
+
             loginBeanDao.insertOrReplace(result1);
             intentByRouter("/HomeActivity/");
         }

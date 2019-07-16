@@ -9,12 +9,17 @@ import com.bw.health.adapter.bingzheng.BzOneAdapter;
 import com.bw.health.adapter.bingzheng.BzTwoAdapter;
 import com.bw.health.bean.BingZhengBean;
 import com.bw.health.bean.DepartmentBean;
+import com.bw.health.bean.InedxOrId;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDFragment;
 import com.bw.health.exception.ApiException;
 import com.bw.health.presenter.BingZhengPresenter;
 import com.bw.health.presenter.DepartmentPresenter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -38,7 +43,8 @@ public class BingzhengFragment extends WDFragment {
     private BzOneAdapter bzOneAdapter;
     private BingZhengPresenter bingZhengPresenter;
     private BzTwoAdapter bzTwoAdapter;
-
+    private InedxOrId index;
+    private int id=7;
     @Override
     public String getPageName() {
         return "常见病症";
@@ -52,6 +58,7 @@ public class BingzhengFragment extends WDFragment {
     @SuppressLint("WrongConstant")
     @Override
     protected void initView() {
+
         /*
         常见病症
         * */
@@ -63,10 +70,29 @@ public class BingzhengFragment extends WDFragment {
         bzOneAdapter = new BzOneAdapter(getContext());
         recyclerOne.setAdapter(bzOneAdapter);
 
+
+        EventBus.getDefault().register(this);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         //病症
         bingZhengPresenter = new BingZhengPresenter(new Bingzheng());
         bzTwoAdapter = new BzTwoAdapter(getContext());
-        bingZhengPresenter.reqeust((long)7);
+        if (index!=null){
+            if (index.id!=7) {
+                bingZhengPresenter.reqeust(index.id);
+            }else {
+                bingZhengPresenter.reqeust((long)7);
+            }
+        }else {
+            bingZhengPresenter.reqeust((long)7);
+        }
+
+
+
         recyclerTwo.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerTwo.setAdapter(bzTwoAdapter);
         bzOneAdapter.setCall(new BzOneAdapter.Call() {
@@ -90,6 +116,14 @@ public class BingzhengFragment extends WDFragment {
 
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.POSTING,sticky = true)
+    public void getPartment(InedxOrId index){
+        this.index=index;
+
+        bzOneAdapter.setIndex(index.index);
+        bzOneAdapter.notifyDataSetChanged();
+    }
     public class Department implements DataCall<Result<List<DepartmentBean>>> {
         @Override
         public void success(Result<List<DepartmentBean>> data, Object... args) {
@@ -101,5 +135,11 @@ public class BingzhengFragment extends WDFragment {
         public void fail(ApiException data, Object... args) {
             Toast.makeText(getContext(), ""+data.getDisplayMessage()+data.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        bzOneAdapter.setIndex(0);
     }
 }

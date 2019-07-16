@@ -45,13 +45,15 @@ public class YpOrBzActivity extends WDActivity {
     @Override
     protected void initView() {
         transaction = getSupportFragmentManager().beginTransaction();
-        bingzhengFragment = new BingzhengFragment();
-        yaopinFragment = new YaopinFragment();
-        final int i = getIntent().getExtras().getInt("i");
+
+
+         int i = getIntent().getExtras().getInt("i");
         if (i==1){
+            bingzhengFragment = new BingzhengFragment();
             currentFragment = bingzhengFragment;
             bingzheng.setChecked(true);
         }else if (i==2){
+            yaopinFragment = new YaopinFragment();
             currentFragment=yaopinFragment;
             yaopin.setChecked(true);
         }
