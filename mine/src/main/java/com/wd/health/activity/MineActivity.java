@@ -14,6 +14,7 @@ import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDActivity;
+import com.bw.health.core.WDApplication;
 import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.DaoSession;
 import com.bw.health.dao.LoginBeanDao;
@@ -85,17 +86,17 @@ public class MineActivity extends WDActivity {
     protected void initView() {
         whetherSignTodayPresenter = new WhetherSignTodayPresenter(new WhetherSignToday());
         addSignPresenter = new AddSignPresenter(new AddSign());
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "login");
-        DaoMaster daoMaster = new DaoMaster(helper.getWritableDb());
-        DaoSession daoSession = daoMaster.newSession();
-        LoginBeanDao loginBeanDao = daoSession.getLoginBeanDao();
+        LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         list = loginBeanDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).list();
-        if (list != null) {
+        if (list != null&&list.size()>0) {
             loginBean = list.get(0);
             String headPic = loginBean.getHeadPic();
             head.setImageURI(headPic);
             name.setText(loginBean.getNickName());
             whetherSignTodayPresenter.reqeust(loginBean.getId().intValue(), loginBean.getSessionId());
+        }else {
+            intentByRouter("/LoginActivity/");
+            finish();
         }
 
     }
@@ -113,6 +114,7 @@ public class MineActivity extends WDActivity {
             finish();
         } else if (i == R.id.lingdang) {
         } else if (i == R.id.head) {
+
         } else if (i == R.id.guanzhu) {
         } else if (i == R.id.renwu) {
         } else if (i == R.id.shezhiguanli) {
@@ -132,9 +134,8 @@ public class MineActivity extends WDActivity {
             if (qd.getText().equals("已签到")){
                 Toast.makeText(this, "您今日已签到，不能重复签到", Toast.LENGTH_SHORT).show();
             }else {
-                if (list!=null){
+                if (list!=null&&list.size()>0){
                     addSignPresenter.reqeust(loginBean.getId().intValue(),loginBean.getSessionId());
-
                 }
             }
         }
