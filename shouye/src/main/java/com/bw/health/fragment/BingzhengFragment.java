@@ -1,6 +1,7 @@
 package com.bw.health.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.widget.Toast;
 
 import com.bw.health.R;
@@ -23,6 +24,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -138,8 +140,8 @@ public class BingzhengFragment extends WDFragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
         bzOneAdapter.setIndex(0);
     }
 }

@@ -1,6 +1,7 @@
 package com.wd.health.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -90,10 +91,10 @@ public class MineActivity extends WDActivity {
         DaoSession daoSession = daoMaster.newSession();
         LoginBeanDao loginBeanDao = daoSession.getLoginBeanDao();
         list = loginBeanDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).list();
-        if (list != null) {
+        if (list != null&&list.size()>0) {
             loginBean = list.get(0);
             String headPic = loginBean.getHeadPic();
-            head.setImageURI(headPic);
+            head.setImageURI(Uri.parse(headPic));
             name.setText(loginBean.getNickName());
             whetherSignTodayPresenter.reqeust(loginBean.getId().intValue(), loginBean.getSessionId());
         }
