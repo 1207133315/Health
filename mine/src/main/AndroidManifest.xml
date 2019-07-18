@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.wd.health">
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <application>
-        <activity android:name=".activity.MineActivity"></activity>
-        <activity android:name=".activity.SetupActivity"></activity>
+    <application android:name="com.bw.health.core.WDApplication">
+        <activity android:name=".activity.MineActivity" />
+        <activity android:name=".activity.SetupActivity" />
+        <activity android:name=".activity.PingmuActivity"></activity>
+        <activity android:name=".activity.MineMessageActivity"></activity>
     </application>
 
 </manifest>

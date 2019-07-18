@@ -1,0 +1,53 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:2:1-15:12
+	package
+		ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:3:5-26
+		INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+		ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:2:1-15:12
+		INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+		ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:2:1-15:12
+		INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:2:11-69
+application
+ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:5:5-13:19
+activity#com.bw.home.HomeActivity
+ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:6:9-12:20
+	android:name
+		ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:6:19-47
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:7:13-11:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:8:17-69
+	android:name
+		ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:8:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:10:17-77
+	android:name
+		ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml:10:27-74
+uses-sdk
+INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+		ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+		ADDED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\boos\AndroidStudioProjects\Health\home\src\main\AndroidManifest.xml
