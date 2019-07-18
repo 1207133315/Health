@@ -2,7 +2,9 @@ package com.bw.health;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import com.bw.health.adapter.DepartmentAdapter;
 import com.bw.health.adapter.MationListAdapter;
+
 import com.bw.health.adapter.PlateListAdapter;
 import com.bw.health.bean.BannerBean;
 import com.bw.health.bean.DepartmentBean;
@@ -23,13 +26,17 @@ import com.bw.health.presenter.DepartmentPresenter;
 import com.bw.health.presenter.MationListPresenter;
 import com.bw.health.presenter.PlateListPresenter;
 import com.bw.health.presenter.ShowBannerPresenter;
+import com.bw.health.view.MyImageView;
+import com.bw.health.view.ViewPagerStop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -58,7 +65,8 @@ public class HomeFrag extends WDFragment {
 
     @BindView(R2.id.bingzheng)
     LinearLayout bingzheng;
-
+    @BindView(R2.id.bookView)
+    ViewPager vp;
     @BindView(R2.id.yaopin)
     LinearLayout yaopin;
     private ShowBannerPresenter showBannerPresenter;
@@ -70,7 +78,7 @@ public class HomeFrag extends WDFragment {
     NestedScrollView scrollView;
     private DepartmentPresenter departmentPresenter;
     private DepartmentAdapter departmentAdapter;
-
+    private List<MyImageView> list=new ArrayList<>();
     @Override
     public String getPageName() {
         return "首页";
@@ -90,6 +98,7 @@ public class HomeFrag extends WDFragment {
         unplateRecycler.setLayoutManager(new GridLayoutManager(getContext(),5));
         plateListAdapter = new PlateListAdapter(getContext());
         showBannerPresenter.reqeust();
+
        plateListPresenter.reqeust();
 
        //首页多条目
@@ -130,7 +139,18 @@ public class HomeFrag extends WDFragment {
 
 
     }
+    public  class Banner implements DataCall<Result<List<BannerBean>>> {
+        @Override
+        public void success(Result<List<BannerBean>> data, Object... args) {
 
+
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+            Toast.makeText(getContext(), ""+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
     @OnClick({R2.id.bingzheng,R2.id.yaopin,R2.id.head})
     public void yaopinOrbingzheng(View view){
         Bundle bundle = new Bundle();
@@ -212,15 +232,5 @@ public class HomeFrag extends WDFragment {
             }
         }
 
-    public  class Banner implements DataCall<Result<List<BannerBean>>> {
-        @Override
-        public void success(Result<List<BannerBean>> data, Object... args) {
 
-        }
-
-        @Override
-        public void fail(ApiException data, Object... args) {
-
-        }
-    }
 }

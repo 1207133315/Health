@@ -49,7 +49,7 @@ public interface ShouYeRequest {
     @FormUrlEncoded
     Observable<Result> watchInfoRewards(@Header("userId")long userId,
                                         @Header("sessionId")String sessionId,
-                                        @Query("infoId")long infoId);
+                                        @Field("infoId") long infoId);
 
     @POST("user/verify/v1/addInfoCollection")
     @FormUrlEncoded

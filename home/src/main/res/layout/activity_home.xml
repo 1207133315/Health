@@ -16,7 +16,8 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:background="#ffffff"
+        android:background="@mipmap/the_bottom_bar"
+        android:id="@+id/rg"
         android:layout_height="@dimen/dp_60">
         <RadioButton
             android:layout_width="@dimen/dp_30"

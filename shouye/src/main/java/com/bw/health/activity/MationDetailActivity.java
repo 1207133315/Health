@@ -110,12 +110,14 @@ public class MationDetailActivity extends WDActivity {
     public class Reward implements DataCall<Result>{
         @Override
         public void success(Result data, Object... args) {
+            Toast.makeText(MationDetailActivity.this, ""+data.getResult(), Toast.LENGTH_SHORT).show();
             yes.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
-
+            Toast.makeText(MationDetailActivity.this, ""+data.getMessage()+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+            yes.setVisibility(View.VISIBLE);
         }
     }
 
