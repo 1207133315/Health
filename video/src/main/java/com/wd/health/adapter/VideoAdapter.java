@@ -19,6 +19,8 @@ import com.bw.health.core.DataCall;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
+import com.kd.easybarrage.Barrage;
+import com.kd.easybarrage.BarrageView;
 import com.wd.health.R;
 import com.wd.health.R2;
 import com.wd.health.bean.VideoBean;
@@ -43,11 +45,16 @@ import cn.jzvd.JZVideoPlayerStandard;
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
     private Context context;
     private List<VideoBean>list=new ArrayList<>();
+    private BarrageView barrageView;
+    private List<Barrage> mBarrages = new ArrayList<>();
+
     private int lastItem=-1;
     public VideoAdapter(Context context) {
         this.context = context;
     }
 
+
+    private String url;
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,21 +64,25 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
          VideoBean videoBean = list.get(position);
+
+         holder.danmu_content.setBarrages(mBarrages);
+
         if (videoBean.whetherBuy==2){
+            url=videoBean.shearUrl;
             holder.buy2.setVisibility(View.VISIBLE);
             holder.buy.setVisibility(View.VISIBLE);
             holder.pinglun.setVisibility(View.GONE);
-            holder.video.setUp(videoBean.shearUrl,
-                    JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL,
-                    "");
+
         }else {
+            url=videoBean.originalUrl;
             holder.buy2.setVisibility(View.INVISIBLE);
             holder.buy.setVisibility(View.GONE);
             holder.pinglun.setVisibility(View.VISIBLE);
-            holder.video.setUp(videoBean.originalUrl,
-                    JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL,
-                    "");
+
         }
+        holder.video.setUp(url,
+                JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL,
+                "");
         ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
         layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
         if (videoBean.whetherCollection==2){
@@ -85,13 +96,16 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                  VideoBean tag = (VideoBean) view.getTag();
-                 if (tag.whetherCollection==2){
-                     sCclick.click(tag);
+                final CheckBox checkBox = (CheckBox) view;
+                if (tag.whetherCollection==2){
+                     sCclick.click(tag,position);
+                    // notifyDataSetChanged();
                  }else {
                      holder.shoucang.setChecked(true);
+                    // notifyDataSetChanged();
                  }
 
-                 notifyDataSetChanged();
+
             }
         });
         if (position==0){
@@ -105,7 +119,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         }else {
             holder.num.setText(videoBean.buyNum+"人");
         }
+        if (holder.video.isPlay()){
 
+            holder.stop.setVisibility(View.GONE);
+        }
         holder.video.setSetclick(new MyVideoPlayer.setclick() {
             @Override
             public void click() {
@@ -118,21 +135,58 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 }
             }
         });
-       /* holder.stop.setOnClickListener(new View.OnClickListener() {
+
+        holder.buy.setTag(list.get(position));
+        //购买视频
+        holder.buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("abcd", "onClick:点击了 ");
-
-
+                 VideoBean tag = (VideoBean) view.getTag();
+                buyClick.click(tag,position);
+              notifyDataSetChanged();
             }
-        });*/
+        });
+        //购买视频
+        holder.buy2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buyClick.click(list.get(position),position);
+            }
+        });
+        danMu.click(list.get(position));
+        holder.danmu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final CheckBox checkBox = (CheckBox) view;
+                if (checkBox.isChecked()){
+                    holder.danmu_content.setVisibility(View.VISIBLE);
+
+                }else {
+                    holder.danmu_content.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
 
 
-   /* @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
-    }*/
+    private DanMu danMu;
+
+    public void setDanMu(DanMu danMu) {
+        this.danMu = danMu;
+    }
+    public void clearBarrage(){
+        mBarrages.clear();
+    }
+    public void addBarrage(List<Barrage> mBarrages) {
+        if (mBarrages.size()>0){
+            this.mBarrages.addAll(mBarrages);
+        }
+    }
+
+    public interface DanMu{
+        void click(VideoBean videoBean);
+    }
 
     public int getLastItem() {
         return lastItem;
@@ -149,6 +203,16 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         }
     }
 
+    private BuyClick buyClick;
+
+    public void setBuyClick(BuyClick buyClick) {
+        this.buyClick = buyClick;
+    }
+
+    public interface BuyClick{
+        void click(VideoBean videoBean,int index);
+    }
+
     private SCclick sCclick;
 
     public void setsCclick(SCclick sCclick) {
@@ -156,7 +220,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     }
 
     public interface SCclick{
-        void click(VideoBean videoBean);
+        void click(VideoBean videoBean,int i);
     }
 
     public void clear() {
@@ -175,19 +239,21 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         @BindView(R2.id.buy2)
         LinearLayout buy2;
         @BindView(R2.id.shoucang)
-        RadioButton shoucang;
+        CheckBox shoucang;
         @BindView(R2.id.danmu)
         CheckBox danmu;
         @BindView(R2.id.num)
         TextView num;
         @BindView(R2.id.pinglun)
         ImageView pinglun;
-
+        @BindView(R2.id.danmu_content)
+        BarrageView danmu_content;
 
         @BindView(R2.id.stop)
         ImageView stop;
         @BindView(R2.id.re_layout)
         RelativeLayout re_layout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);

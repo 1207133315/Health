@@ -134,7 +134,7 @@ public class LoginActivity extends WDActivity {
             loginBeanDao.deleteAll();
 
             loginBeanDao.insertOrReplace(result1);
-            intentByRouter("/HomeActivity/");
+           finish();
         }
 
         @Override

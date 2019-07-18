@@ -41,6 +41,8 @@ public abstract class WDFragment extends Fragment {
 		return view;
 	}
 
+
+
 	@Nullable
 	@Override
 	public View getView() {

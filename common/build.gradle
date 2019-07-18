@@ -72,6 +72,8 @@ dependencies {
     api 'cn.jzvd:jiaozivideoplayer:6.2.4'
 
     api 'com.danikula:videocache:2.7.1'
+
+    api 'com.kd.easybarrage:library:0.0.1'
     //-------病友圈依赖-----------------------------
 }
 

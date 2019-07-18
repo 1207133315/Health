@@ -1,6 +1,7 @@
 package com.wd.health;
 
 import com.bw.health.bean.Result;
+import com.wd.health.bean.CommentBean;
 import com.wd.health.bean.LeimuBean;
 import com.wd.health.bean.VideoBean;
 
@@ -40,4 +41,22 @@ public interface VideoRequest {
     Observable<Result> addVideoCollection(@Header("userId")long userId,
                                           @Header("sessionId")String sessionId,
                                           @Field("videoId")long videoId);
+
+    //购买视频
+    @POST("user/video/verify/v1/videoBuy")
+    @FormUrlEncoded
+    Observable<Result> videoBuy(@Header("userId")long userId,
+                                @Header("sessionId")String sessionId,
+                                @Field("videoId")long videoId,
+                                @Field("price") int price
+                                );
+
+    //查询我的H币余额
+    @GET("user/verify/v1/findUserWallet")
+    Observable<Result<Integer>> myHB(@Header("userId")long userId,
+                                     @Header("sessionId")String sessionId);
+
+    //请求评论列表
+    @GET("user/video/v1/findVideoCommentList")
+    Observable<Result<List<CommentBean>>> findCommentList(@Query("videoId")long videoId);
 }
