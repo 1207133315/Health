@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/circle_pop_wupinglun"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50000000"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dp_122"
+                android:layout_height="@dimen/dp_122"
+                android:layout_marginTop="@dimen/dp_135"
+                android:src="@mipmap/none_comment" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/circle_pop_close"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:src="@mipmap/common_button_close_n" />
+
+        <EditText
+            android:id="@+id/circle_pop_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:layout_toRightOf="@id/circle_pop_close"
+            android:background="@drawable/shape_pop_button"
+            android:hint="      暂无评论，快来抢沙发！！"
+            android:textColor="#f2f2f2"
+            android:textColorHint="#f2f2f2"
+            android:textSize="@dimen/sp_14" />
+    </RelativeLayout>
+
+
+    <!--有评论-->
+    <RelativeLayout
+        android:id="@+id/circle_pop_youpinglun"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dp_20"
+        android:background="#50000000">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/circle_pop_rc1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+        <ImageView
+            android:id="@+id/circle_pop_close2"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:src="@mipmap/common_button_close_n" />
+
+        <EditText
+            android:id="@+id/circle_pop_edText2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:layout_toRightOf="@id/circle_pop_close2"
+            android:background="@drawable/shape_pop_button"
+            android:hint="      在此留下高见吧！！"
+            android:textColor="#f2f2f2"
+            android:textColorHint="#f2f2f2"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:textSize="@dimen/sp_14" />
+    </RelativeLayout>
+
+</RelativeLayout>
