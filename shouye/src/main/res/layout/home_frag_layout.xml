@@ -29,7 +29,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.bw.health.view.BookPageView
+        <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_200"
             android:id="@+id/bookView"

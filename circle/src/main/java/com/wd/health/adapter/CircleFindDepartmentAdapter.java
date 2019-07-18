@@ -1,10 +1,13 @@
 package com.wd.health.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.bw.health.bean.CircleFindDepartmentBean;
 import com.bw.health.bean.Result;
@@ -41,18 +44,20 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
         Long department_id = circleFindDepartmentBean.getId();
         myViewHolder.radio1_text.setText(departmentName);
 
+
         myViewHolder.radio1_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                call.showCall(department_id);
+                call.showCall(department_id, departmentName);
             }
         });
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+       /* myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                call.showCall(mList.get(position).id);
+                call.showCall(mList.get(position).id,departmentName);
             }
-        });
+        });*/
+
     }
 
     @Override
@@ -65,22 +70,26 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         CheckBox radio1_text;
+        LinearLayout back;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             radio1_text = itemView.findViewById(R.id.item1_radio1_text);
+            back = itemView.findViewById(R.id.back);
         }
     }
 
-    public interface Call{
-        void showCall(Long id);
+    public interface Call {
+        void showCall(Long id, String name);
     }
+
     public Call call;
 
-    public  void setCall(Call call) {
+    public void setCall(Call call) {
         this.call = call;
     }
+
 }

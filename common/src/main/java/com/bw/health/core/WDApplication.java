@@ -10,6 +10,7 @@ import android.view.WindowManager;
 
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.danikula.videocache.HttpProxyCacheServer;
 import com.facebook.common.internal.Supplier;
 import com.facebook.common.util.ByteConstants;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -47,6 +48,19 @@ public class WDApplication extends Application {
     private static Context context;
 
     private static SharedPreferences sharedPreferences;
+
+    private HttpProxyCacheServer proxy;
+
+    public static HttpProxyCacheServer getProxy(Context context) {
+        WDApplication app = (WDApplication) context.getApplicationContext();
+        return app.proxy == null ? (app.proxy = app.newProxy()) : app.proxy;
+    }
+
+    private HttpProxyCacheServer newProxy() {
+        return new HttpProxyCacheServer.Builder(this)
+                .maxCacheSize(1024 * 1024 * 1024)       // 1 Gb for cache
+                .build();
+    }
 
     @Override
     public void onCreate() {

@@ -69,5 +69,10 @@ dependencies {
     api 'com.google.android.material:material:1.1.0-alpha08'
     api 'com.github.bumptech.glide:glide:4.9.0'
 
+    api 'cn.jzvd:jiaozivideoplayer:6.2.4'
+
+    api 'com.danikula:videocache:2.7.1'
     //-------病友圈依赖-----------------------------
 }
+
+

@@ -13,14 +13,41 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_90"
+            android:layout_height="@dimen/dp_130"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_90"
-                android:background="#F2F2F2"/>
+                android:layout_height="@dimen/dp_130"
+                android:orientation="vertical"
+                android:background="#f2f2f2">
+                <!--科室列表-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dp_90"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/circlr_frag_rc1"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1">
 
+                    </androidx.recyclerview.widget.RecyclerView>
+
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/ic_action_name" />
+                </LinearLayout>
+
+            </LinearLayout>
             <!--标题 -->
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
@@ -48,7 +75,7 @@
                         android:paddingRight="@dimen/dp_20">
 
                         <TextView
-                            android:id="@+id/circle_textView1"
+                            android:id="@+id/circle_frag_keshi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="急诊科"
@@ -123,30 +150,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!--科室列表-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-               <androidx.recyclerview.widget.RecyclerView
-                   android:id="@+id/circlr_frag_rc1"
-                   android:layout_width="0dp"
-                   android:layout_height="40dp"
-                   android:layout_weight="1">
-
-               </androidx.recyclerview.widget.RecyclerView>
-
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/ic_action_name" />
-            </LinearLayout>
 
 
 
