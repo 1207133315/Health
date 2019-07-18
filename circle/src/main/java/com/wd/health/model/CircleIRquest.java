@@ -1,7 +1,10 @@
 package com.wd.health.model;
 
 import com.bw.health.bean.Result;
+import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.CircleInfoBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -13,6 +16,10 @@ public interface CircleIRquest {
     //查询病友圈详情
     @GET("user/sickCircle/v1/findSickCircleInfo")
     Observable<Result<CircleInfoBean>> findSickCircleInfo(@Query("sickCircleId") String sickCircleId);
+
+    // 查询病友圈评论列表
+    @GET("user/sickCircle/v1/findSickCircleCommentList?page=1&count=10")
+    Observable<Result<List<CircleCommentListBean>>> findSickCircleCommentList(@Query("sickCircleId") String sickCircleId);
 
 
     //-------------病友圈接口---请勿修改-----------

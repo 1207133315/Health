@@ -36,6 +36,7 @@ public class CircleFrag extends WDFragment {
     private RecyclerView rc2;
     private CircleListPresenter circleListPresenter;
     private CircleListAdapter circleListAdapter;
+    private TextView circle_frag_keshi;
 
     @Override
     public String getPageName() {
@@ -87,6 +88,9 @@ public class CircleFrag extends WDFragment {
             }
         });
         //-----科室列表----------------------------------
+
+
+        circle_frag_keshi = getView().findViewById(R.id.circle_frag_keshi);
         //关联presenter
         CircleFindDepartmentPresenter presenter1 = new CircleFindDepartmentPresenter(new CircleFindDepartmentCall());
         presenter1.reqeust();
@@ -101,10 +105,11 @@ public class CircleFrag extends WDFragment {
         circleFindDepartmentAdapter = new CircleFindDepartmentAdapter(getActivity());
         rc1.setAdapter(circleFindDepartmentAdapter);
         circleFindDepartmentAdapter.setCall(new CircleFindDepartmentAdapter.Call() {
+
             @Override
-            public void showCall(Long id) {
+            public void showCall(Long id, String name) {
                 circleListPresenter.reqeust(String.valueOf(id));
-              //  circleListAdapter.notifyDataSetChanged();
+                circle_frag_keshi.setText(name);
             }
         });
 
