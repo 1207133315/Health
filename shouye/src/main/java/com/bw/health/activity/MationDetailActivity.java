@@ -101,7 +101,12 @@ public class MationDetailActivity extends WDActivity {
             mationDetailPresenter.reqeust(user.getId(), user.getSessionId(), id);
         }
         setScrollview();
-
+            scrollView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    yes.setVisibility(View.GONE);
+                }
+            });
         //收藏实例初始化
         addInfoPresenter = new AddInfoPresenter(new AddInfo());
 
@@ -116,7 +121,8 @@ public class MationDetailActivity extends WDActivity {
 
         @Override
         public void fail(ApiException data, Object... args) {
-            Toast.makeText(MationDetailActivity.this, ""+data.getMessage()+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MationDetailActivity.this, ""+data.getMessage()+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+            if (data.getDisplayMessage().equals("获得奖励失败"))
             yes.setVisibility(View.VISIBLE);
         }
     }

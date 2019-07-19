@@ -51,12 +51,35 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
         int opposeNum = commentlistBean.getOpposeNum();
 
 
+        myViewHolder.simp_image.setImageURI(headPic);
+        myViewHolder.tv_name.setText(nickName);
+        myViewHolder.tv_comment.setText(content);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        String time = simpleDateFormat.format(new Date(commentTime));
+        myViewHolder.tv_time.setText(time + "");
 
+        myViewHolder.tv_goods1_num.setText(supportNum + "");
+        myViewHolder.tv_goods2_num.setText(opposeNum + "");
+
+
+        if (whetherDoctor == 1) {
+            myViewHolder.biaoshi_image.setVisibility(View.VISIBLE);
+            myViewHolder.renzheng_image.setVisibility(View.VISIBLE);
+
+        } else {
+            myViewHolder.biaoshi_image.setVisibility(View.GONE);
+            myViewHolder.renzheng_image.setVisibility(View.GONE);
+
+        }
     }
 
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+
+    public void getData(List<CircleCommentListBean> comment_result) {
+        mList.addAll(comment_result);
     }
 
 

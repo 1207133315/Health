@@ -7,9 +7,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -18,18 +21,25 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bw.health.bean.CircleListBean;
+import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDFragment;
+import com.bw.health.dao.DaoMaster;
+import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.wd.health.R;
+import com.wd.health.adapter.CircleCommentListAdapter;
 import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.CircleInfoBean;
+import com.wd.health.presenter.CircleCommentListPresenter;
 import com.wd.health.presenter.CircleInfoPresenter;
+import com.wd.health.presenter.PublishCommentPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.greenrobot.greendao.AbstractDaoSession;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,6 +63,11 @@ public class FindSickCircleInfoFrag extends WDFragment {
     private TextView zhiliaojingli;
     private TextView caina_time;
     private CheckBox pinglun;
+    private List<CircleCommentListBean> comment_result;
+    private CircleCommentListAdapter circleCommentListAdapter;
+    private String edText_pinglun;
+    private PublishCommentPresenter publishCommentPresenter;
+    private String sessionId;
 
 
     //----病友圈详情--------------------------
@@ -138,6 +153,8 @@ public class FindSickCircleInfoFrag extends WDFragment {
                 pop.setTouchable(true);
                 pop.setOutsideTouchable(true);
                 pop.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+                //关闭弹窗  无评论
                 ImageView circle_pop_close = view.findViewById(R.id.circle_pop_close);
                 circle_pop_close.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -146,7 +163,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
                     }
                 });
 
-
+                //关闭弹窗  有评论
                 ImageView circle_pop_close2 = view.findViewById(R.id.circle_pop_close2);
                 circle_pop_close2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -156,20 +173,54 @@ public class FindSickCircleInfoFrag extends WDFragment {
                 });
 
                 RecyclerView circle_pop_rc1 = view.findViewById(R.id.circle_pop_rc1);
+                //关联 评论列表的p层
+                CircleCommentListPresenter circleCommentListPresenter = new CircleCommentListPresenter(new CircleCommentListCall());
+                circleCommentListPresenter.reqeust(sickCircleId_jj + "");
+
                 //布局管理器
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                 circle_pop_rc1.setLayoutManager(linearLayoutManager);
                 //适配器
+                circleCommentListAdapter = new CircleCommentListAdapter(getActivity());
+                circle_pop_rc1.setAdapter(circleCommentListAdapter);
 
+
+                //获取评论输入框
+                EditText ed_pinglun = view.findViewById(R.id.circle_pop_edText2);
+                ed_pinglun.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        edText_pinglun = ed_pinglun.getText().toString().trim();
+                        publishCommentPresenter.reqeust("16", sessionId, sickCircleId_jj + "", edText_pinglun);
+                        ed_pinglun.setText("");
+                    }
+                });
 
             }
         });
-        //----------------------点击评论--------------------------------
+        //----------------------点击评论----------------尾巴----------------
 
-        //----病友圈详情--------------------------
+        //----------------发表评论---------头部------------------
+        //获取数据库
+        LoginBeanDao loginBeanDao = DaoMaster.newDevSession(getActivity(), LoginBeanDao.TABLENAME).getLoginBeanDao();
+        List<LoginBean> loginBeans = loginBeanDao.loadAll();
+        sessionId = loginBeans.get(0).getSessionId();
+        Long id = loginBeans.get(0).getId();
+        Log.i("qqq", sessionId);
+        Log.i("qqq", id + "");
 
 
-        //---------新手浮层引导---------------------------------------------------
+        //发表病友圈评论关联p
+        publishCommentPresenter = new PublishCommentPresenter(new PublishCommentCall());
+
+
+        //----------------发表评论---------尾巴------------------
+
+
+        //----病友圈详情---------尾巴-----------------
+
+
+        //---------新手浮层引导-----------头部----------------------------------------
         RelativeLayout yindao = getView().findViewById(R.id.circleinfo_farg_yindao1);
         //1.获取sp 对象（ 存储文件的名字，存储的文件权限）
         SharedPreferences sp = getActivity().getSharedPreferences("ydy", Context.MODE_PRIVATE);
@@ -191,7 +242,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
                 yindao.setVisibility(View.GONE);
             }
         });
-        //---------新手浮层引导---------------------------------------------------
+        //---------新手浮层引导--------------尾巴-------------------------------------
 
     }
 
@@ -271,16 +322,17 @@ public class FindSickCircleInfoFrag extends WDFragment {
     }
 
 
-    //--------病友圈详情----成功----失败-----------------------------------------------------
+    //--------病友圈详情----成功----失败-----尾巴------------------------------------------------
 
 //----------------------点击评论--成功----失败--------------------------------
 
-    class CircleCommentListCall implements DataCall<Result<List<CircleCommentListBean>>>{
+    class CircleCommentListCall implements DataCall<Result<List<CircleCommentListBean>>> {
 
         @Override
         public void success(Result<List<CircleCommentListBean>> data, Object... args) {
-            List<CircleCommentListBean> comment_result = data.getResult();
-
+            comment_result = data.getResult();
+            circleCommentListAdapter.getData(comment_result);
+            circleCommentListAdapter.notifyDataSetChanged();
 
         }
 
@@ -290,7 +342,24 @@ public class FindSickCircleInfoFrag extends WDFragment {
         }
     }
 
-//----------------------点击评论--成功----失败--------------------------------
+//----------------------点击评论--成功----失败---------尾巴-----------------------
+
+    //----------------发表评论-----成功----失败----头部------------------
+    class PublishCommentCall implements DataCall<Result> {
+
+        @Override
+        public void success(Result data, Object... args) {
+            Object result = data.getResult();
+            Toast.makeText(getActivity(), "发表评论成功！", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
+
+    //----------------发表评论-----成功----失败----尾巴------------------
 
 
     @Override

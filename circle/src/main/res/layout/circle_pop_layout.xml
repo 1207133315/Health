@@ -77,7 +77,7 @@
             android:src="@mipmap/common_button_close_n" />
 
         <EditText
-            android:id="@+id/circle_pop_button2"
+            android:id="@+id/circle_pop_edText2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
             android:layout_alignParentBottom="true"
@@ -89,6 +89,8 @@
             android:hint="      在此留下高见吧！！"
             android:textColor="#f2f2f2"
             android:textColorHint="#f2f2f2"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
             android:textSize="@dimen/sp_14" />
     </RelativeLayout>
 

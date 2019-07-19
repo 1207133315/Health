@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/re_layout"
     android:layout_height="match_parent">
 
@@ -44,7 +45,7 @@
                 android:layout_marginBottom="@dimen/dp_20"
                 />
         </RelativeLayout>
-        <RadioButton
+        <CheckBox
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
             android:button="@null"
@@ -146,6 +147,20 @@
             android:textColor="#ffffff"
             />
     </LinearLayout>
+    <com.kd.easybarrage.BarrageView
+        android:visibility="gone"
+        android:id="@+id/danmu_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_76"
+        android:layout_marginTop="@dimen/dp_44"
+        app:allow_repeat="true"
+        app:border_color="@color/colorAccent"
+        app:line_height="20dp"
+        app:max_text_size="12"
+        app:min_text_size="12"
+        app:random_color="true"
+        app:size="30"/>
+
     <ImageView
         android:layout_width="@dimen/dp_65"
         android:layout_height="@dimen/dp_65"

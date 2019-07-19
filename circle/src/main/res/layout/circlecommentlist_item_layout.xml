@@ -9,8 +9,7 @@
         android:id="@+id/circle_pop_youpinglun"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/dp_20"
-        android:background="#20000000">
+        android:padding="@dimen/dp_20">
 
         <RelativeLayout
             android:id="@+id/circle_pop_doctor_layout"

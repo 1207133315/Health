@@ -4,11 +4,15 @@ import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -25,15 +29,21 @@ import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.kd.easybarrage.Barrage;
 import com.wd.health.adapter.CategoryListAdapter;
 import com.wd.health.adapter.VideoAdapter;
+import com.wd.health.bean.CommentBean;
 import com.wd.health.bean.LeimuBean;
 import com.wd.health.bean.VideoBean;
 import com.wd.health.presenter.AddVideoPresenter;
 import com.wd.health.presenter.CategoryListPresenter;
+import com.wd.health.presenter.CommentListPresenter;
+import com.wd.health.presenter.MyHBPresenter;
+import com.wd.health.presenter.VideoBuyPresenter;
 import com.wd.health.presenter.VideoListPresenter;
 import com.wd.health.view.MyLinearLayoutManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -72,17 +82,21 @@ public class ShiPinFragment extends WDFragment {
     @BindView(R2.id.top)
     RelativeLayout top;
     private PagerSnapHelper snapHelper;
-    private MyLinearLayoutManager linearLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
     private int height;
     int totalDy = 0;
+    private VideoBuyPresenter videoBuyPresenter;
+    private PopupWindow popupWindow;
+    private MyHBPresenter myHBPresenter;
+    private CommentListPresenter commentListPresenter;
 
     @Override
     public String getPageName() {
         return "视频";
     }
 
-    private List<VideoBean> list;
-
+    private List<VideoBean> mList=new ArrayList<>();
+    private List<Barrage> mBarrages = new ArrayList<>();
     @Override
     protected int getLayoutId() {
         return R.layout.shipin_frag_layout;
@@ -93,12 +107,13 @@ public class ShiPinFragment extends WDFragment {
     protected void initView() {
         final LoginBeanDao userDao = GetDaoUtil.getGetDaoUtil().getUserDao();
         user = userDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).unique();
-
+        commentListPresenter = new CommentListPresenter(new Comment());
         videoListPresenter = new VideoListPresenter(new VideoList());
-
-        linearLayoutManager = new MyLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        addVideoPresenter = new AddVideoPresenter(new AddVideo());
+        videoBuyPresenter = new VideoBuyPresenter(new VideoBuy());
+        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recycler.setLayoutManager(linearLayoutManager);
-        videoAdapter = new VideoAdapter(getContext());
+
         snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(recycler);
         recycler.setLoadingListener(new XRecyclerView.LoadingListener() {
@@ -114,8 +129,7 @@ public class ShiPinFragment extends WDFragment {
                 videoListPresenter.reqeust(user.getId(), user.getSessionId(), id, page, 5);
             }
         });
-        recycler.setAdapter(videoAdapter);
-        recycler.refresh();
+
 
         WindowManager manager = getActivity().getWindowManager();
         height = manager.getDefaultDisplay().getHeight();
@@ -223,40 +237,182 @@ public class ShiPinFragment extends WDFragment {
             }
         });
 
+        myHBPresenter = new MyHBPresenter(new MyHB());
+
         getHomeActivity();
     }
+    private int myHb=0;
+
+
+
+    public class MyHB implements DataCall<Result<Integer>>{
+        @Override
+        public void success(Result<Integer> data, Object... args) {
+            myHb=data.getResult();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+            if (data.getDisplayMessage().equals("请先登陆")){
+                intentByRouter("/LoginActivity/");
+            }
+        }
+    }
+    public class Comment implements DataCall<Result<List<CommentBean>>>{
+        @Override
+        public void success(Result<List<CommentBean>> data, Object... args) {
+            mBarrages.clear();
+            videoAdapter.clearBarrage();
+            for (int i = 0; i < data.getResult().size(); i++) {
+                 Barrage barrage = new Barrage(data.getResult().get(i).content);
+                mBarrages.add(barrage);
+
+            }
+            videoAdapter.addBarrage(mBarrages);
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
     AddVideoPresenter addVideoPresenter;
+
     @Override
     public void onResume() {
+
+
         super.onResume();
-        addVideoPresenter = new AddVideoPresenter(new AddVideo());
+
+        videoAdapter.setDanMu(new VideoAdapter.DanMu() {
+            @Override
+            public void click(VideoBean videoBean) {
+                commentListPresenter.reqeust(videoBean.id);
+            }
+        });
+
+
+
+
+        videoAdapter = new VideoAdapter(getContext());
+        recycler.setAdapter(videoAdapter);
+        recycler.refresh();
+
         LoginBeanDao userDao = GetDaoUtil.getGetDaoUtil().getUserDao();
          List<LoginBean> loginBeans = userDao.loadAll();
+         if (loginBeans.size()>0){
+             myHBPresenter.reqeust(loginBeans.get(0).getId(),loginBeans.get(0).getSessionId());
+         }
          videoAdapter.setsCclick(new VideoAdapter.SCclick() {
              @Override
-             public void click(VideoBean videoBean) {
+             public void click(VideoBean videoBean,int i) {
+
                  if (loginBeans.size()>0){
-                     final LoginBean user = loginBeans.get(0);
+                      LoginBean user = loginBeans.get(0);
                      addVideoPresenter.reqeust(user.getId(),user.getSessionId(),videoBean.id);
+
                  }else {
                      intentByRouter("/LoginActivity/");
                  }
              }
          });
 
+         //购买视频
+        videoAdapter.setBuyClick(new VideoAdapter.BuyClick() {
+            @Override
+            public void click(VideoBean videoBean,int i) {
+                index=i;
+                if (loginBeans.size()>0){
+                    LoginBean user = loginBeans.get(0);
+                    showBuyPop(videoBean,user);
+                }else {
+                    intentByRouter("/LoginActivity/");
+                }
+            }
+        });
 
+
+    }
+    private int index;
+    public void showBuyPop(VideoBean videoBean,LoginBean userInfo){
+        View view=View.inflate(getContext(),R.layout.buy_pop_layout,null);
+        TextView goBuy=view.findViewById(R.id.goBuy);
+        ImageView down=view.findViewById(R.id.down);
+        RelativeLayout poo_bg=view.findViewById(R.id.pop_bg);
+        TextView price=view.findViewById(R.id.price);
+        TextView myPrice=view.findViewById(R.id.myPrice);
+        TextView goAdd=view.findViewById(R.id.goAdd);
+        price.setText(videoBean.price+"H币");
+        myPrice.setText("我的H币:"+myHb+", 余额不足?");
+        poo_bg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (popupWindow!=null){
+                    popupWindow.dismiss();
+                }
+            }
+        });
+        goBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (myHb>=videoBean.price) {
+                    videoBuyPresenter.reqeust(userInfo.getId(), userInfo.getSessionId(), videoBean.id, (int)videoBean.price);
+                }else {
+                    Toast.makeText(getActivity(), "余额不足,请充值", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (popupWindow!=null){
+                    popupWindow.dismiss();
+                }
+            }
+        });
+        popupWindow = new PopupWindow(view,LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        popupWindow.setAnimationStyle(R.style.pop_anim);
+
+        popupWindow.showAtLocation(getView().findViewById(R.id.layout_main),
+                Gravity.BOTTOM, 0, 0);
+    }
+
+    public class VideoBuy implements DataCall<Result>{
+        @Override
+        public void success(Result data, Object... args) {
+            Toast.makeText(getContext(), ""+data.getMessage(), Toast.LENGTH_SHORT).show();
+            popupWindow.dismiss();
+            videoAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+            Toast.makeText(getContext(), ""+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+
+            if (data.getDisplayMessage().equals("网络异常")){
+                popupWindow.dismiss();
+                myHBPresenter.reqeust(user.getId(),user.getSessionId());
+                mList.get(index).whetherBuy=1;
+                videoAdapter.notifyDataSetChanged();
+            }
+            if (data.getDisplayMessage().equals("请先登陆")){
+                intentByRouter("/LoginActivity/");
+            }
+
+        }
     }
 
     public class AddVideo implements DataCall<Result> {
         @Override
         public void success(Result data, Object... args) {
             Toast.makeText(getContext(), ""+data.getMessage(), Toast.LENGTH_SHORT).show();
+            recycler.refresh();
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
             Toast.makeText(getContext(), ""+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
-            if (data.getDisplayMessage().equals("请先登录")){
+            if (data.getDisplayMessage().equals("请先登陆")){
                 intentByRouter("/LoginActivity/");
             }
 
@@ -302,8 +458,11 @@ public class ShiPinFragment extends WDFragment {
             if (page == 1) {
                 videoAdapter.clear();
             }
-            list = data.getResult();
-            videoAdapter.setList(data.getResult());
+            if (mList.size()>0){
+                mList.clear();
+            }
+            mList.addAll(data.getResult());
+            videoAdapter.setList(mList);
             videoAdapter.notifyDataSetChanged();
             toprecycler.setVisibility(View.GONE);
             show.setVisibility(View.VISIBLE);
@@ -313,6 +472,12 @@ public class ShiPinFragment extends WDFragment {
         public void fail(ApiException data, Object... args) {
 
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        JZVideoPlayer.releaseAllVideos();
     }
 
     @Override
