@@ -349,13 +349,21 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
         @Override
         public void success(Result data, Object... args) {
-            Object result = data.getResult();
-            Toast.makeText(getActivity(), "发表评论成功！", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getActivity(), "发表评论成功！", Toast.LENGTH_SHORT).show();
+
+
+
+
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
+            String displayMessage = data.getDisplayMessage();
 
+            if (displayMessage.equals("请先登陆")){
+                intentByRouter("/LoginActivity/");
+            }
         }
     }
 

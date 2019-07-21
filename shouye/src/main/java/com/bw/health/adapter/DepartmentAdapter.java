@@ -54,9 +54,7 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.Vi
             @Override
             public void onClick(View view) {
 
-                InedxOrId inedxOrId = new InedxOrId(position, list.get(position).id);
-                EventBus.getDefault().postSticky(inedxOrId);
-
+               a.po(position);
             }
         });
     }
@@ -71,7 +69,13 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.Vi
             list.addAll(result);
         }
     }
-
+    public aa a;
+    public interface aa{
+        void po(int position);
+    }
+    public void re(aa a){
+        this.a=a;
+    }
     public void clear() {
         list.clear();
     }

@@ -285,6 +285,20 @@ public class HomeFrag extends WDFragment {
             departmentAdapter.clear();
             departmentAdapter.addList(data.getResult());
             departmentAdapter.notifyDataSetChanged();
+            departmentAdapter.re(new DepartmentAdapter.aa() {
+                @Override
+                public void po(int position) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("position", (int) data.getResult().get(position).id);
+                    List<LoginBean> list = GetDaoUtil.getGetDaoUtil().getUserDao().queryBuilder().list();
+                    if (list.size()>0){
+                        intentByRouter("/DoctorlistActivity/",bundle);
+                    }else {
+                        intentByRouter("/LoginActivity/");
+                    }
+
+                }
+            });
         }
 
         @Override
