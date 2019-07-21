@@ -26,11 +26,13 @@ import com.bw.health.core.WDApplication;
 import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
+import com.bw.health.util.GetDaoUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.Irequest;
 import com.wd.health.R;
 import com.wd.health.R2;
 import com.wd.health.presenter.ModifyHeadPicPresenter;
+import com.wd.health.utils.getPhotoFromPhotoAlbum;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -102,8 +104,9 @@ public class MineMessageActivity extends WDActivity {
 
     @Override
     protected void initView() {
+        modifyHeadPicPresenter = new ModifyHeadPicPresenter(new updateheadpic());
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
-        list = loginBeanDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).list();
+        list = loginBeanDao.queryBuilder().list();
         name.setText(list.get(0).getNickName());
         head.setImageURI(list.get(0).getHeadPic());
         int sex1 = list.get(0).getSex();
@@ -122,7 +125,7 @@ public class MineMessageActivity extends WDActivity {
         if (list.get(0).getEmail() != "" && list.get(0).getEmail() != null) {
             email.setText(list.get(0).getEmail());
         }
-        modifyHeadPicPresenter = new ModifyHeadPicPresenter(new updateheadpic());
+
     }
 
     @Override
@@ -200,52 +203,53 @@ public class MineMessageActivity extends WDActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       /* if(requestCode==NOT_NOTICE){
-            myRequetPermission();//由于不知道是否选择了允许所以需要再次判断
-        }*/
+
         if (requestCode == 100) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 4;
-                    Bitmap bm = BitmapFactory.decodeFile(mTempPhotoPath, options);
+            Bitmap bm = BitmapFactory.decodeFile(mTempPhotoPath, options);
             File file1 = getFile(bm);
             RequestBody requestFile =
                     RequestBody.create(MediaType.parse("multipart/form-data"), file1);
             MultipartBody.Part MultipartFile =
                     MultipartBody.Part.createFormData("image", file1.getName(), requestFile);
 
-            modifyHeadPicPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId(),MultipartFile);
+            modifyHeadPicPresenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(), MultipartFile);
         } else if (requestCode == 200) {
-            try {
-                //该uri是上一个Activity返回的
-                String filePath = getFilePath(null, requestCode, data);
-                Log.i("ln", "onActivityResult: " + filePath);
-                if (filePath != null) {
-
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inSampleSize = 4;
-                    Bitmap bm = BitmapFactory.decodeFile(filePath, options);
-                    File file1 = getFile(bm);
-                    RequestBody requestFile =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), file1);
-                    MultipartBody.Part MultipartFile =
-                            MultipartBody.Part.createFormData("image", file1.getName(), requestFile);
-                    modifyHeadPicPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId(),MultipartFile);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            String realPathFromUri = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
+            if (realPathFromUri != null) {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                Bitmap bm = BitmapFactory.decodeFile(realPathFromUri, options);
+                File file1 = getFile(bm);
+                RequestBody requestFile =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file1);
+                MultipartBody.Part MultipartFile =
+                        MultipartBody.Part.createFormData("image", file1.getName(), requestFile);
+                modifyHeadPicPresenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(), MultipartFile);
             }
+
 
         }
     }
+
     public class updateheadpic implements DataCall {
 
         @Override
         public void success(Object data, Object... args) {
-            Result result= (Result) data;
+            Result result = (Result) data;
 
-            if (result.getMessage().equals("请先登录")){
+            if (result.getMessage().equals("请先登陆")) {
                 Toast.makeText(MineMessageActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 intentByRouter("/LoginActivity/");
+            } else {
+                LoginBeanDao userDao = GetDaoUtil.getGetDaoUtil().getUserDao();
+                List<LoginBean> list = userDao.queryBuilder().list();
+                for (LoginBean loginBean : list) {
+                    loginBean.setHeadPic((String) result.getResult());
+                    userDao.insertOrReplace(loginBean);
+                    head.setImageURI(loginBean.getHeadPic());
+                }
             }
             popupWindow.dismiss();
         }
@@ -255,6 +259,7 @@ public class MineMessageActivity extends WDActivity {
 
         }
     }
+
     //在这里抽取了一个方法   可以封装到自己的工具类中...
     public File getFile(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

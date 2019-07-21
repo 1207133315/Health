@@ -16,6 +16,7 @@ import com.bw.health.adapter.MationListAdapter;
 import com.bw.health.adapter.PlateListAdapter;
 import com.bw.health.bean.BannerBean;
 import com.bw.health.bean.DepartmentBean;
+import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.MationBean;
 import com.bw.health.bean.PlateBean;
 import com.bw.health.bean.Result;
@@ -26,6 +27,7 @@ import com.bw.health.presenter.DepartmentPresenter;
 import com.bw.health.presenter.MationListPresenter;
 import com.bw.health.presenter.PlateListPresenter;
 import com.bw.health.presenter.ShowBannerPresenter;
+import com.bw.health.util.GetDaoUtil;
 import com.bw.health.view.MyImageView;
 import com.bw.health.view.ViewPagerStop;
 
@@ -181,6 +183,20 @@ public class HomeFrag extends WDFragment {
             departmentAdapter.clear();
             departmentAdapter.addList(data.getResult());
             departmentAdapter.notifyDataSetChanged();
+            departmentAdapter.re(new DepartmentAdapter.aa() {
+                @Override
+                public void po(int position) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("position", (int) data.getResult().get(position).id);
+                    List<LoginBean> list = GetDaoUtil.getGetDaoUtil().getUserDao().queryBuilder().list();
+                    if (list.size()>0){
+                        intentByRouter("/DoctorlistActivity/",bundle);
+                    }else {
+                        intentByRouter("/LoginActivity/");
+                    }
+
+                }
+            });
         }
 
         @Override

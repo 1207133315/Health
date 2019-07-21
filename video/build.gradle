@@ -39,4 +39,5 @@ dependencies {
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
     api project(':common')
     compile project(path: ':shouye')
+
 }

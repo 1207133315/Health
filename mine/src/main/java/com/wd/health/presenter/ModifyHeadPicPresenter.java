@@ -18,13 +18,10 @@ public class ModifyHeadPicPresenter extends WDPresenter<Irequest> {
 
     @Override
     protected Observable getModel(Object... args) {
-        RequestBody requestFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), (File) args[2]);
-        MultipartBody.Part MultipartFile =
-                MultipartBody.Part.createFormData("image", ((File) args[2]).getName(), requestFile);
+
 //        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 //        File file=new File((String) args[2]);
 //        builder.addFormDataPart("file",file.getName(),RequestBody.create(MediaType.parse("multipart/octet-stream"),file));
-        return iRequest.modifyHeadPic((int)args[0],(String) args[1],MultipartFile);
+        return iRequest.modifyHeadPic((int)args[0],(String) args[1],(MultipartBody.Part) args[2]);
     }
 }

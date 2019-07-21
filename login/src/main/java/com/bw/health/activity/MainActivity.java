@@ -138,8 +138,7 @@ public class MainActivity extends WDActivity {
         msjr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
+               intentByRouter("/HomeActivity/");
                 finish();
             }
         });

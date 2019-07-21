@@ -87,19 +87,25 @@ public class MineActivity extends WDActivity {
     protected void initView() {
         whetherSignTodayPresenter = new WhetherSignTodayPresenter(new WhetherSignToday());
         addSignPresenter = new AddSignPresenter(new AddSign());
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         list = loginBeanDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).list();
         if (list != null&&list.size()>0) {
             loginBean = list.get(0);
             String headPic = loginBean.getHeadPic();
-            head.setImageURI(Uri.parse(headPic));
+            head.setImageURI(headPic);
             name.setText(loginBean.getNickName());
             whetherSignTodayPresenter.reqeust(loginBean.getId().intValue(), loginBean.getSessionId());
         }else {
             intentByRouter("/LoginActivity/");
             finish();
         }
-
     }
 
     @Override

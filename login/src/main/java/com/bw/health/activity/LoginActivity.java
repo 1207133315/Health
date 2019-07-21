@@ -132,9 +132,9 @@ public class LoginActivity extends WDActivity {
             result1.setPwd(s);
             LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
             loginBeanDao.deleteAll();
-            loginBeanDao.insert(result1);
-            List<LoginBean> list = loginBeanDao.queryBuilder().list();
-            intentByRouter("/HomeActivity/");
+
+            loginBeanDao.insertOrReplace(result1);
+           finish();
         }
 
         @Override

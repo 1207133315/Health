@@ -62,6 +62,13 @@ public class SetupActivity extends WDActivity {
 
     @Override
     protected void initView() {
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         list = loginBeanDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).list();
         if (list != null && list.size() > 0) {
@@ -84,7 +91,6 @@ public class SetupActivity extends WDActivity {
             e.printStackTrace();
         }
         daxiao.setText(totalCacheSize);
-
     }
 
     @Override
