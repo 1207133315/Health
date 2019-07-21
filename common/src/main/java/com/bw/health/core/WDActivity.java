@@ -180,4 +180,5 @@ public abstract class WDActivity extends AppCompatActivity {
         }
         return null;
     }
+
 }
