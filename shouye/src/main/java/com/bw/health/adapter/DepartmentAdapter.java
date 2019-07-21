@@ -53,13 +53,10 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 Intent intent = new Intent(context, YpOrBzActivity.class);
-                final Bundle bundle = new Bundle();
-                bundle.putInt("i",1);
-                intent.putExtras(bundle);
-                final InedxOrId inedxOrId = new InedxOrId(position, list.get(position).id);
+
+                InedxOrId inedxOrId = new InedxOrId(position, list.get(position).id);
                 EventBus.getDefault().postSticky(inedxOrId);
-                context.startActivity(intent);
+
             }
         });
     }

@@ -59,4 +59,13 @@ public interface VideoRequest {
     //请求评论列表
     @GET("user/video/v1/findVideoCommentList")
     Observable<Result<List<CommentBean>>> findCommentList(@Query("videoId")long videoId);
+
+    //发表评论
+    @POST("user/video/verify/v1/addVideoComment")
+    @FormUrlEncoded
+    Observable<Result> addComment(@Header("userId")long userId,
+                                  @Header("sessionId")String sessionId,
+                                  @Field("videoId")long videoId,
+                                  @Field("content")String content
+    );
 }

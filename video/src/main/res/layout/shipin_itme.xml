@@ -148,18 +148,18 @@
             />
     </LinearLayout>
     <com.kd.easybarrage.BarrageView
-        android:visibility="gone"
         android:id="@+id/danmu_content"
+
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_76"
+        android:layout_height="@dimen/dp_100"
         android:layout_marginTop="@dimen/dp_44"
         app:allow_repeat="true"
-        app:border_color="@color/colorAccent"
-        app:line_height="20dp"
+        app:line_height="10dp"
         app:max_text_size="12"
         app:min_text_size="12"
-        app:random_color="true"
-        app:size="30"/>
+        app:random_color="false"
+        app:size="50"/>
 
     <ImageView
         android:layout_width="@dimen/dp_65"
