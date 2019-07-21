@@ -138,7 +138,7 @@ public class MainActivity extends WDActivity {
         msjr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intentByRouter("/HomeActivity/");
+               intentByRouter("/HomeActivity/");
                 finish();
             }
         });
