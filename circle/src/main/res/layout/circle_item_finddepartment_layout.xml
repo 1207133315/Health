@@ -18,9 +18,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:text="内科"
                 android:button="@null"
                 android:textColor="@drawable/sele_textse"
-                android:text="内科"
                 android:textSize="16sp" />
     </LinearLayout>
 
