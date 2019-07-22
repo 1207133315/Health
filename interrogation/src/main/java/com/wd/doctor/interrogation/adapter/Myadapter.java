@@ -24,6 +24,8 @@ public class Myadapter extends BaseQuickAdapter<Doctor,BaseViewHolder> {
         SimpleDraweeView view = helper.getView(R.id.img);
         if (item.getImagePic()!=null&&item.getImagePic()!=""){
             view.setImageURI(item.getImagePic());
+        }else {
+            view.setImageResource(R.drawable.aaa);
         }
         TextView text = helper.getView(R.id.tt);
         if (item.isSelect()){
