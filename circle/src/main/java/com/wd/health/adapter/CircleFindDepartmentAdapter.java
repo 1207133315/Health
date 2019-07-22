@@ -41,10 +41,9 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
     public void onBindViewHolder(@NonNull CircleFindDepartmentAdapter.MyViewHolder holder, int position) {
         CircleFindDepartmentBean circleFindDepartmentBean = mList.get(position);
         String departmentName = circleFindDepartmentBean.getDepartmentName();
-        Long department_id = circleFindDepartmentBean.getId();
+        int department_id = circleFindDepartmentBean.getId();
         myViewHolder.radio1_text.setText(departmentName);
-
-
+       // myViewHolder.radio1_text.setTextColor(circleFindDepartmentBean.textcolor);
         myViewHolder.radio1_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +82,7 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
     }
 
     public interface Call {
-        void showCall(Long id, String name);
+        void showCall(int id, String name);
     }
 
     public Call call;

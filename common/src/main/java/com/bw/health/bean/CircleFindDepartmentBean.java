@@ -1,5 +1,7 @@
 package com.bw.health.bean;
 
+import android.graphics.Color;
+
 import java.util.List;
 
 /**
@@ -16,25 +18,29 @@ public class CircleFindDepartmentBean {
      * pic : http://172.17.8.100/images/health/department_pic/nk.jpg
      * rank : 1
      */
-    public Long id;
+    public int id;
     public int type;
     public String departmentName;
     public String pic;
     public int rank;
     public boolean check;
-    public CircleFindDepartmentBean(Long id, int type, String departmentName, String pic, int rank) {
+    public int textcolor;
+
+    public CircleFindDepartmentBean(int id, int type, String departmentName, String pic, int rank, boolean check, int textcolor) {
         this.id = id;
         this.type = type;
         this.departmentName = departmentName;
         this.pic = pic;
         this.rank = rank;
+        this.check = check;
+        this.textcolor = textcolor;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -68,6 +74,22 @@ public class CircleFindDepartmentBean {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+
+    public int getTextcolor() {
+        return textcolor;
+    }
+
+    public void setTextcolor(int textcolor) {
+        this.textcolor = textcolor;
     }
 }
 

@@ -1,5 +1,6 @@
 package com.bw.health;
 
+import com.bw.health.bean.BZDetailBean;
 import com.bw.health.bean.BingZhengBean;
 import com.bw.health.bean.DepartmentBean;
 import com.bw.health.bean.MationDetail;
@@ -51,9 +52,14 @@ public interface ShouYeRequest {
                                         @Header("sessionId")String sessionId,
                                         @Field("infoId") long infoId);
 
+
     @POST("user/verify/v1/addInfoCollection")
     @FormUrlEncoded
     Observable<Result> addInfo(@Header("userId")long userId,
                                         @Header("sessionId")String sessionId,
                                         @Field("infoId") long infoId);
+
+    //查询病症详情
+    @GET("share/knowledgeBase/v1/findDiseaseKnowledge")
+    Observable<Result<BZDetailBean>> findBzDetail(@Query("id")long id);
 }

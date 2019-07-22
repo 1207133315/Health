@@ -41,6 +41,7 @@
 
 
                     <ImageView
+                        android:id="@+id/circle_frag_search_image"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginLeft="5dp"

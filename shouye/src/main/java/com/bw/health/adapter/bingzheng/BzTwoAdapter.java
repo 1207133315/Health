@@ -1,6 +1,7 @@
 package com.bw.health.adapter.bingzheng;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.bw.health.R;
 import com.bw.health.R2;
+import com.bw.health.activity.BZDetailActivity;
 import com.bw.health.bean.BingZhengBean;
 
 import java.util.ArrayList;
@@ -41,6 +43,15 @@ public class BzTwoAdapter extends RecyclerView.Adapter<BzTwoAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             holder.name.setText(list.get(position).name);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Intent intent = new Intent(context, BZDetailActivity.class);
+                    intent.putExtra("id",list.get(position).id);
+                    intent.putExtra("name",list.get(position).name);
+                    context.startActivity(intent);
+                }
+            });
     }
 
     @Override

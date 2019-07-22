@@ -3,6 +3,7 @@ package com.wd.health.model;
 import com.bw.health.bean.Result;
 import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.CircleInfoBean;
+import com.wd.health.bean.CircleSearchBean;
 
 import java.util.List;
 
@@ -30,6 +31,12 @@ public interface CircleIRquest {
                                       @Header("sessionId") String sessionId,
                                       @Query("sickCircleId") String sickCircleId,
                                       @Query("content") String content);
+
+
+    // 根据关键词查询病友圈
+    @GET("user/sickCircle/v1/searchSickCircle")
+    Observable<Result<List<CircleSearchBean>>> searchSickCircle(
+            @Query("keyWord") String keyWord);
 
     //-------------病友圈接口---请勿修改-----------
 }

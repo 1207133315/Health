@@ -68,6 +68,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
     private String edText_pinglun;
     private PublishCommentPresenter publishCommentPresenter;
     private String sessionId;
+    private CircleCommentListPresenter circleCommentListPresenter;
 
 
     //----病友圈详情--------------------------
@@ -144,6 +145,8 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
         //----------------------点击评论--------------------------------
         pinglun.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
                 View view = View.inflate(getActivity(), R.layout.circle_pop_layout, null);
@@ -174,7 +177,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
                 RecyclerView circle_pop_rc1 = view.findViewById(R.id.circle_pop_rc1);
                 //关联 评论列表的p层
-                CircleCommentListPresenter circleCommentListPresenter = new CircleCommentListPresenter(new CircleCommentListCall());
+                circleCommentListPresenter = new CircleCommentListPresenter(new CircleCommentListCall());
                 circleCommentListPresenter.reqeust(sickCircleId_jj + "");
 
                 //布局管理器
@@ -334,6 +337,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
             circleCommentListAdapter.getData(comment_result);
             circleCommentListAdapter.notifyDataSetChanged();
 
+
         }
 
         @Override
@@ -349,13 +353,18 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
         @Override
         public void success(Result data, Object... args) {
-            Object result = data.getResult();
             Toast.makeText(getActivity(), "发表评论成功！", Toast.LENGTH_SHORT).show();
+            circleCommentListPresenter.reqeust(sickCircleId_jj + "");
+
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
+            String displayMessage = data.getDisplayMessage();
 
+            if (displayMessage.equals("请先登陆")) {
+                intentByRouter("/LoginActivity/");
+            }
         }
     }
 

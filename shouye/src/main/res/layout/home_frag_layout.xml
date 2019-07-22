@@ -29,13 +29,21 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <androidx.viewpager.widget.ViewPager
+        <com.bw.health.view.NoslideRecyclerview
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_200"
-            android:id="@+id/bookView"
+            android:id="@+id/banner"
             android:clickable="true"
             />
-
+        <RadioGroup
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/yuandian"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_12"
+            ></RadioGroup>
 
 
     <LinearLayout

@@ -1,6 +1,8 @@
 package com.wd.health.frag;
 
+import android.graphics.Color;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -107,7 +109,7 @@ public class CircleFrag extends WDFragment {
         circleFindDepartmentAdapter.setCall(new CircleFindDepartmentAdapter.Call() {
 
             @Override
-            public void showCall(Long id, String name) {
+            public void showCall(int id, String name) {
                 circleListPresenter.reqeust(String.valueOf(id));
                 circle_frag_keshi.setText(name);
             }
@@ -115,6 +117,18 @@ public class CircleFrag extends WDFragment {
 
         //-----科室列表----------------------------------
 
+        //-----------根据关键字搜索病友圈-----------------------
+        ImageView circle_search = getView().findViewById(R.id.circle_frag_search_image);
+        //跳转根据关键字搜索病友圈
+        circle_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentByRouter("/FindSickCircleInfoActivity/");
+            }
+        });
+
+
+        //----------根据关键字搜索病友圈------尾巴------------------
 
         //-----病友圈列表展示----------------------------------
         rc2 = getView().findViewById(R.id.circlr_frag_rc2);
@@ -140,6 +154,8 @@ public class CircleFrag extends WDFragment {
             List<CircleFindDepartmentBean> result = data.getResult();
             circleFindDepartmentAdapter.getData(result);
             circleFindDepartmentAdapter.notifyDataSetChanged();
+
+
         }
 
         @Override

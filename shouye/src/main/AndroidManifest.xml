@@ -5,7 +5,9 @@
     <application>
         <activity android:name=".activity.ZiXunActivity" />
         <activity android:name=".activity.YpOrBzActivity" />
-        <activity android:name=".activity.MationDetailActivity"></activity>
+        <activity android:name=".activity.MationDetailActivity" />
+        <activity android:name=".activity.BannerDetailActivity" />
+        <activity android:name=".activity.BZDetailActivity"></activity>
     </application>
 
 </manifest>
