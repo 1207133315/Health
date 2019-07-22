@@ -11,6 +11,7 @@ import android.webkit.WebViewClient;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.bw.health.presenter.AddInfoPresenter;
 import com.bw.health.presenter.MationDetailPresenter;
 import com.bw.health.presenter.WatchInfoRewardsPresenter;
 import com.bw.health.util.GetDaoUtil;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,7 +53,8 @@ public class MationDetailActivity extends WDActivity {
     WebView webView;
     @BindView(R2.id.yes)
     ImageView yes;
-
+    @BindView(R2.id.close)
+    ImageView close;
     @BindView(R2.id.title2)
     TextView title2;
     @BindView(R2.id.name)
@@ -69,7 +72,8 @@ public class MationDetailActivity extends WDActivity {
     private long id;
     private String js;
     private AddInfoPresenter addInfoPresenter;
-
+    @BindView(R2.id.layout_main)
+    RelativeLayout layout_main;
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -101,15 +105,16 @@ public class MationDetailActivity extends WDActivity {
             mationDetailPresenter.reqeust(user.getId(), user.getSessionId(), id);
         }
         setScrollview();
-            scrollView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    yes.setVisibility(View.GONE);
-                }
-            });
+
         //收藏实例初始化
         addInfoPresenter = new AddInfoPresenter(new AddInfo());
-
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                yes.setVisibility(View.GONE);
+                close.setVisibility(View.GONE);
+            }
+        });
     }
 
     public class Reward implements DataCall<Result>{
@@ -117,13 +122,17 @@ public class MationDetailActivity extends WDActivity {
         public void success(Result data, Object... args) {
             Toast.makeText(MationDetailActivity.this, ""+data.getResult(), Toast.LENGTH_SHORT).show();
             yes.setVisibility(View.VISIBLE);
+            close.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
-            //Toast.makeText(MationDetailActivity.this, ""+data.getMessage()+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
-            if (data.getDisplayMessage().equals("获得奖励失败"))
-            yes.setVisibility(View.VISIBLE);
+           // Toast.makeText(MationDetailActivity.this, ""+data.getMessage()+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+            if (data.getDisplayMessage().equals("获得奖励失败")){
+                yes.setVisibility(View.VISIBLE);
+                close.setVisibility(View.VISIBLE);
+            }
+
         }
     }
 

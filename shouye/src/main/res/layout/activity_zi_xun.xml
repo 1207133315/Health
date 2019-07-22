@@ -14,7 +14,6 @@
         android:background="#ffffff"
         android:paddingHorizontal="@dimen/dp_12"
         android:orientation="horizontal">
-
         />
 
         <TextView

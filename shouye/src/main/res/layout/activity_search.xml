@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee"
+    android:orientation="vertical"
+    tools:context=".activity.SearchActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_12">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/sp_14"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_15"
+            android:src="@mipmap/common_icon_back_black_n" />
+
+        <EditText
+            android:id="@+id/context"
+            android:layout_width="@dimen/dp_250"
+            android:layout_height="@dimen/dp_30"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@drawable/search_bg"
+            android:hint="病症,药品名称,医生姓名"
+            android:paddingLeft="@dimen/dp_15"
+            android:textColor="#999999"
+            android:textColorHint="#999999"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_15"
+            android:text="搜索"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/sp_14"
+
+
+            />
+    </RelativeLayout>
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="#fff"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/one"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="搜索历史"
+                    android:id="@+id/aa"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/sp_14" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/lishi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_20"></androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="热门搜索"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/sp_14" />
+
+                <com.bw.health.view.MyView
+                    android:id="@+id/remen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_20">
+
+
+                </com.bw.health.view.MyView>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:visibility="gone"></androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_6"
+                android:background="#fff"
+                android:id="@+id/messige"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="医生"
+                    android:id="@+id/yisheng_name"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/sp_14" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/yisheng"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_20"
+                   ></androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:text="药品"
+                    android:id="@+id/yaopin_name"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/sp_14" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/yaopin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_20"
+                   ></androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:text="病症"
+                    android:id="@+id/bingzheng_name"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/sp_14" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/bingzheng"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_20"
+                   ></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/Null"
+                android:visibility="gone"
+                android:orientation="vertical"
+                >
+            <ImageView
+                android:layout_width="@dimen/dp_129"
+                android:layout_height="@dimen/dp_129"
+                android:src="@mipmap/no_search_message"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_132"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/sp_13"
+                android:textColor="#333333"
+                android:id="@+id/Null_data"
+                android:layout_marginTop="@dimen/dp_40"
+                />
+            </LinearLayout>
+        </RelativeLayout>
+
+</LinearLayout>

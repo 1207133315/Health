@@ -1,6 +1,7 @@
 package com.bw.health;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.bw.health.activity.SearchActivity;
 import com.bw.health.adapter.BannerAdapter;
 import com.bw.health.adapter.DepartmentAdapter;
 import com.bw.health.adapter.MationListAdapter;
@@ -40,6 +42,7 @@ import com.bw.health.presenter.PlateListPresenter;
 import com.bw.health.presenter.ShowBannerPresenter;
 import com.bw.health.util.GetDaoUtil;
 import com.bw.health.view.MyImageView;
+import com.bw.health.view.MyTextView;
 import com.bw.health.view.NoslideRecyclerview;
 import com.bw.health.view.ViewPagerStop;
 
@@ -104,7 +107,8 @@ public class HomeFrag extends WDFragment {
     private List<RadioButton> yuanList=new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
     private int position;
-
+    @BindView(R2.id.search)
+    MyTextView search;
     @Override
     public String getPageName() {
         return "首页";
@@ -193,7 +197,13 @@ public class HomeFrag extends WDFragment {
            }
        });
         handler.sendEmptyMessageDelayed(0,2000);
-
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 Intent intent = new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public Handler handler=new Handler(){
@@ -217,10 +227,10 @@ public class HomeFrag extends WDFragment {
             yuanList.clear();
             for (int i = 0; i <result.size() ; i++) {
                  RadioButton radioButton = new RadioButton(getContext());
-                 Bitmap a=null;
-                    radioButton.setButtonDrawable(new BitmapDrawable(a));
-                 radioButton.setBackgroundResource(R.drawable.yuandian_select);
-                 yuanList.add(radioButton);
+                Bitmap a=null;
+                radioButton.setButtonDrawable(new BitmapDrawable(a));
+                radioButton.setBackgroundResource(R.drawable.yuandian_select);
+                yuanList.add(radioButton);
 
 
 

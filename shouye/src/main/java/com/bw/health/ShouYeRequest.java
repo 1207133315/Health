@@ -4,7 +4,10 @@ import com.bw.health.bean.BZDetailBean;
 import com.bw.health.bean.BingZhengBean;
 import com.bw.health.bean.DepartmentBean;
 import com.bw.health.bean.MationDetail;
+import com.bw.health.bean.RemenBean;
 import com.bw.health.bean.Result;
+import com.bw.health.bean.SearchBean;
+import com.bw.health.bean.YPDetailBean;
 import com.bw.health.bean.YaoPinBean;
 import com.bw.health.bean.YaoPinTwoBean;
 
@@ -62,4 +65,16 @@ public interface ShouYeRequest {
     //查询病症详情
     @GET("share/knowledgeBase/v1/findDiseaseKnowledge")
     Observable<Result<BZDetailBean>> findBzDetail(@Query("id")long id);
+
+    //查询药品详情
+    @GET("share/knowledgeBase/v1/findDrugsKnowledge")
+    Observable<Result<YPDetailBean>> findYpDetail(@Query("id")long id);
+
+    //热门搜索
+    @GET("share/v1/popularSearch")
+    Observable<Result<List<RemenBean>>> remen();
+
+    //首页搜索
+    @GET("share/v1/homePageSearch")
+    Observable<Result<SearchBean>> homePageSearch(@Query("keyWord")String keyWord);
 }
