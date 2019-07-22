@@ -5,7 +5,8 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
     <application android:name="com.bw.health.core.WDApplication">
         <activity android:name=".activity.MineActivity" />
         <activity android:name=".activity.SetupActivity" />

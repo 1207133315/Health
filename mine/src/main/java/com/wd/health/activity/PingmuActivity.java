@@ -45,10 +45,10 @@ public class PingmuActivity extends WDActivity {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                     if (!Settings.System.canWrite(getApplicationContext())) {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                        Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
                         intent.setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        getApplicationContext().startActivity(intent);
+                        PingmuActivity.this.startActivity(intent);
                     } else {
                         saveBrightness(PingmuActivity.this, i);
                     }

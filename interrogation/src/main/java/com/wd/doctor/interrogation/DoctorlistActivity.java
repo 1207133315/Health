@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
 import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
@@ -65,13 +68,39 @@ public class DoctorlistActivity extends WDActivity {
     TextView dang;
     @BindView(R2.id.zong)
     TextView zong;
+
+    @BindView(R2.id.img)
+    ImageView img;
+    @BindView(R2.id.name)
+    TextView name;
+    @BindView(R2.id.zhiwu)
+    TextView zhiwu;
+    @BindView(R2.id.yiyuan)
+    TextView yiyuan;
+    @BindView(R2.id.haopinglv)
+    TextView haopinglv;
+    @BindView(R2.id.fuwu)
+    TextView fuwu;
+    @BindView(R2.id.more)
+    ImageView more;
+    @BindView(R2.id.zixun)
+    Button zixun;
+    @BindView(R2.id.money)
+    TextView money;
+    @BindView(R2.id.gang)
+    TextView gang;
+    @BindView(R2.id.rg)
+    RadioGroup rg;
+
     private int id;
     int position = 1;
-    int p = 1;
     private FindDepartmentPresenter findDepartmentPresenter;
     private FindDoctorListPresenter findDoctorListPresenter;
     private List<Doctor> list1;
     private Myadapter myadapter;
+    private Long userid;
+    private String sessionId;
+    private List<DepartmentBean> list;
 
     @Override
     protected int getLayoutId() {
@@ -91,8 +120,8 @@ public class DoctorlistActivity extends WDActivity {
         findDoctorListPresenter = new FindDoctorListPresenter(new FindDoctorList());
         findDepartmentPresenter.reqeust();
         List<LoginBean> list1 = GetDaoUtil.getGetDaoUtil().getUserDao().queryBuilder().list();
-        Long userid = list1.get(0).getId();
-        String sessionId = list1.get(0).getSessionId();
+        userid = list1.get(0).getId();
+        sessionId = list1.get(0).getSessionId();
         Log.d("DoctorlistActivity2", "id:" + id + "/" + sessionId);
         findDoctorListPresenter.reqeust(userid.intValue(), sessionId, id, 1, 1, 1, 10);
     }
@@ -108,9 +137,34 @@ public class DoctorlistActivity extends WDActivity {
         int i = view.getId();
         if (i == R.id.lingdang) {
         } else if (i == R.id.zonghe) {
+            for (DepartmentBean bean : list) {
+                if (bean.isChecked) {
+                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 1, 1, 1, 10);
+                    break;
+                }
+            }
+
         } else if (i == R.id.haoping) {
+            for (DepartmentBean bean : list) {
+                if (bean.isChecked) {
+                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 2, 1, 1, 10);
+                    break;
+                }
+            }
         } else if (i == R.id.zixunshu) {
+            for (DepartmentBean bean : list) {
+                if (bean.isChecked) {
+                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 3, 1, 1, 10);
+                    break;
+                }
+            }
         } else if (i == R.id.price) {
+            for (DepartmentBean bean : list) {
+                if (bean.isChecked) {
+                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 4, 1, 1, 10);
+                    break;
+                }
+            }
         } else if (i == R.id.left) {
             if (position > 0) {
                 position--;
@@ -136,7 +190,18 @@ public class DoctorlistActivity extends WDActivity {
                     }
 
                 }
-                dang.setText(position+1+"");
+                dang.setText(position + 1 + "");
+                name.setText(list1.get(position).getDoctorName());
+                zhiwu.setText(list1.get(position).getJobTitle());
+                yiyuan.setText(list1.get(position).getInauguralHospital());
+                haopinglv.setText(list1.get(position).getPraise());
+                fuwu.setText("服务患者数" + list1.get(position).getServerNum());
+                if (list1.get(position).getImagePic() != null && list1.get(position).getImagePic() != "") {
+                    Glide.with(this).load(list1.get(position).getImagePic()).into(img);
+                } else {
+                    Glide.with(DoctorlistActivity.this).load(R.drawable.aaa).into(img);
+                }
+                money.setText(list1.get(position).getServicePrice() + "H币/次");
                 myadapter.notifyDataSetChanged();
             }
         } else if (i == R.id.right) {
@@ -162,7 +227,8 @@ public class DoctorlistActivity extends WDActivity {
                     }
 
                 }
-                dang.setText(position+1+"");
+                dang.setText(position + 1 + "");
+                setdata(position);
                 myadapter.notifyDataSetChanged();
             }
         }
@@ -172,35 +238,72 @@ public class DoctorlistActivity extends WDActivity {
 
         @Override
         public void success(Object data, Object... args) {
-            Result<List<DepartmentBean>> result = (Result<List<DepartmentBean>>) data;
-            List<DepartmentBean> list = result.getResult();
-            for (DepartmentBean bean : list) {
-                if (id == bean.id) {
-                    bean.isChecked = true;
-                }
-            }
-            MylistAdapter adapter = new MylistAdapter(R.layout.recy1, list);
-            recy.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));
-            recy.setAdapter(adapter);
-            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    for (int i = 0; i < list.size(); i++) {
-                        if (position == i) {
-                            list.get(i).isChecked = true;
-                        } else {
-                            list.get(i).isChecked = false;
-                        }
+            if (data != null && data != "") {
+                Result<List<DepartmentBean>> result = (Result<List<DepartmentBean>>) data;
+                list = result.getResult();
+                for (DepartmentBean bean : list) {
+                    if (id == bean.id) {
+                        bean.isChecked = true;
                     }
-                    adapter.notifyDataSetChanged();
                 }
-            });
+                MylistAdapter adapter = new MylistAdapter(R.layout.recy1, list);
+                recy.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                recy.setAdapter(adapter);
+                for (int i = 0; i < list.size(); i++) {
+                    if (id == list.get(i).id) {
+                        recy.smoothScrollToPosition(i);
+                    }
+
+                }
+                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        for (int i = 0; i < list.size(); i++) {
+                            if (position == i) {
+                                list.get(i).isChecked = true;
+                                int count = rg.getChildCount();
+                                int checkedRadioButtonId = rg.getCheckedRadioButtonId();
+                                if (checkedRadioButtonId == R.id.zonghe) {
+                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 1, 1, 1, 10);
+                                } else if (checkedRadioButtonId == R.id.haoping) {
+                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 2, 1, 1, 10);
+                                } else if (checkedRadioButtonId == R.id.zixunshu) {
+                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 3, 1, 1, 10);
+                                } else if (checkedRadioButtonId == R.id.price) {
+                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 4, 1, 1, 10);
+                                }
+
+                            } else {
+                                list.get(i).isChecked = false;
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
 
         }
+    }
+
+    //设置数据的方法
+    public void setdata(int position) {
+        name.setText(list1.get(position).getDoctorName());
+        zhiwu.setText(list1.get(position).getJobTitle());
+        yiyuan.setText(list1.get(position).getInauguralHospital());
+        haopinglv.setText("好评率 " + list1.get(position).getPraise());
+        fuwu.setText("服务患者数" + list1.get(position).getServerNum());
+        if (list1.get(position).getImagePic() != null && list1.get(position).getImagePic() != "") {
+            Glide.with(DoctorlistActivity.this).load(list1.get(position).getImagePic()).into(img);
+        } else {
+            Glide.with(DoctorlistActivity.this).load(R.drawable.aaa).into(img);
+        }
+
+        money.setText(list1.get(position).getServicePrice() + "H币/次");
     }
 
     public class FindDoctorList implements DataCall {
@@ -216,14 +319,16 @@ public class DoctorlistActivity extends WDActivity {
                     myadapter = new Myadapter(R.layout.item, list1);
                     recy2.setAdapter(myadapter);
                     dang.setText("2");
-                    zong.setText(list1.size()+"");
+                    zong.setText(list1.size() + "");
+                    setdata(1);
                 } else {
                     list1.get(0).setSelect(true);
                     recy2.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));
                     myadapter = new Myadapter(R.layout.item, list1);
                     recy2.setAdapter(myadapter);
                     dang.setText("1");
-                    zong.setText(list1.size());
+                    zong.setText("1");
+                    setdata(0);
                 }
             }
 
