@@ -69,6 +69,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
     private PublishCommentPresenter publishCommentPresenter;
     private String sessionId;
     private CircleCommentListPresenter circleCommentListPresenter;
+    private Long id_user;
 
 
     //----病友圈详情--------------------------
@@ -143,7 +144,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
         circleInfoPresenter.reqeust(String.valueOf(sickCircleId_jj));
         // Log.i("jjj", sickCircleId_jj + "");
 
-        //----------------------点击评论--------------------------------
+        //----------------------点击评论查看评论列表--------------------------------
         pinglun.setOnClickListener(new View.OnClickListener() {
 
 
@@ -186,31 +187,42 @@ public class FindSickCircleInfoFrag extends WDFragment {
                 //适配器
                 circleCommentListAdapter = new CircleCommentListAdapter(getActivity());
                 circle_pop_rc1.setAdapter(circleCommentListAdapter);
+                circleCommentListAdapter.setCall(new CircleCommentListAdapter.Call() {
+                    @Override
+                    public void showCall() {
+                        pop.dismiss();
+                    }
+                });
 
-
+                circleCommentListAdapter.setDatas(new CircleCommentListAdapter.Data() {
+                    @Override
+                    public void showData() {
+                        intentByRouter("/LoginActivity/");
+                    }
+                });
                 //获取评论输入框
                 EditText ed_pinglun = view.findViewById(R.id.circle_pop_edText2);
                 ed_pinglun.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         edText_pinglun = ed_pinglun.getText().toString().trim();
-                        publishCommentPresenter.reqeust("16", sessionId, sickCircleId_jj + "", edText_pinglun);
+                        publishCommentPresenter.reqeust(String.valueOf(id_user), sessionId, sickCircleId_jj + "", edText_pinglun);
                         ed_pinglun.setText("");
                     }
                 });
 
             }
         });
-        //----------------------点击评论----------------尾巴----------------
+        //----------------------点击评论查看评论列表----------------尾巴----------------
 
         //----------------发表评论---------头部------------------
         //获取数据库
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(getActivity(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         List<LoginBean> loginBeans = loginBeanDao.loadAll();
         sessionId = loginBeans.get(0).getSessionId();
-        Long id = loginBeans.get(0).getId();
-        Log.i("qqq", sessionId);
-        Log.i("qqq", id + "");
+        id_user = loginBeans.get(0).getId();
+       /* Log.i("qqq", sessionId);
+        Log.i("qqq", id_user + "");*/
 
 
         //发表病友圈评论关联p
@@ -327,7 +339,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
     //--------病友圈详情----成功----失败-----尾巴------------------------------------------------
 
-//----------------------点击评论--成功----失败--------------------------------
+//----------------------点击评论查看评论列表--成功----失败--------------------------------
 
     class CircleCommentListCall implements DataCall<Result<List<CircleCommentListBean>>> {
 
@@ -346,7 +358,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
         }
     }
 
-//----------------------点击评论--成功----失败---------尾巴-----------------------
+//----------------------点击评论查看评论列表--成功----失败---------尾巴-----------------------
 
     //----------------发表评论-----成功----失败----头部------------------
     class PublishCommentCall implements DataCall<Result> {
