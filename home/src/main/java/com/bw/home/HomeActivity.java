@@ -8,28 +8,25 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
+
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import com.bw.health.HomeFrag;
 import com.bw.health.bean.CircleListBean;
-import com.bw.health.bean.LoginBean;
 import com.bw.health.core.WDActivity;
-import com.bw.health.dao.LoginBeanDao;
-import com.bw.health.util.GetDaoUtil;
-import com.kd.easybarrage.BarrageView;
+
 import com.wd.health.ShiPinFragment;
 import com.wd.health.adapter.CircleListAdapter;
-import com.wd.health.bean.VideoBean;
+
 import com.wd.health.frag.CircleFrag;
 import com.wd.health.frag.FindSickCircleInfoFrag;
 
@@ -37,13 +34,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.List;
+
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import butterknife.OnClick;
 @Route(path = "/HomeActivity/")
 public class HomeActivity extends WDActivity {

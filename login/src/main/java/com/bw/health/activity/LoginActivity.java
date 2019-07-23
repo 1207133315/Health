@@ -28,8 +28,9 @@ import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.prenster.LoginPresenter;
 import com.bw.health.util.RsaCoder;
-import com.bw.login.R;
-import com.bw.login.R2;
+import com.wd.health.R;
+import com.wd.health.R2;
+
 
 import java.util.List;
 

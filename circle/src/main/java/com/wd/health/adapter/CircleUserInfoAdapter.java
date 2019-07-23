@@ -3,13 +3,11 @@ package com.wd.health.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bw.health.bean.CircleFindDepartmentBean;
-import com.bw.health.bean.CircleListBean;
 import com.wd.health.R;
+import com.wd.health.bean.CircleUserInfoBean;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,35 +17,34 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.MyViewHolder> {
+public class CircleUserInfoAdapter extends RecyclerView.Adapter<CircleUserInfoAdapter.MyViewHolder> {
     Context context;
-    List<CircleListBean> mList;
+    List<CircleUserInfoBean> list;
     private MyViewHolder myViewHolder;
 
-    public CircleListAdapter(Context context) {
+    public CircleUserInfoAdapter(Context context) {
         this.context = context;
-        mList = new ArrayList<>();
+        list = new ArrayList<>();
     }
-
-
 
     @NonNull
     @Override
-    public CircleListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(context, R.layout.circlelist_item_layout, null);
+    public CircleUserInfoAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = View.inflate(context, R.layout.circleuserinfo_item_layout, null);
         myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CircleListAdapter.MyViewHolder holder, int position) {
-        CircleListBean listBean = mList.get(position);
-        String title = listBean.getTitle();
-        int amount = listBean.getAmount();
-        long releaseTime = listBean.getReleaseTime();
-        String detail = listBean.getDetail();
-        int collectionNum = listBean.getCollectionNum();
-        int commentNum = listBean.getCommentNum();
+    public void onBindViewHolder(@NonNull CircleUserInfoAdapter.MyViewHolder holder, int position) {
+        CircleUserInfoBean circleUserInfoBean = list.get(position);
+
+        String title = circleUserInfoBean.getTitle();
+        int amount = circleUserInfoBean.getAmount();
+        long releaseTime = circleUserInfoBean.getReleaseTime();
+        String detail = circleUserInfoBean.getDetail();
+        int collectionNum = circleUserInfoBean.getCollectionNum();
+        int commentNum = circleUserInfoBean.getCommentNum();
 
 
         myViewHolder.tv_title.setText(title);
@@ -60,36 +57,28 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
         myViewHolder.tv_jianyi_num.setText(commentNum + "");
 
         //增加的悬赏额度,等于0则没有额外悬赏
-        if (amount==0){
+        if (amount == 0) {
             myViewHolder.tv_image_hbi.setVisibility(View.GONE);
             myViewHolder.tv_hbi_num.setVisibility(View.GONE);
-        }else{
+        } else {
             myViewHolder.tv_image_hbi.setVisibility(View.VISIBLE);
             myViewHolder.tv_hbi_num.setVisibility(View.VISIBLE);
         }
-
-       holder.itemView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               dataCall.showCall(mList.get(position));
-           }
-       });
 
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return list.size();
     }
 
-    public void getDatt(List<CircleListBean> result) {
-        if (!result.isEmpty()) {
-            mList.clear();
-        }
-        mList.addAll(result);
+    public void setData(List<CircleUserInfoBean> userinfo_result) {
+        list.addAll(userinfo_result);
     }
 
-
+    public void clear() {
+        list.clear();
+    }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -118,13 +107,5 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
         }
     }
 
-    public interface Call {
-        void showCall(CircleListBean circleListBean);
-    }
 
-    public static Call dataCall;
-
-    public static void setCall(Call call) {
-        dataCall = call;
-    }
 }

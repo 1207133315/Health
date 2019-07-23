@@ -38,7 +38,10 @@ public interface IAppRequest {
     Observable<Result<List<CircleFindDepartmentBean>>>findDepartment();
     // 病友圈列表展示
     @GET("user/sickCircle/v1/findSickCircleList?page=1&count=10")
-    Observable<Result<List<CircleListBean>>>findSickCircleList(@Query("departmentId")String departmentId);
+    Observable<Result<List<CircleListBean>>>findSickCircleList(
+            @Query("departmentId")String departmentId,
+            @Query("page") String page,
+            @Query("count") String count);
 
 
 

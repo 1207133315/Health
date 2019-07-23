@@ -137,6 +137,15 @@ public class SearchActivity extends WDActivity {
         lishi.setAdapter(remenAdapter);
         remenAdapter.notifyDataSetChanged();
 
+        remenAdapter.setRemenClick(new RemenAdapter.RemenClick() {
+            @Override
+            public void click(RemenBean remenBean) {
+                homeSearchPresenter.reqeust(remenBean.name);
+                context.setText(remenBean.name);
+                addLishi(remenBean.name);
+            }
+        });
+
     }
 
     //加入搜索历史
@@ -170,7 +179,6 @@ public class SearchActivity extends WDActivity {
     public class HomeSearch implements DataCall<Result<SearchBean>>{
         @Override
         public void success(Result<SearchBean> data, Object... args) {
-            addLishi(context.getText().toString());
              SearchBean result1 = data.getResult();
              doctorAdapter.clear();
              drugsAdapter.clear();
@@ -246,6 +254,17 @@ public class SearchActivity extends WDActivity {
                //放到LinearLayout,也就是圆点布局中
                remen.addView(textView);
            }
+           for (int i = 0; i < remen.getChildCount(); i++) {
+               remen.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View view) {
+                        TextView textView = (TextView) view;
+                       homeSearchPresenter.reqeust(textView.getText().toString());
+                       context.setText(textView.getText().toString());
+                       addLishi(textView.getText().toString());
+                   }
+               });
+           }
        }
 
        @Override
@@ -258,7 +277,19 @@ public class SearchActivity extends WDActivity {
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.back) {
-            finish();
+            if (Null.getVisibility()==View.VISIBLE){
+                one.setVisibility(View.VISIBLE);
+                Null.setVisibility(View.GONE);
+            }else
+
+            if (messige.getVisibility()==View.VISIBLE){
+                one.setVisibility(View.VISIBLE);
+                messige.setVisibility(View.GONE);
+            }else
+
+            if (one.getVisibility()==View.VISIBLE){
+                finish();
+            }
         } else if (i == R.id.context) {
         } else if (i == R.id.search) {
         } else if (i == R.id.top) {
