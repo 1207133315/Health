@@ -160,12 +160,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_6"
                android:background="#F4F4F4" />
-             <androidx.recyclerview.widget.RecyclerView
+             <com.jcodecraeer.xrecyclerview.XRecyclerView
                  android:id="@+id/circlr_frag_rc2"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content">
 
-             </androidx.recyclerview.widget.RecyclerView>
+             </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
 
         </LinearLayout>

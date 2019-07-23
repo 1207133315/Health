@@ -186,7 +186,11 @@ public class FindSickCircleInfoActivity extends WDActivity {
         adapter.setOnItemClickListener(new HistorySearchAdapter.OnItemClickListener() {
             @Override
             public void onItemNameTvClick(View v, String name) {
-                searchEdit.setText(name);
+                //点击历史记录条目后 进行关键字搜索
+               // searchEdit.setText(name);
+                circleSearchPresenter.reqeust(name);
+                search_wu_text.setText("抱歉！没有找到 “"+name+"” 的相关病友圈");
+
             }
 
             @Override

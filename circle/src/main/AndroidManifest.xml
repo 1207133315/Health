@@ -3,7 +3,8 @@
     package="com.wd.health">
 
     <application>
-        <activity android:name=".activity.FindSickCircleInfoActivity"></activity>
+        <activity android:name=".activity.FindSickCircleInfoActivity" />
+        <activity android:name=".activity.CircleUserInfoActivity"></activity>
     </application>
 
 </manifest>
