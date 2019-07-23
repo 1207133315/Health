@@ -15,8 +15,9 @@ import com.bw.health.core.DataCall;
 import com.bw.health.core.WDActivity;
 import com.bw.health.exception.ApiException;
 import com.bw.health.prenster.SendOutEmailCodePresenter;
-import com.bw.login.R;
-import com.bw.login.R2;
+import com.wd.health.R;
+import com.wd.health.R2;
+
 
 import org.w3c.dom.Text;
 

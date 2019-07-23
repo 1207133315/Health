@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'health'
+            keyPassword '123456'
+            storeFile file('../health.keystore')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.wd.health"
@@ -8,32 +16,38 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+        signingConfig signingConfigs.release
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    productFlavors {
+    }
 }
 
 dependencies {
     /*implementation fileTree(include: ['*.jar'], dir: 'libs')
-                            implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
-                                implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
-                                testImplementation 'junit:junit:4.12'
-                                androidTestImplementation 'androidx.test:runner:1.3.0-alpha01'
-                                androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'*/
+                                implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+                                    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+                                    testImplementation 'junit:junit:4.12'
+                                    androidTestImplementation 'androidx.test:runner:1.3.0-alpha01'
+                                    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'*/
     implementation project(':login')
     api project(':home')
     api project(':video')

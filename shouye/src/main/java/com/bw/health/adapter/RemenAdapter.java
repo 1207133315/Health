@@ -58,6 +58,12 @@ public class RemenAdapter extends RecyclerView.Adapter<RemenAdapter.ViewHolder> 
                         notifyDataSetChanged();
                     }
                 });
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        remenClick.click(remenBeans.get(position));
+                    }
+                });
             }
     }
 
@@ -75,5 +81,14 @@ public class RemenAdapter extends RecyclerView.Adapter<RemenAdapter.ViewHolder> 
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
+    }
+    private RemenClick remenClick;
+
+    public void setRemenClick(RemenClick remenClick) {
+        this.remenClick = remenClick;
+    }
+
+    public interface RemenClick{
+        void click(RemenBean remenBean);
     }
 }
