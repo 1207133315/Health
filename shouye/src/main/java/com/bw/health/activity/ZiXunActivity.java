@@ -22,15 +22,15 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route(path = "/ZiXunActivity/")
 public class ZiXunActivity extends WDActivity {
-
-
     @BindView(R2.id.head)
     ImageView head;
     @BindView(R2.id.recycler)
@@ -72,6 +72,21 @@ public class ZiXunActivity extends WDActivity {
         });
         recycler.setAdapter(mationListAdapter);
         recycler.refresh();
+
+        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy<0){
+                    dataNull.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
 

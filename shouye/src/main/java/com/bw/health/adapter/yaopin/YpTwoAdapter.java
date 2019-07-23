@@ -1,6 +1,7 @@
 package com.bw.health.adapter.yaopin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 
 import com.bw.health.R;
 import com.bw.health.R2;
+import com.bw.health.activity.BZDetailActivity;
+import com.bw.health.activity.YPDetailActivity;
 import com.bw.health.bean.YaoPinTwoBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -63,6 +66,16 @@ public class YpTwoAdapter extends RecyclerView.Adapter<YpTwoAdapter.ViewHolder> 
             holder.name1.setText(name.substring(0,3));
             holder.name2.setText(name.substring(3,name.length()));
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent intent = new Intent(context, YPDetailActivity.class);
+                intent.putExtra("id",list.get(position).id);
+                intent.putExtra("name",list.get(position).name);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

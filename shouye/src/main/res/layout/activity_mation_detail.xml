@@ -52,6 +52,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/layout_main"
         android:layout_height="match_parent">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -151,9 +152,18 @@
             android:layout_width="@dimen/dp_193"
             android:layout_height="@dimen/dp_132"
             android:src="@mipmap/reward"
-            android:visibility="gone"
+        android:visibility="gone"
             android:id="@+id/yes"
             android:layout_centerInParent="true"
+            />
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:id="@+id/close"
+            android:visibility="gone"
+            android:src="@drawable/close"
+            android:layout_toRightOf="@+id/yes"
+            android:layout_marginTop="@dimen/dp_140"
             />
     </RelativeLayout>
 </LinearLayout>

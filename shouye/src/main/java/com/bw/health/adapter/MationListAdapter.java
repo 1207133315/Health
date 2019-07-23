@@ -40,9 +40,11 @@ public class MationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         final int itemViewType = getItemViewType(viewType);
         if (itemViewType == 1) {
             return new HolderOne(LayoutInflater.from(context).inflate(R.layout.home_itme_one, parent, false));
-        } else if (itemViewType == 2) {
+        }
+        if (itemViewType == 2) {
             return new HolderTwo(LayoutInflater.from(context).inflate(R.layout.home_itme_two, parent, false));
-        } else if (itemViewType == 3) {
+        }
+        if (itemViewType == 3) {
             return new HolderThree(LayoutInflater.from(context).inflate(R.layout.home_itme_three, parent, false));
         }
         return null;

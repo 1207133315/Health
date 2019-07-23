@@ -546,6 +546,19 @@ public class ShiPinFragment extends WDFragment {
     }
 
 
-
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            JZVideoPlayer.releaseAllVideos();
+        } else {
+            View view = snapHelper.findSnapView(linearLayoutManager);
+            RecyclerView.ViewHolder viewHolder = recycler.getChildViewHolder(view);
+            if (viewHolder != null && viewHolder instanceof VideoAdapter.ViewHolder) {
+                //JZVideoPlayer.releaseAllVideos();
+                ((VideoAdapter.ViewHolder) viewHolder).video.startVideo();
+            }
+        }
+    }
 
 }
