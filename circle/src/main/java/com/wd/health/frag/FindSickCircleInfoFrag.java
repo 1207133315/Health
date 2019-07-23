@@ -28,6 +28,7 @@ import com.bw.health.core.WDFragment;
 import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wd.health.R;
 import com.wd.health.adapter.CircleCommentListAdapter;
 import com.wd.health.bean.CircleCommentListBean;
@@ -70,6 +71,8 @@ public class FindSickCircleInfoFrag extends WDFragment {
     private String sessionId;
     private CircleCommentListPresenter circleCommentListPresenter;
     private Long id_user;
+    public int page=1;
+    private XRecyclerView circle_pop_rc1;
 
 
     //----病友圈详情--------------------------
@@ -176,10 +179,10 @@ public class FindSickCircleInfoFrag extends WDFragment {
                     }
                 });
 
-                RecyclerView circle_pop_rc1 = view.findViewById(R.id.circle_pop_rc1);
+                circle_pop_rc1 = view.findViewById(R.id.circle_pop_rc1);
                 //关联 评论列表的p层
                 circleCommentListPresenter = new CircleCommentListPresenter(new CircleCommentListCall());
-                circleCommentListPresenter.reqeust(sickCircleId_jj + "");
+                circleCommentListPresenter.reqeust(sickCircleId_jj + "",page+"","10");
 
                 //布局管理器
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -200,6 +203,24 @@ public class FindSickCircleInfoFrag extends WDFragment {
                         intentByRouter("/LoginActivity/");
                     }
                 });
+                //上拉加载 下拉刷新
+                circle_pop_rc1.setLoadingListener(new XRecyclerView.LoadingListener() {
+                    @Override
+                    public void onRefresh() {
+                        page=1;
+                        circleCommentListPresenter.reqeust(sickCircleId_jj + "",page+"","10");
+
+                    }
+
+                    @Override
+                    public void onLoadMore() {
+                        page++;
+                        circleCommentListPresenter.reqeust(sickCircleId_jj + "",""+page++,"10");
+
+                    }
+                });
+
+
                 //获取评论输入框
                 EditText ed_pinglun = view.findViewById(R.id.circle_pop_edText2);
                 ed_pinglun.setOnClickListener(new View.OnClickListener() {
@@ -346,6 +367,12 @@ public class FindSickCircleInfoFrag extends WDFragment {
         @Override
         public void success(Result<List<CircleCommentListBean>> data, Object... args) {
             comment_result = data.getResult();
+            circle_pop_rc1.loadMoreComplete();
+            circle_pop_rc1.refreshComplete();
+            if (page==1){
+                circleCommentListAdapter.clear();
+            }
+
             circleCommentListAdapter.getData(comment_result);
             circleCommentListAdapter.notifyDataSetChanged();
 

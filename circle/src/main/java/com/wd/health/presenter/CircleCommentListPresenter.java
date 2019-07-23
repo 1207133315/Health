@@ -16,7 +16,7 @@ public class CircleCommentListPresenter extends WDPresenter<CircleIRquest> {
 
     @Override
     protected Observable getModel(Object... args) {
-        return iRequest.findSickCircleCommentList((String)args[0]);
+        return iRequest.findSickCircleCommentList((String)args[0],(String)args[1],(String)args[2]);
     }
 }
 

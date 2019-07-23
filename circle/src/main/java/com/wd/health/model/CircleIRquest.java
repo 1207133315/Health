@@ -37,9 +37,11 @@ public interface CircleIRquest {
 
 
     //5. 查询病友圈评论列表
-    @GET("user/sickCircle/v1/findSickCircleCommentList?page=1&count=10")
+    @GET("user/sickCircle/v1/findSickCircleCommentList")
     Observable<Result<List<CircleCommentListBean>>> findSickCircleCommentList(
-            @Query("sickCircleId") String sickCircleId);
+            @Query("sickCircleId") String sickCircleId,
+            @Query("page") String page,
+            @Query("count") String count);
 
 
     //6. 采纳病友圈优秀的评论

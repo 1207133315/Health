@@ -14,6 +14,7 @@ import com.bw.health.core.DataCall;
 import com.bw.health.core.WDFragment;
 import com.bw.health.exception.ApiException;
 import com.google.android.material.appbar.AppBarLayout;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wd.health.R;
 import com.wd.health.R2;
 import com.wd.health.adapter.CircleFindDepartmentAdapter;
@@ -35,11 +36,11 @@ public class CircleFrag extends WDFragment {
     private RelativeLayout mFLayout;
     private RecyclerView rc1;
     private CircleFindDepartmentAdapter circleFindDepartmentAdapter;
-    private RecyclerView rc2;
+    private XRecyclerView rc2;
     private CircleListPresenter circleListPresenter;
     private CircleListAdapter circleListAdapter;
     private TextView circle_frag_keshi;
-
+    public int page=1;
     @Override
     public String getPageName() {
         return "病友圈";
@@ -110,7 +111,7 @@ public class CircleFrag extends WDFragment {
 
             @Override
             public void showCall(int id, String name) {
-                circleListPresenter.reqeust(String.valueOf(id));
+                circleListPresenter.reqeust(String.valueOf(id),page+"","5");
                 circle_frag_keshi.setText(name);
             }
         });
@@ -134,13 +135,30 @@ public class CircleFrag extends WDFragment {
         rc2 = getView().findViewById(R.id.circlr_frag_rc2);
         //关联presenter
         circleListPresenter = new CircleListPresenter(new CircleListCall());
-        circleListPresenter.reqeust("7");
+        circleListPresenter.reqeust("7",page+"","5");
         //布局管理器
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity());
         rc2.setLayoutManager(linearLayoutManager1);
         //适配器
         circleListAdapter = new CircleListAdapter(getActivity());
         rc2.setAdapter(circleListAdapter);
+
+        rc2.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+             page=1;
+             circleListPresenter.reqeust("15",page+"","5");
+
+            }
+
+            @Override
+            public void onLoadMore() {
+             page++;
+                circleListPresenter.reqeust("15",""+page++,"5");
+
+
+            }
+        });
 
         //-----病友圈列表展示----------------------------------
     }
@@ -172,6 +190,9 @@ public class CircleFrag extends WDFragment {
         @Override
         public void success(Result<List<CircleListBean>> data, Object... args) {
             List<CircleListBean> result = data.getResult();
+            rc2.loadMoreComplete();
+            rc2.refreshComplete();
+
             circleListAdapter.getDatt(result);
             circleListAdapter.notifyDataSetChanged();
         }

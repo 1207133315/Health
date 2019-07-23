@@ -144,6 +144,12 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
 
         //---------- 发表支持的观点-------尾巴-----------------
 
+        //---------- 发表反对的观点----------------------------
+
+
+
+
+        //---------- 发表反对的观点---------尾巴---------------
 
         //点击头像跳转病友的朋友圈
         myViewHolder.simp_image.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +174,11 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
 
     public void getData(List<CircleCommentListBean> comment_result) {
         mList.addAll(comment_result);
+    }
+
+    //清除缓存
+    public void clear() {
+        mList.clear();
     }
 
 
