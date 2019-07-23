@@ -1,4 +1,4 @@
-package com.wd.doctor.interrogation.bean;
+package com.wd.health.bean;
 
 public class Doctor {
 

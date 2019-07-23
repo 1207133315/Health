@@ -1,4 +1,4 @@
-package com.wd.doctor.interrogation;
+package com.wd.health.interrogation;
 
 import org.junit.Test;
 

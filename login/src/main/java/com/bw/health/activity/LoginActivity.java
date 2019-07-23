@@ -1,6 +1,8 @@
 package com.bw.health.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -132,9 +134,8 @@ public class LoginActivity extends WDActivity {
             result1.setPwd(s);
             LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
             loginBeanDao.deleteAll();
-
             loginBeanDao.insertOrReplace(result1);
-           finish();
+            finish();
         }
 
         @Override

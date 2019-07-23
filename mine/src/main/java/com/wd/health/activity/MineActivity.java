@@ -87,8 +87,6 @@ public class MineActivity extends WDActivity {
     protected void initView() {
         whetherSignTodayPresenter = new WhetherSignTodayPresenter(new WhetherSignToday());
         addSignPresenter = new AddSignPresenter(new AddSign());
-
-
     }
 
     @Override
@@ -103,8 +101,7 @@ public class MineActivity extends WDActivity {
             name.setText(loginBean.getNickName());
             whetherSignTodayPresenter.reqeust(loginBean.getId().intValue(), loginBean.getSessionId());
         }else {
-            intentByRouter("/LoginActivity/");
-            finish();
+            head.setImageResource(R.mipmap.common_icon_boy_n);
         }
     }
 
@@ -143,6 +140,8 @@ public class MineActivity extends WDActivity {
             }else {
                 if (list!=null&&list.size()>0){
                     addSignPresenter.reqeust(loginBean.getId().intValue(),loginBean.getSessionId());
+                }else {
+                    intentByRouter("/LoginActivity/");
                 }
             }
         }

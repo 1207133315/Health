@@ -1,4 +1,4 @@
-package com.wd.doctor.interrogation;
+package com.wd.health.interrogation;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

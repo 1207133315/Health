@@ -1,12 +1,12 @@
-package com.wd.doctor.interrogation.presenter;
+package com.wd.health.presenter;
 
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDPresenter;
-import com.wd.doctor.interrogation.IRequest;
+import com.wd.health.InterrogationRequest;
 
 import io.reactivex.Observable;
 
-public class FindDepartmentPresenter extends WDPresenter<IRequest> {
+public class FindDepartmentPresenter extends WDPresenter<InterrogationRequest> {
     public FindDepartmentPresenter(DataCall dataCall) {
         super(dataCall);
     }

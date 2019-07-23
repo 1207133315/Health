@@ -1,21 +1,16 @@
 package com.wd.health;
 
 import com.bw.health.bean.Result;
-
-import java.io.File;
-
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Part;
-import retrofit2.http.Query;
 
-public interface Irequest {
+
+public interface Minerequest {
     // 查询用户当天是否签到
     @GET("user/verify/v1/whetherSignToday")
     Observable<Result> whetherSignToday(@Header("userId") int userId,

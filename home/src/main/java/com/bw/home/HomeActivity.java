@@ -189,4 +189,10 @@ public class HomeActivity extends WDActivity {
             }
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeMessages(1);
+    }
 }
