@@ -1,15 +1,12 @@
-package com.wd.doctor.interrogation.adapter;
+package com.wd.health.adapter;
 
-import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.wd.doctor.interrogation.R;
-import com.wd.doctor.interrogation.bean.DepartmentBean;
+import com.wd.health.R;
+import com.wd.health.bean.DepartmentBean;
 
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 

@@ -232,11 +232,11 @@
             android:layout_height="@dimen/dp_110"
             android:layout_marginTop="@dimen/dp_18">
 
-            <com.wd.doctor.interrogation.Myrecycler
+            <com.wd.health.Myrecycler
                 android:id="@+id/recy2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_110"
-                android:layout_marginHorizontal="@dimen/dp_30"></com.wd.doctor.interrogation.Myrecycler>
+                android:layout_marginHorizontal="@dimen/dp_30"></com.wd.health.Myrecycler>
 
             <RelativeLayout
                 android:id="@+id/right"

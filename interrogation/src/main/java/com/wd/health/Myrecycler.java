@@ -1,4 +1,4 @@
-package com.wd.doctor.interrogation;
+package com.wd.health;
 
 import android.content.Context;
 import android.util.AttributeSet;

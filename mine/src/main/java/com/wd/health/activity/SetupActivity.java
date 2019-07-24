@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,8 @@ public class SetupActivity extends WDActivity {
     TextView daxiao;
     @BindView(R2.id.name)
     TextView name;
+    @BindView(R2.id.back)
+    ImageView back;
     private List<LoginBean> list;
     private LoginBean loginBean;
 
@@ -77,8 +80,7 @@ public class SetupActivity extends WDActivity {
             head.setImageURI(headPic);
             name.setText(loginBean.getNickName());
         } else {
-            intentByRouter("/LoginActivity/");
-            finish();
+            head.setImageResource(R.mipmap.common_icon_boy_n);
         }
 
         /**
@@ -98,11 +100,11 @@ public class SetupActivity extends WDActivity {
 
     }
 
-    @OnClick({R2.id.grxx, R2.id.xgmm, R2.id.qchc, R2.id.pmld, R2.id.bbjc, R2.id.bzzx, R2.id.gywm, R2.id.yqhy, R2.id.tcdl})
+    @OnClick({R2.id.grxx, R2.id.xgmm, R2.id.qchc, R2.id.pmld, R2.id.bbjc, R2.id.bzzx, R2.id.gywm, R2.id.yqhy, R2.id.tcdl,R2.id.back})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.grxx) {
-            Intent intent=new Intent(this,MineMessageActivity.class);
+            Intent intent = new Intent(this, MineMessageActivity.class);
             startActivity(intent);
         } else if (i == R.id.xgmm) {
         } else if (i == R.id.qchc) {
@@ -134,7 +136,6 @@ public class SetupActivity extends WDActivity {
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
                         }
                     })
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -142,20 +143,15 @@ public class SetupActivity extends WDActivity {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
                             loginBeanDao.deleteAll();
-                            intentByRouter("/LoginActivity/");
-                            finishAffinity();
+                            Intent intent = new Intent(SetupActivity.this, SetupActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                     }).show();
-
-
+        }else if (i==R.id.back){
+            finish();
         }
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

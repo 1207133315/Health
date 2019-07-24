@@ -362,5 +362,9 @@ public class HomeFrag extends WDFragment {
             }
         }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeMessages(0);
+    }
 }
