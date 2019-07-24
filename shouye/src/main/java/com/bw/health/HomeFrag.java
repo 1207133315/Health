@@ -261,6 +261,8 @@ public class HomeFrag extends WDFragment {
              Glide.with(getContext()).load(loginBeans.get(0).getHeadPic())
                      .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                      .into(head);
+         }else {
+             head.setImageResource(R.mipmap.common_icon_boy_n);
          }
 
     }

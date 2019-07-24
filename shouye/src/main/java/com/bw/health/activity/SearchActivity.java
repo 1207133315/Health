@@ -117,6 +117,8 @@ public class SearchActivity extends WDActivity {
 
                 if (s.length()>0&&!s.equals("")){
                     homeSearchPresenter.reqeust(s);
+
+                    addLishi(s);
                 }
             }
         });
@@ -140,9 +142,9 @@ public class SearchActivity extends WDActivity {
         remenAdapter.setRemenClick(new RemenAdapter.RemenClick() {
             @Override
             public void click(RemenBean remenBean) {
+                context.setText(remenBean.name);
                 homeSearchPresenter.reqeust(remenBean.name);
                 context.setText(remenBean.name);
-                addLishi(remenBean.name);
             }
         });
 
@@ -169,9 +171,6 @@ public class SearchActivity extends WDActivity {
             }else {
                 remenBeanDao.insertOrReplaceInTx(remenBean);
             }
-
-
-
 
         }
     }

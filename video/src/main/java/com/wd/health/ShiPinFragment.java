@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
@@ -235,13 +236,7 @@ public class ShiPinFragment extends WDFragment {
             }
         });
 
-        show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                show.setVisibility(View.GONE);
-                toprecycler.setVisibility(View.VISIBLE);
-            }
-        });
+
 
         show2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,6 +250,62 @@ public class ShiPinFragment extends WDFragment {
 
         myHBPresenter = new MyHBPresenter(new MyHB());
 
+        show.setOnTouchListener(new View.OnTouchListener() {
+            private float moveY;
+            private float moveX;
+            private float y;
+            private float x;
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        x = motionEvent.getX();
+                        y = motionEvent.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        moveX = motionEvent.getX();
+                        moveY = motionEvent.getY();
+                        if (moveY-y<240){
+                         ViewGroup.LayoutParams layoutParams = show.getLayoutParams();//取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+                        layoutParams.height=(int)(264+(moveY-y));
+                    show.setLayoutParams(layoutParams);
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (moveY-y>100) {
+                            show.setVisibility(View.GONE);
+                            toprecycler.setVisibility(View.VISIBLE);
+                        }
+                        ViewGroup.LayoutParams layoutParams1 = show.getLayoutParams();//取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+                        layoutParams1.height=264;
+                        show.setLayoutParams(layoutParams1);
+                    moveY=0;
+                        break;
+                }
+
+                return true;
+            }
+        });
+        final LoginBeanDao userDao = GetDaoUtil.getGetDaoUtil().getUserDao();
+        //user = userDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).unique();
+        final List<LoginBean> loginBeans = userDao.loadAll();
+        user = loginBeans.get(0);
+        recycler.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                page = 1;
+                videoListPresenter.reqeust(user.getId(), user.getSessionId(), id, page, 5);
+            }
+
+            @Override
+            public void onLoadMore() {
+                page++;
+                videoListPresenter.reqeust(user.getId(), user.getSessionId(), id, page, 5);
+            }
+        });
+        recycler.setAdapter(videoAdapter);
+        recycler.refresh();
     }
 
     private int myHb=0;
@@ -300,11 +351,9 @@ public class ShiPinFragment extends WDFragment {
         final LoginBeanDao userDao = GetDaoUtil.getGetDaoUtil().getUserDao();
         //user = userDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).unique();
         final List<LoginBean> loginBeans = userDao.loadAll();
+        user = loginBeans.get(0);
         //发表评论
-      if (loginBeans.size()<=0){
-          intentByRouter("/LoginActivity/");
-          return;
-      }
+
 
         SoftKeyBoardListener.setListener(getActivity(), new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
             @Override
@@ -313,22 +362,24 @@ public class ShiPinFragment extends WDFragment {
                 RelativeLayout.LayoutParams buttonLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 120);
                 buttonLayoutParams.setMargins(0, height-height1-120, 0, 0);
                 edit.setLayoutParams(buttonLayoutParams);
-
             }
 
             @Override
             public void keyBoardHide(int height1) {
                 RelativeLayout.LayoutParams buttonLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 120);
                 buttonLayoutParams.setMargins(0, height-120, 0, 0);
-
                 edit.setLayoutParams(buttonLayoutParams);
-
+                edit.setVisibility(View.GONE);
             }
         });
             user = loginBeans.get(0);
             videoAdapter.setPingLun(new VideoAdapter.PingLun() {
                 @Override
                 public void click(VideoBean videoBean, BarrageView barrageView, int index) {
+                    if (loginBeans.size()<=0){
+                        intentByRouter("/LoginActivity/");
+                        return;
+                    }
                         edit.setVisibility(View.VISIBLE);
                     send.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -349,41 +400,16 @@ public class ShiPinFragment extends WDFragment {
 
 
 
-            user = loginBeans.get(0);
-
-            recycler.setLoadingListener(new XRecyclerView.LoadingListener() {
-                @Override
-                public void onRefresh() {
-                    page = 1;
-                    videoListPresenter.reqeust(user.getId(), user.getSessionId(), id, page, 5);
-                }
-
-                @Override
-                public void onLoadMore() {
-                    page++;
-                    videoListPresenter.reqeust(user.getId(), user.getSessionId(), id, page, 5);
-                }
-            });
-
-
-
-
-
-
-        recycler.setAdapter(videoAdapter);
-        recycler.refresh();
-
-
-
-             myHBPresenter.reqeust(loginBeans.get(0).getId(),loginBeans.get(0).getSessionId());
-
          videoAdapter.setsCclick(new VideoAdapter.SCclick() {
              @Override
              public void click(VideoBean videoBean,int i) {
 
-
-                      LoginBean user = loginBeans.get(0);
-                     addVideoPresenter.reqeust(user.getId(),user.getSessionId(),videoBean.id);
+                 if (loginBeans.size()<=0){
+                     intentByRouter("/LoginActivity/");
+                     return;
+                 }
+                 LoginBean user = loginBeans.get(0);
+                 addVideoPresenter.reqeust(user.getId(),user.getSessionId(),videoBean.id);
 
 
              }
@@ -397,8 +423,10 @@ public class ShiPinFragment extends WDFragment {
             public void click(VideoBean videoBean,int i) {
                 index=i;
                 if (loginBeans.size()>0){
+                    myHBPresenter.reqeust(loginBeans.get(0).getId(),loginBeans.get(0).getSessionId());
                     LoginBean user = loginBeans.get(0);
                     showBuyPop(videoBean,user);
+
                 }else {
                     intentByRouter("/LoginActivity/");
                 }
@@ -540,8 +568,7 @@ public class ShiPinFragment extends WDFragment {
     @Override
     public void onPause() {
         super.onPause();
-        JZVideoPlayer.goOnPlayOnPause();
-
+        JZVideoPlayer.releaseAllVideos();
 
     }
 
