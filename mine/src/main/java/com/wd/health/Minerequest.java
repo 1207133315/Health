@@ -36,6 +36,13 @@ public interface Minerequest {
                                        @Header("sessionId") String sessionId,
                                        @Part MultipartBody.Part MultipartFile);
 
+    //查询用户关注医生列表
+    @GET("user/verify/v1/findUserDoctorFollowList")
+    Observable<Result>findUserDoctorFollowList(@Header("userId") int userId,
+                                               @Header("sessionId") String sessionId,
+                                               @Query("page")int page,
+                                               @Query("count")int count);
+
     //查询用户收藏资讯列表
 
     @GET("user/verify/v1/findUserInfoCollectionList")

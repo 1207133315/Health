@@ -15,6 +15,8 @@
         <activity android:name=".activity.SetupActivity" />
         <activity android:name=".activity.PingmuActivity" />
         <activity android:name=".activity.MineMessageActivity" />
+        <activity android:name=".activity.GuanzhuActivity"></activity>
+
         <activity android:name=".activity.MyCollectActivity"></activity>
     </application>
 

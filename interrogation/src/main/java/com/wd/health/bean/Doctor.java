@@ -1,6 +1,8 @@
 package com.wd.health.bean;
 
-public class Doctor {
+import java.io.Serializable;
+
+public class Doctor implements Serializable {
 
     /**
      * badNum : 0

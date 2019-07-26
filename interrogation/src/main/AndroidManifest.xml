@@ -3,7 +3,8 @@
     package="com.wd.health">
 
     <application>
-        <activity android:name=".activity.DoctorlistActivity"></activity>
+        <activity android:name=".activity.DoctorlistActivity" />
+        <activity android:name=".activity.DoctordetailActivity"></activity>
     </application>
 
 </manifest>

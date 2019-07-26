@@ -120,6 +120,8 @@ public class MineActivity extends WDActivity {
         } else if (i == R.id.head) {
 
         } else if (i == R.id.guanzhu) {
+            intentByRouter("/GuanzhuActivity/");
+
         } else if (i == R.id.renwu) {
         } else if (i == R.id.shezhiguanli) {
             Intent intent=new Intent(MineActivity.this,SetupActivity.class);
@@ -174,7 +176,7 @@ public class MineActivity extends WDActivity {
         @Override
         public void success(Object data, Object... args) {
             Result result = (Result) data;
-            Toast.makeText(MineActivity.this, "result.getResult():" + result.getResult(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MineActivity.this,result.getMessage(), Toast.LENGTH_SHORT).show();
             qd.setText("已签到");
         }
 

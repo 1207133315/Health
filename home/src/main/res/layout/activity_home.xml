@@ -7,59 +7,57 @@
     tools:context=".HomeActivity">
 
 
-
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/frame"
-        ></FrameLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
 
     <RadioGroup
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:background="@mipmap/the_bottom_bar"
         android:id="@+id/rg"
-        android:layout_height="@dimen/dp_60">
-        <RadioButton
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:button="@null"
-            android:background="@drawable/home_select"
-            android:layout_marginLeft="@dimen/dp_47"
-            android:layout_marginTop="@dimen/dp_16"
-            android:id="@+id/home"
-            />
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/the_bottom_bar"
+        android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/home"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
-            android:button="@null"
-            android:background="@drawable/video_select"
+            android:layout_marginLeft="@dimen/dp_47"
+            android:layout_marginTop="@dimen/dp_16"
+            android:background="@drawable/home_select"
+            android:button="@null" />
+
+        <RadioButton
+            android:id="@+id/video"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
             android:layout_marginLeft="@dimen/dp_209"
             android:layout_marginTop="@dimen/dp_16"
-            android:id="@+id/video"
-            />
+            android:background="@drawable/video_select"
+            android:button="@null" />
     </RadioGroup>
 
     <RadioButton
+        android:id="@+id/circle"
         android:layout_width="@dimen/dp_58"
         android:layout_height="@dimen/dp_58"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/circle_select"
-        android:id="@+id/circle"
         android:layout_marginBottom="@dimen/dp_32"
+        android:background="@drawable/circle_select"
         android:button="@null" />
 
     <RelativeLayout
+        android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_80"
         android:background="#ffffff"
+        android:orientation="horizontal"
         android:paddingHorizontal="@dimen/dp_12"
-        android:id="@+id/top"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:visibility="gone">
+
         <ImageView
             android:id="@+id/head"
             android:layout_width="@dimen/dp_32"
