@@ -30,7 +30,9 @@ import com.wd.health.Myrecycler;
 import com.wd.health.R2;
 import com.wd.health.presenter.FindDepartmentPresenter;
 import com.wd.health.presenter.FindDoctorListPresenter;
+import com.wd.health.presenter.FindDoctorListPresenter2;
 
+import java.io.Serializable;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -58,8 +60,6 @@ public class DoctorlistActivity extends WDActivity {
     RadioButton price;
     @BindView(R2.id.paixu)
     ImageView paixu;
-    @BindView(R2.id.jiage)
-    RelativeLayout jiage;
     @BindView(R2.id.recy2)
     Myrecycler recy2;
     @BindView(R2.id.right)
@@ -103,6 +103,8 @@ public class DoctorlistActivity extends WDActivity {
     private Long userid;
     private String sessionId;
     private List<DepartmentBean> list;
+    private boolean t=false;
+    private FindDoctorListPresenter2 presenter2;
 
     @Override
     protected int getLayoutId() {
@@ -120,12 +122,13 @@ public class DoctorlistActivity extends WDActivity {
         }
         findDepartmentPresenter = new FindDepartmentPresenter(new FindDepartment());
         findDoctorListPresenter = new FindDoctorListPresenter(new FindDoctorList());
+        presenter2 = new FindDoctorListPresenter2(new FindDoctorList());
         findDepartmentPresenter.reqeust();
         List<LoginBean> list1 = GetDaoUtil.getGetDaoUtil().getUserDao().queryBuilder().list();
         userid = list1.get(0).getId();
         sessionId = list1.get(0).getSessionId();
         Log.d("DoctorlistActivity2", "id:" + id + "/" + sessionId);
-        findDoctorListPresenter.reqeust(userid.intValue(), sessionId, id, 1, 1, 1, 10);
+        findDoctorListPresenter.reqeust(userid.intValue(), sessionId, id, 1, "1", 1, 10);
     }
 
     @Override
@@ -134,36 +137,46 @@ public class DoctorlistActivity extends WDActivity {
     }
 
 
-    @OnClick({R2.id.lingdang, R2.id.zonghe, R2.id.haoping, R2.id.zixunshu, R2.id.price, R2.id.right, R2.id.left})
+    @OnClick({R2.id.lingdang, R2.id.zonghe, R2.id.haoping, R2.id.zixunshu, R2.id.price, R2.id.right, R2.id.left,R2.id.more})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == com.wd.health.R.id.lingdang) {
         } else if (i == com.wd.health.R.id.zonghe) {
             for (DepartmentBean bean : list) {
                 if (bean.isChecked) {
-                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 1, 1, 1, 10);
+                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 1, "1", 1, 10);
                     break;
                 }
             }
         } else if (i == com.wd.health.R.id.haoping) {
             for (DepartmentBean bean : list) {
                 if (bean.isChecked) {
-                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 2, 1, 1, 10);
+                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 2, "1", 1, 10);
                     break;
                 }
             }
-        } else if (i == com.wd.health.R.id.zixunshu) {
+        } else if (i == R.id.zixunshu) {
             for (DepartmentBean bean : list) {
                 if (bean.isChecked) {
-                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 3, 1, 1, 10);
+                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 3, "1", 1, 10);
                     break;
                 }
             }
-        } else if (i == com.wd.health.R.id.price) {
+        } else if (i == R.id.price) {
             for (DepartmentBean bean : list) {
                 if (bean.isChecked) {
-                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 4, 1, 1, 10);
-                    break;
+                    if (t){
+                        findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 4, "1", 1, 10);
+                        t=false;
+                        paixu.setImageResource(R.mipmap.common_button_descending_s);
+                        break;
+                    }else {
+                        presenter2.reqeust(userid.intValue(), sessionId, (int) bean.id, 4, 1, 10);
+                        t=true;
+                        paixu.setImageResource(R.mipmap.common_button_sequence_n);
+                        break;
+                    }
+
                 }
             }
         } else if (i == com.wd.health.R.id.left) {
@@ -232,6 +245,11 @@ public class DoctorlistActivity extends WDActivity {
                 setdata(position);
                 myadapter.notifyDataSetChanged();
             }
+        }else if (i == R.id.more){//医生详情
+            Intent intent=new Intent(this,DoctordetailActivity.class);
+
+            intent.putExtra("bean", list1.get(position).getDoctorId());
+            startActivity(intent);
         }
     }
 
@@ -262,16 +280,15 @@ public class DoctorlistActivity extends WDActivity {
                         for (int i = 0; i < list.size(); i++) {
                             if (position == i) {
                                 list.get(i).isChecked = true;
-                                int count = rg.getChildCount();
                                 int checkedRadioButtonId = rg.getCheckedRadioButtonId();
                                 if (checkedRadioButtonId == R.id.zonghe) {
-                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 1, 1, 1, 10);
+                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 1, "1", 1, 10);
                                 } else if (checkedRadioButtonId == R.id.haoping) {
-                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 2, 1, 1, 10);
+                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 2, "1", 1, 10);
                                 } else if (checkedRadioButtonId == R.id.zixunshu) {
-                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 3, 1, 1, 10);
+                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 3, "1", 1, 10);
                                 } else if (checkedRadioButtonId == R.id.price) {
-                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 4, 1, 1, 10);
+                                    findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) list.get(i).id, 4, "1", 1, 10);
                                 }
 
                             } else {
@@ -293,18 +310,34 @@ public class DoctorlistActivity extends WDActivity {
 
     //设置数据的方法
     public void setdata(int position) {
-        name.setText(list1.get(position).getDoctorName());
-        zhiwu.setText(list1.get(position).getJobTitle());
-        yiyuan.setText(list1.get(position).getInauguralHospital());
-        haopinglv.setText("好评率 " + list1.get(position).getPraise());
-        fuwu.setText("服务患者数" + list1.get(position).getServerNum());
-        if (list1.get(position).getImagePic() != null && list1.get(position).getImagePic() != "") {
-            Glide.with(DoctorlistActivity.this).load(list1.get(position).getImagePic()).into(img);
-        } else {
-            Glide.with(DoctorlistActivity.this).load(com.wd.health.R.drawable.aaa).into(img);
+        if (list1.size()>0&&list1!=null){
+            name.setText(list1.get(position).getDoctorName());
+            zhiwu.setText(list1.get(position).getJobTitle());
+            yiyuan.setText(list1.get(position).getInauguralHospital());
+            haopinglv.setText("好评率 " + list1.get(position).getPraise());
+            fuwu.setText("服务患者数" + list1.get(position).getServerNum());
+            if (list1.get(position).getImagePic() != null && list1.get(position).getImagePic() != "") {
+                Glide.with(DoctorlistActivity.this).load(list1.get(position).getImagePic()).into(img);
+            } else {
+                Glide.with(DoctorlistActivity.this).load(com.wd.health.R.drawable.aaa).into(img);
+            }
+
+            money.setText(list1.get(position).getServicePrice() + "H币/次");
+        }else {
+            name.setText("");
+            zhiwu.setText("");
+            yiyuan.setText("");
+            haopinglv.setText("");
+            fuwu.setText("");
+            if (list1.get(position).getImagePic() != null && list1.get(position).getImagePic() != "") {
+                Glide.with(DoctorlistActivity.this).load(list1.get(position).getImagePic()).into(img);
+            } else {
+                Glide.with(DoctorlistActivity.this).load(com.wd.health.R.drawable.aaa).into(img);
+            }
+
+            money.setText("");
         }
 
-        money.setText(list1.get(position).getServicePrice() + "H币/次");
     }
 
     public class FindDoctorList implements DataCall {
@@ -339,7 +372,7 @@ public class DoctorlistActivity extends WDActivity {
 
         @Override
         public void fail(ApiException data, Object... args) {
-
+            Log.d("FindDoctorList2", data.getDisplayMessage());
         }
     }
 }

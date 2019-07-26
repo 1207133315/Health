@@ -4,6 +4,7 @@ package com.wd.health;
 import com.bw.health.bean.Result;
 import com.wd.health.bean.DepartmentBean;
 import com.wd.health.bean.Doctor;
+import com.wd.health.bean.DoctordetailBean;
 
 import java.util.List;
 
@@ -22,13 +23,29 @@ public interface InterrogationRequest {
     //查询科室
     @GET("share/knowledgeBase/v1/findDepartment")
     Observable<Result<List<DepartmentBean>>> findDepartment();
+
     //查询问诊医生列表
     @GET("user/inquiry/v1/findDoctorList")
-    Observable<Result<List<Doctor>>>findDoctorList(@Header("userId") int userId,
-                                                   @Header("sessionId") String sessionId,
-                                                   @Query("deptId") int deptId,
-                                                   @Query("condition") int condition,
-                                                   @Query("sortBy") int sortBy,
-                                                   @Query("page") int page,
-                                                   @Query("count") int count);
+    Observable<Result<List<Doctor>>> findDoctorList(@Header("userId") int userId,
+                                                    @Header("sessionId") String sessionId,
+                                                    @Query("deptId") int deptId,
+                                                    @Query("condition") int condition,
+                                                    @Query("sortBy") String sortBy,
+                                                    @Query("page") int page,
+                                                    @Query("count") int count);
+
+    //查询问诊医生列表2
+    @GET("user/inquiry/v1/findDoctorList")
+    Observable<Result<List<Doctor>>> findDoctorList2(@Header("userId") int userId,
+                                                     @Header("sessionId") String sessionId,
+                                                     @Query("deptId") int deptId,
+                                                     @Query("condition") int condition,
+                                                     @Query("page") int page,
+                                                     @Query("count") int count);
+
+    //查询医生明细信息
+    @GET("user/inquiry/v1/findDoctorInfo")
+    Observable<Result<DoctordetailBean>> findDoctorInfo(@Header("userId") int userId,
+                                                        @Header("sessionId") String sessionId,
+                                                        @Query("doctorId") int doctorId);
 }
