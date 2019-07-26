@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +27,6 @@ import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.wd.health.Irequest;
 import com.wd.health.R;
 import com.wd.health.R2;
 import com.wd.health.presenter.ModifyHeadPicPresenter;
@@ -44,18 +42,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.SafeObserver;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MineMessageActivity extends WDActivity {
 
@@ -89,6 +78,8 @@ public class MineMessageActivity extends WDActivity {
     TextView nianling;
     @BindView(R2.id.email)
     TextView email;
+    @BindView(R2.id.back)
+    ImageView back;
     private List<LoginBean> list;
     // 拍照的照片的存储位置
     private String mTempPhotoPath;
@@ -105,27 +96,35 @@ public class MineMessageActivity extends WDActivity {
     @Override
     protected void initView() {
         modifyHeadPicPresenter = new ModifyHeadPicPresenter(new updateheadpic());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         list = loginBeanDao.queryBuilder().list();
-        name.setText(list.get(0).getNickName());
-        head.setImageURI(list.get(0).getHeadPic());
-        int sex1 = list.get(0).getSex();
-        if (sex1 == 1) {
-            sex.setImageResource(R.mipmap.common_icon_boy_n);
+        if (list != null && list.size() > 0) {
+            name.setText(list.get(0).getNickName());
+            head.setImageURI(list.get(0).getHeadPic());
+            int sex1 = list.get(0).getSex();
+            if (sex1 == 1) {
+                sex.setImageResource(R.mipmap.common_icon_boy_n);
+            } else {
+                sex.setImageResource(R.mipmap.common_icon_girl_n);
+            }
+            int height = list.get(0).getHeight();
+            int weight = list.get(0).getWeight();
+            int age = list.get(0).getAge();
+
+            shengao.setText(height + "");
+            tizhong.setText(weight + "");
+            nianling.setText(age + "");
+            if (list.get(0).getEmail() != "" && list.get(0).getEmail() != null) {
+                email.setText(list.get(0).getEmail());
+            }
         } else {
-            sex.setImageResource(R.mipmap.common_icon_girl_n);
+            intentByRouter("/LoginActivity/");
         }
-        int height = list.get(0).getHeight();
-        int weight = list.get(0).getWeight();
-        int age = list.get(0).getAge();
-
-        shengao.setText(height + "");
-        tizhong.setText(weight + "");
-        nianling.setText(age + "");
-        if (list.get(0).getEmail() != "" && list.get(0).getEmail() != null) {
-            email.setText(list.get(0).getEmail());
-        }
-
     }
 
     @Override
@@ -133,7 +132,7 @@ public class MineMessageActivity extends WDActivity {
 
     }
 
-    @OnClick({R2.id.touxiang, R2.id.nc, R2.id.xingbie, R2.id.youxiang, R2.id.bdwx, R2.id.shimingrenzheng, R2.id.bdyhk})
+    @OnClick({R2.id.touxiang, R2.id.nc, R2.id.xingbie, R2.id.youxiang, R2.id.bdwx, R2.id.shimingrenzheng, R2.id.bdyhk,R2.id.back})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.touxiang) {
@@ -171,6 +170,8 @@ public class MineMessageActivity extends WDActivity {
         } else if (i == R.id.bdwx) {
         } else if (i == R.id.shimingrenzheng) {
         } else if (i == R.id.bdyhk) {
+        }else if (i==R.id.back){
+            finish();
         }
     }
 

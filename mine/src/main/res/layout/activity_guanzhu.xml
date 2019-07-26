@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f2f2f2"
+    tools:context=".activity.SetupActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_74"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_40"
+            android:src="@mipmap/common_icon_back_black_n" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_40"
+            android:text="我的关注"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_16" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <LinearLayout
+            android:id="@+id/zanwu"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@mipmap/no_message"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="@dimen/dp_126"
+                android:layout_marginTop="@dimen/dp_150"
+                android:layout_height="@dimen/dp_135" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:text="当前暂无问诊"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/sp_14"
+                android:textColor="#333333"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

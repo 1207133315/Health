@@ -21,9 +21,9 @@
         android:layout_marginTop="@dimen/dp_20"
         ></androidx.recyclerview.widget.RecyclerView>
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dp_25"
         android:layout_height="@dimen/dp_88"
-        android:src="@mipmap/drop_down"
+        android:background="@drawable/drop_down"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dp_15"
         android:id="@+id/show"

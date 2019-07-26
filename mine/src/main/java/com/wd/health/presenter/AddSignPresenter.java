@@ -2,11 +2,11 @@ package com.wd.health.presenter;
 
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDPresenter;
-import com.wd.health.Irequest;
+import com.wd.health.Minerequest;
 
 import io.reactivex.Observable;
 
-public class AddSignPresenter extends WDPresenter<Irequest> {
+public class AddSignPresenter extends WDPresenter<Minerequest> {
 
     public AddSignPresenter(DataCall dataCall) {
         super(dataCall);

@@ -8,28 +8,26 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
+
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import com.bw.health.HomeFrag;
 import com.bw.health.bean.CircleListBean;
-import com.bw.health.bean.LoginBean;
 import com.bw.health.core.WDActivity;
-import com.bw.health.dao.LoginBeanDao;
-import com.bw.health.util.GetDaoUtil;
-import com.kd.easybarrage.BarrageView;
+
 import com.wd.health.ShiPinFragment;
 import com.wd.health.adapter.CircleListAdapter;
-import com.wd.health.bean.VideoBean;
+
 import com.wd.health.frag.CircleFrag;
 import com.wd.health.frag.FindSickCircleInfoFrag;
 
@@ -37,13 +35,15 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.List;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import butterknife.OnClick;
 
 @Route(path = "/HomeActivity/")
@@ -198,4 +198,30 @@ public class HomeActivity extends WDActivity {
             }
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeMessages(1);
+    }
+
+    private static boolean mBackKeyPressed = false;//记录是否有首次按键
+
+    @Override
+    public void onBackPressed() {
+        if (!mBackKeyPressed) {
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            mBackKeyPressed = true;
+            new Timer().schedule(new TimerTask() {//延时两秒，如果超出则擦错第一次按键记录
+                @Override
+                public void run() {
+                    mBackKeyPressed = false;
+                }
+            }, 2000);
+        } else {//退出程序
+            this.finish();
+            System.exit(0);
+        }
+    }
+
 }

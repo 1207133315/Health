@@ -106,6 +106,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         holder.shoucang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 VideoBean tag = (VideoBean) view.getTag();
                 final CheckBox checkBox = (CheckBox) view;
                 if (tag.whetherCollection == 2) {

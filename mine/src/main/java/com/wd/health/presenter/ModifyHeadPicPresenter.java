@@ -2,16 +2,12 @@ package com.wd.health.presenter;
 
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDPresenter;
-import com.wd.health.Irequest;
-
-import java.io.File;
+import com.wd.health.Minerequest;
 
 import io.reactivex.Observable;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
-public class ModifyHeadPicPresenter extends WDPresenter<Irequest> {
+public class ModifyHeadPicPresenter extends WDPresenter<Minerequest> {
     public ModifyHeadPicPresenter(DataCall dataCall) {
         super(dataCall);
     }
