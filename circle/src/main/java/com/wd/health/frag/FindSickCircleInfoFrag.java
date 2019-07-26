@@ -33,8 +33,10 @@ import com.wd.health.R;
 import com.wd.health.adapter.CircleCommentListAdapter;
 import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.CircleInfoBean;
+import com.wd.health.presenter.CircleCancelShouCangPresenter;
 import com.wd.health.presenter.CircleCommentListPresenter;
 import com.wd.health.presenter.CircleInfoPresenter;
+import com.wd.health.presenter.CircleShouCangPresenter;
 import com.wd.health.presenter.PublishCommentPresenter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,8 +73,14 @@ public class FindSickCircleInfoFrag extends WDFragment {
     private String sessionId;
     private CircleCommentListPresenter circleCommentListPresenter;
     private Long id_user;
-    public int page=1;
+    public int page = 1;
     private XRecyclerView circle_pop_rc1;
+    private int collectionFlag;//是否收藏
+    private CheckBox shoucang;
+    private TextView shouna_num;
+    private TextView shoucang_num;
+    private RelativeLayout circle_pop_wupinglun_layout;
+    private RelativeLayout circle_pop_youpinglun_layout;
 
 
     //----病友圈详情--------------------------
@@ -118,14 +126,14 @@ public class FindSickCircleInfoFrag extends WDFragment {
         // Glide.with(getActivity()).load(picture).into(image_bingli);
 
         //收藏
-        CheckBox shoucang = getView().findViewById(R.id.circleinfo_farg_shoucang);
+        shoucang = getView().findViewById(R.id.circleinfo_farg_shoucang);
         //收藏数
-        TextView shoucang_num = getView().findViewById(R.id.circleinfo_farg_shoucang_num);
+        shoucang_num = getView().findViewById(R.id.circleinfo_farg_shoucang_num);
         // shoucang_num.setText(collectionNum + "");
         //评论
         pinglun = getView().findViewById(R.id.circleinfo_farg_shouna);
         //评论数
-        TextView shouna_num = getView().findViewById(R.id.circleinfo_farg_shouna_num);
+        shouna_num = getView().findViewById(R.id.circleinfo_farg_shouna_num);
         // shouna_num.setText(commentNum + "");
 
         //采纳人头像
@@ -161,6 +169,22 @@ public class FindSickCircleInfoFrag extends WDFragment {
                 pop.setOutsideTouchable(true);
                 pop.showAtLocation(view, Gravity.CENTER, 0, 0);
 
+                //无评论页面
+                circle_pop_wupinglun_layout = view.findViewById(R.id.circle_pop_wupinglun);
+                //有评论页面
+                circle_pop_youpinglun_layout = view.findViewById(R.id.circle_pop_youpinglun);
+
+                //点击无评论输入框 显示有评论页面
+                EditText circle_pop_edText_wu = view.findViewById(R.id.circle_pop_edText_wu);
+
+                circle_pop_edText_wu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        circle_pop_wupinglun_layout.setVisibility(View.GONE);
+                        circle_pop_youpinglun_layout.setVisibility(View.VISIBLE);
+                    }
+                });
+
                 //关闭弹窗  无评论
                 ImageView circle_pop_close = view.findViewById(R.id.circle_pop_close);
                 circle_pop_close.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +206,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
                 circle_pop_rc1 = view.findViewById(R.id.circle_pop_rc1);
                 //关联 评论列表的p层
                 circleCommentListPresenter = new CircleCommentListPresenter(new CircleCommentListCall());
-                circleCommentListPresenter.reqeust(sickCircleId_jj + "",page+"","10");
+                circleCommentListPresenter.reqeust(sickCircleId_jj + "", page + "", "10");
 
                 //布局管理器
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -207,15 +231,15 @@ public class FindSickCircleInfoFrag extends WDFragment {
                 circle_pop_rc1.setLoadingListener(new XRecyclerView.LoadingListener() {
                     @Override
                     public void onRefresh() {
-                        page=1;
-                        circleCommentListPresenter.reqeust(sickCircleId_jj + "",page+"","10");
+                        page = 1;
+                        circleCommentListPresenter.reqeust(sickCircleId_jj + "", page + "", "10");
 
                     }
 
                     @Override
                     public void onLoadMore() {
                         page++;
-                        circleCommentListPresenter.reqeust(sickCircleId_jj + "",""+page++,"10");
+                        circleCommentListPresenter.reqeust(sickCircleId_jj + "", "" + page++, "10");
 
                     }
                 });
@@ -231,6 +255,10 @@ public class FindSickCircleInfoFrag extends WDFragment {
                         ed_pinglun.setText("");
                     }
                 });
+
+
+
+
 
             }
         });
@@ -253,7 +281,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
         //----------------发表评论---------尾巴------------------
 
 
-        //----病友圈详情---------尾巴-----------------
+        //----病友圈详情---------尾巴-----------------------------------------------
 
 
         //---------新手浮层引导-----------头部----------------------------------------
@@ -282,10 +310,11 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
     }
 
-
+    //-----------------------订阅--------------------
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void getCircleListBean(CircleListBean circleListBean) {
         this.circleListBean = circleListBean;
+        //获取病友圈id
         sickCircleId_jj = circleListBean.getSickCircleId();
 
     }
@@ -335,8 +364,10 @@ public class FindSickCircleInfoFrag extends WDFragment {
             String picture = result_info.getPicture();
             //收藏数
             int collectionNum = result_info.getCollectionNum();
+            shoucang_num.setText(collectionNum + "");
             //评论数
             int commentNum = result_info.getCommentNum();
+            shouna_num.setText(commentNum + "");
             //采纳用户昵称
             String adoptNickName = result_info.getAdoptNickName();
             //采纳用户头像
@@ -348,6 +379,50 @@ public class FindSickCircleInfoFrag extends WDFragment {
             SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy.MM.DD");
             String cainaTime = simpleDateFormat2.format(new Date(adoptTime));
             caina_time.setText(cainaTime + "");
+            //是否收藏病友圈
+            collectionFlag = result_info.getCollectionFlag();
+            //病友圈id
+            int sickCircleId = result_info.getSickCircleId();
+
+            //--------------收藏----取消收藏------------------------------
+          /*  if (collectionFlag==1){
+                shoucang.setBackgroundResource(R.drawable.common_button_collection_small_n);
+            }else {
+                shoucang.setBackgroundResource(R.drawable.common_button_collection_small_s);
+
+            }*/
+
+
+            if (collectionFlag == 1) {
+                shoucang.setChecked(true);
+                shoucang.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        result_info.setCollectionFlag(2);
+                        CircleCancelShouCangPresenter circleCancelShouCangPresenter = new CircleCancelShouCangPresenter(new CircleCancelShowCangCall());
+                        circleCancelShouCangPresenter.reqeust(String.valueOf(id_user), sessionId, sickCircleId + "");
+
+                    }
+                });
+
+            } else {
+                shoucang.setChecked(false);
+                shoucang.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        result_info.setCollectionFlag(1);
+                        CircleShouCangPresenter circleShouCangPresenter = new CircleShouCangPresenter(new CircleShowCangCall());
+                        circleShouCangPresenter.reqeust(String.valueOf(id_user), sessionId, sickCircleId + "");
+                        //Toast.makeText(getActivity(), "已收藏，不可重复收藏", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+
+            //--------------收藏----取消收藏---------尾巴---------------------
+
 
         }
 
@@ -367,9 +442,19 @@ public class FindSickCircleInfoFrag extends WDFragment {
         @Override
         public void success(Result<List<CircleCommentListBean>> data, Object... args) {
             comment_result = data.getResult();
+
+            if (comment_result.size()==0){
+                circle_pop_wupinglun_layout.setVisibility(View.VISIBLE);
+                circle_pop_youpinglun_layout.setVisibility(View.GONE);
+            }else {
+                circle_pop_wupinglun_layout.setVisibility(View.GONE);
+                circle_pop_youpinglun_layout.setVisibility(View.VISIBLE);
+            }
+
+
             circle_pop_rc1.loadMoreComplete();
             circle_pop_rc1.refreshComplete();
-            if (page==1){
+            if (page == 1) {
                 circleCommentListAdapter.clear();
             }
 
@@ -393,7 +478,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
         @Override
         public void success(Result data, Object... args) {
             Toast.makeText(getActivity(), "发表评论成功！", Toast.LENGTH_SHORT).show();
-            circleCommentListPresenter.reqeust(sickCircleId_jj + "");
+           // circleCommentListPresenter.reqeust(sickCircleId_jj + "");
 
         }
 
@@ -408,6 +493,42 @@ public class FindSickCircleInfoFrag extends WDFragment {
     }
 
     //----------------发表评论-----成功----失败----尾巴------------------
+
+    //----------收藏-----成功----失败-------------------------
+
+    class CircleShowCangCall implements DataCall<Result> {
+
+        @Override
+        public void success(Result data, Object... args) {
+
+            String message = data.getMessage();
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "病友圈收藏成功！", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
+
+    //----------收藏-----成功----失败----尾巴---------------------
+
+    //----------取消收藏-----成功----失败-------------------------
+
+    class CircleCancelShowCangCall implements DataCall<Result> {
+
+        @Override
+        public void success(Result data, Object... args) {
+            Toast.makeText(getActivity(), "取消收藏！", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
+    //----------取消收藏-----成功----失败----尾巴---------------------
 
 
     @Override

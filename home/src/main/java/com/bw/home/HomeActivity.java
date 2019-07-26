@@ -45,6 +45,7 @@ import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 @Route(path = "/HomeActivity/")
 public class HomeActivity extends WDActivity {
 
@@ -68,22 +69,25 @@ public class HomeActivity extends WDActivity {
     private FindSickCircleInfoFrag findSickCircleInfoFrag;
     private ShiPinFragment shiPinFragment;
 
+    public boolean flag = false;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_home;
     }
+
     Fragment currentFragment;
+
     @Override
     protected void initView() {
         homeFrag = new HomeFrag();
         //病友圈
-
-        currentFragment=homeFrag;
+        currentFragment = homeFrag;
         circleFrag = new CircleFrag();
         shiPinFragment = new ShiPinFragment();
         findSickCircleInfoFrag = new FindSickCircleInfoFrag();
         transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.frame,homeFrag).show(homeFrag).commit();
+        transaction.add(R.id.frame, homeFrag).show(homeFrag).commit();
         home.setChecked(true);
         CircleListAdapter.setCall(new CircleListAdapter.Call() {
             @Override
@@ -105,8 +109,9 @@ public class HomeActivity extends WDActivity {
                 }
             }
         });*/
-    }
 
+
+    }
 
 
     @Override
@@ -114,67 +119,71 @@ public class HomeActivity extends WDActivity {
 
     }
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what==1){
+            if (msg.what == 1) {
                 circle.setChecked(false);
                 circle.setVisibility(View.GONE);
                 rg.setVisibility(View.GONE);
                 top.setVisibility(View.GONE);
-                needVisible=false;
+                needVisible = false;
             }
         }
     };
+
 
     @SuppressLint("InvalidR2Usage")
     @OnClick({R2.id.home, R2.id.video, R2.id.circle})
     public void onClick(View v) {
         handler.removeMessages(1);//不管点哪个按钮都可以移除,哪怕页面根本就没再过视频页
-      if (v.getId()==R.id.home){
-         handler.removeMessages(1);
-          circle.setChecked(false);
-          showFragment(homeFrag);
-          top.setVisibility(View.GONE);
-          needVisible=false;
-      }else if (v.getId()==R.id.video){
-          if (needVisible){
-              handler.sendEmptyMessageDelayed(1,5000);
-          }else {
-              showFragment(shiPinFragment);
-              circle.setChecked(false);
-              circle.setVisibility(View.GONE);
-              rg.setVisibility(View.GONE);
-              top.setVisibility(View.GONE);
-          }
-      }else if (v.getId()==R.id.circle){
-          handler.removeMessages(1);
-          showFragment(circleFrag);
-          home.setChecked(false);
-          video.setChecked(false);
-          top.setVisibility(View.GONE);
-          needVisible=false;
-      }
+        if (v.getId() == R.id.home) {
+            handler.removeMessages(1);
+            circle.setChecked(false);
+            showFragment(homeFrag);
+            top.setVisibility(View.GONE);
+            needVisible = false;
+        } else if (v.getId() == R.id.video) {
+            if (needVisible) {
+                handler.sendEmptyMessageDelayed(1, 5000);
+            } else {
+                showFragment(shiPinFragment);
+                circle.setChecked(false);
+                circle.setVisibility(View.GONE);
+                rg.setVisibility(View.GONE);
+                top.setVisibility(View.GONE);
+            }
+        } else if (v.getId() == R.id.circle) {
+            if (flag) {
+                intentByRouter("/CircleWritActivity/");
+                flag=false;
+            } else {
+                handler.removeMessages(1);
+                showFragment(circleFrag);
+                home.setChecked(false);
+                video.setChecked(false);
+                top.setVisibility(View.GONE);
+                needVisible = false;
+                flag=true;
+            }
+        }
 
     }
 
     boolean needVisible;//是否触发了五秒隐藏,handleMessage方法里面一定要改成false
 
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void fullScreenVisible(Boolean visible){
-        if (visible){
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void fullScreenVisible(Boolean visible) {
+        if (visible) {
             rg.setVisibility(View.VISIBLE);
             circle.setVisibility(View.VISIBLE);
             //把标题也写在这里
             top.setVisibility(View.VISIBLE);
             needVisible = true;
-            handler.sendEmptyMessageDelayed(1,5000);
+            handler.sendEmptyMessageDelayed(1, 5000);
         }
         EventBus.getDefault().removeAllStickyEvents();
     }
-
-
-
 
 
     private void showFragment(Fragment fragment) {
