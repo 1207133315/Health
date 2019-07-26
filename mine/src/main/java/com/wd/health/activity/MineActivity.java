@@ -131,6 +131,8 @@ public class MineActivity extends WDActivity {
         } else if (i == R.id.dangan) {
         } else if (i == R.id.qianbao) {
         } else if (i == R.id.shoucang) {
+            Intent intent=new Intent(MineActivity.this,MyCollectActivity.class);
+            startActivity(intent);
         } else if (i == R.id.dangqian) {
         } else if (i == R.id.lishi) {
 

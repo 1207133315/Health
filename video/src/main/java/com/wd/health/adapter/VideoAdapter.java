@@ -131,7 +131,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             holder.num.setText(videoBean.buyNum + "人");
         }
         if (holder.video.isPlay()) {
-
             holder.stop.setVisibility(View.GONE);
         }
         holder.video.setSetclick(new MyVideoPlayer.setclick() {
