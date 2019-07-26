@@ -1,6 +1,7 @@
 package com.bw.health.adapter.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.bw.health.R;
 import com.bw.health.R2;
+import com.bw.health.activity.YPDetailActivity;
 import com.bw.health.bean.SearchBean;
 
 import java.util.ArrayList;
@@ -50,6 +52,15 @@ public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (list.size()>0){
             holder.name.setText(list.get(position).drugsName);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Intent intent = new Intent(context, YPDetailActivity.class);
+                    intent.putExtra("id",list.get(position).drugsId);
+                    intent.putExtra("name",list.get(position).drugsName);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 

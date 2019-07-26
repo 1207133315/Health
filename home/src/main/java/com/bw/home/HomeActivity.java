@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -35,6 +36,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -42,6 +45,7 @@ import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 
 import butterknife.OnClick;
+
 @Route(path = "/HomeActivity/")
 public class HomeActivity extends WDActivity {
 
@@ -69,7 +73,9 @@ public class HomeActivity extends WDActivity {
     protected int getLayoutId() {
         return R.layout.activity_home;
     }
+
     Fragment currentFragment;
+
     @Override
     protected void initView() {
         homeFrag = new HomeFrag();
@@ -192,4 +198,24 @@ public class HomeActivity extends WDActivity {
         super.onDestroy();
         handler.removeMessages(1);
     }
+
+    private static boolean mBackKeyPressed = false;//记录是否有首次按键
+
+    @Override
+    public void onBackPressed() {
+        if (!mBackKeyPressed) {
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            mBackKeyPressed = true;
+            new Timer().schedule(new TimerTask() {//延时两秒，如果超出则擦错第一次按键记录
+                @Override
+                public void run() {
+                    mBackKeyPressed = false;
+                }
+            }, 2000);
+        } else {//退出程序
+            this.finish();
+            System.exit(0);
+        }
+    }
+
 }
