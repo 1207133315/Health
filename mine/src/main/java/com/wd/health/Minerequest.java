@@ -4,6 +4,7 @@ import com.bw.health.bean.MationBean;
 import com.bw.health.bean.Result;
 import com.wd.health.bean.CollectCircleBean;
 import com.wd.health.bean.CollectVideoBean;
+import com.wd.health.bean.RecordListBean;
 
 import java.util.List;
 
@@ -81,4 +82,15 @@ public interface Minerequest {
     Observable<Result> unCircle(@Header("userId") long userId,
                                @Header("sessionId") String sessionId,
                                @Query("sickCircleId") long sickCircleId);
+    //查询消费记录
+    @GET("user/verify/v1/findUserConsumptionRecordList")
+    Observable<Result<List<RecordListBean>>> findRecordList(@Header("userId") long userId,
+                                                            @Header("sessionId") String sessionId,
+                                                            @Query("page")int page,
+                                                            @Query("count")int count);
+
+    //查询我的H币余额
+    @GET("user/verify/v1/findUserWallet")
+    Observable<Result<Integer>> myHB(@Header("userId")long userId,
+                                     @Header("sessionId")String sessionId);
 }

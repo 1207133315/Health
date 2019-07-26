@@ -16,9 +16,9 @@ import com.bw.health.exception.ApiException;
 import com.bw.health.util.DateUtils;
 import com.bw.health.util.GetDaoUtil;
 import com.wd.health.R;
+import com.wd.health.R2;
 import com.wd.health.bean.CollectCircleBean;
 import com.wd.health.presenter.UnCirclePresenter;
-import com.wd.health.presenter.UnZiXunPresenter;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 
 /**
  * com.wd.health.adapter
@@ -48,7 +49,7 @@ public class CollectCircleAdapter extends RecyclerView.Adapter<CollectCircleAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.circlesearch_item_layout,parent,false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.circlesearch_item_layout1,parent,false));
     }
 
     @Override
@@ -63,13 +64,12 @@ public class CollectCircleAdapter extends RecyclerView.Adapter<CollectCircleAdap
         holder.circle_list_detail.setText(collectCircleBean.disease);
         holder.circle_list_jianyi_num.setText(collectCircleBean.commentNum+"");
         holder.circle_list_shoucang_num.setText(collectCircleBean.collectionNum+"");
-       holder. itemView.setOnTouchListener(new View.OnTouchListener() {
+       holder.itemView.setOnTouchListener(new View.OnTouchListener() {
             private float moveX;
             private float x;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
-
                     case MotionEvent.ACTION_DOWN:
                         x = event.getX();
                         break;
@@ -77,12 +77,12 @@ public class CollectCircleAdapter extends RecyclerView.Adapter<CollectCircleAdap
                         moveX = event.getX();
                         if (x>moveX){
                             if (x-moveX>=60){
-                               holder. delete.setVisibility(View.VISIBLE);
+                               holder. shanchu.setVisibility(View.VISIBLE);
                             }else {
-                                holder.delete.setVisibility(View.GONE);
+                                holder.shanchu.setVisibility(View.GONE);
                             }
                         }else {
-                            holder.delete.setVisibility(View.GONE);
+                            holder.shanchu.setVisibility(View.GONE);
                         }
                         break;
                     case MotionEvent.ACTION_UP:
@@ -92,7 +92,7 @@ public class CollectCircleAdapter extends RecyclerView.Adapter<CollectCircleAdap
                 return true;
             }
         });
-        holder.delete.setOnClickListener(new View.OnClickListener() {
+        holder.shanchu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -123,7 +123,7 @@ public class CollectCircleAdapter extends RecyclerView.Adapter<CollectCircleAdap
         TextView circle_list_detail;
         TextView circle_list_shoucang_num;
         TextView circle_list_jianyi_num;
-        ImageView delete;
+        ImageView shanchu;
        UnCirclePresenter unCirclePresenter;
 
         public ViewHolder(@NonNull View itemView) {
@@ -133,7 +133,7 @@ public class CollectCircleAdapter extends RecyclerView.Adapter<CollectCircleAdap
             circle_list_detail=itemView.findViewById(R.id.circle_list_detail);
             circle_list_shoucang_num=itemView.findViewById(R.id.circle_list_shoucang_num);
             circle_list_jianyi_num=itemView.findViewById(R.id.circle_list_jianyi_num);
-            delete=itemView.findViewById(R.id.delete);
+            shanchu=itemView.findViewById(R.id.shanchu1);
             unCirclePresenter = new UnCirclePresenter(new UnCircle());
         }
     }
