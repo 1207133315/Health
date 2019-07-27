@@ -9,8 +9,10 @@ import com.wd.health.bean.DoctordetailBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -48,4 +50,16 @@ public interface InterrogationRequest {
     Observable<Result<DoctordetailBean>> findDoctorInfo(@Header("userId") int userId,
                                                         @Header("sessionId") String sessionId,
                                                         @Query("doctorId") int doctorId);
+
+    //关注医生
+    @POST("user/inquiry/verify/v1/followDoctor")
+    Observable<Result> followDoctor(@Header("userId") int userId,
+                                                        @Header("sessionId") String sessionId,
+                                                        @Query("doctorId") int doctorId);
+    //取消关注医生
+    @DELETE("user/inquiry/verify/v1/cancelFollow")
+    Observable<Result> cancelFollow(@Header("userId") int userId,
+                                    @Header("sessionId") String sessionId,
+                                    @Query("doctorId") int doctorId);
+
 }
