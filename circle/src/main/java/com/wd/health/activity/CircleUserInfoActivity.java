@@ -87,6 +87,9 @@ public class CircleUserInfoActivity extends AppCompatActivity {
         //--------------用户信息页---病友发布的病友圈-----尾巴---------------
     }
 
+
+
+
     //--------------用户信息页---病友发布的病友圈--成功失败的方法------------------
 
     class CircleUserInfoCall implements DataCall<Result<List<CircleUserInfoBean>>> {
