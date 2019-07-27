@@ -8,6 +8,7 @@ package com.bw.health.bean;
  */
 public class MationBean {
     public long id;
+    public long infoId;
     public String title;
     public String thumbnail;
     public String source;

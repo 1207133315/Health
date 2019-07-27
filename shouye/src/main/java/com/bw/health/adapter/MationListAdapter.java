@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 
 import com.bw.health.R;
 import com.bw.health.activity.MationDetailActivity;
-import com.bw.health.adapter.holder.BaseHolder;
+
 import com.bw.health.adapter.holder.HolderOne;
 import com.bw.health.adapter.holder.HolderThree;
 import com.bw.health.adapter.holder.HolderTwo;
 import com.bw.health.bean.MationBean;
+import com.bw.health.adapter.holder.BaseHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +38,14 @@ public class MationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final int itemViewType = getItemViewType(viewType);
-        if (itemViewType == 1) {
+
+        if (viewType == 1) {
             return new HolderOne(LayoutInflater.from(context).inflate(R.layout.home_itme_one, parent, false));
         }
-        if (itemViewType == 2) {
+        if (viewType == 2) {
             return new HolderTwo(LayoutInflater.from(context).inflate(R.layout.home_itme_two, parent, false));
         }
-        if (itemViewType == 3) {
+        if (viewType == 3) {
             return new HolderThree(LayoutInflater.from(context).inflate(R.layout.home_itme_three, parent, false));
         }
         return null;
@@ -52,17 +53,8 @@ public class MationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-         int itemViewType = getItemViewType(position);
-        if (itemViewType == 1) {
-             HolderOne holderOne = (HolderOne) holder;
-            holderOne.onBindView(context,list.get(position));
-        }  if (itemViewType == 2) {
-             HolderTwo holderTwo = (HolderTwo) holder;
-            holderTwo.onBindView(context,list.get(position));
-        }  if (itemViewType == 3) {
-            HolderThree holderThree = (HolderThree) holder;
-            holderThree.onBindView(context,list.get(position));
-        }
+         BaseHolder holder1 = (BaseHolder) holder;
+        holder1.onBindView(context,list.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

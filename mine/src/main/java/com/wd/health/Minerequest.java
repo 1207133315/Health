@@ -1,9 +1,17 @@
 package com.wd.health;
 
+import com.bw.health.bean.MationBean;
 import com.bw.health.bean.Result;
+import com.wd.health.bean.CollectCircleBean;
+import com.wd.health.bean.CollectVideoBean;
+import com.wd.health.bean.RecordListBean;
+
+import java.util.List;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -35,4 +43,54 @@ public interface Minerequest {
                                                @Header("sessionId") String sessionId,
                                                @Query("page")int page,
                                                @Query("count")int count);
+
+    //查询用户收藏资讯列表
+
+    @GET("user/verify/v1/findUserInfoCollectionList")
+    Observable<Result<List<MationBean>>> findZiXun(@Header("userId") long userId,
+                                                   @Header("sessionId") String sessionId,
+                                                   @Query("page") int page,
+                                                   @Query("count")int count
+                                                   );
+
+    //查询用户收藏病友圈列表
+    @GET("user/verify/v1/findUserSickCollectionList")
+    Observable<Result<List<CollectCircleBean>>> findCircle(@Header("userId") long userId,
+                                                           @Header("sessionId") String sessionId,
+                                                           @Query("page") int page,
+                                                       @Query("count")int count);
+    //查询用户收藏健康讲堂列表
+    @GET("user/verify/v1/findVideoCollectionList")
+    Observable<Result<List<CollectVideoBean>>> findVideo(@Header("userId") long userId,
+                                                         @Header("sessionId") String sessionId,
+                                                         @Query("page") int page,
+                                                         @Query("count")int count);
+    //取消资讯收藏
+    @HTTP(method = "DELETE", path = "user/verify/v1/cancelInfoCollection", hasBody = true)
+    Observable<Result> unShouchang(@Header("userId") long userId,
+                                   @Header("sessionId") String sessionId,
+                                   @Query("infoId") long infoId);
+
+
+    //取消收藏视频
+    @HTTP(method = "DELETE", path = " user/verify/v1/cancelVideoCollection", hasBody = true)
+    Observable<Result> unVideo(@Header("userId") long userId,
+                                   @Header("sessionId") String sessionId,
+                                   @Query("videoId") long videoId);
+    //取消收藏病友圈
+    @HTTP(method = "DELETE", path = " user/verify/v1/cancelSickCollection", hasBody = true)
+    Observable<Result> unCircle(@Header("userId") long userId,
+                               @Header("sessionId") String sessionId,
+                               @Query("sickCircleId") long sickCircleId);
+    //查询消费记录
+    @GET("user/verify/v1/findUserConsumptionRecordList")
+    Observable<Result<List<RecordListBean>>> findRecordList(@Header("userId") long userId,
+                                                            @Header("sessionId") String sessionId,
+                                                            @Query("page")int page,
+                                                            @Query("count")int count);
+
+    //查询我的H币余额
+    @GET("user/verify/v1/findUserWallet")
+    Observable<Result<Integer>> myHB(@Header("userId")long userId,
+                                     @Header("sessionId")String sessionId);
 }

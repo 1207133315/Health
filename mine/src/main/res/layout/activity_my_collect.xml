@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".activity.MyCollectActivity">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:background="#fff"
+    android:layout_height="@dimen/dp_80">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的收藏"
+        android:textSize="@dimen/sp_16"
+        android:textColor="#333333"
+      android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_20"
+        />
+    <ImageView
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_18"
+        android:src="@mipmap/common_icon_back_black_n"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:id="@+id/back"
+        android:layout_marginLeft="@dimen/dp_20"
+        />
+
+</RelativeLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_36"
+        android:layout_marginTop="@dimen/dp_6"
+        android:background="#fff"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/bottom"
+            android:button="@null"
+            android:id="@+id/zixun"
+            android:text="健康资讯"
+            android:gravity="center"
+            android:textColor="@drawable/textcolor_bg"
+            android:textSize="@dimen/sp_16" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/bottom"
+            android:layout_marginHorizontal="@dimen/dp_65"
+            android:button="@null"
+            android:text="健康视频"
+            android:id="@+id/shipin"
+            android:gravity="center"
+            android:textColor="@drawable/textcolor_bg"
+            android:textSize="@dimen/sp_16" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/bottom"
+            android:id="@+id/bingyouquan"
+            android:button="@null"
+            android:text="病友圈"
+            android:gravity="center"
+            android:textColor="@drawable/textcolor_bg"
+            android:textSize="@dimen/sp_16" />
+
+
+    </RadioGroup>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_2"
+        android:id="@+id/frame"
+        ></FrameLayout>
+</LinearLayout>

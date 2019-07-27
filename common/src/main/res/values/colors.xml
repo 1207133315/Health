@@ -5,7 +5,9 @@
     <color name="textColor">#333333</color>
     <color name="whiteTouming">#03FFFFFF</color>
     <color name="blue_light">#00f</color>
-    <color name="blue">#3086ea</color>
+
     <color name="bleak">#333333</color>
     <color name="hui">#f2f2f2</color>
+    <color name="blue">#3086ea</color>
+    <color name="red">#d92109</color>
 </resources>
