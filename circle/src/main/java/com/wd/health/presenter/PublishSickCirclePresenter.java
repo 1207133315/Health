@@ -5,20 +5,21 @@ import com.bw.health.core.WDPresenter;
 import com.wd.health.model.CircleIRquest;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 
 /**
  * @Auther: 郭亚杰
  * @Date:2019/7/26
- * @Description: 发表病友圈评论
+ * @Description: 发布病友圈
  */
-public class PublishCommentPresenter extends WDPresenter<CircleIRquest> {
-
-    public PublishCommentPresenter(DataCall dataCall) {
+public class PublishSickCirclePresenter extends WDPresenter<CircleIRquest> {
+    public PublishSickCirclePresenter(DataCall dataCall) {
         super(dataCall);
     }
 
     @Override
     protected Observable getModel(Object... args) {
-        return iRequest.publishComment((String) args[0], (String) args[1], (String) args[2], (String) args[3]);
+        return iRequest.publishSickCircle(
+                (String)args[0],(String)args[1],(RequestBody) args[2]);
     }
 }

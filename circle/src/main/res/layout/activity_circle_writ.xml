@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:paddingTop="@dimen/dp_20"
-    android:paddingBottom="@dimen/dp_20"
+    android:paddingBottom="@dimen/dp_30"
     tools:context=".activity.CircleWritActivity">
 
     <LinearLayout
@@ -82,7 +81,7 @@
                             android:textSize="18sp" />
 
                         <EditText
-                            android:id="@+id/circle_writ_title"
+                            android:id="@+id/circle_writ_title_edText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_3"
@@ -216,7 +215,7 @@
                             android:textSize="18sp" />
 
                         <EditText
-                            android:id="@+id/circle_writ_bingzhenginfo"
+                            android:id="@+id/circle_writ_bingzhenginfo_edText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_3"
@@ -286,7 +285,7 @@
                             android:paddingRight="@dimen/dp_10">
 
                             <EditText
-                                android:id="@+id/circle_writ_yiyuan"
+                                android:id="@+id/circle_writ_yiyuan_edText"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_3"
@@ -316,7 +315,7 @@
                             android:paddingRight="@dimen/dp_10">
 
                             <EditText
-                                android:id="@+id/circle_writ_start_time"
+                                android:id="@+id/circle_writ_start_time_edText"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_3"
@@ -333,6 +332,13 @@
                                 android:layout_width="@dimen/dp_12"
                                 android:layout_height="@dimen/dp_12"
                                 android:src="@mipmap/circle_icon_drop_down_n" />
+                            <ImageView
+                                android:id="@+id/circle_writ_start_time_image2"
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_16"
+                                android:visibility="gone"
+                                android:src="@mipmap/circle_writ_drop_top" />
+
                         </LinearLayout>
 
                         <View
@@ -351,7 +357,7 @@
                             android:paddingRight="@dimen/dp_10">
 
                             <EditText
-                                android:id="@+id/circle_writ_end_time"
+                                android:id="@+id/circle_writ_end_time_edText"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_3"
@@ -368,6 +374,13 @@
                                 android:layout_width="@dimen/dp_12"
                                 android:layout_height="@dimen/dp_12"
                                 android:src="@mipmap/circle_icon_drop_down_n" />
+
+                            <ImageView
+                                android:id="@+id/circle_writ_end_time_image2"
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_16"
+                                android:visibility="gone"
+                                android:src="@mipmap/circle_writ_drop_top" />
                         </LinearLayout>
 
                         <View
@@ -388,7 +401,7 @@
 
 
                             <EditText
-                                android:id="@+id/circle_writ_zhiliaoguocheng"
+                                android:id="@+id/circle_writ_zhiliaoguocheng_edText"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_3"
@@ -585,6 +598,7 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/circle_writ_send"
                         android:layout_width="@dimen/dp_300"
                         android:layout_height="@dimen/dp_36"
                         android:background="@drawable/shape_circle_writ_button"
