@@ -33,7 +33,7 @@
     </RelativeLayout>
     <LinearLayout
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/dp_6"
+        android:layout_marginTop="@dimen/dp_80"
         android:layout_width="match_parent"
         android:background="#fff"
         android:layout_height="match_parent">
@@ -46,7 +46,8 @@
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="@dimen/dp_128"
-                android:src="@color/colorAccent"
+                android:src="@drawable/aaa"
+                android:background="@drawable/linner2"
                 android:layout_height="match_parent" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,9 +74,10 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         android:textColor="#333333"
                         android:text="曾小小"/>
-                    <ImageView
+                    <CheckBox
                         android:id="@+id/xin"
-                        android:src="@mipmap/common_icon_attention_large_n"
+                        android:button="@null"
+                        android:background="@mipmap/common_icon_attention_large_n"
                         android:layout_alignParentRight="true"
                         android:layout_width="@dimen/dp_24"
                         android:layout_height="@dimen/dp_24" />
@@ -161,7 +163,7 @@
                         android:textColor="#333333"
                         android:layout_marginLeft="@dimen/dp_2"
                         android:gravity="center_horizontal"
-                        android:text="10"/>
+                        android:text="0"/>
                     <TextView
                         android:id="@+id/shu"
                         android:layout_width="@dimen/dp_44"
@@ -170,7 +172,7 @@
                         android:layout_marginLeft="@dimen/dp_20"
                         android:textColor="#333333"
                         android:gravity="center_horizontal"
-                        android:text="10"/>
+                        android:text="0"/>
                     <TextView
                         android:id="@+id/cup"
                         android:layout_width="@dimen/dp_44"
@@ -179,7 +181,7 @@
                         android:textColor="#333333"
                         android:layout_marginLeft="@dimen/dp_20"
                         android:gravity="center_horizontal"
-                        android:text="10"/>
+                        android:text="0"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -269,7 +271,7 @@
                 android:id="@+id/pingjia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="{asdadad}"
+                android:text=" (0条评论)"
                 android:textSize="@dimen/sp_10"
                 android:textColor="#333333"/>
 
@@ -301,6 +303,7 @@
             android:textColor="#fff"
             android:layout_height="@dimen/dp_40" />
         <TextView
+            android:id="@+id/jiaqian"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/zixun"

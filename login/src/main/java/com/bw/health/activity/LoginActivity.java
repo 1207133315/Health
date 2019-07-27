@@ -133,6 +133,7 @@ public class LoginActivity extends WDActivity {
             LoginBean result1 = result.getResult();
             result1.setIslogin(true);
             result1.setPwd(s);
+            Log.d("Login4", result1.getSessionId());
             LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
             loginBeanDao.deleteAll();
             loginBeanDao.insertOrReplace(result1);
