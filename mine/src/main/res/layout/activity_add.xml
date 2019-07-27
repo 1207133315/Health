@@ -1,14 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.AddActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="#fff"
         android:layout_height="@dimen/dp_80">
-
+        <ImageView
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:src="@mipmap/common_icon_back_black_n"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:id="@+id/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="充值"
+            android:textSize="@dimen/sp_16"
+            android:layout_centerInParent="true"
+            android:textColor="#333333"
+            />
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#fff"
+        android:layout_marginTop="@dimen/dp_6"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="充值金额"
+            android:textSize="@dimen/sp_16"
+            android:textColor="#333333"
+            android:layout_marginTop="@dimen/dp_54"
+            android:layout_marginLeft="@dimen/dp_20"
+            />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_95"
+
+    android:layout_marginTop="@dimen/dp_30"
+    android:layout_marginLeft="@dimen/dp_20"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="￥"
+        android:gravity="center"
+        android:textSize="72sp"
+        android:id="@+id/biao"
+        android:textColor="#333333"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@null"
+        android:layout_toRightOf="@+id/biao"
+        android:textColor="#3087ea"
+        android:id="@+id/num"
+        android:layout_marginLeft="@dimen/dp_34"
+        android:textSize="72sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        >
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="本次可获得"
+    android:textSize="@dimen/sp_12"
+    android:textColor="#999999"
+    />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="300"
+            android:id="@+id/jine"
+            android:textSize="@dimen/sp_12"
+            android:textColor="#d92109"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="H币"
+            android:textSize="@dimen/sp_12"
+            android:textColor="#999999"
+            />
+    </LinearLayout>
+
 </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_10"
+            android:textColor="#999999"
+            android:text="最低充值一元，一元可兑换100H币"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请选择充值方式"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_50"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

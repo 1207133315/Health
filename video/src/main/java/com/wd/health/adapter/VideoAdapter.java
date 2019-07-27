@@ -26,6 +26,7 @@ import com.kd.easybarrage.Barrage;
 import com.kd.easybarrage.BarrageView;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.ShiPinFragment;
 import com.wd.health.bean.CommentBean;
 import com.wd.health.bean.VideoBean;
 import com.wd.health.presenter.AddVideoPresenter;
@@ -52,6 +53,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     private List<VideoBean> list = new ArrayList<>();
     private BarrageView barrageView;
     private List<Barrage> mBarrages = new ArrayList<>();
+    private boolean isBuy=false;
+
+    public void setBuy(boolean buy) {
+        isBuy = buy;
+    }
 
     private int lastItem = -1;
 
@@ -152,7 +158,13 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 VideoBean tag = (VideoBean) view.getTag();
-                buyClick.click(tag, position);
+                 boolean click = buyClick.click(tag, position);
+                if (click){
+                   list.get(position).whetherBuy=1;
+                   notifyDataSetChanged();
+                   ShiPinFragment.setIsBuy(false);
+                }
+
             }
         });
         //购买视频
@@ -241,7 +253,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     }
 
     public interface BuyClick {
-        void click(VideoBean videoBean, int index);
+        boolean click(VideoBean videoBean, int index);
     }
 
     private SCclick sCclick;
