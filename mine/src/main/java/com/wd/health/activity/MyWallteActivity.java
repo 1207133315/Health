@@ -1,6 +1,7 @@
 package com.wd.health.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -150,6 +151,7 @@ public class MyWallteActivity extends WDActivity implements View.OnClickListener
             finish();
         } else if (i == R.id.reduce) {
         } else if (i == R.id.add) {
+            startActivity(new Intent(MyWallteActivity.this,AddActivity.class));
         } else {
         }
     }
