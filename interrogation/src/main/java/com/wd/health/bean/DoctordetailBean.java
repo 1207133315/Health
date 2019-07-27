@@ -33,7 +33,7 @@ public class DoctordetailBean {
     private String inauguralHospital;
     private String jobTitle;
     private String personalProfile;
-    private double praise;
+    private String praise;
     private int praiseNum;
     private int serverNum;
     private int servicePrice;
@@ -120,11 +120,11 @@ public class DoctordetailBean {
         this.personalProfile = personalProfile;
     }
 
-    public double getPraise() {
+    public String getPraise() {
         return praise;
     }
 
-    public void setPraise(double praise) {
+    public void setPraise(String praise) {
         this.praise = praise;
     }
 
@@ -173,6 +173,54 @@ public class DoctordetailBean {
         private String giftPic;
         private String giftName;
         private String meaning;
+
+        public DoctorReceiveGiftList(int worth, int receiveNum, String giftPic, String giftName, String meaning) {
+            this.worth = worth;
+            this.receiveNum = receiveNum;
+            this.giftPic = giftPic;
+            this.giftName = giftName;
+            this.meaning = meaning;
+        }
+
+        public int getWorth() {
+            return worth;
+        }
+
+        public void setWorth(int worth) {
+            this.worth = worth;
+        }
+
+        public int getReceiveNum() {
+            return receiveNum;
+        }
+
+        public void setReceiveNum(int receiveNum) {
+            this.receiveNum = receiveNum;
+        }
+
+        public String getGiftPic() {
+            return giftPic;
+        }
+
+        public void setGiftPic(String giftPic) {
+            this.giftPic = giftPic;
+        }
+
+        public String getGiftName() {
+            return giftName;
+        }
+
+        public void setGiftName(String giftName) {
+            this.giftName = giftName;
+        }
+
+        public String getMeaning() {
+            return meaning;
+        }
+
+        public void setMeaning(String meaning) {
+            this.meaning = meaning;
+        }
     }
     public static class CommentListBean {
         /**

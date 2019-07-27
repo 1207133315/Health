@@ -3,9 +3,13 @@ package com.wd.health.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
@@ -17,15 +21,22 @@ import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.adapter.PingjiaAdapter;
 import com.wd.health.bean.DoctordetailBean;
+import com.wd.health.presenter.CancelFollowPresenter;
 import com.wd.health.presenter.FindDoctorInfoPresenter;
+import com.wd.health.presenter.FollowDoctorPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import butterknife.OnClick;
+
 
 @Route(path = "/DoctordetailActivity/")
 public class DoctordetailActivity extends WDActivity {
@@ -39,7 +50,7 @@ public class DoctordetailActivity extends WDActivity {
     @BindView(R2.id.zhiwu)
     TextView zhiwu;
     @BindView(R2.id.xin)
-    ImageView xin;
+    CheckBox xin;
     @BindView(R2.id.yiyuan)
     TextView yiyuan;
     @BindView(R2.id.haopinlv)
@@ -62,7 +73,15 @@ public class DoctordetailActivity extends WDActivity {
     Button zixun;
     @BindView(R2.id.fuwu)
     TextView fuwu;
+    @BindView(R2.id.jiaqian)
+    TextView jiaqian;
     private FindDoctorInfoPresenter presenter;
+    private List<LoginBean> list;
+    private int id;
+    private int j = 1;
+    private int size = 0;
+    private FollowDoctorPresenter followDoctorPresenter;
+    private CancelFollowPresenter cancelFollowPresenter;
 
     @Override
     protected int getLayoutId() {
@@ -72,9 +91,11 @@ public class DoctordetailActivity extends WDActivity {
     @Override
     protected void initView() {
         Intent intent = getIntent();
-        int id = intent.getIntExtra("bean", -1);
-        List<LoginBean> list = GetDaoUtil.getGetDaoUtil().getUserDao().queryBuilder().list();
+        id = intent.getIntExtra("bean", -1);
+        list = GetDaoUtil.getGetDaoUtil().getUserDao().queryBuilder().list();
         Long id1 = list.get(0).getId();
+        followDoctorPresenter=new FollowDoctorPresenter(new FollowDoctor());
+        cancelFollowPresenter = new CancelFollowPresenter(new CancelFollow());
         Log.d("aaa", "initView: " + id1 + "/" + list.get(0).getSessionId());
         if (id > -1) {
             presenter = new FindDoctorInfoPresenter(new FindDoctorInfo());
@@ -88,19 +109,51 @@ public class DoctordetailActivity extends WDActivity {
     }
 
 
-    @OnClick(R2.id.back)
-    public void onViewClicked() {
-        finish();
-    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+    @OnClick({R2.id.back, R2.id.xin})
+    public void onViewClicked(View view) {
+        int i = view.getId();
+        if (i == R.id.back) {
+            finish();
+        } else if (i == R.id.xin) {
+            if (xin.isChecked()){
+                followDoctorPresenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(), id);
+            }else {
+                cancelFollowPresenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(), id);
 
+            }
+        }
+    }
+    public class FollowDoctor implements DataCall {
+
+        @Override
+        public void success(Object data, Object... args) {
+            xin.setBackgroundResource(R.mipmap.common_icon_attention_large_s);
+            Result result= (Result) data;
+            Toast.makeText(DoctordetailActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
+    public class CancelFollow implements DataCall{
+
+        @Override
+        public void success(Object data, Object... args) {
+            xin.setBackgroundResource(R.mipmap.common_icon_attention_large_n);
+            Result result= (Result) data;
+            Toast.makeText(DoctordetailActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
     public class FindDoctorInfo implements DataCall {
+
 
         @Override
         public void success(Object data, Object... args) {
@@ -109,8 +162,18 @@ public class DoctordetailActivity extends WDActivity {
             String doctorName = beanResult.getResult().getDoctorName();
             String jobTitle = beanResult.getResult().getJobTitle();
             String inauguralHospital = beanResult.getResult().getInauguralHospital();
-            double praise = beanResult.getResult().getPraise();
+            String praise = beanResult.getResult().getPraise();
             int serverNum = beanResult.getResult().getServerNum();
+            int servicePrice = beanResult.getResult().getServicePrice();
+            int followFlag = beanResult.getResult().getFollowFlag();
+            if (followFlag==1){
+                xin.setChecked(true);
+                xin.setBackgroundResource(R.mipmap.common_icon_attention_large_s);
+            }
+            jiaqian.setText(servicePrice + "H币/次");
+            List<DoctordetailBean.DoctorReceiveGiftList> giftList = beanResult.getResult().getDoctorReceiveGiftList();
+            String personalProfile = beanResult.getResult().getPersonalProfile();
+            String goodField = beanResult.getResult().getGoodField();
             if (imagePic != null) {
                 Glide.with(DoctordetailActivity.this).load(imagePic).into(img);
             }
@@ -124,7 +187,67 @@ public class DoctordetailActivity extends WDActivity {
                 yiyuan.setText(inauguralHospital);
             }
             haopinlv.setText("好评率 " + praise);
-            fuwu.setText("服务患者数 "+serverNum);
+            fuwu.setText("服务患者数 " + serverNum);
+            if (giftList != null && giftList.size() > 2) {
+                int worth = giftList.get(2).getWorth();
+                cup.setText(worth + "");
+            } else if (giftList != null && giftList.size() > 1) {
+                shu.setText(giftList.get(1).getWorth() + "");
+            } else if (giftList != null && giftList.size() > 0) {
+                flower.setText(giftList.get(0).getWorth() + "");
+            }
+            if (personalProfile != null && personalProfile != "") {
+                jianjie.setText(personalProfile);
+            }
+            if (goodField != null && goodField != "") {
+                shanchang.setText(goodField);
+            }
+            List<DoctordetailBean.CommentListBean> commentList = beanResult.getResult().getCommentList();
+            if (commentList != null && commentList.size() > 0) {
+                pingjia.setText(" (" + commentList.size() + "条评价)");
+                recy.setLayoutManager(new LinearLayoutManager(DoctordetailActivity.this, RecyclerView.VERTICAL, false));
+                List<DoctordetailBean.CommentListBean> list = beanResult.getResult().getCommentList();
+                ArrayList<DoctordetailBean.CommentListBean> commentListBeans = new ArrayList<>();
+
+                for (int i = 0; i < list.size(); i++) {
+                    if (i < (3 * j)) {
+                        commentListBeans.add(list.get(i));
+                    }
+                }
+                size = commentListBeans.size();
+                PingjiaAdapter adapter = new PingjiaAdapter(R.layout.pingjiaitem, commentListBeans);
+                View view = View.inflate(DoctordetailActivity.this, R.layout.foot, null);
+                TextView jiazai = view.findViewById(R.id.jiazai);
+                ProgressBar progress = view.findViewById(R.id.bar);
+                adapter.addFooterView(view);
+                recy.setAdapter(adapter);
+                recy.addItemDecoration(new DividerItemDecoration(DoctordetailActivity.this, DividerItemDecoration.VERTICAL));
+                jiazai.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        jiazai.setVisibility(View.GONE);
+                        progress.setVisibility(View.VISIBLE);
+                        j++;
+                        commentListBeans.removeAll(commentListBeans);
+                        for (int i = 0; i < list.size(); i++) {
+                            if (i < (3 * j)) {
+                                commentListBeans.add(list.get(i));
+                            }
+                        }
+                        if (size == commentListBeans.size()) {
+                            Toast.makeText(DoctordetailActivity.this, "没有更多评论", Toast.LENGTH_SHORT).show();
+                            jiazai.setVisibility(View.VISIBLE);
+                            progress.setVisibility(View.GONE);
+                        } else {
+
+                            adapter.notifyDataSetChanged();
+                            jiazai.setVisibility(View.VISIBLE);
+                            progress.setVisibility(View.GONE);
+                        }
+
+                    }
+                });
+            }
         }
 
         @Override
