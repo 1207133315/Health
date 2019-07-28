@@ -42,22 +42,31 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
         CircleFindDepartmentBean circleFindDepartmentBean = mList.get(position);
         String departmentName = circleFindDepartmentBean.getDepartmentName();
         int department_id = circleFindDepartmentBean.getId();
-        myViewHolder.radio1_text.setText(departmentName);
+        holder.radio1_text.setText(departmentName);
+        if (mList.get(position).check){
+            holder.radio1_text.setTextColor(Color.parseColor("#3087ea"));
+        }else {
+            holder.radio1_text.setTextColor(Color.parseColor("#333333"));
+        }
        // myViewHolder.radio1_text.setTextColor(circleFindDepartmentBean.textcolor);
-        myViewHolder.radio1_text.setOnClickListener(new View.OnClickListener() {
+        holder.radio1_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for (int i = 0; i < mList.size(); i++) {
+
+                    if (position==i){
+                        mList.get(i).setCheck(true);
+                    }else {
+                        mList.get(i).setCheck(false);
+                    }
+                }
                 call.showCall(department_id, departmentName);
+                notifyDataSetChanged();
             }
         });
-       /* myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                call.showCall(mList.get(position).id,departmentName);
-            }
-        });*/
 
     }
+
 
     @Override
     public int getItemCount() {
