@@ -10,10 +10,13 @@ import com.wd.health.bean.CircleUserInfoBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -85,6 +88,15 @@ public interface CircleIRquest {
     // 根据科室查询对应病症
     @GET("share/knowledgeBase/v1/findDiseaseCategory")
     Observable<Result<List<CircleBingZhengBean>>> bingzheng(@Query("departmentId") String departmentId);
+
+
+   //11. 发布病友圈
+    @Headers({"Content-Type: application/json","Accept: application/json"})//需要添加头
+    @POST("user/sickCircle/verify/v1/publishSickCircle")
+    Observable<Result<Integer>>publishSickCircle(@Header("userId") String userId,
+                                        @Header("sessionId") String sessionId,
+                                        @Body RequestBody body);
+
 
 
     //-------------病友圈接口---请勿修改-----------

@@ -420,7 +420,7 @@ public class ShiPinFragment extends WDFragment {
          //购买视频
         videoAdapter.setBuyClick(new VideoAdapter.BuyClick() {
             @Override
-            public void click(VideoBean videoBean,int i) {
+            public boolean click(VideoBean videoBean,int i) {
                 index=i;
                 if (loginBeans.size()>0){
                     myHBPresenter.reqeust(loginBeans.get(0).getId(),loginBeans.get(0).getSessionId());
@@ -430,14 +430,15 @@ public class ShiPinFragment extends WDFragment {
                 }else {
                     intentByRouter("/LoginActivity/");
                 }
+                return isBuy;
             }
         });
 
 
     }
-
+    private int index1;
     private PingLun pingLun;
-
+    private VideoBean mVideoBean;
     public void setPingLun(PingLun pingLun) {
         this.pingLun = pingLun;
     }
@@ -445,7 +446,7 @@ public class ShiPinFragment extends WDFragment {
     public interface PingLun{
         void click(VideoBean videoBean,BarrageView barrageView,int index);
     }
-    private int index;
+    private int index=0;
     public void showBuyPop(VideoBean videoBean,LoginBean userInfo){
         View view=View.inflate(getContext(),R.layout.buy_pop_layout,null);
         TextView goBuy=view.findViewById(R.id.goBuy);
@@ -465,6 +466,7 @@ public class ShiPinFragment extends WDFragment {
                 }else {
                     Toast.makeText(getActivity(), "余额不足,请充值", Toast.LENGTH_SHORT).show();
                 }
+                mVideoBean=videoBean;
             }
         });
         down.setOnClickListener(new View.OnClickListener() {
@@ -482,18 +484,37 @@ public class ShiPinFragment extends WDFragment {
                 Gravity.BOTTOM, 0, 0);
     }
 
+    public static boolean isBuy;
+
+    public static void setIsBuy(boolean isBuy) {
+        ShiPinFragment.isBuy = isBuy;
+    }
+
     public class VideoBuy implements DataCall<Result>{
+
+        private LoginBean userInfo;
+
         @Override
         public void success(Result data, Object... args) {
             Toast.makeText(getContext(), ""+data.getMessage(), Toast.LENGTH_SHORT).show();
+            final List<LoginBean> loginBeans = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll();
+            if (loginBeans.size()>0) {
+                userInfo = loginBeans.get(0);
+            }
+            isBuy=true;
+           // videoBuyPresenter.reqeust(userInfo.getId(), userInfo.getSessionId(), mVideoBean.id, (int)mVideoBean.price);
             popupWindow.dismiss();
+
+
+
+
 
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
             Toast.makeText(getContext(), ""+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
-
+            isBuy=false;
             if (data.getDisplayMessage().equals("网络异常")){
                 popupWindow.dismiss();
                 myHBPresenter.reqeust(user.getId(),user.getSessionId());
