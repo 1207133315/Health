@@ -4,12 +4,14 @@ import com.bw.health.bean.MationBean;
 import com.bw.health.bean.Result;
 import com.wd.health.bean.CollectCircleBean;
 import com.wd.health.bean.CollectVideoBean;
+import com.wd.health.bean.DoctorBean;
 import com.wd.health.bean.RecordListBean;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
@@ -39,10 +41,10 @@ public interface Minerequest {
 
     //查询用户关注医生列表
     @GET("user/verify/v1/findUserDoctorFollowList")
-    Observable<Result>findUserDoctorFollowList(@Header("userId") int userId,
-                                               @Header("sessionId") String sessionId,
-                                               @Query("page")int page,
-                                               @Query("count")int count);
+    Observable<Result<List<DoctorBean>>>findUserDoctorFollowList(@Header("userId") int userId,
+                                                                 @Header("sessionId") String sessionId,
+                                                                 @Query("page")int page,
+                                                                 @Query("count")int count);
 
     //查询用户收藏资讯列表
 
@@ -93,4 +95,10 @@ public interface Minerequest {
     @GET("user/verify/v1/findUserWallet")
     Observable<Result<Integer>> myHB(@Header("userId")long userId,
                                      @Header("sessionId")String sessionId);
+
+    //取消关注医生
+    @DELETE("user/inquiry/verify/v1/cancelFollow")
+    Observable<Result> cancelFollow(@Header("userId") int userId,
+                                    @Header("sessionId") String sessionId,
+                                    @Query("doctorId") int doctorId);
 }
