@@ -438,21 +438,11 @@
                     android:padding="@dimen/dp_20">
 
                     <ImageView
+                        android:id="@+id/circle_writ_bingli_image1"
                         android:layout_width="@dimen/dp_72"
                         android:layout_height="@dimen/dp_72"
-                        android:src="@mipmap/circle_bingli" />
+                        android:src="@mipmap/circle_writ_addimg_1x" />
 
-                    <ImageView
-                        android:layout_width="@dimen/dp_72"
-                        android:layout_height="@dimen/dp_72"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:src="@mipmap/circle_bingli" />
-
-                    <ImageView
-                        android:layout_width="@dimen/dp_72"
-                        android:layout_height="@dimen/dp_72"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:src="@mipmap/circle_bingli" />
                 </LinearLayout>
                 <!--********最多可添加6张图片;长按为图片排序*********-->
 

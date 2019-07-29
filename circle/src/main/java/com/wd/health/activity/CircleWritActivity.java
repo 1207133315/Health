@@ -77,6 +77,7 @@ public class CircleWritActivity extends AppCompatActivity {
     private EditText start_time_edText;
     private ImageView end_time_image;
     private EditText end_time_edText;
+    private PopupWindow pop_image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,6 +243,31 @@ public class CircleWritActivity extends AppCompatActivity {
 
         //----------点击弹出popwindow获取结束时间--尾巴------------------------
 
+        //---------------------长按为图片排序------------------------------
+
+        ImageView bingli_image1 = findViewById(R.id.circle_writ_bingli_image1);
+        bingli_image1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View view = View.inflate(CircleWritActivity.this, R.layout.circle_writ_pop_start_time_layout, null);
+                pop_image = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                pop_image.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                pop_image.setFocusable(true);
+                pop_image.setTouchable(true);
+                pop_image.showAtLocation(view,0,0,0);
+
+                Button image = view.findViewById(R.id.circle_pop_image_close);
+                image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                      pop_image.dismiss();
+                    }
+                });
+            }
+        });
+
+
+        //---------------------长按为图片排序--------尾巴----------------------
 
         //---------------开关显示 隐藏------------------------
         LinearLayout hbi_layout = findViewById(R.id.circle_writ_layout_hbi);
