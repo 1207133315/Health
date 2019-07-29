@@ -3,5 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#50000000">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
+        <Button
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="@dimen/dp_30"
+            android:background="#fff"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="相机" />
+
+        <Button
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_5"
+            android:background="#fff"
+            android:text="相册" />
+
+        <Button
+            android:id="@+id/circle_pop_image_close"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_5"
+            android:background="#fff"
+            android:text="取消" />
+    </LinearLayout>
 </RelativeLayout>
