@@ -123,8 +123,7 @@ public interface Minerequest {
     @HTTP(method = "DELETE", path = "user/verify/v1/deleteVideoBuy", hasBody = true)
     Observable<Result> deleteVideoBuy(@Header("userId") long userId,
                                       @Header("sessionId") String sessionId,
-                                      @Query("videoId")long videoId
-                                      );
+                                      @Query("videoId")long videoId);
     //查询用户档案
     @GET("user/verify/v1/findUserArchives")
     Observable<Result<UserArchivesBean>> userArchives(@Header("userId") long userId,
