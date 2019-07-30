@@ -6,6 +6,7 @@ import com.wd.health.bean.CollectCircleBean;
 import com.wd.health.bean.CollectVideoBean;
 import com.wd.health.bean.DoctorBean;
 import com.wd.health.bean.RecordListBean;
+import com.wd.health.bean.UserArchivesBean;
 
 import java.util.List;
 

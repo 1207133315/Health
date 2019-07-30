@@ -16,11 +16,19 @@
         <activity android:name=".activity.PingmuActivity" />
         <activity android:name=".activity.MineMessageActivity" />
         <activity android:name=".activity.GuanzhuActivity" />
-        <activity android:name=".activity.MyCollectActivity" />
+        <activity
+            android:name=".activity.MyCollectActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.MyWallteActivity" />
         <activity android:name=".activity.AddActivity" />
-        <activity android:name=".activity.UpdateNicknameActivity" />
-        <activity android:name=".activity.UpdateSexActivity" />
+        <activity android:name=".activity.PatientsCircleActivity"></activity>
+
+        <activity android:name=".activity.ReduceActivity" />
+        <activity android:name=".activity.MyVideoActivity" />
+        <activity android:name=".activity.MyFileActivity" />
+        <activity android:name=".MYActivity"></activity>
+        <activity android:name=".activity.AddFileActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.wd.health.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.bw.health.core.WDActivity;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.DateUtils;
 import com.bw.health.util.GetDaoUtil;
+import com.google.android.material.snackbar.Snackbar;
 import com.wd.health.R;
 import com.wd.health.bean.UserArchivesBean;
 import com.wd.health.presenter.UserArchivesPresenter;
@@ -20,6 +22,8 @@ import com.wd.health.view.NineGridTestLayout;
 
 import java.util.Arrays;
 import java.util.List;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 public class MyFileActivity extends WDActivity implements View.OnClickListener {
 
@@ -56,7 +60,7 @@ public class MyFileActivity extends WDActivity implements View.OnClickListener {
     private TextView mAdd;
     private LinearLayout mNull;
     private LinearLayout file;
-
+    private CoordinatorLayout coordinatorLayout;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_my_file;
@@ -65,7 +69,7 @@ public class MyFileActivity extends WDActivity implements View.OnClickListener {
     @Override
     protected void initView() {
         userArchivesPresenter = new UserArchivesPresenter(new UserArchives());
-
+        coordinatorLayout = findViewById(R.id.coord);
         mBack = (ImageView) findViewById(R.id.back);
         mBack.setOnClickListener(this);
         file = findViewById(R.id.file);
@@ -80,6 +84,13 @@ public class MyFileActivity extends WDActivity implements View.OnClickListener {
         mAdd = (TextView) findViewById(R.id.add);
         mAdd.setOnClickListener(this);
         mNull = (LinearLayout) findViewById(R.id.Null);
+        mAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(MyFileActivity.this, AddFileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -144,6 +155,7 @@ public class MyFileActivity extends WDActivity implements View.OnClickListener {
                 }
 
             } else {
+                Snackbar.make(coordinatorLayout,"您还没有档案，快去添加吧！",Snackbar.LENGTH_LONG).show();
                 file.setVisibility(View.GONE);
                 mNull.setVisibility(View.VISIBLE);
             }
