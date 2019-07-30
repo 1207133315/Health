@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:paddingTop="@dimen/dp_20"
     tools:context=".activity.PatientsCircleActivity">
 
     <LinearLayout
@@ -20,8 +21,9 @@
             android:padding="@dimen/dp_20">
 
             <ImageView
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
+                android:id="@+id/my_circle_home_back"
+                android:layout_width="@dimen/dp_14"
+                android:layout_height="@dimen/dp_14"
                 android:src="@mipmap/common_icon_back_black_n" />
 
             <TextView
@@ -30,7 +32,7 @@
                 android:gravity="center_horizontal"
                 android:text="我的病友圈"
                 android:textColor="#333333"
-                android:textSize="@dimen/sp_18" />
+                android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
         <View
@@ -38,7 +40,7 @@
             android:layout_height="@dimen/dp_8"
             android:background="#f2f2f2" />
         <com.jcodecraeer.xrecyclerview.XRecyclerView
-            android:id="@+id/my_circle_rc1"
+            android:id="@+id/my_circle_home_rc1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
