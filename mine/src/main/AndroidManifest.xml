@@ -22,6 +22,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.MyWallteActivity" />
         <activity android:name=".activity.AddActivity" />
+        <activity android:name=".activity.PatientsCircleActivity"></activity>
+
         <activity android:name=".activity.ReduceActivity" />
         <activity android:name=".activity.MyVideoActivity" />
         <activity android:name=".activity.MyFileActivity" />

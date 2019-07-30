@@ -131,6 +131,9 @@ public class MineActivity extends WDActivity {
             Intent intent=new Intent(MineActivity.this,MyVideoActivity.class);
             startActivity(intent);
         } else if (i == R.id.bingyouquan) {
+            //跳转我的病友圈
+            startActivity(new Intent(MineActivity.this,PatientsCircleActivity.class));
+
         } else if (i == R.id.second) {
         } else if (i == R.id.dangan) {
             Intent intent=new Intent(MineActivity.this,MyFileActivity.class);
