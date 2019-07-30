@@ -1,5 +1,6 @@
 package com.wd.health.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,9 +8,13 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 import android.animation.ObjectAnimator;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -78,6 +83,7 @@ public class CircleWritActivity extends AppCompatActivity {
     private ImageView end_time_image;
     private EditText end_time_edText;
     private PopupWindow pop_image;
+    private ImageView bingli_image1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,7 +251,7 @@ public class CircleWritActivity extends AppCompatActivity {
 
         //---------------------长按为图片排序------------------------------
 
-        ImageView bingli_image1 = findViewById(R.id.circle_writ_bingli_image1);
+        bingli_image1 = findViewById(R.id.circle_writ_bingli_image1);
         bingli_image1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,13 +260,44 @@ public class CircleWritActivity extends AppCompatActivity {
                 pop_image.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 pop_image.setFocusable(true);
                 pop_image.setTouchable(true);
-                pop_image.showAtLocation(view,0,0,0);
+                pop_image.showAtLocation(view, 0, 0, 0);
 
-                Button image = view.findViewById(R.id.circle_pop_image_close);
-                image.setOnClickListener(new View.OnClickListener() {
+
+                Button image_camera = view.findViewById(R.id.circle_pop_image_camera);
+                Button image_photo = view.findViewById(R.id.circle_pop_image_photo);
+                Button image_close = view.findViewById(R.id.circle_pop_image_close);
+
+
+                image_camera.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                      pop_image.dismiss();
+                        // 【1】设置张相机跳转意图(隐式意图)
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        // 【2】添加意图
+                        intent.addCategory("android.intent.category.DEFAULT");
+                        // [3]跳转回传
+                        startActivityForResult(intent, 1);
+                        pop_image.dismiss();
+
+                    }
+                });
+                image_photo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // [1]设置相册的意图
+                        Intent intent1 = new Intent(Intent.ACTION_PICK);
+                        // [2]设置显式MIME数据类型
+                        intent1.setType("image/*");
+                        // [3]跳转回传
+                        startActivityForResult(intent1, 2);
+                        pop_image.dismiss();
+
+                    }
+                });
+                image_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pop_image.dismiss();
                     }
                 });
             }
@@ -436,4 +473,28 @@ public class CircleWritActivity extends AppCompatActivity {
     }
 
     //-----------发送病友圈----成功--失败--尾巴--------------------------------
+
+    //------------------点击发送图片-----------------------------------------------------
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //相机
+        // 4判断是是不是我们需要的东西
+        if (requestCode == 1) {
+            // 5获取图片数据
+            Bitmap bitmap = data.getParcelableExtra("data");
+            // 6设置图片
+            bingli_image1.setImageBitmap(bitmap);
+        }
+        //相册
+        //判断请求码
+        if (requestCode == 2) {
+            Uri uri = data.getData();
+            bingli_image1.setImageURI(uri);
+        }
+    }
+
+    //------------------点击发送图片----------尾巴-------------------------------------------
 }

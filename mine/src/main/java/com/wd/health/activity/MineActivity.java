@@ -129,6 +129,9 @@ public class MineActivity extends WDActivity {
         } else if (i == R.id.jianyi) {
         } else if (i == R.id.shipin) {
         } else if (i == R.id.bingyouquan) {
+            //跳转我的病友圈
+            startActivity(new Intent(MineActivity.this,PatientsCircleActivity.class));
+
         } else if (i == R.id.second) {
         } else if (i == R.id.dangan) {
         } else if (i == R.id.qianbao) {

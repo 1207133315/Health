@@ -6,10 +6,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.health.bean.CircleFindDepartmentBean;
 import com.bw.health.bean.CircleListBean;
 import com.wd.health.R;
+import com.wd.health.bean.WaiBuBean;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
         String detail = listBean.getDetail();
         int collectionNum = listBean.getCollectionNum();
         int commentNum = listBean.getCommentNum();
-
+        int sickCircleId = listBean.getSickCircleId();
 
         myViewHolder.tv_title.setText(title);
         myViewHolder.tv_hbi_num.setText(amount + "");
@@ -68,13 +70,14 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
             myViewHolder.tv_hbi_num.setVisibility(View.VISIBLE);
         }
 
-       holder.itemView.setOnClickListener(new View.OnClickListener() {
+       myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                dataCall.showCall(mList.get(position));
+               WaiBuBean.setSickCircleId_w(sickCircleId);
+               //Toast.makeText(context, ""+sickCircleId, Toast.LENGTH_SHORT).show();
            }
        });
-
     }
 
     @Override
