@@ -9,122 +9,190 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="#fff"
-        android:layout_height="@dimen/dp_80">
+        android:layout_height="@dimen/dp_80"
+        android:background="#fff">
+
         <ImageView
+            android:id="@+id/back"
             android:layout_width="@dimen/dp_18"
             android:layout_height="@dimen/dp_18"
-            android:src="@mipmap/common_icon_back_black_n"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_20"
-            android:id="@+id/back"
-            />
+            android:src="@mipmap/common_icon_back_black_n" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="充值"
-            android:textSize="@dimen/sp_16"
             android:layout_centerInParent="true"
+            android:text="充值"
             android:textColor="#333333"
-            />
+            android:textSize="@dimen/sp_16" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#fff"
         android:layout_marginTop="@dimen/dp_6"
-        >
+        android:background="#fff"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="充值金额"
-            android:textSize="@dimen/sp_16"
-            android:textColor="#333333"
-            android:layout_marginTop="@dimen/dp_54"
             android:layout_marginLeft="@dimen/dp_20"
-            />
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_95"
+            android:layout_marginTop="@dimen/dp_54"
+            android:text="充值金额"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_16" />
 
-    android:layout_marginTop="@dimen/dp_30"
-    android:layout_marginLeft="@dimen/dp_20"
-    >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="￥"
-        android:gravity="center"
-        android:textSize="72sp"
-        android:id="@+id/biao"
-        android:textColor="#333333"
-        />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_95"
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@null"
-        android:layout_toRightOf="@+id/biao"
-        android:textColor="#3087ea"
-        android:id="@+id/num"
-        android:layout_marginLeft="@dimen/dp_34"
-        android:textSize="72sp" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        >
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="本次可获得"
-    android:textSize="@dimen/sp_12"
-    android:textColor="#999999"
-    />
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_30">
+
+            <TextView
+                android:id="@+id/biao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="￥"
+                android:textColor="#333333"
+                android:textSize="72sp" />
+
+            <EditText
+                android:id="@+id/num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingLeft="@dimen/dp_34"
+                android:layout_toRightOf="@+id/biao"
+                android:background="@null"
+                android:textColor="#3087ea"
+                android:inputType="number"
+                android:textSize="72sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="本次可获得"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/jine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#d92109"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="H币"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="300"
-            android:id="@+id/jine"
-            android:textSize="@dimen/sp_12"
-            android:textColor="#d92109"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="H币"
-            android:textSize="@dimen/sp_12"
-            android:textColor="#999999"
-            />
-    </LinearLayout>
-
-</RelativeLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/sp_10"
-            android:textColor="#999999"
-            android:text="最低充值一元，一元可兑换100H币"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_10"
-            />
+            android:text="最低充值一元，一元可兑换100H币"
+            android:textColor="#999999"
+            android:textSize="@dimen/sp_10" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请选择充值方式"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_50"
-            />
+            android:text="请选择充值方式" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_marginHorizontal="@dimen/dp_24">
+
+            <ImageView
+                android:id="@+id/weixin"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_20"
+                android:src="@mipmap/common_icon_weixin_n" />
+
+            <TextView
+                android:id="@+id/weixintext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_25"
+                android:layout_toRightOf="@+id/weixin"
+                android:text="微信支付" />
+
+            <ImageView
+                android:id="@+id/zhifubao"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_below="@+id/weixin"
+                android:layout_marginTop="@dimen/dp_20"
+                android:src="@mipmap/common_icon_zhifubao_n" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/weixintext"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_25"
+                android:layout_toRightOf="@+id/zhifubao"
+                android:text="支付宝支付" />
+
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_10"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/weibtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/zhibtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12" />
+            </RadioGroup>
 
         </RelativeLayout>
+        <TextView
+            android:layout_width="@dimen/dp_300"
+            android:layout_height="@dimen/dp_36"
+            android:layout_gravity="center"
+            android:background="#3087ea"
+            android:layout_marginTop="@dimen/dp_60"
+            android:gravity="center"
+            android:text="充值"
+            android:id="@+id/add"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_14" />
+
     </LinearLayout>
 </LinearLayout>

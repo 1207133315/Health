@@ -57,12 +57,7 @@ public abstract class WDPresenter<T> {
 
         disposable = observable.subscribeOn(Schedulers.io())//将请求调度到子线程上
                 .observeOn(AndroidSchedulers.mainThread())//观察响应结果，把响应结果调度到主线程中处理
-                .onErrorReturn(new Function<Throwable,Throwable>() {//处理所有异常
-                    @Override
-                    public ApiException apply(Throwable throwable) throws Exception {
-                        return CustomException.handleException(throwable);
-                    }
-                })
+
                 .subscribe(getConsumer(args), new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable e) throws Exception {

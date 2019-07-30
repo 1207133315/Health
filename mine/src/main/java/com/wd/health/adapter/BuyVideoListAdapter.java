@@ -18,6 +18,7 @@ import com.bw.health.util.GetDaoUtil;
 import com.wd.health.R;
 import com.wd.health.R2;
 import com.wd.health.bean.CollectVideoBean;
+import com.wd.health.presenter.DeleteVideoBuyPresenter;
 import com.wd.health.presenter.UnVideoPresenter;
 import com.wd.health.view.MyVideo1Player;
 
@@ -37,11 +38,11 @@ import cn.jzvd.JZVideoPlayerStandard;
  * @author 李宁康
  * @date 2019 2019/07/26 08:55
  */
-public class CollectVideoAdapter extends RecyclerView.Adapter<CollectVideoAdapter.ViewHolder> {
+public class BuyVideoListAdapter extends RecyclerView.Adapter<BuyVideoListAdapter.ViewHolder> {
     private Context context;
     private List<CollectVideoBean> list =new ArrayList<>();;
     private LoginBean loginBean;
-    public CollectVideoAdapter(Context context) {
+    public BuyVideoListAdapter(Context context) {
         this.context = context;
         final List<LoginBean> loginBeans = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll();
         if (loginBeans.size()>0)
@@ -60,7 +61,7 @@ public class CollectVideoAdapter extends RecyclerView.Adapter<CollectVideoAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.video_itme1,parent,false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.video_itme2,parent,false));
     }
 
     @Override
@@ -68,24 +69,11 @@ public class CollectVideoAdapter extends RecyclerView.Adapter<CollectVideoAdapte
         final CollectVideoBean collectVideoBean = list.get(position);
         RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,594);
         holder.itemView.setLayoutParams(layoutParams);
-        if (collectVideoBean.whetherBuy == 2) {
-            url = collectVideoBean.shearUrl;
-            holder.no.setVisibility(View.VISIBLE);
-
-            holder.yes.setVisibility(View.GONE);
-
-        } else {
-            url = collectVideoBean.originalUrl;
-
-            holder.no.setVisibility(View.GONE);
-            holder.yes.setVisibility(View.VISIBLE);
-
-        }
+        url=list.get(position).originalUrl;
         holder.video.setUp(url,
                 JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL,
                 "饺子请闭眼");
         holder.title.setText(collectVideoBean.title);
-        holder.buyNum.setText(collectVideoBean.buyNum+"人已购买");
          long createTime = collectVideoBean.createTime;
         try {
             final String s = DateUtils.dateTransformer(createTime, null);
@@ -111,12 +99,14 @@ public class CollectVideoAdapter extends RecyclerView.Adapter<CollectVideoAdapte
             }
         });
 
+
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    holder.unVideoPresenter.reqeust(loginBean.getId(),loginBean.getSessionId(),list.get(position).videoId);
-                    list.remove(position);
-                    notifyDataSetChanged();
+                holder.deleteVideoBuyPresenter.reqeust(loginBean.getId(),loginBean.getSessionId(),list.get(position).videoId);
+                list.remove(position);
+                notifyDataSetChanged();
+
             }
         });
 
@@ -132,18 +122,15 @@ public class CollectVideoAdapter extends RecyclerView.Adapter<CollectVideoAdapte
         MyVideo1Player video;
 
         TextView title;
-        @BindView(R2.id.yes)
-        ImageView yes;
-        @BindView(R2.id.no)
-        ImageView no;
-        @BindView(R2.id.buyNum)
-        TextView buyNum;
+
+
         @BindView(R2.id.remove)
         TextView remove;
         @BindView(R2.id.time)
         TextView time;
         ImageView stop;
-       UnVideoPresenter unVideoPresenter;
+        DeleteVideoBuyPresenter deleteVideoBuyPresenter;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -151,10 +138,10 @@ public class CollectVideoAdapter extends RecyclerView.Adapter<CollectVideoAdapte
             title=itemView.findViewById(R.id.title);
             stop=itemView.findViewById(R.id.stop);
             ButterKnife.bind(this,itemView);
-            unVideoPresenter = new UnVideoPresenter(new UnVideo());
+            deleteVideoBuyPresenter = new DeleteVideoBuyPresenter(new DeleteVideoBuy());
         }
     }
-    public class UnVideo implements DataCall<Result>{
+    public class DeleteVideoBuy implements DataCall<Result>{
         @Override
         public void success(Result data, Object... args) {
             Toast.makeText(context, ""+data.getMessage(), Toast.LENGTH_SHORT).show();

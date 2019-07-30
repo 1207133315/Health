@@ -189,9 +189,13 @@ public class CircleFrag extends WDFragment {
 
         @Override
         public void success(Result<List<CircleListBean>> data, Object... args) {
-            List<CircleListBean> result = data.getResult();
             rc2.loadMoreComplete();
             rc2.refreshComplete();
+            if (page==1){
+                circleListAdapter.clear();
+            }
+            List<CircleListBean> result = data.getResult();
+
 
             circleListAdapter.getDatt(result);
             circleListAdapter.notifyDataSetChanged();

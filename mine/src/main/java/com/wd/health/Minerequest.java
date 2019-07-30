@@ -5,11 +5,14 @@ import com.bw.health.bean.Result;
 import com.wd.health.bean.CollectCircleBean;
 import com.wd.health.bean.CollectVideoBean;
 import com.wd.health.bean.RecordListBean;
+import com.wd.health.bean.UserArchivesBean;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
@@ -93,4 +96,31 @@ public interface Minerequest {
     @GET("user/verify/v1/findUserWallet")
     Observable<Result<Integer>> myHB(@Header("userId")long userId,
                                      @Header("sessionId")String sessionId);
+    //充值
+    @POST("user/verify/v1/recharge")
+    @FormUrlEncoded
+    Observable<Result<String>> add(@Header("userId")long userId,
+                           @Header("sessionId")String sessionId,
+                           @Field("money") int money,
+                           @Field("payType") int payType
+                           );
+
+    //用户购买视频列表
+    @GET("user/verify/v1/findUserVideoBuyList")
+    Observable<Result<List<CollectVideoBean>>> buyVideoList(@Header("userId") long userId,
+                                                         @Header("sessionId") String sessionId,
+                                                         @Query("page") int page,
+                                                         @Query("count")int count);
+
+    //删除用户购买视频
+    @HTTP(method = "DELETE", path = "user/verify/v1/deleteVideoBuy", hasBody = true)
+    Observable<Result> deleteVideoBuy(@Header("userId") long userId,
+                                      @Header("sessionId") String sessionId,
+                                      @Query("videoId")long videoId
+                                      );
+    //查询用户档案
+    @GET("user/verify/v1/findUserArchives")
+    Observable<Result<UserArchivesBean>> userArchives(@Header("userId") long userId,
+                                                      @Header("sessionId") String sessionId);
+
 }
