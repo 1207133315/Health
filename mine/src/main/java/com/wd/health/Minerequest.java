@@ -17,6 +17,7 @@ import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 
@@ -101,4 +102,14 @@ public interface Minerequest {
     Observable<Result> cancelFollow(@Header("userId") int userId,
                                     @Header("sessionId") String sessionId,
                                     @Query("doctorId") int doctorId);
+    //修改用户昵称
+    @PUT("user/verify/v1/modifyNickName")
+    Observable<Result>modifyNickName(@Header("userId") int userId,
+                               @Header("sessionId") String sessionId,
+                               @Query("nickName") String nickName);
+    //修改用户性别
+    @PUT("user/verify/v1/updateUserSex")
+    Observable<Result>updateUserSex(@Header("userId") int userId,
+                                     @Header("sessionId") String sessionId,
+                                     @Query("sex") int sex);
 }
