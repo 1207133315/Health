@@ -7,7 +7,7 @@
     android:background="#fff"
     android:padding="@dimen/dp_20"
     tools:context=".activity.PatientsCircleActivity">
-
+        <!--老郭的布局-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
