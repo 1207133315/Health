@@ -6,11 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.TextView;
+
 
 import com.bw.health.bean.CircleFindDepartmentBean;
-import com.bw.health.bean.Result;
+
 import com.wd.health.R;
 
 import java.util.ArrayList;
@@ -42,6 +41,8 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
         CircleFindDepartmentBean circleFindDepartmentBean = mList.get(position);
         String departmentName = circleFindDepartmentBean.getDepartmentName();
         int department_id = circleFindDepartmentBean.getId();
+        myViewHolder.radio1_text.setText(departmentName);
+        myViewHolder.radio1_text.setChecked(circleFindDepartmentBean.isCheck());
         holder.radio1_text.setText(departmentName);
         if (mList.get(position).check){
             holder.radio1_text.setTextColor(Color.parseColor("#3087ea"));
@@ -49,24 +50,31 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
             holder.radio1_text.setTextColor(Color.parseColor("#333333"));
         }
        // myViewHolder.radio1_text.setTextColor(circleFindDepartmentBean.textcolor);
+
         holder.radio1_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick (View v){
                 for (int i = 0; i < mList.size(); i++) {
 
-                    if (position==i){
+                    if (position == i) {
                         mList.get(i).setCheck(true);
-                    }else {
+                    } else {
                         mList.get(i).setCheck(false);
                     }
                 }
-
                 call.showCall(department_id, departmentName);
                 notifyDataSetChanged();
             }
-        });
 
-    }
+            });
+
+        }
+
+
+
+
+
+
 
 
     @Override
@@ -78,8 +86,10 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
         mList.addAll(result);
     }
 
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public void clear() {
+        mList.clear();
+    }
+    public  class MyViewHolder extends RecyclerView.ViewHolder {
 
         CheckBox radio1_text;
         LinearLayout back;
@@ -90,7 +100,6 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
             back = itemView.findViewById(R.id.back);
         }
     }
-
     public interface Call {
         void showCall(int id, String name);
     }
@@ -100,5 +109,4 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
     public void setCall(Call call) {
         this.call = call;
     }
-
 }

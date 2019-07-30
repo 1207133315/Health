@@ -4,6 +4,7 @@ import com.bw.health.bean.MationBean;
 import com.bw.health.bean.Result;
 import com.wd.health.bean.CollectCircleBean;
 import com.wd.health.bean.CollectVideoBean;
+import com.wd.health.bean.DoctorBean;
 import com.wd.health.bean.RecordListBean;
 import com.wd.health.bean.UserArchivesBean;
 
@@ -19,6 +20,7 @@ import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 
@@ -43,10 +45,10 @@ public interface Minerequest {
 
     //查询用户关注医生列表
     @GET("user/verify/v1/findUserDoctorFollowList")
-    Observable<Result>findUserDoctorFollowList(@Header("userId") int userId,
-                                               @Header("sessionId") String sessionId,
-                                               @Query("page")int page,
-                                               @Query("count")int count);
+    Observable<Result<List<DoctorBean>>>findUserDoctorFollowList(@Header("userId") int userId,
+                                                                 @Header("sessionId") String sessionId,
+                                                                 @Query("page")int page,
+                                                                 @Query("count")int count);
 
     //查询用户收藏资讯列表
 
@@ -123,11 +125,44 @@ public interface Minerequest {
     @HTTP(method = "DELETE", path = "user/verify/v1/deleteVideoBuy", hasBody = true)
     Observable<Result> deleteVideoBuy(@Header("userId") long userId,
                                       @Header("sessionId") String sessionId,
-                                      @Query("videoId")long videoId
-                                      );
+                                      @Query("videoId")long videoId);
     //查询用户档案
     @GET("user/verify/v1/findUserArchives")
     Observable<Result<UserArchivesBean>> userArchives(@Header("userId") long userId,
                                                       @Header("sessionId") String sessionId);
+    //修改用户昵称
+    @PUT("user/verify/v1/modifyNickName")
+    Observable<Result>modifyNickName(@Header("userId") int userId,
+                               @Header("sessionId") String sessionId,
+                               @Query("nickName") String nickName);
+    //修改用户性别
+    @PUT("user/verify/v1/updateUserSex")
+    Observable<Result>updateUserSex(@Header("userId") int userId,
+                                     @Header("sessionId") String sessionId,
+                                    @Query("sex") int sex);
+
+
+
+    /***李宁康---------------------------------------------**/
+
+
+    /***李宁康---------------------------------------------**/
+
+
+
+
+
+
+
+    /***刘浩---------------------------------------------**/
+
+
+    /***刘浩---------------------------------------------**/
+
+
+    /***郭亚杰---------------------------------------------**/
+
+
+    /***郭亚杰---------------------------------------------**/
 
 }
