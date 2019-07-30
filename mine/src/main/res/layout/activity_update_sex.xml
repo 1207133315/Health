@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.UpdateSexActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_74"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_42"
+            android:src="@mipmap/common_icon_back_black_n" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_40"
+            android:text="选择性别"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_16" />
+
+        <Button
+            android:id="@+id/wancheng"
+            android:layout_width="@dimen/dp_52"
+            android:layout_height="@dimen/dp_24"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_20"
+            android:background="@drawable/wancehngbtn"
+            android:text="完成"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_12" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_height="match_parent">
+
+        <RadioGroup
+            android:id="@+id/sexgroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_200"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/boyw"
+                android:background="@mipmap/boy"
+                android:layout_width="@dimen/dp_120"
+                android:button="@null"
+                android:layout_height="@dimen/dp_120"
+                 />
+
+            <RadioButton
+                android:id="@+id/girlw"
+                android:layout_marginLeft="@dimen/dp_60"
+                android:layout_width="@dimen/dp_120"
+                android:button="@null"
+                android:background="@mipmap/girl"
+                android:layout_height="@dimen/dp_120"
+                android:layout_alignParentRight="true" />
+        </RadioGroup>
+        <com.wd.health.view.Nan
+            android:id="@+id/boyx"
+            android:visibility="gone"
+            android:layout_width="@dimen/dp_120"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_200"
+            android:layout_height="@dimen/dp_120" />
+        <com.wd.health.view.NV
+            android:id="@+id/girlx"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dp_120"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_200"
+            android:layout_height="@dimen/dp_120" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.UpdateNicknameActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_74"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_42"
+            android:src="@mipmap/common_icon_back_black_n" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_40"
+            android:text="设置昵称"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_16" />
+        <Button
+            android:layout_width="@dimen/dp_52"
+            android:layout_height="@dimen/dp_24"
+            android:id="@+id/wancheng"
+            android:text="完成"
+            android:background="@drawable/wancehngbtn"
+            android:textSize="@dimen/sp_12"
+            android:layout_marginRight="@dimen/dp_20"
+            android:textColor="#fff"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_40"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_height="@dimen/dp_44">
+        <EditText
+            android:id="@+id/nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/sp_12"
+            android:textColor="#999999"
+            android:background="@null"
+            android:layout_marginLeft="@dimen/dp_20"/>
+        <ImageView
+            android:id="@+id/cha"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/common_icon_close_grey_n"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16" />
+    </RelativeLayout>
+</LinearLayout>

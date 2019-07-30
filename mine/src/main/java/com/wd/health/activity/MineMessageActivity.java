@@ -165,7 +165,12 @@ public class MineMessageActivity extends WDActivity {
             });
 
         } else if (i == R.id.nc) {
+            Intent intent=new Intent(this,UpdateNicknameActivity.class);
+            intent.putExtra("name",list.get(0).getNickName());
+            startActivity(intent);
         } else if (i == R.id.xingbie) {
+            Intent intent=new Intent(this,UpdateSexActivity.class);
+            startActivity(intent);
         } else if (i == R.id.youxiang) {
         } else if (i == R.id.bdwx) {
         } else if (i == R.id.shimingrenzheng) {

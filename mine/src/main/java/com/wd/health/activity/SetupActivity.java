@@ -107,6 +107,7 @@ public class SetupActivity extends WDActivity {
             Intent intent = new Intent(this, MineMessageActivity.class);
             startActivity(intent);
         } else if (i == R.id.xgmm) {
+
         } else if (i == R.id.qchc) {
             new AlertDialog.Builder(SetupActivity.this)
                     .setTitle("清除缓存")

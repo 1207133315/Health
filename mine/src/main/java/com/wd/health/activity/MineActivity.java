@@ -117,6 +117,7 @@ public class MineActivity extends WDActivity {
         if (i == R.id.back) {
             finish();
         } else if (i == R.id.lingdang) {
+
         } else if (i == R.id.head) {
 
         } else if (i == R.id.guanzhu) {
