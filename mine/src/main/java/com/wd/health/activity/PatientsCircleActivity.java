@@ -19,6 +19,8 @@ public class PatientsCircleActivity extends WDActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_patients_circle;
+
+
     }
 
     @Override
