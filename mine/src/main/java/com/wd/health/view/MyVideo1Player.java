@@ -46,6 +46,12 @@ public class MyVideo1Player extends JZVideoPlayerStandard {
     }
 
     @Override
+    public void onStatePreparingChangingUrl(int urlMapIndex, long seekToInAdvance) {
+        super.onStatePreparingChangingUrl(urlMapIndex, seekToInAdvance);
+        loadingProgressBar.setVisibility(VISIBLE);
+        startButton.setVisibility(VISIBLE);
+    }
+    @Override
     public void onAutoCompletion() {
 
 

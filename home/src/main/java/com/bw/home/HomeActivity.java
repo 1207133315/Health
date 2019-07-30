@@ -164,7 +164,7 @@ public class HomeActivity extends WDActivity {
                 video.setChecked(false);
                 top.setVisibility(View.GONE);
                 needVisible = false;
-                flag=true;
+                flag = true;
             }
         }
 

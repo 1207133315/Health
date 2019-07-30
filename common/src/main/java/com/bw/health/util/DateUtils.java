@@ -345,7 +345,15 @@ public class DateUtils {
         cal.setTime(date);
         return cal.getActualMaximum(Calendar.DAY_OF_YEAR);
     }
-    
+
+    public static String timeStamp2Date(long time, String format) {
+        if (format == null || format.isEmpty()) {
+            format = "yyyy-MM-dd HH:mm:ss";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(new Date(time));
+    }
+
     /**
      * 根据时间获取当月最大的日期
      * <li>2017-02-13，返回2017-02-28</li>

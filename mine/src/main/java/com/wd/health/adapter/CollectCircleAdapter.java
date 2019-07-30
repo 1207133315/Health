@@ -98,6 +98,7 @@ public class CollectCircleAdapter extends RecyclerView.Adapter<CollectCircleAdap
 
                 holder.unCirclePresenter.reqeust(loginBean.getId(),loginBean.getSessionId(),list.get(position).sickCircleId);
                 list.remove(position);
+                holder.shanchu.setVisibility(View.GONE);
                 notifyDataSetChanged();
             }
         });

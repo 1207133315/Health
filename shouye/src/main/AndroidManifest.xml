@@ -3,7 +3,9 @@
     package="com.bw.health">
 
     <application>
-        <activity android:name=".activity.ZiXunActivity" />
+        <activity android:name=".activity.ZiXunActivity" >
+
+        </activity>
         <activity android:name=".activity.YpOrBzActivity" />
         <activity android:name=".activity.MationDetailActivity" />
         <activity android:name=".activity.BannerDetailActivity" />

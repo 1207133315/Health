@@ -154,28 +154,14 @@ public class ShiPinFragment extends WDFragment {
                 if (dy>0){
                     totalDy+=dy;
                 }
-
                 if (dy<0){
                      int abs = Math.abs(dy);
                     totalDy+=abs;
                 }
-
-                if (totalDy>height){
-
-
-
-                        Log.i("lnk", "下滑: "+dy);
-
-                }
-
             }
-
-
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-
-                    // if (totalDy>=height){
                     //显示回到顶部按钮
                     View view = snapHelper.findSnapView(linearLayoutManager);
                     RecyclerView.ViewHolder viewHolder = recyclerView.getChildViewHolder(view);
@@ -290,18 +276,26 @@ public class ShiPinFragment extends WDFragment {
         final LoginBeanDao userDao = GetDaoUtil.getGetDaoUtil().getUserDao();
         //user = userDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).unique();
         final List<LoginBean> loginBeans = userDao.loadAll();
-        user = loginBeans.get(0);
+        if (loginBeans.size()>0){
+            user = loginBeans.get(0);
+            uid=user.getId();
+            sid=user.getSessionId();
+        }else {
+            uid=0;
+            sid=null;
+        }
+
         recycler.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 page = 1;
-                videoListPresenter.reqeust(user.getId(), user.getSessionId(), id, page, 5);
+                videoListPresenter.reqeust(uid, sid, id, page, 5);
             }
 
             @Override
             public void onLoadMore() {
                 page++;
-                videoListPresenter.reqeust(user.getId(), user.getSessionId(), id, page, 5);
+                videoListPresenter.reqeust(uid, sid, id, page, 5);
             }
         });
         recycler.setAdapter(videoAdapter);
@@ -309,7 +303,8 @@ public class ShiPinFragment extends WDFragment {
     }
 
     private int myHb=0;
-
+    private long uid;
+    private String sid;
 
     public  class AddCommon implements DataCall<Result>{
         @Override
@@ -351,7 +346,10 @@ public class ShiPinFragment extends WDFragment {
         final LoginBeanDao userDao = GetDaoUtil.getGetDaoUtil().getUserDao();
         //user = userDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).unique();
         final List<LoginBean> loginBeans = userDao.loadAll();
-        user = loginBeans.get(0);
+        if (loginBeans.size()>0){
+            user = loginBeans.get(0);
+        }
+
         //发表评论
 
 
@@ -372,6 +370,7 @@ public class ShiPinFragment extends WDFragment {
                 edit.setVisibility(View.GONE);
             }
         });
+        if (loginBeans.size()>0)
             user = loginBeans.get(0);
             videoAdapter.setPingLun(new VideoAdapter.PingLun() {
                 @Override
@@ -410,8 +409,6 @@ public class ShiPinFragment extends WDFragment {
                  }
                  LoginBean user = loginBeans.get(0);
                  addVideoPresenter.reqeust(user.getId(),user.getSessionId(),videoBean.id);
-
-
              }
          });
 
@@ -497,7 +494,7 @@ public class ShiPinFragment extends WDFragment {
         @Override
         public void success(Result data, Object... args) {
             Toast.makeText(getContext(), ""+data.getMessage(), Toast.LENGTH_SHORT).show();
-            final List<LoginBean> loginBeans = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll();
+             List<LoginBean> loginBeans = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll();
             if (loginBeans.size()>0) {
                 userInfo = loginBeans.get(0);
             }
@@ -567,6 +564,7 @@ public class ShiPinFragment extends WDFragment {
         public void success(Result<List<VideoBean>> data, Object... args) {
             recycler.refreshComplete();
             recycler.loadMoreComplete();
+
             if (page == 1) {
                 videoAdapter.clear();
             }
