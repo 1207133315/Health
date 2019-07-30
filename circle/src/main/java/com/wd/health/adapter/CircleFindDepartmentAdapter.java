@@ -6,11 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.TextView;
+
 
 import com.bw.health.bean.CircleFindDepartmentBean;
-import com.bw.health.bean.Result;
+
 import com.wd.health.R;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFindDepartmentAdapter.MyViewHolder> {
     Context context;
     List<CircleFindDepartmentBean> mList;
-    private CircleCommentListAdapter.MyViewHolder myViewHolder;
+    private MyViewHolder myViewHolder;
 
     public CircleFindDepartmentAdapter(Context context) {
         this.context = context;
@@ -33,7 +32,7 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
     @Override
     public CircleFindDepartmentAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = View.inflate(context, R.layout.circle_item_finddepartment_layout, null);
-        myViewHolder = new CircleCommentListAdapter.MyViewHolder(view);
+        myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
 
@@ -51,35 +50,31 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
             holder.radio1_text.setTextColor(Color.parseColor("#333333"));
         }
        // myViewHolder.radio1_text.setTextColor(circleFindDepartmentBean.textcolor);
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+
         holder.radio1_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick (View v){
                 for (int i = 0; i < mList.size(); i++) {
 
-                    if (position==i){
+                    if (position == i) {
                         mList.get(i).setCheck(true);
-                    }else {
+                    } else {
                         mList.get(i).setCheck(false);
                     }
                 }
                 call.showCall(department_id, departmentName);
                 notifyDataSetChanged();
             }
-        });
-      /*  myViewHolder.radio1_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                for (int i = 0; i < mList.size(); i++) {
-                    mList.get(i).setCheck(false);
-                }
-                circleFindDepartmentBean.setCheck(true);
-                notifyDataSetChanged();
-            }
-        });*/
+            });
 
-    }
+        }
+
+
+
+
+
+
 
 
     @Override
@@ -94,9 +89,7 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
     public void clear() {
         mList.clear();
     }
-
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public  class MyViewHolder extends RecyclerView.ViewHolder {
 
         CheckBox radio1_text;
         LinearLayout back;
@@ -107,7 +100,6 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
             back = itemView.findViewById(R.id.back);
         }
     }
-
     public interface Call {
         void showCall(int id, String name);
     }
@@ -117,5 +109,4 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
     public void setCall(Call call) {
         this.call = call;
     }
-
 }
