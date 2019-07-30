@@ -112,5 +112,6 @@ public interface Minerequest {
     @PUT("user/verify/v1/updateUserSex")
     Observable<Result>updateUserSex(@Header("userId") int userId,
                                      @Header("sessionId") String sessionId,
-                                     @Query("sex") int sex);
+                                    @Query("sex") int sex);
+
 }
