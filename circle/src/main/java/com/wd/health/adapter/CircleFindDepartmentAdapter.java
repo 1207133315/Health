@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFindDepartmentAdapter.MyViewHolder> {
     Context context;
     List<CircleFindDepartmentBean> mList;
-    private MyViewHolder myViewHolder;
+    private CircleCommentListAdapter.MyViewHolder myViewHolder;
 
     public CircleFindDepartmentAdapter(Context context) {
         this.context = context;
@@ -33,7 +33,7 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
     @Override
     public CircleFindDepartmentAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = View.inflate(context, R.layout.circle_item_finddepartment_layout, null);
-        myViewHolder = new MyViewHolder(view);
+        myViewHolder = new CircleCommentListAdapter.MyViewHolder(view);
         return myViewHolder;
     }
 
@@ -44,11 +44,27 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
         int department_id = circleFindDepartmentBean.getId();
         myViewHolder.radio1_text.setText(departmentName);
         myViewHolder.radio1_text.setChecked(circleFindDepartmentBean.isCheck());
+        holder.radio1_text.setText(departmentName);
+        if (mList.get(position).check){
+            holder.radio1_text.setTextColor(Color.parseColor("#3087ea"));
+        }else {
+            holder.radio1_text.setTextColor(Color.parseColor("#333333"));
+        }
        // myViewHolder.radio1_text.setTextColor(circleFindDepartmentBean.textcolor);
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.radio1_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for (int i = 0; i < mList.size(); i++) {
+
+                    if (position==i){
+                        mList.get(i).setCheck(true);
+                    }else {
+                        mList.get(i).setCheck(false);
+                    }
+                }
                 call.showCall(department_id, departmentName);
+                notifyDataSetChanged();
             }
         });
       /*  myViewHolder.radio1_text.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +80,7 @@ public class CircleFindDepartmentAdapter extends RecyclerView.Adapter<CircleFind
         });*/
 
     }
+
 
     @Override
     public int getItemCount() {

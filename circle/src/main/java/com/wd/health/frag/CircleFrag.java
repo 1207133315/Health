@@ -137,7 +137,7 @@ public class CircleFrag extends WDFragment {
         circleListPresenter = new CircleListPresenter(new CircleListCall());
         circleListPresenter.reqeust("7",page+"","5");
         //布局管理器
-        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
         rc2.setLayoutManager(linearLayoutManager1);
         //适配器
         circleListAdapter = new CircleListAdapter(getActivity());
@@ -171,9 +171,8 @@ public class CircleFrag extends WDFragment {
         public void success(Result<List<CircleFindDepartmentBean>> data, Object... args) {
             List<CircleFindDepartmentBean> result = data.getResult();
             circleFindDepartmentAdapter.getData(result);
+
             circleFindDepartmentAdapter.notifyDataSetChanged();
-
-
         }
 
         @Override
