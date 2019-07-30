@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import cn.jzvd.JZVideoPlayer;
 
 /**
  * com.wd.health
@@ -128,5 +129,12 @@ public class VideoFragment extends WDFragment {
             }
         }
     }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            JZVideoPlayer.releaseAllVideos();
+        }
 
+    }
 }

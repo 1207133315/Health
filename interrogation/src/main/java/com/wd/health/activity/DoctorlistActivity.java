@@ -247,7 +247,6 @@ public class DoctorlistActivity extends WDActivity {
             }
         }else if (i == R.id.more){//医生详情
             Intent intent=new Intent(this,DoctordetailActivity.class);
-
             intent.putExtra("bean", list1.get(position).getDoctorId());
             startActivity(intent);
         }

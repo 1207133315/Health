@@ -26,16 +26,6 @@ public class CircleFindDepartmentBean {
     public boolean check;
     public int textcolor;
 
-    public CircleFindDepartmentBean(int id, int type, String departmentName, String pic, int rank, boolean check, int textcolor) {
-        this.id = id;
-        this.type = type;
-        this.departmentName = departmentName;
-        this.pic = pic;
-        this.rank = rank;
-        this.check = check;
-        this.textcolor = textcolor;
-    }
-
     public int getId() {
         return id;
     }

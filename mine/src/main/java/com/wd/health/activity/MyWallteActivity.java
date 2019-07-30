@@ -75,7 +75,7 @@ public class MyWallteActivity extends WDActivity implements View.OnClickListener
         super.onResume();
         final List<LoginBean> loginBeans = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll();
         if (loginBeans.size()<=0){
-            intentByRouter("LoginActivity");
+            intentByRouter("/LoginActivity/");
         }else {
              LoginBean user = loginBeans.get(0);
             recordListAdapter = new RecordListAdapter();

@@ -54,6 +54,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     private BarrageView barrageView;
     private List<Barrage> mBarrages = new ArrayList<>();
     private boolean isBuy=false;
+    private boolean click;
 
     public void setBuy(boolean buy) {
         isBuy = buy;
@@ -158,15 +159,15 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 VideoBean tag = (VideoBean) view.getTag();
-                 boolean click = buyClick.click(tag, position);
-                if (click){
-                   list.get(position).whetherBuy=1;
-                   notifyDataSetChanged();
-                   ShiPinFragment.setIsBuy(false);
-                }
+                click = buyClick.click(tag, position);
 
+                notifyDataSetChanged();
             }
         });
+        if (click){
+            list.get(position).whetherBuy=1;
+            ShiPinFragment.setIsBuy(false);
+        }
         //购买视频
         holder.buy2.setOnClickListener(new View.OnClickListener() {
             @Override

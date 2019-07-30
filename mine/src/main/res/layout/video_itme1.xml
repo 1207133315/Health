@@ -5,13 +5,13 @@
     android:orientation="vertical">
 
 
+    <com.wd.health.view.MyVideo1Player
+        android:id="@+id/video"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_168"
 
-        <com.wd.health.view.MyVideo1Player
-            android:id="@+id/video"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_168"
 
-          ></com.wd.health.view.MyVideo1Player>
+       ></com.wd.health.view.MyVideo1Player>
 
         <TextView
             android:id="@+id/title"

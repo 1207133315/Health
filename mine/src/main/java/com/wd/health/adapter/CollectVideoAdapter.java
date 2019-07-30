@@ -83,7 +83,7 @@ public class CollectVideoAdapter extends RecyclerView.Adapter<CollectVideoAdapte
         }
         holder.video.setUp(url,
                 JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL,
-                "");
+                "饺子请闭眼");
         holder.title.setText(collectVideoBean.title);
         holder.buyNum.setText(collectVideoBean.buyNum+"人已购买");
          long createTime = collectVideoBean.createTime;
