@@ -58,6 +58,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 public class FindSickCircleInfoFrag extends WDFragment {
+
+
     private CircleInfoPresenter circleInfoPresenter;
     //----病友圈详情--------------------------
     private TextView title_circleinfo;
@@ -118,7 +120,6 @@ public class FindSickCircleInfoFrag extends WDFragment {
         keshi = getView().findViewById(R.id.circleinfo_farg_keshi);
         //病症详情
         bingzhenginfo = getView().findViewById(R.id.circleinfo_farg_bingzhengInfo);
-
         //-------------------治疗经历----------------------
         //医院
         yiyuan = getView().findViewById(R.id.circleinfo_farg_yiyuan);
@@ -126,11 +127,8 @@ public class FindSickCircleInfoFrag extends WDFragment {
         zhiliaotime = getView().findViewById(R.id.circleinfo_farg_time);
         //治疗结果
         zhiliaojingli = getView().findViewById(R.id.circleinfo_farg_zhiliaojinli);
-
         //相关图片
         ImageView image_bingli = getView().findViewById(R.id.circleinfo_farg_bingli);
-        // Glide.with(getActivity()).load(picture).into(image_bingli);
-
         //收藏
         shoucang = getView().findViewById(R.id.circleinfo_farg_shoucang);
         //收藏数
@@ -140,21 +138,14 @@ public class FindSickCircleInfoFrag extends WDFragment {
         pinglun = getView().findViewById(R.id.circleinfo_farg_shouna);
         //评论数
         shouna_num = getView().findViewById(R.id.circleinfo_farg_shouna_num);
-        // shouna_num.setText(commentNum + "");
-
         //采纳人头像
         ImageView image_caina = getView().findViewById(R.id.circleinfo_farg_caina_image);
-        // Glide.with(getActivity()).load(adoptHeadPic).into(image_caina);
-
         //采纳人昵称
         TextView caina_name = getView().findViewById(R.id.circleinfo_farg_caina_name);
-        //  caina_name.setText(adoptNickName+"");
         //采纳时间
         caina_time = getView().findViewById(R.id.circleinfo_farg_caina_time);
-
         //采纳建议
         TextView caina_info = getView().findViewById(R.id.circleinfo_farg_caina_info);
-        //  caina_info.setText(adoptComment+"");
 
 
         //关联presenter -----获取病友圈id------
@@ -214,7 +205,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
                 circle_pop_rc1 = view.findViewById(R.id.circle_pop_rc1);
                 //关联 评论列表的p层
                 circleCommentListPresenter = new CircleCommentListPresenter(new CircleCommentListCall());
-                circleCommentListPresenter.reqeust(sickCircleId + "", page + "", "10");
+                circleCommentListPresenter.reqeust(sickCircleId1 + "", page + "", "10");
 
                 //布局管理器
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -241,14 +232,14 @@ public class FindSickCircleInfoFrag extends WDFragment {
                     @Override
                     public void onRefresh() {
                         page = 1;
-                        circleCommentListPresenter.reqeust(sickCircleId + "", page + "", "10");
+                        circleCommentListPresenter.reqeust(sickCircleId1 + "", page + "", "10");
 
                     }
 
                     @Override
                     public void onLoadMore() {
                         page++;
-                        circleCommentListPresenter.reqeust(sickCircleId + "", "" + page++, "10");
+                        circleCommentListPresenter.reqeust(sickCircleId1 + "", "" + page++, "10");
 
                     }
                 });
@@ -260,7 +251,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
                     @Override
                     public void onClick(View v) {
                         edText_pinglun = ed_pinglun.getText().toString().trim();
-                        publishCommentPresenter.reqeust(String.valueOf(id_user), sessionId, sickCircleId + "", edText_pinglun);
+                        publishCommentPresenter.reqeust(String.valueOf(id_user), sessionId, String.valueOf(sickCircleId1) , edText_pinglun);
                         ed_pinglun.setText("");
                     }
                 });

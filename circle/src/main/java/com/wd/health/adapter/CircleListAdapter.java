@@ -93,11 +93,6 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
         mList.addAll(result);
     }
 
-    public void clear() {
-        mList.clear();
-    }
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
 

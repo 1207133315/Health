@@ -5,6 +5,7 @@ import com.bw.health.bean.Result;
 import com.wd.health.bean.CollectCircleBean;
 import com.wd.health.bean.CollectVideoBean;
 import com.wd.health.bean.DoctorBean;
+import com.wd.health.bean.PatientsCircleBean;
 import com.wd.health.bean.RecordListBean;
 import com.wd.health.bean.UserArchivesBean;
 
@@ -170,6 +171,12 @@ public interface Minerequest {
 
     /***郭亚杰---------------------------------------------**/
 
+
+    @GET("user/sickCircle/verify/v1/findMySickCircleList")
+    Observable<Result<List<PatientsCircleBean>>>findMySickCircleList(@Header("userId") int userId,
+                                                                     @Header("sessionId") String sessionId,
+                                                                     @Query("page") String page,
+                                                                     @Query("count") String count);
 
     /***郭亚杰---------------------------------------------**/
 
