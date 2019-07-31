@@ -21,6 +21,11 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "c7f6a1d56cb8da740fd18bfa", //JPush上注册的包名对应的appkey（*换成你的*）
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
         signingConfig signingConfigs.release
     }
     buildTypes {

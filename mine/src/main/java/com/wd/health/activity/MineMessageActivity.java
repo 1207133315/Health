@@ -132,7 +132,7 @@ public class MineMessageActivity extends WDActivity {
 
     }
 
-    @OnClick({R2.id.touxiang, R2.id.nc, R2.id.xingbie, R2.id.youxiang, R2.id.bdwx, R2.id.shimingrenzheng, R2.id.bdyhk,R2.id.back})
+    @OnClick({R2.id.touxiang, R2.id.nc, R2.id.xingbie, R2.id.youxiang, R2.id.bdwx, R2.id.shimingrenzheng, R2.id.bdyhk,R2.id.back,R2.id.tz})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.touxiang) {
@@ -177,6 +177,9 @@ public class MineMessageActivity extends WDActivity {
         } else if (i == R.id.bdyhk) {
         }else if (i==R.id.back){
             finish();
+        }else if (i==R.id.tz){
+            Intent intent=new Intent(this,SignActivity.class);
+            startActivity(intent);
         }
     }
 

@@ -126,7 +126,7 @@ public class AddActivity extends WDActivity implements View.OnClickListener {
                 } else if (i == R.id.zhibtn) {
                     WXorZFB=2;
                     addMoneyPresenter.reqeust(loginBean.getId(), loginBean.getSessionId(),100,2);
-
+                    Log.i("id", "onClick: "+loginBean.getId());
                 } else {
                     Toast.makeText(AddActivity.this, "请选择支付方式", Toast.LENGTH_SHORT).show();
 

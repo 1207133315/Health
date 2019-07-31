@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,11 @@ import com.bw.health.dao.DaoSession;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.prenster.LoginPresenter;
+import com.bw.health.util.MD5Utils;
 import com.bw.health.util.RsaCoder;
+import com.bw.health.util.UpToken;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.wd.health.R;
 import com.wd.health.R2;
 
@@ -37,6 +42,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
+
 @Route(path ="/LoginActivity/")
 public class LoginActivity extends WDActivity {
 
@@ -61,7 +69,7 @@ public class LoginActivity extends WDActivity {
     ImageView eye;
     String s = null;
     private LoginPresenter loginPresenter;
-
+    RelativeLayout main_layout;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
@@ -71,6 +79,7 @@ public class LoginActivity extends WDActivity {
     protected void initView() {
         loginPresenter = new LoginPresenter(new Login());
         Intent intent = getIntent();
+       main_layout=findViewById(R.id.main_layout);
         if (intent!=null){
             String email1 = intent.getStringExtra("email");
             String pwdd = intent.getStringExtra("pwd");
@@ -127,6 +136,8 @@ public class LoginActivity extends WDActivity {
     }
     public class Login implements DataCall {
 
+        private String s1;
+
         @Override
         public void success(Object data, Object... args) {
             Result<LoginBean>result= (Result<LoginBean>) data;
@@ -137,6 +148,37 @@ public class LoginActivity extends WDActivity {
             LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
             loginBeanDao.deleteAll();
             loginBeanDao.insertOrReplace(result1);
+            UpToken.getUpToken().addToken(WDApplication.getRegistrationID());
+            try {
+                 String s = RsaCoder.decryptByPublicKey(result1.getJiGuangPwd());
+                s1 = MD5Utils.MD5(s);
+                JMessageClient.login(result1.getUserName(), s1, new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                        switch (i){
+                            case 801003:
+                                Snackbar.make(main_layout,"用户名不存在",BaseTransientBottomBar.LENGTH_LONG).show();
+                                break;
+                            case 871301:
+                                Snackbar.make(main_layout,"密码格式错误",BaseTransientBottomBar.LENGTH_LONG).show();
+                                break;
+                            case 801004:
+                                Snackbar.make(main_layout,"密码错误",BaseTransientBottomBar.LENGTH_LONG).show();
+                                break;
+                            case 0:
+                                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                Snackbar.make(main_layout,"登录失败",BaseTransientBottomBar.LENGTH_LONG).show();
+                                break;
+                        }
+                    }
+                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             finish();
         }
 

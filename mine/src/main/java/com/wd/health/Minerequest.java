@@ -14,12 +14,15 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -153,13 +156,44 @@ public interface Minerequest {
 
 
     /***李宁康---------------------------------------------**/
+    //上传档案
+    @Headers({"Content-Type: application/json","Accept: application/json"})//需要添加头
+    @POST("user/verify/v1/addUserArchives")
+    Observable<Result>upArchives(@Header("userId") long userId,
+                                                 @Header("sessionId") String sessionId,
+                                                 @Body RequestBody body);
 
+    //上传用户档案相关图片
+    @POST("user/verify/v1/uploadArchivesPicture")
+    Observable<Result> upArchivesPic(@Header("userId") long userId,
+                                     @Header("sessionId") String sessionId,
+                                     @Body MultipartBody body
+                                     );
 
+    //删除档案
+    @HTTP(method = "DELETE", path = "user/verify/v1/deleteUserArchives", hasBody = true)
+    Observable<Result> deleteArchives(@Header("userId") long userId,
+                                      @Header("sessionId") String sessionId,
+                                      @Query("archivesId")long archivesId
+                                      );
+
+    //修改档案
+    @Headers({"Content-Type: application/json","Accept: application/json"})//需要添加头
+    @POST("user/verify/v1/updateUserArchives")
+    Observable<Result>updateArchives(@Header("userId") long userId,
+                                 @Header("sessionId") String sessionId,
+                                 @Body RequestBody body);
     /***李宁康---------------------------------------------**/
 
 
     /***刘浩---------------------------------------------**/
-
+    //完善用户信息
+    @PUT("user/verify/v1/perfectUserInfo")
+    Observable<Result> perfectUserInfo(@Header("userId") int userId,
+                                       @Header("sessionId") String sessionId,
+                                       @Query("age") int age,
+                                       @Query("height") int height,
+                                       @Query("weight") int weight);
 
     /***刘浩---------------------------------------------**/
 

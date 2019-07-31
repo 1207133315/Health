@@ -77,6 +77,12 @@ dependencies {
     api files('libs/alipaySdk-20180601.jar')
     api files('libs/universal-image-loader-1.9.4-with-sources.jar')
     api 'com.google.android.material:material:1.1.0-alpha08'
+    api 'com.contrarywind:Android-PickerView:3.2.7'
+    //ImagePickers
+    api 'com.jaikydota.imagespickers:imagespickers:1.0.6'
+    api files('libs/jcore-android-2.1.2.jar')
+    api files('libs/jpush-android-3.3.4.jar')
+    api 'cn.jiguang.sdk:jmessage:2.9.0'  // 此处以JMessage 2.9.0 版本为例。
+
+
 }
-
-
