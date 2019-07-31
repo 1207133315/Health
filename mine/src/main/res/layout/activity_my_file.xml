@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    >
+        android:id="@+id/layout_main"
+            >
 
 <LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -37,13 +37,19 @@
             android:layout_marginLeft="@dimen/dp_20"
             />
     </RelativeLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:id="@+id/file"
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#fff"
-        android:id="@+id/file"
-        android:layout_marginTop="@dimen/dp_6"
+
+
+
         >
         <TextView
             android:layout_width="wrap_content"
@@ -167,7 +173,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_40"
+       android:gravity="bottom"
         >
         <TextView
             android:layout_width="@dimen/dp_84"
@@ -177,6 +184,7 @@
             android:text="删除"
             android:textColor="#fff"
             android:id="@+id/delete"
+            android:layout_marginBottom="@dimen/dp_30"
             android:background="@drawable/delete_bnt"
             android:layout_marginLeft="@dimen/dp_60"
             />
@@ -186,14 +194,14 @@
             android:gravity="center"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_60"
-            android:text="删除"
+            android:text="编辑"
             android:textColor="#fff"
             android:id="@+id/bianji"
             android:background="@drawable/add_bnt"
             />
         </RelativeLayout>
     </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -227,12 +235,52 @@
             />
     </LinearLayout>
 </LinearLayout>
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/coord"
-        >
+   <RelativeLayout
+       android:layout_width="@dimen/dp_200"
+       android:layout_height="@dimen/dp_120"
+       android:background="@drawable/linner"
+       android:id="@+id/dialog"
+       android:visibility="gone"
+       android:layout_centerInParent="true"
+       >
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="@dimen/dp_70"
+           android:text="您的档案将会被删除！"
+           android:gravity="center"
+           android:id="@+id/top"
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+           android:textSize="@dimen/dp_14"
+           android:textColor="#333333"
+           />
+       <LinearLayout
+           android:layout_below="@+id/top"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="horizontal"
+           >
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:text="取消"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:textSize="@dimen/dp_14"
+               android:textColor="#fff"
+               android:background="#999999"
+               android:id="@+id/quxiao"
+               />
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:text="确认"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:textSize="@dimen/dp_14"
+               android:textColor="#fff"
+               android:background="#3087ea"
+               android:id="@+id/queren"
+               />
+       </LinearLayout>
+   </RelativeLayout>
 </RelativeLayout>

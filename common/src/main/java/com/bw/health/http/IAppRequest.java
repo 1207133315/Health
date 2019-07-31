@@ -15,6 +15,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Query;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -55,5 +56,12 @@ public interface IAppRequest {
                                                     @Query("count")int count);
     /**-------------首页--------------*/
 
+    //上传token
+    @POST("user/verify/v1/addUserPushToken")
+    @FormUrlEncoded
+    Observable<Result> upToken(@Header("userId")long userId,
+                               @Header("sessionId")String sessionId,
+                               @Field("token") String token
+                               );
 
 }

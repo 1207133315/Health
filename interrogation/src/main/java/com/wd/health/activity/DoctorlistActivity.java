@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
@@ -28,11 +29,11 @@ import com.wd.health.bean.DepartmentBean;
 import com.wd.health.bean.Doctor;
 import com.wd.health.Myrecycler;
 import com.wd.health.R2;
+import com.wd.health.presenter.ConsultDoctorPresenter;
 import com.wd.health.presenter.FindDepartmentPresenter;
 import com.wd.health.presenter.FindDoctorListPresenter;
 import com.wd.health.presenter.FindDoctorListPresenter2;
 
-import java.io.Serializable;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -105,6 +106,7 @@ public class DoctorlistActivity extends WDActivity {
     private List<DepartmentBean> list;
     private boolean t=false;
     private FindDoctorListPresenter2 presenter2;
+    private ConsultDoctorPresenter consultDoctorPresenter;
 
     @Override
     protected int getLayoutId() {
@@ -122,6 +124,7 @@ public class DoctorlistActivity extends WDActivity {
         }
         findDepartmentPresenter = new FindDepartmentPresenter(new FindDepartment());
         findDoctorListPresenter = new FindDoctorListPresenter(new FindDoctorList());
+        consultDoctorPresenter = new ConsultDoctorPresenter(new Consult());
         presenter2 = new FindDoctorListPresenter2(new FindDoctorList());
         findDepartmentPresenter.reqeust();
         List<LoginBean> list1 = GetDaoUtil.getGetDaoUtil().getUserDao().queryBuilder().list();
@@ -306,10 +309,24 @@ public class DoctorlistActivity extends WDActivity {
 
         }
     }
+    public class Consult implements DataCall<Result<String>>{
+        @Override
+        public void success(Result<String> data, Object... args) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id",doctorId);
+            intentByRouter("/IMActivity/",bundle);
+        }
 
+        @Override
+        public void fail(ApiException data, Object... args) {
+            Toast.makeText(DoctorlistActivity.this, ""+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
     //设置数据的方法
     public void setdata(int position) {
         if (list1.size()>0&&list1!=null){
+            doctorId = list1.get(position).getDoctorId();
+
             name.setText(list1.get(position).getDoctorName());
             zhiwu.setText(list1.get(position).getJobTitle());
             yiyuan.setText(list1.get(position).getInauguralHospital());
@@ -320,8 +337,16 @@ public class DoctorlistActivity extends WDActivity {
             } else {
                 Glide.with(DoctorlistActivity.this).load(com.wd.health.R.drawable.aaa).into(img);
             }
-
             money.setText(list1.get(position).getServicePrice() + "H币/次");
+            zixun.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
+                    consultDoctorPresenter.reqeust(loginBean.getId(),loginBean.getSessionId(),doctorId);
+
+                }
+            });
+
         }else {
             name.setText("");
             zhiwu.setText("");
@@ -338,7 +363,7 @@ public class DoctorlistActivity extends WDActivity {
         }
 
     }
-
+    int doctorId;
     public class FindDoctorList implements DataCall {
 
         @Override
@@ -346,6 +371,7 @@ public class DoctorlistActivity extends WDActivity {
             Result<List<Doctor>> result = (Result<List<Doctor>>) data;
             list1 = result.getResult();
             if (list1 != null && list1.size() > 0) {
+
                 if (list1.size() > 2) {
                     list1.get(1).setSelect(true);
                     recy2.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));

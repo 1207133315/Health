@@ -13,6 +13,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -61,5 +62,9 @@ public interface InterrogationRequest {
     Observable<Result> cancelFollow(@Header("userId") int userId,
                                     @Header("sessionId") String sessionId,
                                     @Query("doctorId") int doctorId);
-
+    //咨询医生
+    @PUT("user/inquiry/verify/v1/consultDoctor")
+    Observable<Result<String>> consultDoctor(@Header("userId")long userId,
+                                             @Header("sessionId")String sessionId,
+                                             @Query("doctorId")int doctorId);
 }

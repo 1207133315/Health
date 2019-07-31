@@ -22,13 +22,13 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.MyWallteActivity" />
         <activity android:name=".activity.AddActivity" />
-        <activity android:name=".activity.PatientsCircleActivity"></activity>
-
+        <activity android:name=".activity.PatientsCircleActivity" />
         <activity android:name=".activity.ReduceActivity" />
         <activity android:name=".activity.MyVideoActivity" />
         <activity android:name=".activity.MyFileActivity" />
-        <activity android:name=".MYActivity"></activity>
-        <activity android:name=".activity.AddFileActivity"></activity>
+        <activity android:name=".MYActivity" />
+        <activity android:name=".activity.AddFileActivity" />
+        <activity android:name=".activity.UpdateFileActivity"></activity>
     </application>
 
 </manifest>
