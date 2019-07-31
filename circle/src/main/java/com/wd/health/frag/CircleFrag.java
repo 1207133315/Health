@@ -41,6 +41,8 @@ public class CircleFrag extends WDFragment {
     private CircleListAdapter circleListAdapter;
     private TextView circle_frag_keshi;
     public int page=1;
+    private int id_s;
+
     @Override
     public String getPageName() {
         return "病友圈";
@@ -111,6 +113,7 @@ public class CircleFrag extends WDFragment {
 
             @Override
             public void showCall(int id, String name) {
+                id_s = id;
                 circleListPresenter.reqeust(String.valueOf(id),page+"","5");
                 circle_frag_keshi.setText(name);
             }
@@ -147,14 +150,14 @@ public class CircleFrag extends WDFragment {
             @Override
             public void onRefresh() {
              page=1;
-             circleListPresenter.reqeust("15",page+"","5");
+             circleListPresenter.reqeust(String.valueOf(id_s),page+"","5");
 
             }
 
             @Override
             public void onLoadMore() {
              page++;
-                circleListPresenter.reqeust("15",""+page++,"5");
+                circleListPresenter.reqeust(String.valueOf(id_s),""+page++,"5");
 
 
             }
@@ -188,14 +191,13 @@ public class CircleFrag extends WDFragment {
 
         @Override
         public void success(Result<List<CircleListBean>> data, Object... args) {
+
+            List<CircleListBean> result = data.getResult();
             rc2.loadMoreComplete();
             rc2.refreshComplete();
             if (page==1){
-                circleListAdapter.clear();
+                circleListAdapter.getDatt(result);
             }
-            List<CircleListBean> result = data.getResult();
-
-
             circleListAdapter.getDatt(result);
             circleListAdapter.notifyDataSetChanged();
         }

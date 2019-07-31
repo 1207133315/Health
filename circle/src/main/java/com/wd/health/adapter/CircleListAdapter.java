@@ -76,6 +76,7 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
                dataCall.showCall(mList.get(position));
                WaiBuBean.setSickCircleId_w(sickCircleId);
                //Toast.makeText(context, ""+sickCircleId, Toast.LENGTH_SHORT).show();
+
            }
        });
     }
@@ -91,11 +92,6 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
         }
         mList.addAll(result);
     }
-
-    public void clear() {
-        mList.clear();
-    }
-
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 

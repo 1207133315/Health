@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.SignActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_74"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_42"
+            android:src="@mipmap/common_icon_back_black_n" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_40"
+            android:text="我的体征"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_16" />
+
+        <Button
+            android:id="@+id/wancheng"
+            android:layout_width="@dimen/dp_52"
+            android:layout_height="@dimen/dp_24"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_20"
+            android:background="@drawable/wancehngbtn"
+            android:text="完成"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_12" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:src="@mipmap/my_icon_height_n"
+                android:layout_height="@dimen/dp_30" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_14"
+                android:textColor="#333333"
+                android:text="身高"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_6"
+                />
+
+
+        </LinearLayout>
+        <com.wd.health.view.Qipao
+            android:id="@+id/qipao"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_height="wrap_content" />
+        <SeekBar
+            android:id="@+id/shengaoseekbar"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/dp_30"
+            android:thumb="@drawable/tizhenghuakuai"
+            android:progressDrawable="@drawable/tizhengseek"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/dp_30"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#333333"
+                android:text="50cm"
+                android:textSize="@dimen/sp_14"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#333333"
+                android:text="250cm"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/sp_14"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_18"
+            android:background="#f2f2f2"></LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:src="@mipmap/my_icon_weight_n"
+                android:layout_height="@dimen/dp_30" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_14"
+                android:textColor="#333333"
+                android:text="体重"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_6"
+                />
+
+
+        </LinearLayout>
+        <com.wd.health.view.Qipao
+            android:id="@+id/qipao2"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_height="wrap_content" />
+        <SeekBar
+            android:id="@+id/tizhongseekbar"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/dp_30"
+            android:thumb="@drawable/tizhenghuakuai"
+            android:progressDrawable="@drawable/tizhengseek"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/dp_30"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#333333"
+                android:text="30kg"
+                android:textSize="@dimen/sp_14"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#333333"
+                android:text="150kg"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/sp_14"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_18"
+            android:background="#f2f2f2"></LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:src="@mipmap/my_icon_age_n"
+                android:layout_height="@dimen/dp_30" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_14"
+                android:textColor="#333333"
+                android:text="年龄"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_6"
+                />
+
+
+        </LinearLayout>
+        <com.wd.health.view.Qipao
+            android:id="@+id/qipao3"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_height="wrap_content" />
+        <SeekBar
+            android:id="@+id/ageseekbar"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/dp_30"
+            android:thumb="@drawable/tizhenghuakuai"
+            android:progressDrawable="@drawable/tizhengseek"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/dp_30"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#333333"
+                android:text="18"
+                android:textSize="@dimen/sp_14"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#333333"
+                android:text="120"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/sp_14"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_18"
+            android:background="#f2f2f2"></LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -26,9 +26,13 @@
         <activity android:name=".activity.ReduceActivity" />
         <activity android:name=".activity.MyVideoActivity" />
         <activity android:name=".activity.MyFileActivity" />
-        <activity android:name=".MYActivity" />
+
         <activity android:name=".activity.AddFileActivity" />
         <activity android:name=".activity.UpdateFileActivity"></activity>
+        <activity android:name=".activity.UpdateSexActivity"/>
+        <activity android:name=".activity.AddFileActivity" />
+        <activity android:name=".activity.SignActivity"></activity>
+        <activity android:name=".activity.UpdateNicknameActivity"></activity>
     </application>
 
 </manifest>

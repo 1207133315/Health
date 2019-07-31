@@ -32,6 +32,7 @@ import com.bw.health.core.DataCall;
 import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
+import com.google.gson.Gson;
 import com.suke.widget.SwitchButton;
 import com.wd.health.R;
 import com.wd.health.adapter.CircleFindDepartmentAdapter;
@@ -84,6 +85,18 @@ public class CircleWritActivity extends AppCompatActivity {
     private EditText end_time_edText;
     private PopupWindow pop_image;
     private ImageView bingli_image1;
+    private String title_text;
+    private String disease_text;
+    private String detail_text;
+    private String treatmentHospital_text;
+    private String treatmentStartTime_text;
+    private String treatmentEndTime_text;
+    private String treatmentProcess_text;
+    private EditText treatmentHospital_edText;
+    private EditText detail_edText;
+    private EditText treatmentProcess_edText;
+    private EditText title_edText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +113,22 @@ public class CircleWritActivity extends AppCompatActivity {
         bingzheng_xian = findViewById(R.id.circle_writ_bingzheng_xian);
         bingzheng_iamge = findViewById(R.id.circle_writ_bingzheng_image);
         bingzheng_iamge2 = findViewById(R.id.circle_writ_bingzheng_image2);
+
+
         bingzheng_edText = findViewById(R.id.circle_writ_bingzheng_edText);
+        detail_edText = findViewById(R.id.circle_writ_bingzhenginfo_edText);
+        //----------点击弹出popwindow获取开始时间--------------------------
+        start_time_image = findViewById(R.id.circle_writ_start_time_image);
+        start_time_edText = findViewById(R.id.circle_writ_start_time_edText);
+        //----------点击弹出popwindow获取结束时间--------------------------
+        end_time_image = findViewById(R.id.circle_writ_end_time_image);
+        end_time_edText = findViewById(R.id.circle_writ_end_time_edText);
+
+        //标题
+        title_edText = findViewById(R.id.circle_writ_title_edText);
+        treatmentHospital_edText = findViewById(R.id.circle_writ_yiyuan_edText);
+        treatmentProcess_edText = findViewById(R.id.circle_writ_zhiliaoguocheng_edText);
+
 
 
         //----------点击弹出popwindow获取科室--------------------------
@@ -199,9 +227,6 @@ public class CircleWritActivity extends AppCompatActivity {
         //----------点击弹出popwindow获取科室对应的病症-----尾巴---------------------
 
         //----------点击弹出popwindow获取开始时间--------------------------
-        start_time_image = findViewById(R.id.circle_writ_start_time_image);
-        start_time_edText = findViewById(R.id.circle_writ_start_time_edText);
-
 
         //时间选择器
         //选中事件回调
@@ -225,8 +250,7 @@ public class CircleWritActivity extends AppCompatActivity {
         //----------点击弹出popwindow获取开始时间--尾巴------------------------
         //----------点击弹出popwindow获取结束时间--------------------------
 
-        end_time_image = findViewById(R.id.circle_writ_end_time_image);
-        end_time_edText = findViewById(R.id.circle_writ_end_time_edText);
+
         //时间选择器
         //选中事件回调
         pvTime1 = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
@@ -332,6 +356,7 @@ public class CircleWritActivity extends AppCompatActivity {
 
         //---------------开关显示 隐藏------尾巴------------------
 
+
         //-------------发送我的病友圈----------------------
         //数据库
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(CircleWritActivity.this, LoginBeanDao.TABLENAME).getLoginBeanDao();
@@ -339,45 +364,52 @@ public class CircleWritActivity extends AppCompatActivity {
         Long user_id = loginBeanDao.loadAll().get(0).getId();
         String sessionId = loginBeanDao.loadAll().get(0).getSessionId();
 
-        //标题
-        EditText title_edText = findViewById(R.id.circle_writ_title_edText);
-        String title_Text = title_edText.getText().toString().trim();
-        //科室id
-        //病症描述
-        String disease_Text = bingzheng_edText.getText().toString().trim();
-        //病症详情
-        EditText detail_edText = findViewById(R.id.circle_writ_bingzhenginfo_edText);
-        String detail_Text = detail_edText.getText().toString().trim();
-        //治疗医院
-        EditText treatmentHospital_edText = findViewById(R.id.circle_writ_yiyuan_edText);
-        String treatmentHospital_Text = treatmentHospital_edText.getText().toString().trim();
-        //治疗开始时间2018-3-26
-        String treatmentStartTime_Text = start_time_edText.toString().trim();
-        //治疗结束时间
-        String treatmentEndTime_Text = end_time_edText.toString().trim();
-        //治疗过程描述
-        EditText treatmentProcess_edText = findViewById(R.id.circle_writ_zhiliaoguocheng_edText);
-        String treatmentProcess_Text = treatmentProcess_edText.getText().toString().trim();
-        //悬赏额度无时为0
 
         //发送
         Button circle_writ_send = findViewById(R.id.circle_writ_send);
         circle_writ_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                title_text = title_edText.getText().toString();
+                Log.i("json", "标题:" + title_text);
+                //科室id
+                Log.i("json", "科室id" + id_bingzheng + "");
+                //病症描述
+                disease_text = bingzheng_edText.getText().toString();
+                Log.i("json", "病症描述:" + disease_text);
+                //病症详情
+                detail_text = detail_edText.getText().toString();
+                Log.i("json", "病症详情:" + detail_text);
+                //治疗医院
+                treatmentHospital_text = treatmentHospital_edText.getText().toString();
+                Log.i("json", "治疗医院:" + treatmentHospital_text);
+                //治疗开始时间2018-3-26
+                treatmentStartTime_text = start_time_edText.getText().toString();
+                Log.i("json", "开始时间:" + treatmentStartTime_text + "");
+                //治疗结束时间
+                treatmentEndTime_text = end_time_edText.getText().toString();
+                Log.i("json", "结束时间:" + treatmentEndTime_text + "");
+                //治疗过程描述
+                treatmentProcess_text = treatmentProcess_edText.getText().toString();
+                Log.i("json", "治疗过程描述:" + treatmentProcess_text + "");
+                //悬赏额度无时为0
+
                 Map<String, String> map = new HashMap<>();
-                map.put("title", title_Text);
+                map.put("title", title_text);
                 map.put("departmentId", String.valueOf(id_bingzheng));
-                map.put("disease", disease_Text);
-                map.put("detail", detail_Text);
-                map.put("treatmentHospital", treatmentHospital_Text);
-                map.put("treatmentStartTime", treatmentStartTime_Text);
-                map.put("treatmentEndTime", treatmentEndTime_Text);
-                map.put("treatmentProcess", treatmentProcess_Text);
+                map.put("disease", disease_text);
+                map.put("detail", detail_text);
+                map.put("treatmentHospital", treatmentHospital_text);
+                map.put("treatmentStartTime", treatmentStartTime_text);
+                map.put("treatmentEndTime", treatmentEndTime_text);
+                map.put("treatmentProcess", treatmentProcess_text);
                 map.put("amount", String.valueOf(10));
 
-                String ctions = JsonUtil.parseMapToJson(map);
-                RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), ctions);
+                //String ctions = JsonUtil.parseMapToJson(map);
+                Gson gson = new Gson();
+                String json = gson.toJson(map);
+                // Log.i("json", "--" + json + "");
+                RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
                 //关联presenter
                 PublishSickCirclePresenter publishSickCirclePresenter = new PublishSickCirclePresenter(new SendCircleCall());
                 publishSickCirclePresenter.reqeust(String.valueOf(user_id), sessionId, body);
@@ -387,6 +419,7 @@ public class CircleWritActivity extends AppCompatActivity {
 
 
         //-------------发送我的病友圈----尾巴------------------
+
     }
 
 
@@ -462,7 +495,6 @@ public class CircleWritActivity extends AppCompatActivity {
         @Override
         public void success(Result<Integer> data, Object... args) {
             Integer result = data.getResult();
-
             Toast.makeText(CircleWritActivity.this, "发布成功" + result, Toast.LENGTH_SHORT).show();
         }
 
