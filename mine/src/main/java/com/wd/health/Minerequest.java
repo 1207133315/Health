@@ -6,6 +6,7 @@ import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.CollectCircleBean;
 import com.wd.health.bean.CollectVideoBean;
 import com.wd.health.bean.DoctorBean;
+import com.wd.health.bean.MySickCircleCommentListBean;
 import com.wd.health.bean.PatientsCircleBean;
 import com.wd.health.bean.RecordListBean;
 import com.wd.health.bean.UserArchivesBean;
@@ -157,32 +158,32 @@ public interface Minerequest {
 
     /***李宁康---------------------------------------------**/
     //上传档案
-    @Headers({"Content-Type: application/json","Accept: application/json"})//需要添加头
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("user/verify/v1/addUserArchives")
-    Observable<Result>upArchives(@Header("userId") long userId,
-                                                 @Header("sessionId") String sessionId,
-                                                 @Body RequestBody body);
+    Observable<Result> upArchives(@Header("userId") long userId,
+                                  @Header("sessionId") String sessionId,
+                                  @Body RequestBody body);
 
     //上传用户档案相关图片
     @POST("user/verify/v1/uploadArchivesPicture")
     Observable<Result> upArchivesPic(@Header("userId") long userId,
                                      @Header("sessionId") String sessionId,
                                      @Body MultipartBody body
-                                     );
+    );
 
     //删除档案
     @HTTP(method = "DELETE", path = "user/verify/v1/deleteUserArchives", hasBody = true)
     Observable<Result> deleteArchives(@Header("userId") long userId,
                                       @Header("sessionId") String sessionId,
-                                      @Query("archivesId")long archivesId
-                                      );
+                                      @Query("archivesId") long archivesId
+    );
 
     //修改档案
-    @Headers({"Content-Type: application/json","Accept: application/json"})//需要添加头
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("user/verify/v1/updateUserArchives")
-    Observable<Result>updateArchives(@Header("userId") long userId,
-                                 @Header("sessionId") String sessionId,
-                                 @Body RequestBody body);
+    Observable<Result> updateArchives(@Header("userId") long userId,
+                                      @Header("sessionId") String sessionId,
+                                      @Body RequestBody body);
     /***李宁康---------------------------------------------**/
 
 
@@ -221,6 +222,15 @@ public interface Minerequest {
                                         @Header("sessionId") String sessionId,
                                         @Query("commentId") String commentId,
                                         @Query("sickCircleId") String sickCircleId);
+
+
+    //查询我的病友圈帖子的评论列表
+    @GET("user/sickCircle/verify/v1/findMySickCircleCommentList")
+    Observable<Result<MySickCircleCommentListBean>> findMySickCircleCommentList(@Header("userId") String userId,
+                                                                               @Header("sessionId") String sessionId,
+                                                                               @Query("sickCircleId") String sickCircleId,
+                                                                               @Query("page") String page,
+                                                                               @Query("count") String count);
 
     /***郭亚杰---------------------------------------------**/
 

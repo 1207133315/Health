@@ -88,7 +88,7 @@ public class PatientsCircleActivity extends WDActivity {
             @Override
             public void ShowCall() {
                 //intentByRouter("/CircleCommentActivity/");
-                finish();
+               // finish();
             }
         });
 
