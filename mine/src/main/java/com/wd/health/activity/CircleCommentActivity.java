@@ -63,7 +63,7 @@ public class CircleCommentActivity extends WDActivity {
     private TextView adoption_goods1_num;
     private CheckBox adoption_goods2;
     private TextView adoption_goods2_num;
-    private RecyclerView circle_else_rc2;
+    private XRecyclerView circle_else_rc2;
     private LinearLayout adoption_layout;
     private CircleElseCommentAdapter circleElseCommentAdapter;
 
@@ -153,7 +153,21 @@ public class CircleCommentActivity extends WDActivity {
         //适配器
         circleElseCommentAdapter = new CircleElseCommentAdapter(this);
         circle_else_rc2.setAdapter(circleElseCommentAdapter);
+        circle_else_rc2.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                page = 1;
+                mySickCircleCommentListPresenter.reqeust(String.valueOf(id_user), sessionId, id_sick, String.valueOf(page), "5");
 
+            }
+
+            @Override
+            public void onLoadMore() {
+                page++;
+                mySickCircleCommentListPresenter.reqeust(String.valueOf(id_user), sessionId, id_sick, String.valueOf(page++), "5");
+
+            }
+        });
 
         //-------------评论列表已采纳页-------尾巴---------------------------------
 
@@ -243,8 +257,18 @@ public class CircleCommentActivity extends WDActivity {
                 adoption_renzheng.setVisibility(View.GONE);
             }
 
+            circle_else_rc2.loadMoreComplete();
+            circle_else_rc2.refreshComplete();
+            if (page==1){
+                circleElseCommentAdapter.clear();
+            }
+
+
+
             circleElseCommentAdapter.setDatt(otherBean);
             circleElseCommentAdapter.notifyDataSetChanged();
+
+
         }
 
         @Override

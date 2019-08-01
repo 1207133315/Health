@@ -93,6 +93,10 @@ public class CircleElseCommentAdapter extends RecyclerView.Adapter<CircleElseCom
         mList.addAll(otherBean);
     }
 
+    public void clear() {
+        mList.clear();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private final SimpleDraweeView simp_image;
         private final ImageView renzheng_image;

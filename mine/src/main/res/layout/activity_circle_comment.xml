@@ -258,16 +258,16 @@
             <!--###########################################-->
             <!--***********************************************-->
             <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_4"
-                android:background="#f2f2f2" />
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_4"
+            android:background="#f2f2f2" />
 
-              <androidx.recyclerview.widget.RecyclerView
+            <com.jcodecraeer.xrecyclerview.XRecyclerView
                   android:id="@+id/circle_else_rc2"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content">
 
-              </androidx.recyclerview.widget.RecyclerView>
+              </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
 
             <!--***********************************************-->

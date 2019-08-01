@@ -2,6 +2,7 @@ package com.wd.health;
 
 import com.bw.health.bean.MationBean;
 import com.bw.health.bean.Result;
+import com.wd.health.bean.BeAdoptedBean;
 import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.CollectCircleBean;
 import com.wd.health.bean.CollectVideoBean;
@@ -231,6 +232,16 @@ public interface Minerequest {
                                                                                @Query("sickCircleId") String sickCircleId,
                                                                                @Query("page") String page,
                                                                                @Query("count") String count);
+
+
+
+
+    //查询我的被采纳的建议
+    @GET("user/verify/v1/findMyAdoptedCommentList")
+    Observable<Result<List<BeAdoptedBean>>> findMyAdoptedCommentList(@Header("userId") String userId,
+                                                               @Header("sessionId") String sessionId,
+                                                               @Query("page") String page,
+                                                               @Query("count") String count);
 
     /***郭亚杰---------------------------------------------**/
 
