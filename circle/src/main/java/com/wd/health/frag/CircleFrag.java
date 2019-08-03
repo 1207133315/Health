@@ -25,6 +25,7 @@ import com.wd.health.utils.ViewUtils;
 
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,7 +57,7 @@ public class CircleFrag extends WDFragment {
 
     @Override
     protected void initView() {
-        ViewUtils.setImmersionStateMode(getActivity());
+        ViewUtils.setImmersionStateMode((AppCompatActivity) getActivity());
 
         AppBarLayout mAppBarLayout = getView().findViewById(R.id.appbar);
         View linear_layout = getView().findViewById(R.id.circle_linearlayout1);

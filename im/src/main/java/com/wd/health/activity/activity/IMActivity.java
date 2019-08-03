@@ -118,6 +118,7 @@ public class IMActivity extends WDActivity implements View.OnClickListener {
             JMessageClient.enterSingleConversation(userName, "b5f102cc307091e167ce52e0");
             //设置消息接收 监听
             GlobalEventListener.setJG(this, false);
+            //JMessageClient.enterSingleConversation(this.userName);
             loginBean = loginBeans.get(0);
             nowWZPresenter.reqeust(loginBean.getId(), loginBean.getSessionId());
 

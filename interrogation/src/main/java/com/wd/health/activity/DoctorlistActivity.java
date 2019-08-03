@@ -442,7 +442,7 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
             yiyuan.setText("");
             haopinglv.setText("");
             fuwu.setText("");
-            if (list1.get(position).getImagePic() != null && list1.get(position).getImagePic() != "") {
+            if (list1.get(position).getImagePic() != null && !list1.get(position).getImagePic() .equals("") ) {
                 Glide.with(DoctorlistActivity.this).load(list1.get(position).getImagePic()).into(img);
             } else {
                 Glide.with(DoctorlistActivity.this).load(R.drawable.aaa).into(img);
