@@ -124,6 +124,8 @@ public class MineActivity extends WDActivity {
             intentByRouter("/GuanzhuActivity/");
 
         } else if (i == R.id.renwu) {
+            Intent intent=new Intent(MineActivity.this,TaskActivity.class);
+            startActivity(intent);
         } else if (i == R.id.shezhiguanli) {
             Intent intent=new Intent(MineActivity.this,SetupActivity.class);
             startActivity(intent);

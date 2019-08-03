@@ -248,7 +248,8 @@ public class DoctorlistActivity extends WDActivity {
         }else if (i == R.id.more){//医生详情
             Intent intent=new Intent(this,DoctordetailActivity.class);
             intent.putExtra("bean", list1.get(position).getDoctorId());
-            startActivity(intent);
+            Log.d("DoctorlistActivity6", list1.get(position).getDoctorName());
+            //startActivity(intent);
         }
     }
 
@@ -355,7 +356,16 @@ public class DoctorlistActivity extends WDActivity {
                     zong.setText(list1.size() + "");
                     setdata(1);
                     position=1;
-                } else {
+                } else if(list1.size()>1){
+                    list1.get(1).setSelect(true);
+                    recy2.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                    myadapter = new Myadapter(com.wd.health.R.layout.item, list1);
+                    recy2.setAdapter(myadapter);
+                    dang.setText("1");
+                    zong.setText("1");
+                    setdata(1);
+                    position=1;
+                }else {
                     list1.get(0).setSelect(true);
                     recy2.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));
                     myadapter = new Myadapter(com.wd.health.R.layout.item, list1);

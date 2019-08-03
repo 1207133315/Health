@@ -178,6 +178,7 @@
     </RelativeLayout>
 
     <ImageView
+        android:id="@+id/wxlogin"
         android:layout_width="@dimen/dp_24"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
