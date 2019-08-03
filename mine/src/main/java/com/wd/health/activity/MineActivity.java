@@ -128,6 +128,9 @@ public class MineActivity extends WDActivity {
             Intent intent=new Intent(MineActivity.this,SetupActivity.class);
             startActivity(intent);
         } else if (i == R.id.jianyi) {
+            //查询我的被采纳的建议
+            intentByRouter("/BeAdoptedActivity/");
+
         } else if (i == R.id.shipin) {
             Intent intent=new Intent(MineActivity.this,MyVideoActivity.class);
             startActivity(intent);

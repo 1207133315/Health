@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <!--有评论-->
     <RelativeLayout
@@ -26,9 +26,9 @@
                 android:id="@+id/circle_pop_doctor_renzheng"
                 android:layout_width="@dimen/dp_16"
                 android:layout_height="@dimen/dp_16"
-                android:layout_marginTop="@dimen/dp_24"
                 android:layout_marginLeft="@dimen/dp_24"
-                app:srcCompat="@mipmap/circle_pop_authenticate_n" />
+                android:layout_marginTop="@dimen/dp_24"
+                android:src="@mipmap/circle_pop_authenticate_n" />
         </RelativeLayout>
 
 
@@ -79,9 +79,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
-                    android:textSize="@dimen/sp_12"
+                    android:text="有大半年了，胸口骨头疼痛，按压会痛，早上起床或走路时不会痛。"
                     android:textColor="#333333"
-                    android:text="有大半年了，胸口骨头疼痛，按压会痛，早上起床或走路时不会痛。" />
+                    android:textSize="@dimen/sp_12" />
 
                 <!--3-->
                 <LinearLayout
