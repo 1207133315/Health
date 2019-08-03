@@ -67,7 +67,6 @@ public class CircleFrag extends WDFragment {
 
     @Override
     protected void initView() {
-
         ViewUtils.setImmersionStateMode(getActivity());
 
         AppBarLayout mAppBarLayout = getView().findViewById(R.id.appbar);

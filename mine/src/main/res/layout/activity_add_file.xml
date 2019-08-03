@@ -30,7 +30,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_20"
-            android:src="@mipmap/common_icon_back_black_n" />
+            app:srcCompat="@mipmap/common_icon_back_black_n" />
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -165,7 +165,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_14"
                 android:layout_height="@dimen/dp_14"
-                android:src="@mipmap/circle_icon_drop_down_n"
+                app:srcCompat="@mipmap/circle_icon_drop_down_n"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_20"
@@ -193,7 +193,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_14"
                 android:layout_height="@dimen/dp_14"
-                android:src="@mipmap/circle_icon_drop_down_n"
+                app:srcCompat="@mipmap/circle_icon_drop_down_n"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_20"
@@ -245,7 +245,7 @@
                 android:id="@+id/image"
                 android:layout_width="@dimen/dp_72"
                 android:layout_height="@dimen/dp_72"
-                android:src="@mipmap/add" />
+                app:srcCompat="@mipmap/add" />
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

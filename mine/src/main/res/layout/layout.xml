@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
         android:layout_width="match_parent"
-        android:src="@mipmap/my_background"
+        app:srcCompat="@mipmap/my_background"
         android:layout_height="wrap_content" />
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,13 +16,13 @@
         <ImageView
             android:id="@+id/back"
             android:layout_width="@dimen/dp_16"
-            android:src="@mipmap/common_icon_back_white_n"
+            app:srcCompat="@mipmap/common_icon_back_white_n"
             android:layout_centerVertical="true"
             android:layout_height="@dimen/dp_16" />
 
         <ImageView
             android:id="@+id/lingdang"
-            android:src="@mipmap/common_nav_message_white_n"
+            app:srcCompat="@mipmap/common_nav_message_white_n"
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
             android:layout_alignParentRight="true" />
@@ -91,7 +91,7 @@
                 android:id="@+id/guanzhu"
                 android:layout_width="@dimen/dp_30"
                 android:layout_gravity="center"
-                android:src="@mipmap/common_icon_attention_small_n"
+                app:srcCompat="@mipmap/common_icon_attention_small_n"
                 android:layout_height="@dimen/dp_30" />
             <TextView
                 android:layout_gravity="center"
@@ -112,7 +112,7 @@
                 android:id="@+id/renwu"
                 android:layout_width="@dimen/dp_30"
                 android:layout_gravity="center"
-                android:src="@mipmap/my_icon_task_n"
+                app:srcCompat="@mipmap/my_icon_task_n"
                 android:layout_height="@dimen/dp_30" />
             <TextView
                 android:layout_gravity="center"
@@ -133,7 +133,7 @@
                 android:id="@+id/shezhiguanli"
                 android:layout_width="@dimen/dp_30"
                 android:layout_gravity="center"
-                android:src="@mipmap/my_icon_set_n"
+                app:srcCompat="@mipmap/my_icon_set_n"
                 android:layout_height="@dimen/dp_30" />
             <TextView
                 android:layout_gravity="center"
@@ -163,7 +163,7 @@
                 android:id="@+id/jianyi"
                 android:layout_width="@dimen/dp_30"
                 android:layout_gravity="center"
-                android:src="@mipmap/my_icon_advice_n"
+                app:srcCompat="@mipmap/my_icon_advice_n"
                 android:layout_height="@dimen/dp_30" />
             <TextView
                 android:layout_gravity="center"
@@ -184,7 +184,7 @@
                 android:id="@+id/shipin"
                 android:layout_width="@dimen/dp_30"
                 android:layout_gravity="center"
-                android:src="@mipmap/my_icon_video_n"
+                app:srcCompat="@mipmap/my_icon_video_n"
                 android:layout_height="@dimen/dp_30" />
             <TextView
                 android:layout_gravity="center"
@@ -205,7 +205,7 @@
                 android:id="@+id/bingyouquan"
                 android:layout_width="@dimen/dp_30"
                 android:layout_gravity="center"
-                android:src="@mipmap/my_icon_circle_n"
+                app:srcCompat="@mipmap/my_icon_circle_n"
                 android:layout_height="@dimen/dp_30" />
             <TextView
                 android:layout_gravity="center"
@@ -235,7 +235,7 @@
                 android:id="@+id/dangan"
                 android:layout_width="@dimen/dp_30"
                 android:layout_gravity="center"
-                android:src="@mipmap/my_icon_file_n"
+                app:srcCompat="@mipmap/my_icon_file_n"
                 android:layout_height="@dimen/dp_30" />
             <TextView
                 android:layout_gravity="center"
@@ -256,7 +256,7 @@
                 android:id="@+id/qianbao"
                 android:layout_width="@dimen/dp_30"
                 android:layout_gravity="center"
-                android:src="@mipmap/my_icon_wallet_n"
+                app:srcCompat="@mipmap/my_icon_wallet_n"
                 android:layout_height="@dimen/dp_30" />
             <TextView
                 android:layout_gravity="center"
@@ -277,7 +277,7 @@
                 android:id="@+id/shoucang"
                 android:layout_width="@dimen/dp_30"
                 android:layout_gravity="center"
-                android:src="@mipmap/common_button_collection_small_n"
+                app:srcCompat="@mipmap/common_button_collection_small_n"
                 android:layout_height="@dimen/dp_30" />
             <TextView
                 android:layout_gravity="center"
@@ -314,7 +314,7 @@
             >
             <ImageView
                 android:layout_width="@dimen/dp_40"
-                android:src="@mipmap/the_current_inquiry"
+                app:srcCompat="@mipmap/the_current_inquiry"
                 android:layout_height="@dimen/dp_40" />
             <TextView
                 android:layout_width="wrap_content"
@@ -329,7 +329,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
 
-                android:src="@mipmap/my_icon_next_n"
+                app:srcCompat="@mipmap/my_icon_next_n"
                 android:layout_height="@dimen/dp_12" />
         </RelativeLayout>
         <RelativeLayout
@@ -342,7 +342,7 @@
             >
             <ImageView
                 android:layout_width="@dimen/dp_40"
-                android:src="@mipmap/historical_inquiry"
+                app:srcCompat="@mipmap/historical_inquiry"
                 android:layout_height="@dimen/dp_40" />
             <TextView
                 android:layout_width="wrap_content"
@@ -356,7 +356,7 @@
                 android:layout_width="@dimen/dp_12"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/my_icon_next_n"
+                app:srcCompat="@mipmap/my_icon_next_n"
                 android:layout_height="@dimen/dp_12" />
         </RelativeLayout>
     </LinearLayout>

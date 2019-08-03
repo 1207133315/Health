@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_230"
-        android:src="@mipmap/user_bg" />
+        app:srcCompat="@mipmap/user_bg" />
 
     <!--他发布的病友圈-->
 

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent">
     <ImageView
         android:id="@+id/yidaoimage"
         android:layout_width="@dimen/dp_205"
-        android:src="@mipmap/guide_pages_one"
+        app:srcCompat="@mipmap/guide_pages_one"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_150"
         android:layout_height="@dimen/dp_205" />

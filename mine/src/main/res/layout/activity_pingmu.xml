@@ -18,7 +18,7 @@
             android:layout_height="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_40"
-            android:src="@mipmap/common_icon_back_black_n" />
+            app:srcCompat="@mipmap/common_icon_back_black_n" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,13 +47,13 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_toLeftOf="@+id/progress"
-            android:src="@mipmap/setting_icon_deep_color_sun_n"/>
+            app:srcCompat="@mipmap/setting_icon_deep_color_sun_n"/>
         <ImageView
             android:layout_width="@dimen/dp_24"
             android:layout_toRightOf="@+id/progress"
             android:layout_height="@dimen/dp_24"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_10"
-            android:src="@mipmap/setting_icon_light_color_sun_n"/>
+            app:srcCompat="@mipmap/setting_icon_light_color_sun_n"/>
     </RelativeLayout>
 </LinearLayout>

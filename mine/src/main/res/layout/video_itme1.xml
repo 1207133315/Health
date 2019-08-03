@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_198"
     android:orientation="vertical">
@@ -28,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/bought"
+            app:srcCompat="@mipmap/bought"
             android:visibility="gone" />
 
         <ImageView
@@ -39,7 +40,7 @@
 
             android:layout_marginTop="@dimen/dp_80"
             android:layout_marginRight="@dimen/dp_20"
-            android:src="@mipmap/common_icon_toll_n"
+            app:srcCompat="@mipmap/common_icon_toll_n"
             android:visibility="gone" />
 
 
@@ -81,7 +82,7 @@
     <ImageView
         android:layout_width="@dimen/dp_36"
         android:layout_height="@dimen/dp_36"
-        android:src="@mipmap/common_icon_time_out_n"
+        app:srcCompat="@mipmap/common_icon_time_out_n"
         android:layout_centerInParent="true"
         android:id="@+id/stop"
         android:visibility="invisible"

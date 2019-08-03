@@ -123,7 +123,7 @@ public class HomeFrag extends WDFragment {
     @SuppressLint({"ResourceAsColor", "InvalidR2Usage", "WrongConstant"})
     @Override
     protected void initView() {
-        Toast.makeText(getContext(), ""+WDApplication.getRegistrationID(), Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(), ""+WDApplication.getRegistrationID(), Toast.LENGTH_SHORT).show();
         showBannerPresenter = new ShowBannerPresenter(new Banner());
         plateListPresenter = new PlateListPresenter(new PlateList());
         plateRecycler.setLayoutManager(new GridLayoutManager(getContext(),5));

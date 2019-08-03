@@ -1,9 +1,10 @@
 package com.wd.health;
 
-import android.app.Activity;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * com.wd.health
@@ -16,7 +17,7 @@ public class SoftKeyBoardListener {
     int rootViewVisibleHeight;//纪录根视图的显示高度
     private OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener;
 
-    public SoftKeyBoardListener(Activity activity) {
+    public SoftKeyBoardListener(AppCompatActivity activity) {
         //获取activity的根视图
         rootView = activity.getWindow().getDecorView();
 
@@ -71,7 +72,7 @@ public class SoftKeyBoardListener {
         void keyBoardHide(int height);
     }
 
-    public static void setListener(Activity activity, OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener) {
+    public static void setListener(AppCompatActivity activity, OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener) {
         SoftKeyBoardListener softKeyBoardListener = new SoftKeyBoardListener(activity);
         softKeyBoardListener.setOnSoftKeyBoardChangeListener(onSoftKeyBoardChangeListener);
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#eee"
     android:layout_width="match_parent"
@@ -19,7 +20,7 @@
     android:layout_height="match_parent"
     android:background="#eee"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/dp_56"
+
     >
 
     <LinearLayout
@@ -59,7 +60,7 @@
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_32"
             android:id="@+id/head"
-            android:src="@drawable/boy"
+            app:srcCompat="@drawable/boy"
             />
 
         <com.bw.health.view.MyTextView
@@ -79,7 +80,7 @@
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_32"
             android:id="@+id/messige"
-            android:src="@mipmap/common_nav_message_white_n"
+            app:srcCompat="@mipmap/common_nav_message_white_n"
 
             />
     </LinearLayout>
@@ -137,7 +138,7 @@
             android:layout_marginTop="@dimen/dp_10"
             android:layout_width="@dimen/dp_157"
             android:layout_height="@dimen/dp_157"
-            android:src="@mipmap/common_disease"
+            app:srcCompat="@mipmap/common_disease"
             />
         </LinearLayout>
         <LinearLayout
@@ -163,7 +164,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="@dimen/dp_157"
                 android:layout_height="@dimen/dp_157"
-                android:src="@mipmap/common_drugs"
+                app:srcCompat="@mipmap/common_drugs"
                 />
         </LinearLayout>
     </LinearLayout>
@@ -228,7 +229,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_160"
-        android:src="@mipmap/health_assessment"
+        app:srcCompat="@mipmap/health_assessment"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -272,11 +273,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="#ffffff"
+        android:paddingBottom="@dimen/dp_56"
         android:layout_height="wrap_content">
         <ImageView
             android:layout_width="@dimen/dp_13"
             android:layout_height="@dimen/dp_12"
-            android:src="@mipmap/common_information_next_n"
+            app:srcCompat="@mipmap/common_information_next_n"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_2"
