@@ -2,9 +2,11 @@ package com.bw.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -68,8 +70,9 @@ public class HomeActivity extends WDActivity {
     private CircleFrag circleFrag;
     private FindSickCircleInfoFrag findSickCircleInfoFrag;
     private ShiPinFragment shiPinFragment;
+    private boolean flag1;
+    private SharedPreferences flag;
 
-    public boolean flag = false;
 
     @Override
     protected int getLayoutId() {
@@ -77,6 +80,8 @@ public class HomeActivity extends WDActivity {
     }
 
     Fragment currentFragment;
+
+
 
     @Override
     protected void initView() {
@@ -89,6 +94,7 @@ public class HomeActivity extends WDActivity {
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.frame, homeFrag).show(homeFrag).commit();
         home.setChecked(true);
+
         CircleListAdapter.setCall(new CircleListAdapter.Call() {
             @Override
             public void showCall(CircleListBean circleListBean) {
@@ -136,14 +142,18 @@ public class HomeActivity extends WDActivity {
     @SuppressLint("InvalidR2Usage")
     @OnClick({R2.id.home, R2.id.video, R2.id.circle})
     public void onClick(View v) {
+        flag = getSharedPreferences("flag", MODE_PRIVATE);
+        flag1 = flag.getBoolean("flag", false);
         handler.removeMessages(1);//不管点哪个按钮都可以移除,哪怕页面根本就没再过视频页
         if (v.getId() == R.id.home) {
+            flag.edit().putBoolean("flag",false).commit();
             handler.removeMessages(1);
             circle.setChecked(false);
             showFragment(homeFrag);
             top.setVisibility(View.GONE);
             needVisible = false;
         } else if (v.getId() == R.id.video) {
+            flag.edit().putBoolean("flag",false).commit();
             if (needVisible) {
                 handler.sendEmptyMessageDelayed(1, 5000);
             } else {
@@ -154,9 +164,11 @@ public class HomeActivity extends WDActivity {
                 top.setVisibility(View.GONE);
             }
         } else if (v.getId() == R.id.circle) {
-            if (flag) {
+
+            if (flag1) {
                 intentByRouter("/CircleWritActivity/");
-                flag=false;
+                flag.edit().putBoolean("flag",false).commit();
+//                flag1=false;
             } else {
                 handler.removeMessages(1);
                 showFragment(circleFrag);
@@ -164,7 +176,8 @@ public class HomeActivity extends WDActivity {
                 video.setChecked(false);
                 top.setVisibility(View.GONE);
                 needVisible = false;
-                flag = true;
+                flag.edit().putBoolean("flag",true).commit();
+                //flag1 = true;
             }
         }
 

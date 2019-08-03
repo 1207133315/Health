@@ -12,6 +12,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name="com.bw.health.activity.LoginActivity" />
         <activity android:name="com.bw.health.activity.RegisterActivity" />
         <activity android:name="com.bw.health.activity.ForgetPasswordActivity" />

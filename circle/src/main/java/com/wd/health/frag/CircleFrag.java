@@ -1,6 +1,8 @@
 package com.wd.health.frag;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,7 +27,6 @@ import com.wd.health.utils.ViewUtils;
 
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,6 +53,12 @@ public class CircleFrag extends WDFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.circle_frag_layout;
+
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
     }
 

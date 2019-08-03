@@ -22,17 +22,13 @@ import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.wd.health.Myrecycler;
 import com.wd.health.R;
-import com.wd.health.R2;
-import com.wd.health.activity.activity.IMActivity;
-import com.wd.health.activity.bean.UserRecordBean;
-import com.wd.health.activity.presenter.EndWZPresenter;
-import com.wd.health.activity.presenter.NowWZPresenter;
 import com.wd.health.adapter.Myadapter;
 import com.wd.health.adapter.MylistAdapter;
 import com.wd.health.bean.DepartmentBean;
 import com.wd.health.bean.Doctor;
+import com.wd.health.Myrecycler;
+import com.wd.health.R2;
 import com.wd.health.presenter.ConsultDoctorPresenter;
 import com.wd.health.presenter.FindDepartmentPresenter;
 import com.wd.health.presenter.FindDoctorListPresenter;
@@ -285,7 +281,8 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
         } else if (i == R.id.more) {//医生详情
             Intent intent = new Intent(this, DoctordetailActivity.class);
             intent.putExtra("bean", list1.get(position).getDoctorId());
-            startActivity(intent);
+            Log.d("DoctorlistActivity6", list1.get(position).getDoctorName());
+            //startActivity(intent);
         }
     }
 
@@ -469,6 +466,15 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
                     recy2.setAdapter(myadapter);
                     dang.setText("2");
                     zong.setText(list1.size() + "");
+                    setdata(1);
+                    position=1;
+                } else if(list1.size()>1){
+                    list1.get(1).setSelect(true);
+                    recy2.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                    myadapter = new Myadapter(com.wd.health.R.layout.item, list1);
+                    recy2.setAdapter(myadapter);
+                    dang.setText("1");
+                    zong.setText("1");
                     setdata(1);
                     position = 1;
                 } else {

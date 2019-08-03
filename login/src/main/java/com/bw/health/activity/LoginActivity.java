@@ -1,8 +1,7 @@
 package com.bw.health.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -28,20 +27,15 @@ import com.bw.health.dao.DaoSession;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.prenster.LoginPresenter;
-import com.bw.health.util.MD5Utils;
 import com.bw.health.util.RsaCoder;
-import com.bw.health.util.UpToken;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.wd.health.R;
 import com.wd.health.R2;
-
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+@Route(path = "/LoginActivity/")
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
 
@@ -68,6 +62,8 @@ public class LoginActivity extends WDActivity {
     @BindView(R2.id.eye)
     ImageView eye;
     String s = null;
+    @BindView(R2.id.wxlogin)
+    ImageView wxlogin;
     private LoginPresenter loginPresenter;
     RelativeLayout main_layout;
     @Override
@@ -94,14 +90,13 @@ public class LoginActivity extends WDActivity {
     }
 
 
-
-    @OnClick({R2.id.login1, R2.id.wjmm, R2.id.ljzc,R2.id.eye})
-    public void onViewClicked(View view){
+    @OnClick({R2.id.login1, R2.id.wjmm, R2.id.ljzc, R2.id.eye,R2.id.wxlogin})
+    public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.login1) {
-            if (TextUtils.isEmpty(email.getText().toString())||TextUtils.isEmpty(pwd.getText().toString())){
+            if (TextUtils.isEmpty(email.getText().toString()) || TextUtils.isEmpty(pwd.getText().toString())) {
                 Toast.makeText(this, "输入信息不能为空", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
 
                 try {
                     s = RsaCoder.encryptByPublicKey(pwd.getText().toString().trim());
@@ -109,15 +104,15 @@ public class LoginActivity extends WDActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                loginPresenter.reqeust(email.getText().toString().trim(),s);
+                loginPresenter.reqeust(email.getText().toString().trim(), s);
             }
         } else if (i == R.id.wjmm) {
-            Intent intent=new Intent(LoginActivity.this,ForgetPasswordActivity.class);
+            Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
             startActivity(intent);
         } else if (i == R.id.ljzc) {
-            Intent intent=new Intent(this,RegisterActivity.class);
+            Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
-        }else if(i == R.id.eye){
+        } else if (i == R.id.eye) {
             if (EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD == pwd.getInputType()) {
                 //如果不可见就设置为可见
                 pwd.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
@@ -132,15 +127,19 @@ public class LoginActivity extends WDActivity {
             }
             //执行上面的代码后光标会处于输入框的最前方,所以把光标位置挪到文字的最后面
             pwd.setSelection(pwd.getText().toString().length());
+        }else if (i == R.id.wxlogin){
+
         }
     }
+
+
     public class Login implements DataCall {
 
         private String s1;
 
         @Override
         public void success(Object data, Object... args) {
-            Result<LoginBean>result= (Result<LoginBean>) data;
+            Result<LoginBean> result = (Result<LoginBean>) data;
             LoginBean result1 = result.getResult();
             result1.setIslogin(true);
             result1.setPwd(s);
