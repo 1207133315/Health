@@ -43,6 +43,7 @@ public class BeAdoptedActivity extends WDActivity {
 
     @Override
     protected int getLayoutId() {
+
         return R.layout.activity_be_adopted;
     }
 

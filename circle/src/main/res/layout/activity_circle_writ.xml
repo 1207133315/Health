@@ -436,10 +436,10 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/dp_20">
 
-                    <ImageView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/circle_writ_bingli_image1"
-                        android:layout_width="@dimen/dp_72"
-                        android:layout_height="@dimen/dp_72"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/circle_writ_addimg_1x" />
 
                 </LinearLayout>
