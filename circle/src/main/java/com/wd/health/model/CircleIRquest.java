@@ -10,6 +10,7 @@ import com.wd.health.bean.CircleUserInfoBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -90,14 +91,21 @@ public interface CircleIRquest {
     Observable<Result<List<CircleBingZhengBean>>> bingzheng(@Query("departmentId") String departmentId);
 
 
-   //11. 发布病友圈
-    @Headers({"Content-Type: application/json","Accept: application/json"})//需要添加头
+    //11. 发布病友圈
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("user/sickCircle/verify/v1/publishSickCircle")
-    Observable<Result<Integer>>publishSickCircle(@Header("userId") String userId,
-                                        @Header("sessionId") String sessionId,
-                                        @Body RequestBody body);
+    Observable<Result<Integer>> publishSickCircle(@Header("userId") String userId,
+                                                  @Header("sessionId") String sessionId,
+                                                  @Body RequestBody body);
 
 
+    //12.上传用户病友圈相关图片
+//    @Multipart    //添加这一行即可
+    @POST("user/sickCircle/verify/v1/uploadSickCirclePicture")
+    Observable<Result> SctxId(@Header("userId") String userId,
+                              @Header("sessionId") String sessionId,
+                              @Query("sickCircleId") String sickCircleId,
+                              @Body MultipartBody body);
 
     //-------------病友圈接口---请勿修改-----------
 }

@@ -104,6 +104,7 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
 
         }
 
+
         //---------- 发表支持的观点-----------------------
         //数据库
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(context, LoginBeanDao.TABLENAME).getLoginBeanDao();

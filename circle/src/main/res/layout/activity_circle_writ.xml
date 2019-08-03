@@ -132,13 +132,13 @@
                             android:layout_width="@dimen/dp_12"
                             android:layout_height="@dimen/dp_12"
                             android:layout_marginTop="5dp"
-                            app:srcCompat="@mipmap/circle_icon_drop_down_n" />
+                            android:src="@mipmap/circle_icon_drop_down_n" />
                         <ImageView
                             android:id="@+id/circle_writ_keshi_image2"
                             android:layout_width="@dimen/dp_16"
                             android:layout_height="@dimen/dp_16"
                             android:visibility="gone"
-                            app:srcCompat="@mipmap/circle_writ_drop_top" />
+                            android:src="@mipmap/circle_writ_drop_top" />
 
 
 
@@ -183,13 +183,13 @@
                             android:layout_width="@dimen/dp_12"
                             android:layout_height="@dimen/dp_12"
                             android:layout_marginTop="5dp"
-                            app:srcCompat="@mipmap/circle_icon_drop_down_n" />
+                            android:src="@mipmap/circle_icon_drop_down_n" />
                         <ImageView
                             android:id="@+id/circle_writ_bingzheng_image2"
                             android:layout_width="@dimen/dp_16"
                             android:layout_height="@dimen/dp_16"
                             android:visibility="gone"
-                            app:srcCompat="@mipmap/circle_writ_drop_top" />
+                            android:src="@mipmap/circle_writ_drop_top" />
                     </LinearLayout>
 
                     <View
@@ -330,13 +330,13 @@
                                 android:id="@+id/circle_writ_start_time_image"
                                 android:layout_width="@dimen/dp_12"
                                 android:layout_height="@dimen/dp_12"
-                                app:srcCompat="@mipmap/circle_icon_drop_down_n" />
+                                android:src="@mipmap/circle_icon_drop_down_n" />
                             <ImageView
                                 android:id="@+id/circle_writ_start_time_image2"
                                 android:layout_width="@dimen/dp_16"
                                 android:layout_height="@dimen/dp_16"
                                 android:visibility="gone"
-                                app:srcCompat="@mipmap/circle_writ_drop_top" />
+                                android:src="@mipmap/circle_writ_drop_top" />
 
                         </LinearLayout>
 
@@ -372,14 +372,14 @@
                                 android:id="@+id/circle_writ_end_time_image"
                                 android:layout_width="@dimen/dp_12"
                                 android:layout_height="@dimen/dp_12"
-                                app:srcCompat="@mipmap/circle_icon_drop_down_n" />
+                                android:src="@mipmap/circle_icon_drop_down_n" />
 
                             <ImageView
                                 android:id="@+id/circle_writ_end_time_image2"
                                 android:layout_width="@dimen/dp_16"
                                 android:layout_height="@dimen/dp_16"
                                 android:visibility="gone"
-                                app:srcCompat="@mipmap/circle_writ_drop_top" />
+                                android:src="@mipmap/circle_writ_drop_top" />
                         </LinearLayout>
 
                         <View
@@ -435,12 +435,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="@dimen/dp_20">
-
-                    <ImageView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/circle_writ_bingli_image1"
-                        android:layout_width="@dimen/dp_72"
-                        android:layout_height="@dimen/dp_72"
-                        app:srcCompat="@mipmap/circle_writ_addimg_1x" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/circle_writ_addimg_1x" />
 
                 </LinearLayout>
                 <!--********最多可添加6张图片;长按为图片排序*********-->

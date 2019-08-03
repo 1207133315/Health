@@ -1,20 +1,14 @@
 package com.wd.health.activity;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
-import android.animation.ObjectAnimator;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,18 +27,19 @@ import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.google.gson.Gson;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.suke.widget.SwitchButton;
 import com.wd.health.R;
-import com.wd.health.adapter.CircleFindDepartmentAdapter;
 import com.wd.health.adapter.CircleWritBingZhengAdapter;
 import com.wd.health.adapter.CircleWritDepartmentAdapter;
 import com.wd.health.bean.CircleBingZhengBean;
 import com.wd.health.presenter.CircleBingZhengPresenter;
 import com.wd.health.presenter.CircleFindDepartmentPresenter;
 import com.wd.health.presenter.PublishSickCirclePresenter;
-import com.wd.health.utils.JsonUtil;
+import com.wd.health.presenter.WardMateSctxPresenter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -84,7 +79,7 @@ public class CircleWritActivity extends AppCompatActivity {
     private ImageView end_time_image;
     private EditText end_time_edText;
     private PopupWindow pop_image;
-    private ImageView bingli_image1;
+    private RecyclerView bingli_image1;
     private String title_text;
     private String disease_text;
     private String detail_text;
@@ -97,11 +92,20 @@ public class CircleWritActivity extends AppCompatActivity {
     private EditText treatmentProcess_edText;
     private EditText title_edText;
 
+    private int maxSelectNum = 6;
+    private List<LocalMedia> selectList = new ArrayList<>();
+    private int themeId;
 
+    private ArrayList<String> mList = new ArrayList<>();
+    private WardMateSctxPresenter wardMateSctxPresenter;
+
+    private String sessionId;
+    private Long id_user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circle_writ);
+
         //获取控件
         //----------点击弹出popwindow获取科室--------------------------
         keshi_xian = findViewById(R.id.circle_writ_keshi_xian);
@@ -128,7 +132,6 @@ public class CircleWritActivity extends AppCompatActivity {
         title_edText = findViewById(R.id.circle_writ_title_edText);
         treatmentHospital_edText = findViewById(R.id.circle_writ_yiyuan_edText);
         treatmentProcess_edText = findViewById(R.id.circle_writ_zhiliaoguocheng_edText);
-
 
 
         //----------点击弹出popwindow获取科室--------------------------
@@ -275,57 +278,16 @@ public class CircleWritActivity extends AppCompatActivity {
 
         //---------------------长按为图片排序------------------------------
 
+
+
         bingli_image1 = findViewById(R.id.circle_writ_bingli_image1);
-        bingli_image1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view = View.inflate(CircleWritActivity.this, R.layout.circle_writ_pop_start_time_layout, null);
-                pop_image = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                pop_image.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                pop_image.setFocusable(true);
-                pop_image.setTouchable(true);
-                pop_image.showAtLocation(view, 0, 0, 0);
 
 
-                Button image_camera = view.findViewById(R.id.circle_pop_image_camera);
-                Button image_photo = view.findViewById(R.id.circle_pop_image_photo);
-                Button image_close = view.findViewById(R.id.circle_pop_image_close);
+        //关联p
+        wardMateSctxPresenter = new WardMateSctxPresenter(new SendImageViewCall());
 
 
-                image_camera.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // 【1】设置张相机跳转意图(隐式意图)
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        // 【2】添加意图
-                        intent.addCategory("android.intent.category.DEFAULT");
-                        // [3]跳转回传
-                        startActivityForResult(intent, 1);
-                        pop_image.dismiss();
 
-                    }
-                });
-                image_photo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // [1]设置相册的意图
-                        Intent intent1 = new Intent(Intent.ACTION_PICK);
-                        // [2]设置显式MIME数据类型
-                        intent1.setType("image/*");
-                        // [3]跳转回传
-                        startActivityForResult(intent1, 2);
-                        pop_image.dismiss();
-
-                    }
-                });
-                image_close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        pop_image.dismiss();
-                    }
-                });
-            }
-        });
 
 
         //---------------------长按为图片排序--------尾巴----------------------
@@ -361,8 +323,8 @@ public class CircleWritActivity extends AppCompatActivity {
         //数据库
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(CircleWritActivity.this, LoginBeanDao.TABLENAME).getLoginBeanDao();
 
-        Long user_id = loginBeanDao.loadAll().get(0).getId();
-        String sessionId = loginBeanDao.loadAll().get(0).getSessionId();
+           id_user = loginBeanDao.loadAll().get(0).getId();
+         sessionId = loginBeanDao.loadAll().get(0).getSessionId();
 
 
         //发送
@@ -394,6 +356,7 @@ public class CircleWritActivity extends AppCompatActivity {
                 Log.i("json", "治疗过程描述:" + treatmentProcess_text + "");
                 //悬赏额度无时为0
 
+
                 Map<String, String> map = new HashMap<>();
                 map.put("title", title_text);
                 map.put("departmentId", String.valueOf(id_bingzheng));
@@ -412,7 +375,7 @@ public class CircleWritActivity extends AppCompatActivity {
                 RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
                 //关联presenter
                 PublishSickCirclePresenter publishSickCirclePresenter = new PublishSickCirclePresenter(new SendCircleCall());
-                publishSickCirclePresenter.reqeust(String.valueOf(user_id), sessionId, body);
+                publishSickCirclePresenter.reqeust(String.valueOf(id_user), sessionId, body);
 
             }
         });
@@ -495,6 +458,7 @@ public class CircleWritActivity extends AppCompatActivity {
         @Override
         public void success(Result<Integer> data, Object... args) {
             Integer result = data.getResult();
+            wardMateSctxPresenter.reqeust(String.valueOf(id_user),sessionId,String.valueOf(result),mList);
             Toast.makeText(CircleWritActivity.this, "发布成功" + result, Toast.LENGTH_SHORT).show();
         }
 
@@ -508,25 +472,29 @@ public class CircleWritActivity extends AppCompatActivity {
 
     //------------------点击发送图片-----------------------------------------------------
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        //相机
-        // 4判断是是不是我们需要的东西
-        if (requestCode == 1) {
-            // 5获取图片数据
-            Bitmap bitmap = data.getParcelableExtra("data");
-            // 6设置图片
-            bingli_image1.setImageBitmap(bitmap);
+
+    //------------------点击发送图片----------尾巴-------------------------------------------
+
+    //------------------点击发送图片-----成功失败-------------------------------------------
+
+    class SendImageViewCall implements DataCall<Result>{
+
+        @Override
+        public void success(Result data, Object... args) {
+            Toast.makeText(CircleWritActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
         }
-        //相册
-        //判断请求码
-        if (requestCode == 2) {
-            Uri uri = data.getData();
-            bingli_image1.setImageURI(uri);
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+            Toast.makeText(CircleWritActivity.this, data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
-    //------------------点击发送图片----------尾巴-------------------------------------------
+
+
+
+
+    //------------------点击发送图片-----成功失败-----尾巴--------------------------------------
 }
