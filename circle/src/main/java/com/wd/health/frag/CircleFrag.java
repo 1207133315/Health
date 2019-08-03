@@ -27,6 +27,7 @@ import com.wd.health.utils.ViewUtils;
 
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,7 +58,7 @@ public class CircleFrag extends WDFragment {
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
+    public void onSaveInstanceState( Bundle outState) {
         super.onSaveInstanceState(outState);
 
     }

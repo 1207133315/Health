@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:paddingTop="@dimen/dp_20"
-    tools:context=".activity.BeAdoptedActivity">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"

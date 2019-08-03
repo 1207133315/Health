@@ -23,6 +23,9 @@ import com.bw.health.util.GetDaoUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.R;
+import com.wd.health.activity.bean.UserRecordBean;
+import com.wd.health.activity.presenter.EndWZPresenter;
+import com.wd.health.activity.presenter.NowWZPresenter;
 import com.wd.health.adapter.Myadapter;
 import com.wd.health.adapter.MylistAdapter;
 import com.wd.health.bean.DepartmentBean;
@@ -160,8 +163,7 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
         mQueren.setOnClickListener(this);
         endWZPresenter = new EndWZPresenter(new EndWZ());
         nowWZPresenter = new NowWZPresenter(new NowWZ());
-         LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
-        nowWZPresenter.reqeust(loginBean.getId(), loginBean.getSessionId());
+
     }
 
     @Override
@@ -305,7 +307,7 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
             mQueren.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
+                     LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
                     endWZPresenter.reqeust(loginBean.getId(),loginBean.getSessionId(),data.getResult().recordId);
                 }
             });
@@ -403,6 +405,8 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
            /// Toast.makeText(DoctorlistActivity.this, "" + data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
             if (data.getDisplayMessage().equals("有正在沟通中的咨询")) {
                 dialog.setVisibility(View.VISIBLE);
+                LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
+                nowWZPresenter.reqeust(loginBean.getId(), loginBean.getSessionId());
             }
         }
     }
@@ -427,8 +431,8 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
                 @Override
                 public void onClick(View v) {
                     doctorName=list1.get(position).getDoctorName();
-                    final LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
-                    consultDoctorPresenter.reqeust(loginBean.getId(), doctorId);
+                     LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
+                    consultDoctorPresenter.reqeust(loginBean.getId(),loginBean.getSessionId(), doctorId);
 
                 }
             });

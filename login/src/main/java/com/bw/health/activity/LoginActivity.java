@@ -27,17 +27,20 @@ import com.bw.health.dao.DaoSession;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.prenster.LoginPresenter;
+import com.bw.health.util.MD5Utils;
 import com.bw.health.util.RsaCoder;
+import com.bw.health.util.UpToken;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.wd.health.R;
 import com.wd.health.R2;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-@Route(path = "/LoginActivity/")
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
+
 
 @Route(path ="/LoginActivity/")
 public class LoginActivity extends WDActivity {
