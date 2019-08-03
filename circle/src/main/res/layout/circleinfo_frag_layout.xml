@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,7 +26,7 @@
                 android:id="@+id/circle_image_head"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@mipmap/girl" />
+                app:srcCompat="@mipmap/girl" />
 
             <TextView
                 android:id="@+id/circleinfo_farg_title"
@@ -41,7 +42,7 @@
                 android:id="@+id/circle_image_message"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/common_nav_message_black_n" />
+                app:srcCompat="@mipmap/common_nav_message_black_n" />
         </LinearLayout>
 
         <View
@@ -179,7 +180,7 @@
                     android:layout_width="@dimen/dp_329"
                     android:layout_height="@dimen/dp_154"
                     android:layout_marginTop="@dimen/dp_6"
-                    android:src="@mipmap/circle_bingli" />
+                    app:srcCompat="@mipmap/circle_bingli" />
 
 
                 <LinearLayout
@@ -261,7 +262,7 @@
                         android:id="@+id/circleinfo_farg_caina_image"
                         android:layout_width="@dimen/dp_32"
                         android:layout_height="@dimen/dp_32"
-                        android:src="@mipmap/girl" />
+                        app:srcCompat="@mipmap/girl" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -330,14 +331,14 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="100dp"
             android:layout_marginBottom="260dp"
-            android:src="@mipmap/know"/>
+            app:srcCompat="@mipmap/know"/>
         <ImageView
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="100dp"
             android:layout_marginBottom="190dp"
-            android:src="@mipmap/copywriting"/>
+            app:srcCompat="@mipmap/copywriting"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -346,7 +347,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="50dp"
             android:layout_marginBottom="70dp"
-            android:src="@mipmap/arrow"/>
+            app:srcCompat="@mipmap/arrow"/>
         <ImageView
             android:layout_width="80dp"
             android:layout_height="40dp"
@@ -354,7 +355,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:src="@mipmap/selsct"/>
+            app:srcCompat="@mipmap/selsct"/>
     </RelativeLayout>
 
 </RelativeLayout>

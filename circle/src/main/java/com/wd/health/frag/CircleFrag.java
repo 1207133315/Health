@@ -1,6 +1,8 @@
 package com.wd.health.frag;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,9 +57,14 @@ public class CircleFrag extends WDFragment {
     }
 
     @Override
-    protected void initView() {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-        ViewUtils.setImmersionStateMode(getActivity());
+    }
+
+    @Override
+    protected void initView() {
+        ViewUtils.setImmersionStateMode((AppCompatActivity) getActivity());
 
         AppBarLayout mAppBarLayout = getView().findViewById(R.id.appbar);
         View linear_layout = getView().findViewById(R.id.circle_linearlayout1);

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import cn.jpush.android.api.CustomMessage;
 import cn.jpush.android.service.JPushMessageReceiver;
 
 /**
@@ -14,5 +15,11 @@ import cn.jpush.android.service.JPushMessageReceiver;
  */
 public class PushReceiver extends JPushMessageReceiver {
 
+    @Override
+    public void onMessage(Context context, CustomMessage customMessage) {
+        super.onMessage(context, customMessage);
 
+
+
+    }
 }

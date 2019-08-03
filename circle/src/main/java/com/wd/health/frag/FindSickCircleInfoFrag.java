@@ -56,6 +56,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class FindSickCircleInfoFrag extends WDFragment {
 
@@ -101,6 +103,15 @@ public class FindSickCircleInfoFrag extends WDFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.circleinfo_frag_layout;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            SharedPreferences flag = getActivity().getSharedPreferences("flag", MODE_PRIVATE);
+            flag.edit().putBoolean("flag",false).commit();
+        }
     }
 
     @Override

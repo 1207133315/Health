@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white">
@@ -108,6 +109,6 @@
         android:layout_width="@dimen/dp_30"
         android:layout_height="@dimen/dp_30"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/collection_delete"
+        app:srcCompat="@mipmap/collection_delete"
         android:visibility="gone" />
 </RelativeLayout>

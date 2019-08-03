@@ -20,7 +20,7 @@
             android:layout_height="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_42"
-            android:src="@mipmap/common_icon_back_black_n" />
+            app:srcCompat="@mipmap/common_icon_back_black_n" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_27"
-                android:src="@mipmap/my_icon_next_n" />
+                app:srcCompat="@mipmap/my_icon_next_n" />
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
@@ -131,14 +131,14 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_27"
-                android:src="@mipmap/my_icon_next_n" />
+                app:srcCompat="@mipmap/my_icon_next_n" />
 
             <ImageView
                 android:id="@+id/sex"
                 android:layout_width="@dimen/dp_24"
                 android:layout_height="@dimen/dp_24"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/common_icon_boy_n"
+                app:srcCompat="@mipmap/common_icon_boy_n"
                 android:layout_marginRight="@dimen/dp_14"
                 android:layout_toLeftOf="@+id/n2" />
         </RelativeLayout>
@@ -168,7 +168,7 @@
                 android:layout_height="@dimen/dp_12"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/my_icon_next_n"
+                app:srcCompat="@mipmap/my_icon_next_n"
                 android:layout_marginRight="@dimen/dp_27"/>
             <RelativeLayout
                 android:layout_width="@dimen/dp_150"
@@ -284,7 +284,7 @@
                 android:layout_height="@dimen/dp_12"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/my_icon_next_n"
+                app:srcCompat="@mipmap/my_icon_next_n"
                 android:layout_marginRight="@dimen/dp_27"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -323,7 +323,7 @@
                 android:layout_height="@dimen/dp_12"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/my_icon_next_n"
+                app:srcCompat="@mipmap/my_icon_next_n"
                 android:layout_marginRight="@dimen/dp_27"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -360,7 +360,7 @@
                 android:layout_height="@dimen/dp_12"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/my_icon_next_n"
+                app:srcCompat="@mipmap/my_icon_next_n"
                 android:layout_marginRight="@dimen/dp_27"/>
             <TextView
                 android:layout_width="wrap_content"

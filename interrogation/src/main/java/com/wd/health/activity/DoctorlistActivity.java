@@ -40,9 +40,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.api.BasicCallback;
 
 @Route(path = "/DoctorlistActivity/")
-public class DoctorlistActivity extends WDActivity {
+public class DoctorlistActivity extends WDActivity implements View.OnClickListener {
 
 
     @BindView(R2.id.head)
@@ -104,9 +109,24 @@ public class DoctorlistActivity extends WDActivity {
     private Long userid;
     private String sessionId;
     private List<DepartmentBean> list;
-    private boolean t=false;
+    private boolean t = false;
     private FindDoctorListPresenter2 presenter2;
     private ConsultDoctorPresenter consultDoctorPresenter;
+    /**
+     * 有正在进行的咨询,是否结束
+     */
+    private TextView mTop;
+    /**
+     * 取消
+     */
+    private TextView mQuxiao;
+    /**
+     * 确认
+     */
+    private TextView mQueren;
+    RelativeLayout dialog;
+    private EndWZPresenter endWZPresenter;
+    private NowWZPresenter nowWZPresenter;
 
     @Override
     protected int getLayoutId() {
@@ -122,6 +142,7 @@ public class DoctorlistActivity extends WDActivity {
         for (LoginBean loginBean : list) {
             head.setImageURI(loginBean.getHeadPic());
         }
+        dialog=findViewById(R.id.dialog);
         findDepartmentPresenter = new FindDepartmentPresenter(new FindDepartment());
         findDoctorListPresenter = new FindDoctorListPresenter(new FindDoctorList());
         consultDoctorPresenter = new ConsultDoctorPresenter(new Consult());
@@ -132,6 +153,15 @@ public class DoctorlistActivity extends WDActivity {
         sessionId = list1.get(0).getSessionId();
         Log.d("DoctorlistActivity2", "id:" + id + "/" + sessionId);
         findDoctorListPresenter.reqeust(userid.intValue(), sessionId, id, 1, "1", 1, 10);
+        mTop = (TextView) findViewById(R.id.top);
+        mQuxiao = (TextView) findViewById(R.id.quxiao);
+        mQuxiao.setOnClickListener(this);
+        mQueren = (TextView) findViewById(R.id.queren);
+        mQueren.setOnClickListener(this);
+        endWZPresenter = new EndWZPresenter(new EndWZ());
+        nowWZPresenter = new NowWZPresenter(new NowWZ());
+         LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
+        nowWZPresenter.reqeust(loginBean.getId(), loginBean.getSessionId());
     }
 
     @Override
@@ -140,18 +170,18 @@ public class DoctorlistActivity extends WDActivity {
     }
 
 
-    @OnClick({R2.id.lingdang, R2.id.zonghe, R2.id.haoping, R2.id.zixunshu, R2.id.price, R2.id.right, R2.id.left,R2.id.more})
+    @OnClick({R2.id.lingdang, R2.id.zonghe, R2.id.haoping, R2.id.zixunshu, R2.id.price, R2.id.right, R2.id.left, R2.id.more})
     public void onViewClicked(View view) {
         int i = view.getId();
-        if (i == com.wd.health.R.id.lingdang) {
-        } else if (i == com.wd.health.R.id.zonghe) {
+        if (i == R.id.lingdang) {
+        } else if (i == R.id.zonghe) {
             for (DepartmentBean bean : list) {
                 if (bean.isChecked) {
                     findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 1, "1", 1, 10);
                     break;
                 }
             }
-        } else if (i == com.wd.health.R.id.haoping) {
+        } else if (i == R.id.haoping) {
             for (DepartmentBean bean : list) {
                 if (bean.isChecked) {
                     findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 2, "1", 1, 10);
@@ -168,21 +198,21 @@ public class DoctorlistActivity extends WDActivity {
         } else if (i == R.id.price) {
             for (DepartmentBean bean : list) {
                 if (bean.isChecked) {
-                    if (t){
+                    if (t) {
                         findDoctorListPresenter.reqeust(userid.intValue(), sessionId, (int) bean.id, 4, "1", 1, 10);
-                        t=false;
+                        t = false;
                         paixu.setImageResource(R.mipmap.common_button_descending_s);
                         break;
-                    }else {
+                    } else {
                         presenter2.reqeust(userid.intValue(), sessionId, (int) bean.id, 4, 1, 10);
-                        t=true;
+                        t = true;
                         paixu.setImageResource(R.mipmap.common_button_sequence_n);
                         break;
                     }
 
                 }
             }
-        } else if (i == com.wd.health.R.id.left) {
+        } else if (i == R.id.left) {
             if (position > 0) {
                 position--;
                 for (Doctor doctor : list1) {
@@ -248,13 +278,60 @@ public class DoctorlistActivity extends WDActivity {
                 setdata(position);
                 myadapter.notifyDataSetChanged();
             }
-        }else if (i == R.id.more){//医生详情
-            Intent intent=new Intent(this,DoctordetailActivity.class);
+        } else if (i == R.id.more) {//医生详情
+            Intent intent = new Intent(this, DoctordetailActivity.class);
             intent.putExtra("bean", list1.get(position).getDoctorId());
-            startActivity(intent);
+            Log.d("DoctorlistActivity6", list1.get(position).getDoctorName());
+            //startActivity(intent);
         }
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    public class NowWZ implements DataCall<Result<UserRecordBean>>{
+        @Override
+        public void success(Result<UserRecordBean> data, Object... args) {
+
+            mQuxiao.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.setVisibility(View.GONE);
+                }
+            });
+
+            mQueren.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
+                    endWZPresenter.reqeust(loginBean.getId(),loginBean.getSessionId(),data.getResult().recordId);
+                }
+            });
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
+
+
+
+    public class EndWZ implements DataCall<Result>{
+        @Override
+        public void success(Result data, Object... args) {
+            Toast.makeText(DoctorlistActivity.this, ""+data.getMessage(), Toast.LENGTH_SHORT).show();
+            JMessageClient.exitConversation();
+            dialog.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
     public class FindDepartment implements DataCall {
 
         @Override
@@ -267,7 +344,7 @@ public class DoctorlistActivity extends WDActivity {
                         bean.isChecked = true;
                     }
                 }
-                MylistAdapter adapter = new MylistAdapter(com.wd.health.R.layout.recy1, list);
+                MylistAdapter adapter = new MylistAdapter(R.layout.recy1, list);
                 recy.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));
                 recy.setAdapter(adapter);
                 for (int i = 0; i < list.size(); i++) {
@@ -309,22 +386,30 @@ public class DoctorlistActivity extends WDActivity {
 
         }
     }
-    public class Consult implements DataCall<Result<String>>{
+
+    public class Consult implements DataCall<Result<String>> {
         @Override
         public void success(Result<String> data, Object... args) {
+
             Bundle bundle = new Bundle();
-            bundle.putInt("id",doctorId);
-            intentByRouter("/IMActivity/",bundle);
+            bundle.putInt("id", doctorId);
+            bundle.putString("name",doctorName);
+            bundle.putString("userName",data.doctorUserName);
+            intentByRouter("/IMActivity/", bundle);
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
-            Toast.makeText(DoctorlistActivity.this, ""+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+           /// Toast.makeText(DoctorlistActivity.this, "" + data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+            if (data.getDisplayMessage().equals("有正在沟通中的咨询")) {
+                dialog.setVisibility(View.VISIBLE);
+            }
         }
     }
+    private String doctorName;
     //设置数据的方法
     public void setdata(int position) {
-        if (list1.size()>0&&list1!=null){
+        if (list1.size() > 0 && list1 != null) {
             doctorId = list1.get(position).getDoctorId();
 
             name.setText(list1.get(position).getDoctorName());
@@ -335,35 +420,38 @@ public class DoctorlistActivity extends WDActivity {
             if (list1.get(position).getImagePic() != null && list1.get(position).getImagePic() != "") {
                 Glide.with(DoctorlistActivity.this).load(list1.get(position).getImagePic()).into(img);
             } else {
-                Glide.with(DoctorlistActivity.this).load(com.wd.health.R.drawable.aaa).into(img);
+                Glide.with(DoctorlistActivity.this).load(R.drawable.aaa).into(img);
             }
             money.setText(list1.get(position).getServicePrice() + "H币/次");
             zixun.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    doctorName=list1.get(position).getDoctorName();
                     final LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
-                    consultDoctorPresenter.reqeust(loginBean.getId(),loginBean.getSessionId(),doctorId);
+                    consultDoctorPresenter.reqeust(loginBean.getId(), doctorId);
 
                 }
             });
 
-        }else {
+        } else {
             name.setText("");
             zhiwu.setText("");
             yiyuan.setText("");
             haopinglv.setText("");
             fuwu.setText("");
-            if (list1.get(position).getImagePic() != null && list1.get(position).getImagePic() != "") {
+            if (list1.get(position).getImagePic() != null && !list1.get(position).getImagePic() .equals("") ) {
                 Glide.with(DoctorlistActivity.this).load(list1.get(position).getImagePic()).into(img);
             } else {
-                Glide.with(DoctorlistActivity.this).load(com.wd.health.R.drawable.aaa).into(img);
+                Glide.with(DoctorlistActivity.this).load(R.drawable.aaa).into(img);
             }
 
             money.setText("");
         }
 
     }
+
     int doctorId;
+
     public class FindDoctorList implements DataCall {
 
         @Override
@@ -371,25 +459,33 @@ public class DoctorlistActivity extends WDActivity {
             Result<List<Doctor>> result = (Result<List<Doctor>>) data;
             list1 = result.getResult();
             if (list1 != null && list1.size() > 0) {
-
                 if (list1.size() > 2) {
                     list1.get(1).setSelect(true);
                     recy2.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                    myadapter = new Myadapter(com.wd.health.R.layout.item, list1);
+                    myadapter = new Myadapter(R.layout.item, list1);
                     recy2.setAdapter(myadapter);
                     dang.setText("2");
                     zong.setText(list1.size() + "");
                     setdata(1);
                     position=1;
-                } else {
-                    list1.get(0).setSelect(true);
+                } else if(list1.size()>1){
+                    list1.get(1).setSelect(true);
                     recy2.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));
                     myadapter = new Myadapter(com.wd.health.R.layout.item, list1);
                     recy2.setAdapter(myadapter);
                     dang.setText("1");
                     zong.setText("1");
+                    setdata(1);
+                    position = 1;
+                } else {
+                    list1.get(0).setSelect(true);
+                    recy2.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                    myadapter = new Myadapter(R.layout.item, list1);
+                    recy2.setAdapter(myadapter);
+                    dang.setText("1");
+                    zong.setText("1");
                     setdata(0);
-                    position=0;
+                    position = 0;
                 }
             }
 

@@ -30,7 +30,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_20"
-            android:src="@mipmap/common_icon_back_black_n" />
+            app:srcCompat="@mipmap/common_icon_back_black_n" />
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView

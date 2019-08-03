@@ -18,7 +18,7 @@
             android:layout_height="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_42"
-            android:src="@mipmap/common_icon_back_black_n" />
+            app:srcCompat="@mipmap/common_icon_back_black_n" />
 
         <TextView
             android:layout_width="wrap_content"

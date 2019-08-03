@@ -33,7 +33,7 @@
             android:layout_height="@dimen/dp_22"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/dp_15"
-            android:src="@mipmap/common_icon_back_black_n" />
+            app:srcCompat="@mipmap/common_icon_back_black_n" />
         <ImageView
             android:id="@+id/head"
             android:layout_width="@dimen/dp_32"
@@ -41,14 +41,14 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/dp_15"
             android:visibility="gone"
-            android:src="@drawable/boy" />
+            app:srcCompat="@drawable/boy" />
         <ImageView
             android:layout_width="@dimen/dp_28"
             android:layout_height="@dimen/dp_28"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/dp_15"
-            android:src="@mipmap/common_nav_message_black_n" />
+            app:srcCompat="@mipmap/common_nav_message_black_n" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -129,7 +129,7 @@
         <ImageView
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
-            android:src="@mipmap/common_button_share_n"
+            app:srcCompat="@mipmap/common_button_share_n"
             android:id="@+id/fenxaing"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_20"
@@ -151,7 +151,7 @@
         <ImageView
             android:layout_width="@dimen/dp_193"
             android:layout_height="@dimen/dp_132"
-            android:src="@mipmap/reward"
+            app:srcCompat="@mipmap/reward"
         android:visibility="gone"
             android:id="@+id/yes"
             android:layout_centerInParent="true"
@@ -161,7 +161,7 @@
             android:layout_height="@dimen/dp_20"
             android:id="@+id/close"
             android:visibility="gone"
-            android:src="@drawable/close"
+            app:srcCompat="@drawable/close"
             android:layout_toRightOf="@+id/yes"
             android:layout_marginTop="@dimen/dp_140"
             />

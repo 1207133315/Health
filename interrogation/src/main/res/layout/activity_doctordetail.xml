@@ -20,7 +20,7 @@
             android:layout_height="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_40"
-            android:src="@mipmap/common_icon_back_black_n" />
+            app:srcCompat="@mipmap/common_icon_back_black_n" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="@dimen/dp_128"
-                android:src="@drawable/aaa"
+                app:srcCompat="@drawable/aaa"
                 android:background="@drawable/linner2"
                 android:layout_height="match_parent" />
             <LinearLayout
@@ -137,17 +137,17 @@
                     <ImageView
                         android:layout_width="@dimen/dp_44"
                         android:layout_marginLeft="@dimen/dp_2"
-                        android:src="@mipmap/flower"
+                        app:srcCompat="@mipmap/flower"
                         android:layout_height="@dimen/dp_44" />
                     <ImageView
                         android:layout_width="@dimen/dp_44"
                         android:layout_marginLeft="@dimen/dp_20"
-                        android:src="@mipmap/certificate"
+                        app:srcCompat="@mipmap/certificate"
                         android:layout_height="@dimen/dp_44" />
                     <ImageView
                         android:layout_width="@dimen/dp_44"
                         android:layout_marginLeft="@dimen/dp_20"
-                        android:src="@mipmap/cup"
+                        app:srcCompat="@mipmap/cup"
                         android:layout_height="@dimen/dp_44" />
                 </LinearLayout>
                 <LinearLayout

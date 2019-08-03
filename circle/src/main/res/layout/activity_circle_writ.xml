@@ -28,7 +28,7 @@
                 android:id="@+id/circle_image_head"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@mipmap/girl" />
+                app:srcCompat="@mipmap/girl" />
 
             <TextView
                 android:id="@+id/circleinfo_farg_title"
@@ -40,7 +40,7 @@
                 android:id="@+id/circle_image_message"
                 android:layout_width="@dimen/dp_25"
                 android:layout_height="@dimen/dp_25"
-                android:src="@mipmap/common_nav_message_black_n" />
+                app:srcCompat="@mipmap/common_nav_message_black_n" />
         </LinearLayout>
 
         <View
@@ -435,7 +435,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="@dimen/dp_20">
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/circle_writ_bingli_image1"
                         android:layout_width="match_parent"
