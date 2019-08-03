@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -79,7 +80,7 @@ public class CircleWritActivity extends AppCompatActivity {
     private ImageView end_time_image;
     private EditText end_time_edText;
     private PopupWindow pop_image;
-    private RecyclerView bingli_image1;
+    private GridView bingli_image1;
     private String title_text;
     private String disease_text;
     private String detail_text;
@@ -279,10 +280,8 @@ public class CircleWritActivity extends AppCompatActivity {
         //---------------------长按为图片排序------------------------------
 
 
-
+        //获取控件
         bingli_image1 = findViewById(R.id.circle_writ_bingli_image1);
-
-
         //关联p
         wardMateSctxPresenter = new WardMateSctxPresenter(new SendImageViewCall());
 

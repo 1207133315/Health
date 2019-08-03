@@ -434,12 +434,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:padding="@dimen/dp_20">
-                    <androidx.recyclerview.widget.RecyclerView
+                    <GridView
                         android:id="@+id/circle_writ_bingli_image1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/circle_writ_addimg_1x" />
+                        android:layout_margin="15dp"
+                        android:columnWidth="60dp"
+                        android:horizontalSpacing="10dp"
+                        android:numColumns="auto_fit"
+                        android:verticalSpacing="10dp" />
 
                 </LinearLayout>
                 <!--********最多可添加6张图片;长按为图片排序*********-->
