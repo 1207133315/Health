@@ -2,6 +2,7 @@ package com.wd.health;
 
 
 import com.bw.health.bean.Result;
+import com.wd.health.activity.bean.UserRecordBean;
 import com.wd.health.bean.DepartmentBean;
 import com.wd.health.bean.Doctor;
 import com.wd.health.bean.DoctordetailBean;
@@ -67,4 +68,6 @@ public interface InterrogationRequest {
     Observable<Result<String>> consultDoctor(@Header("userId")long userId,
                                              @Header("sessionId")String sessionId,
                                              @Query("doctorId")int doctorId);
+
+   
 }

@@ -21,7 +21,10 @@ android {
                 arguments = [ AROUTER_MODULE_NAME : project.getName() ]
             }
         }
-
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
     }
 
     buildTypes {
@@ -34,11 +37,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api 'androidx.appcompat:appcompat:1.0.2'
+    api 'androidx.appcompat:appcompat:1.0.0-beta01'
     api 'androidx.recyclerview:recyclerview:1.0.0'
     //api 'com.google.android.material:material:1.1.0-alpha07'
     api 'com.jcodecraeer:xrecyclerview:1.5.9'
@@ -82,7 +91,16 @@ dependencies {
     api 'com.jaikydota.imagespickers:imagespickers:1.0.6'
     api files('libs/jcore-android-2.1.2.jar')
     api files('libs/jpush-android-3.3.4.jar')
-    api 'cn.jiguang.sdk:jmessage:2.9.0'  // 此处以JMessage 2.9.0 版本为例。
+    api 'cn.jiguang.sdk:jmessage:2.9.0'
+    // 此处以JMessage 2.9.0 版本为例。
+    api files('libs/BaiduLBS_Android.jar')
+    api files('libs/core-3.2.1.jar')
+    api files('libs/picasso-2.5.2.jar')
+    api files('libs/pinyin4j-2.5.0.jar')
+// 头像切圆
+    api 'de.hdodenhof:circleimageview:2.2.0'
+//圆角图片
+    api 'com.makeramen:roundedimageview:2.2.1'
 
 
 }

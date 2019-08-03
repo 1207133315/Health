@@ -12,13 +12,13 @@
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:src="@mipmap/my_wallet_background"
+    app:srcCompat="@mipmap/my_wallet_background"
     />
 
             <ImageView
                 android:layout_width="@dimen/dp_16"
                 android:layout_height="@dimen/dp_16"
-                android:src="@mipmap/common_icon_back_black_n"
+                app:srcCompat="@mipmap/common_icon_back_black_n"
                 android:id="@+id/back"
                 android:layout_marginTop="@dimen/dp_30"
                 android:layout_marginLeft="@dimen/dp_20"

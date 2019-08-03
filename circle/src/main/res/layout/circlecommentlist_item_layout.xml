@@ -28,7 +28,7 @@
                 android:layout_height="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_24"
                 android:layout_marginLeft="@dimen/dp_24"
-                android:src="@mipmap/circle_pop_authenticate_n" />
+                app:srcCompat="@mipmap/circle_pop_authenticate_n" />
         </RelativeLayout>
 
 
@@ -71,7 +71,7 @@
                         android:id="@+id/circle_pop_doctor_biaoshi"
                         android:layout_width="@dimen/dp_24"
                         android:layout_height="@dimen/dp_24"
-                        android:src="@mipmap/common_icon_inquiry_n" />
+                        app:srcCompat="@mipmap/common_icon_inquiry_n" />
                 </LinearLayout>
 
                 <TextView

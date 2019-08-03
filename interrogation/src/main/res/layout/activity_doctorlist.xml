@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,7 +33,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/dp_32"
             android:layout_marginRight="@dimen/dp_20"
-            android:src="@mipmap/common_nav_message_black_n" />
+            app:srcCompat="@mipmap/common_nav_message_black_n" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -117,7 +121,7 @@
             android:layout_marginTop="@dimen/dp_18"
             android:layout_marginRight="@dimen/dp_17"
             android:layout_width="wrap_content"
-            android:src="@mipmap/common_button_sequence_n"
+            app:srcCompat="@mipmap/common_button_sequence_n"
             android:layout_height="wrap_content" />
     </RelativeLayout>
 
@@ -208,7 +212,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/dp_26"
                 android:layout_marginRight="@dimen/dp_20"
-                android:src="@mipmap/common_icon_more_n" />
+                app:srcCompat="@mipmap/common_icon_more_n" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -260,7 +264,7 @@
                     android:layout_width="13dp"
                     android:layout_height="@dimen/dp_12"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/common_information_next_n" />
+                    app:srcCompat="@mipmap/common_information_next_n" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -275,7 +279,7 @@
                     android:layout_width="13dp"
                     android:layout_height="@dimen/dp_12"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/common_list_previous_n" />
+                    app:srcCompat="@mipmap/common_list_previous_n" />
             </RelativeLayout>
 
         </RelativeLayout>
@@ -316,3 +320,53 @@
 
 
 </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="@dimen/dp_120"
+        android:background="@drawable/linner2"
+        android:id="@+id/dialog"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_70"
+            android:text="有正在进行的咨询,是否结束"
+            android:gravity="center"
+            android:id="@+id/top"
+
+            android:textSize="@dimen/dp_14"
+            android:textColor="#333333"
+            />
+        <LinearLayout
+            android:layout_below="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="取消"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="@dimen/dp_14"
+                android:textColor="#fff"
+                android:background="#999999"
+                android:id="@+id/quxiao"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="确认"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="@dimen/dp_14"
+                android:textColor="#fff"
+                android:background="#3087ea"
+                android:id="@+id/queren"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

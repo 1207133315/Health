@@ -1,6 +1,5 @@
 package com.wd.health.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -20,6 +19,8 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ViewUtils {
 
@@ -72,7 +73,7 @@ public class ViewUtils {
      * @param context
      * @return
      */
-    public static int getStatusHeigh(Activity context) {
+    public static int getStatusHeigh(AppCompatActivity context) {
         Rect rectangle = new Rect();
         context.getWindow().getDecorView().getWindowVisibleDisplayFrame(rectangle);
         return rectangle.top;
@@ -166,15 +167,15 @@ public class ViewUtils {
     /**
      * 隐藏输入法键盘
      */
-    public static void hideInput(Activity activity) {
-        WeakReference<Activity> weakReference = new WeakReference<Activity>(activity);
+    public static void hideInput(AppCompatActivity activity) {
+        WeakReference<AppCompatActivity> weakReference = new WeakReference<AppCompatActivity>(activity);
         hideInput(weakReference);
     }
 
     /**
      * 隐藏键盘
      */
-    public static void hideInput(WeakReference<Activity> activity) {
+    public static void hideInput(WeakReference<AppCompatActivity> activity) {
         InputMethodManager imm = (InputMethodManager) activity.get().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm.isActive() && activity.get().getCurrentFocus() != null) {
             imm.hideSoftInputFromWindow(activity.get().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -185,7 +186,7 @@ public class ViewUtils {
     /**
      * 显示输入法键盘
      */
-    public static void showInput(WeakReference<Activity> activity, EditText editText) {
+    public static void showInput(WeakReference<AppCompatActivity> activity, EditText editText) {
         editText.setFocusable(true);
         editText.requestFocus();
         InputMethodManager imm = (InputMethodManager) activity.get().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -212,7 +213,7 @@ public class ViewUtils {
      * @param activity
      * @return 1:MIUUI 2:Flyme 3:android6.0
      */
-    public static int StatusBarLightMode(Activity activity) {
+    public static int StatusBarLightMode(AppCompatActivity activity) {
         int result = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (MIUISetStatusBarLightMode(activity.getWindow(), true)) {
@@ -234,7 +235,7 @@ public class ViewUtils {
      * @param activity
      * @param type     1:MIUUI 2:Flyme 3:android6.0
      */
-    public static void StatusBarLightMode(Activity activity, int type) {
+    public static void StatusBarLightMode(AppCompatActivity activity, int type) {
         if (type == 1) {
             MIUISetStatusBarLightMode(activity.getWindow(), true);
         } else if (type == 2) {
@@ -249,7 +250,7 @@ public class ViewUtils {
     /**
      * 清除MIUI或flyme或6.0以上版本状态栏黑色字体
      */
-    public static void StatusBarDarkMode(Activity activity, int type) {
+    public static void StatusBarDarkMode(AppCompatActivity activity, int type) {
         if (type == 1) {
             MIUISetStatusBarLightMode(activity.getWindow(), false);
         } else if (type == 2) {
@@ -332,7 +333,7 @@ public class ViewUtils {
      *
      * @param activity
      */
-    public static void setImmersionStateMode(Activity activity) {
+    public static void setImmersionStateMode(AppCompatActivity activity) {
         StatusBarLightMode(activity);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT != Build.VERSION_CODES.LOLLIPOP) {
             // 透明状态栏

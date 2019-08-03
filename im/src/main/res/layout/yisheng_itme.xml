@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<ImageView
+    android:layout_width="@dimen/dp_40"
+    android:layout_height="@dimen/dp_40"
+    android:src="@mipmap/doctor"
+    android:id="@+id/dector_head"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/aaaa"
+        android:paddingHorizontal="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_10"
+        android:id="@+id/doctor_message"
+        android:text="aaaaaaasdadwa171717777777dw" />
+</LinearLayout>

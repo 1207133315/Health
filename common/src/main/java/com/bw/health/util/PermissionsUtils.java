@@ -1,7 +1,5 @@
 package com.bw.health.util;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,10 +7,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -39,7 +38,7 @@ public class PermissionsUtils {
         return permissionsUtils;
     }
 
-    public void chekPermissions(Activity context, String[] permissions,  IPermissionsResult permissionsResult) {
+    public void chekPermissions(AppCompatActivity context, String[] permissions, IPermissionsResult permissionsResult) {
         mPermissionsResult = permissionsResult;
 
         if (Build.VERSION.SDK_INT < 23) {//6.0才用动态权限
@@ -73,7 +72,7 @@ public class PermissionsUtils {
     //参数： permissions  是我们请求的权限名称数组
     //参数： grantResults 是我们在弹出页面后是否允许权限的标识数组，数组的长度对应的是权限名称数组的长度，数组的数据0表示允许权限，-1表示我们点击了禁止权限
 
-    public void onRequestPermissionsResult(Activity context, int requestCode,String[] permissions,
+    public void onRequestPermissionsResult(AppCompatActivity context, int requestCode, String[] permissions,
                                            int[] grantResults) {
         boolean hasPermissionDismiss = false;//有权限没有通过
         if (mRequestCode == requestCode) {
@@ -103,7 +102,7 @@ public class PermissionsUtils {
      */
     AlertDialog mPermissionDialog;
 
-    private void showSystemPermissionsSettingDialog(final Activity context) {
+    private void showSystemPermissionsSettingDialog(final AppCompatActivity context) {
         final String mPackName = context.getPackageName();
         if (mPermissionDialog == null) {
             mPermissionDialog = new AlertDialog.Builder(context)

@@ -1,9 +1,7 @@
 package com.wd.health.activity;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,8 +20,8 @@ import com.wd.health.utils.CacheUtil;
 
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SetupActivity extends WDActivity {

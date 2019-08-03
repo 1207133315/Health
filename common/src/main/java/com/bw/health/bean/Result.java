@@ -10,7 +10,7 @@ public class Result<T> {
     String message;
     T result;
     String headPath;
-
+   public String doctorUserName;
     public Result(String status, String message) {
         this.status = status;
         this.message = message;
