@@ -33,6 +33,7 @@ import com.bw.health.bean.MationBean;
 import com.bw.health.bean.PlateBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
+import com.bw.health.core.WDApplication;
 import com.bw.health.core.WDFragment;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
@@ -122,6 +123,7 @@ public class HomeFrag extends WDFragment {
     @SuppressLint({"ResourceAsColor", "InvalidR2Usage", "WrongConstant"})
     @Override
     protected void initView() {
+        Toast.makeText(getContext(), ""+WDApplication.getRegistrationID(), Toast.LENGTH_SHORT).show();
         showBannerPresenter = new ShowBannerPresenter(new Banner());
         plateListPresenter = new PlateListPresenter(new PlateList());
         plateRecycler.setLayoutManager(new GridLayoutManager(getContext(),5));

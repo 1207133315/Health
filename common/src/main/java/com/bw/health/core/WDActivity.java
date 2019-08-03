@@ -107,7 +107,9 @@ public abstract class WDActivity extends AppCompatActivity {
      * @param bundle
      */
     public void intentByRouter(String path, Bundle bundle) {
-
+        ARouter.getInstance().build(path)
+                .with(bundle)
+                .navigation(this);
     }
 
     /**

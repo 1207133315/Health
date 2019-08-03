@@ -26,6 +26,14 @@
         <activity android:name=".activity.ReduceActivity" />
         <activity android:name=".activity.MyVideoActivity" />
         <activity android:name=".activity.MyFileActivity" />
+        <activity android:name=".activity.AddFileActivity" />
+        <activity android:name=".activity.CircleCommentActivity" />
+        <activity android:name=".activity.AddFileActivity" />
+        <activity android:name=".activity.UpdateFileActivity" />
+        <activity android:name=".activity.UpdateSexActivity" />
+        <activity android:name=".activity.SignActivity" />
+        <activity android:name=".activity.UpdateNicknameActivity" />
+        <activity android:name=".activity.BeAdoptedActivity"></activity>
         <activity android:name=".activity.UpdateSexActivity" />
         <activity android:name=".activity.AddFileActivity" />
         <activity android:name=".activity.SignActivity" />

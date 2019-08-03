@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.bw.health.core.DataCall;
 import com.bw.health.core.WDActivity;
 import com.bw.health.core.WDApplication;
 import com.bw.health.dao.DaoMaster;
+import com.bw.health.dao.DaoSession;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.prenster.LoginPresenter;
@@ -34,6 +36,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route(path = "/LoginActivity/")
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
+
+@Route(path ="/LoginActivity/")
 public class LoginActivity extends WDActivity {
 
 
@@ -59,7 +65,7 @@ public class LoginActivity extends WDActivity {
     @BindView(R2.id.wxlogin)
     ImageView wxlogin;
     private LoginPresenter loginPresenter;
-
+    RelativeLayout main_layout;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
@@ -69,7 +75,8 @@ public class LoginActivity extends WDActivity {
     protected void initView() {
         loginPresenter = new LoginPresenter(new Login());
         Intent intent = getIntent();
-        if (intent != null) {
+       main_layout=findViewById(R.id.main_layout);
+        if (intent!=null){
             String email1 = intent.getStringExtra("email");
             String pwdd = intent.getStringExtra("pwd");
             email.setText(email1);
@@ -121,12 +128,14 @@ public class LoginActivity extends WDActivity {
             //执行上面的代码后光标会处于输入框的最前方,所以把光标位置挪到文字的最后面
             pwd.setSelection(pwd.getText().toString().length());
         }else if (i == R.id.wxlogin){
-            
+
         }
     }
 
 
     public class Login implements DataCall {
+
+        private String s1;
 
         @Override
         public void success(Object data, Object... args) {
@@ -138,6 +147,37 @@ public class LoginActivity extends WDActivity {
             LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
             loginBeanDao.deleteAll();
             loginBeanDao.insertOrReplace(result1);
+            UpToken.getUpToken().addToken(WDApplication.getRegistrationID());
+            try {
+                 String s = RsaCoder.decryptByPublicKey(result1.getJiGuangPwd());
+                s1 = MD5Utils.MD5(s);
+                JMessageClient.login(result1.getUserName(), s1, new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                        switch (i){
+                            case 801003:
+                                Snackbar.make(main_layout,"用户名不存在",BaseTransientBottomBar.LENGTH_LONG).show();
+                                break;
+                            case 871301:
+                                Snackbar.make(main_layout,"密码格式错误",BaseTransientBottomBar.LENGTH_LONG).show();
+                                break;
+                            case 801004:
+                                Snackbar.make(main_layout,"密码错误",BaseTransientBottomBar.LENGTH_LONG).show();
+                                break;
+                            case 0:
+                                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                Snackbar.make(main_layout,"登录失败",BaseTransientBottomBar.LENGTH_LONG).show();
+                                break;
+                        }
+                    }
+                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             finish();
         }
 

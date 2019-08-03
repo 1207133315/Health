@@ -33,6 +33,9 @@ import com.wd.health.R;
 
 import java.io.File;
 
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+
 
 /**
  * @name: MyApplication
@@ -66,6 +69,8 @@ public class WDApplication extends Application {
     private static SharedPreferences sharedPreferences;
 
     private HttpProxyCacheServer proxy;
+    private static String registrationID;
+
 
     public static HttpProxyCacheServer getProxy(Context context) {
         WDApplication app = (WDApplication) context.getApplicationContext();
@@ -118,11 +123,20 @@ public class WDApplication extends Application {
         ImageLoader.getInstance().init(config);
     }
 
+    public static String getRegistrationID() {
+        return registrationID;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         initImageloader();
         context = this;
+        JPushInterface.setDebugMode(true);//正式版的时候设置false，关闭调试
+        JPushInterface.init(this);
+        JMessageClient.setDebugMode(true);
+        JMessageClient.init(this);
+        registrationID = JPushInterface.getRegistrationID(this);
         mMainThreadId = android.os.Process.myTid();
         mMainThread = Thread.currentThread();
         mMainThreadHandler = new Handler();
