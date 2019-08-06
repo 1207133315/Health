@@ -1,6 +1,7 @@
 package com.wd.health.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -163,8 +164,7 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
         mQueren.setOnClickListener(this);
         endWZPresenter = new EndWZPresenter(new EndWZ());
         nowWZPresenter = new NowWZPresenter(new NowWZ());
-         LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
-        nowWZPresenter.reqeust(loginBean.getId(), loginBean.getSessionId());
+
     }
 
     @Override
@@ -172,8 +172,14 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+         LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
+        nowWZPresenter.reqeust(loginBean.getId(), loginBean.getSessionId());
+    }
 
-    @OnClick({R2.id.lingdang, R2.id.zonghe, R2.id.haoping, R2.id.zixunshu, R2.id.price, R2.id.right, R2.id.left, R2.id.more})
+    @OnClick({R2.id.lingdang, R2.id.zonghe, R2.id.haoping, R2.id.zixunshu, R2.id.price, R2.id.right, R2.id.left, R2.id.more,R2.id.zixun})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.lingdang) {
@@ -281,11 +287,18 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
                 setdata(position);
                 myadapter.notifyDataSetChanged();
             }
-        } else if (i == R.id.more) {//医生详情
+        } else if (i == R.id.more) {
+            //医生详情
             Intent intent = new Intent(this, DoctordetailActivity.class);
             intent.putExtra("bean", list1.get(position).getDoctorId());
-            Log.d("DoctorlistActivity6", list1.get(position).getDoctorName());
-            //startActivity(intent);
+            startActivity(intent);
+        }
+        else if (i==R.id.zixun){
+           doctorId= list1.get(position).getDoctorId();
+            doctorName=list1.get(position).getDoctorName();
+            LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
+            consultDoctorPresenter.reqeust(loginBean.getId(),loginBean.getSessionId(),doctorId );
+
         }
     }
 
@@ -293,10 +306,12 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
     public void onClick(View v) {
 
     }
-
+    private int isDorctorId;
+    private String doctorUserName;
     public class NowWZ implements DataCall<Result<UserRecordBean>>{
         @Override
         public void success(Result<UserRecordBean> data, Object... args) {
+        isDorctorId=data.getResult().doctorId;
 
             mQuxiao.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -308,7 +323,7 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
             mQueren.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
+                     LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
                     endWZPresenter.reqeust(loginBean.getId(),loginBean.getSessionId(),data.getResult().recordId);
                 }
             });
@@ -397,7 +412,8 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
             Bundle bundle = new Bundle();
             bundle.putInt("id", doctorId);
             bundle.putString("name",doctorName);
-            bundle.putString("userName",data.doctorUserName);
+            final SharedPreferences aa = getSharedPreferences("aa", MODE_PRIVATE);
+            aa.edit().putString("userName",data.doctorUserName).commit();
             intentByRouter("/IMActivity/", bundle);
         }
 
@@ -405,7 +421,17 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
         public void fail(ApiException data, Object... args) {
            /// Toast.makeText(DoctorlistActivity.this, "" + data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
             if (data.getDisplayMessage().equals("有正在沟通中的咨询")) {
-                dialog.setVisibility(View.VISIBLE);
+                if (doctorId==isDorctorId){
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", doctorId);
+                    bundle.putString("name",doctorName);
+                    intentByRouter("/IMActivity/", bundle);
+                }else {
+                    dialog.setVisibility(View.VISIBLE);
+                    LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
+
+                }
+
             }
         }
     }
@@ -413,8 +439,6 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
     //设置数据的方法
     public void setdata(int position) {
         if (list1.size() > 0 && list1 != null) {
-            doctorId = list1.get(position).getDoctorId();
-
             name.setText(list1.get(position).getDoctorName());
             zhiwu.setText(list1.get(position).getJobTitle());
             yiyuan.setText(list1.get(position).getInauguralHospital());
@@ -426,17 +450,10 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
                 Glide.with(DoctorlistActivity.this).load(R.drawable.aaa).into(img);
             }
             money.setText(list1.get(position).getServicePrice() + "H币/次");
-            zixun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    doctorName=list1.get(position).getDoctorName();
-                    final LoginBean loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
-                    consultDoctorPresenter.reqeust(loginBean.getId(), doctorId);
 
-                }
-            });
 
         } else {
+
             name.setText("");
             zhiwu.setText("");
             yiyuan.setText("");
@@ -449,6 +466,8 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
             }
 
             money.setText("");
+
+
         }
 
     }

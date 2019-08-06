@@ -15,6 +15,7 @@ import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.ModifyNickNamePresenter;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class UpdateNicknameActivity extends WDActivity {
     ImageView cha;
     private ModifyNickNamePresenter modifyNickNamePresenter;
     private List<LoginBean> list;
+    private DoTaskPresenter presenter;
 
     @Override
     protected int getLayoutId() {
@@ -48,6 +50,7 @@ public class UpdateNicknameActivity extends WDActivity {
         nickname.setText(name);
         list = GetDaoUtil.getGetDaoUtil().getUserDao().queryBuilder().list();
         modifyNickNamePresenter = new ModifyNickNamePresenter(new ModifyNickName());
+        presenter = new DoTaskPresenter(new DoTask());
     }
 
     @Override
@@ -83,11 +86,25 @@ public class UpdateNicknameActivity extends WDActivity {
             list.get(0).setNickName(nickname.getText().toString().trim());
             GetDaoUtil.getGetDaoUtil().getUserDao().insertOrReplace(list.get(0));
             Toast.makeText(UpdateNicknameActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+            presenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(),1004);
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
             Toast.makeText(UpdateNicknameActivity.this, data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+    public class DoTask implements DataCall{
+
+        @Override
+        public void success(Object data, Object... args) {
+            Result result= (Result) data;
+            Toast.makeText(UpdateNicknameActivity.this, "result.getResult():" + result.getResult(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
         }
     }
 }

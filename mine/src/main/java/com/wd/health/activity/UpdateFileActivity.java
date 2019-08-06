@@ -125,7 +125,7 @@ public class UpdateFileActivity extends WDActivity implements View.OnClickListen
         }
 
 
-recyclerView=findViewById(R.id.recycler);
+        recyclerView=findViewById(R.id.recycler);
         back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);
         bingzheng = (EditText) findViewById(R.id.bingzheng);

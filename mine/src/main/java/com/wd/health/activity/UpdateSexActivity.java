@@ -16,6 +16,7 @@ import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.UpdateUserSexPresenter;
 import com.wd.health.view.NV;
 import com.wd.health.view.Nan;
@@ -46,6 +47,7 @@ public class UpdateSexActivity extends WDActivity {
     private UpdateUserSexPresenter updateUserSexPresenter;
     private List<LoginBean> list;
     private int buttonId;
+    private DoTaskPresenter presenter;
 
     @Override
     protected int getLayoutId() {
@@ -66,6 +68,7 @@ public class UpdateSexActivity extends WDActivity {
             boyx.setVisibility(View.GONE);
             girlx.setVisibility(View.VISIBLE);
         }
+        presenter = new DoTaskPresenter(new DoTask());
     }
 
     @Override
@@ -107,6 +110,7 @@ public class UpdateSexActivity extends WDActivity {
                 GetDaoUtil.getGetDaoUtil().getUserDao().insertOrReplace(list.get(0));
             }
             Result result= (Result) data;
+            presenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(),1004);
             Toast.makeText(UpdateSexActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -114,6 +118,19 @@ public class UpdateSexActivity extends WDActivity {
         @Override
         public void fail(ApiException data, Object... args) {
             Toast.makeText(UpdateSexActivity.this, data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+    public class DoTask implements DataCall{
+
+        @Override
+        public void success(Object data, Object... args) {
+            Result result= (Result) data;
+            Toast.makeText(UpdateSexActivity.this,  result.getResult().toString(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
         }
     }
 }

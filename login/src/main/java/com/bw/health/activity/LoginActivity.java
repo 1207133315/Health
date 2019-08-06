@@ -41,6 +41,7 @@ import butterknife.OnClick;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
 
+
 @Route(path ="/LoginActivity/")
 public class LoginActivity extends WDActivity {
 

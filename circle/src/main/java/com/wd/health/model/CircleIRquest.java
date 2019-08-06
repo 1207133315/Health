@@ -108,4 +108,12 @@ public interface CircleIRquest {
                               @Body MultipartBody body);
 
     //-------------病友圈接口---请勿修改-----------
+
+    //刘浩
+    //做任务
+    @POST("user/verify/v1/doTask")
+    Observable<Result> doTask(@Header("userId") int userId,
+                              @Header("sessionId") String sessionId,
+                              @Query("taskId") int taskId);
+    //刘浩
 }

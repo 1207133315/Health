@@ -47,6 +47,7 @@ import com.wd.health.adapter.ImageAdapter;
 import com.wd.health.bean.CircleBingZhengBean;
 import com.wd.health.presenter.CircleBingZhengPresenter;
 import com.wd.health.presenter.CircleFindDepartmentPresenter;
+import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.PublishSickCirclePresenter;
 import com.wd.health.presenter.WardMateSctxPresenter;
 import com.wd.health.utils.GridViewAdapter;
@@ -122,6 +123,8 @@ public class CircleWritActivity extends AppCompatActivity {
 
     private int text;
 
+    private DoTaskPresenter doTaskPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,6 +171,7 @@ public class CircleWritActivity extends AppCompatActivity {
         //---------------------长按为图片排序--------尾巴----------------------
 
 
+        doTaskPresenter = new DoTaskPresenter(new DoTask());
         //----------点击弹出popwindow获取科室--------------------------
 
         keshi_iamge.setOnClickListener(new View.OnClickListener() {
@@ -568,7 +572,10 @@ public class CircleWritActivity extends AppCompatActivity {
         public void success(Result<Integer> data, Object... args) {
             Integer result = data.getResult();
             // wardMateSctxPresenter.reqeust(String.valueOf(id_user),sessionId,String.valueOf(result),mPicList);
+            doTaskPresenter.reqeust(id_user.intValue(),sessionId,1003);
+            wardMateSctxPresenter.reqeust(String.valueOf(id_user),sessionId,String.valueOf(result),mList);
             Toast.makeText(CircleWritActivity.this, "发布成功" + result, Toast.LENGTH_SHORT).show();
+
         }
 
         @Override
@@ -687,4 +694,18 @@ public class CircleWritActivity extends AppCompatActivity {
 
 
     //------------------点击发送图片-----成功失败-----尾巴--------------------------------------
+
+    //做任务
+    public class DoTask implements DataCall{
+
+        @Override
+        public void success(Object data, Object... args) {
+
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+            Toast.makeText(CircleWritActivity.this, data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
 }

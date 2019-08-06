@@ -36,7 +36,9 @@ public class GlobalEventListener {
     }
     //通知点击 前往会话列表
     public void onEvent(NotificationClickEvent event) {
+
         MainContext.startActivity(new Intent(MainContext, IMActivity.class));
+
     }
 
     // 接收消息 (主线程)(刷新UI)

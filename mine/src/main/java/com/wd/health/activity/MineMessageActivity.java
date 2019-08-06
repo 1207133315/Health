@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
@@ -29,6 +30,7 @@ import com.bw.health.util.GetDaoUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.ModifyHeadPicPresenter;
 import com.wd.health.utils.getPhotoFromPhotoAlbum;
 
@@ -42,10 +44,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-
+@Route(path = "/MineMessageActivity/")
 public class MineMessageActivity extends WDActivity {
 
     @BindView(R2.id.head)
@@ -87,6 +91,7 @@ public class MineMessageActivity extends WDActivity {
     private Uri imageUri;
     private ModifyHeadPicPresenter modifyHeadPicPresenter;
     private PopupWindow popupWindow;
+    private DoTaskPresenter presenter;
 
     @Override
     protected int getLayoutId() {
@@ -96,6 +101,8 @@ public class MineMessageActivity extends WDActivity {
     @Override
     protected void initView() {
         modifyHeadPicPresenter = new ModifyHeadPicPresenter(new updateheadpic());
+        presenter = new DoTaskPresenter(new DoTask());
+
     }
 
     @Override
@@ -224,6 +231,16 @@ public class MineMessageActivity extends WDActivity {
                     MultipartBody.Part.createFormData("image", file1.getName(), requestFile);
 
             modifyHeadPicPresenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(), MultipartFile);
+            JMessageClient.updateUserAvatar(file1, new BasicCallback() {
+                @Override
+                public void gotResult(int i, String s) {
+                    if (i==0){
+                        Toast.makeText(MineMessageActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(MineMessageActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         } else if (requestCode == 200) {
             String realPathFromUri = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
             if (realPathFromUri != null) {
@@ -236,6 +253,16 @@ public class MineMessageActivity extends WDActivity {
                 MultipartBody.Part MultipartFile =
                         MultipartBody.Part.createFormData("image", file1.getName(), requestFile);
                 modifyHeadPicPresenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(), MultipartFile);
+                JMessageClient.updateUserAvatar(file1, new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                        if (i==0){
+                            Toast.makeText(MineMessageActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(MineMessageActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
 
 
@@ -259,6 +286,7 @@ public class MineMessageActivity extends WDActivity {
                     userDao.insertOrReplace(loginBean);
                     head.setImageURI(loginBean.getHeadPic());
                 }
+                presenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(),1004);
             }
             popupWindow.dismiss();
         }
@@ -289,5 +317,17 @@ public class MineMessageActivity extends WDActivity {
         }
         return file;
     }
+    public class DoTask implements DataCall{
 
+        @Override
+        public void success(Object data, Object... args) {
+            Result result= (Result) data;
+            Toast.makeText(MineMessageActivity.this, "result.getResult():" + result.getResult(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
 }

@@ -15,8 +15,11 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application>
-        <activity android:name=".activity.activity.IMActivity" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".activity.activity.IMActivity" ></activity>
         <service android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" >
