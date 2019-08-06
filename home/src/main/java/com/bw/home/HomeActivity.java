@@ -2,6 +2,7 @@ package com.bw.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -85,15 +86,28 @@ public class HomeActivity extends WDActivity {
 
     @Override
     protected void initView() {
+
         homeFrag = new HomeFrag();
         //病友圈
         currentFragment = homeFrag;
         circleFrag = new CircleFrag();
         shiPinFragment = new ShiPinFragment();
         findSickCircleInfoFrag = new FindSickCircleInfoFrag();
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.frame, homeFrag).show(homeFrag).commit();
-        home.setChecked(true);
+        boolean istask = getIntent().getBooleanExtra("istask", false);
+
+        if (istask){
+            showFragment(circleFrag);
+            home.setChecked(false);
+            video.setChecked(false);
+            top.setVisibility(View.GONE);
+            needVisible = false;
+            //flag.edit().putBoolean("flag",true).commit();
+        }else {
+            transaction = getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.frame, homeFrag).show(homeFrag).commit();
+            home.setChecked(true);
+        }
+
 
         CircleListAdapter.setCall(new CircleListAdapter.Call() {
             @Override
@@ -118,7 +132,6 @@ public class HomeActivity extends WDActivity {
 
 
     }
-
 
     @Override
     protected void destoryData() {

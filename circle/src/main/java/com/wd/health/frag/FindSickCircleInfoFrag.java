@@ -32,6 +32,8 @@ import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wd.health.R;
+import com.wd.health.activity.CircleWritActivity;
+import com.wd.health.activity.FindSickCircleInfoActivity;
 import com.wd.health.adapter.CircleCommentListAdapter;
 import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.CircleInfoBean;
@@ -40,6 +42,7 @@ import com.wd.health.presenter.CircleCancelShouCangPresenter;
 import com.wd.health.presenter.CircleCommentListPresenter;
 import com.wd.health.presenter.CircleInfoPresenter;
 import com.wd.health.presenter.CircleShouCangPresenter;
+import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.PublishCommentPresenter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -90,7 +93,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
     private RelativeLayout circle_pop_youpinglun_layout;
     private int sickCircleId;
     private int sickCircleId1;
-
+    private DoTaskPresenter presenter;
 
     //----病友圈详情--------------------------
 
@@ -158,6 +161,8 @@ public class FindSickCircleInfoFrag extends WDFragment {
         //采纳建议
         TextView caina_info = getView().findViewById(R.id.circleinfo_farg_caina_info);
 
+        //做任务
+        presenter = new DoTaskPresenter(new DoTask());
 
         //关联presenter -----获取病友圈id------
         circleInfoPresenter = new CircleInfoPresenter(new CircleInfoCall());
@@ -489,7 +494,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
         public void success(Result data, Object... args) {
             Toast.makeText(getActivity(), "发表评论成功！", Toast.LENGTH_SHORT).show();
             // circleCommentListPresenter.reqeust(sickCircleId_jj + "");
-
+            presenter.reqeust(id_user.intValue(), sessionId,1002);
         }
 
         @Override
@@ -540,7 +545,20 @@ public class FindSickCircleInfoFrag extends WDFragment {
     }
     //----------取消收藏-----成功----失败----尾巴---------------------
 
+    public class DoTask implements DataCall{
 
+        @Override
+        public void success(Object data, Object... args) {
+            Result result= (Result) data;
+
+            Toast.makeText(getActivity(),  result.getResult().toString(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

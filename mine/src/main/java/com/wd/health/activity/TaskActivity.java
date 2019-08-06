@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
@@ -137,11 +138,14 @@ public class TaskActivity extends WDActivity {
                 receiveRewardPresenter.reqeust(id.intValue(),sessionId,1003);
             }
         } else if (i == R.id.bingyouquanshouping) {
-//            if (bingyouquanshouping.getText().equals("去完成")){
-//                intentByRouter("/CircleWritActivity/");
-//            }else if (bingyouquanshouping.getText().equals("领H币")){
-//                receiveRewardPresenter.reqeust(id.intValue(),sessionId,1002);
-//            }
+            if (bingyouquanshouping.getText().equals("去完成")){
+                ARouter.getInstance().build("/HomeActivity/")
+                        .withBoolean("istask", true)
+                        .navigation();
+                //intentByRouter("/HomeActivity/");
+            }else if (bingyouquanshouping.getText().equals("领H币")){
+                receiveRewardPresenter.reqeust(id.intValue(),sessionId,1002);
+            }
         } else if (i == R.id.wanshanxinxi) {
             if (wanshanxinxi.getText().equals("去完成")){
                 intentByRouter("/MineMessageActivity/");
