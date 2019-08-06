@@ -16,10 +16,12 @@ import com.wd.health.R;
 import com.wd.health.activity.CircleCommentActivity;
 import com.wd.health.bean.PatientsCircleBean;
 import com.wd.health.bean.RecordListBean;
+import com.wd.health.utils.DateTimeUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -59,11 +61,14 @@ public class ShowCircleAdapter extends RecyclerView.Adapter<ShowCircleAdapter.Vi
         holder.title_text.setText(title);
         holder.detail_text.setText(detail);
 
-
+/*
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String format = simpleDateFormat.format(new Date(releaseTime));
+        String format = simpleDateFormat.format(new Date(releaseTime));*/
 
-        String[] split = format.split("-");
+        Date dateOld = new Date(releaseTime);
+        String s = DateTimeUtil.dateToStr(dateOld);
+
+        String[] split = s.split("-");
       //  Log.i("sp", split[0]);
        // Log.i("sp", split[1]);
       //  Log.i("sp", split[2]);
@@ -72,6 +77,25 @@ public class ShowCircleAdapter extends RecyclerView.Adapter<ShowCircleAdapter.Vi
         holder.month_text.setText(split[1] + "月");
         holder.data_text.setText(split[2] + "");
 
+
+
+        int datecompareAfter = compareDate(new Date(releaseTime), dateOld);
+        int daecompareBefore = compareDate(dateOld, getOneYear());
+        if (datecompareAfter == -1 && daecompareBefore == -1) {
+
+            //如果不是在一年以内,则弹出提示
+            holder.year_text.setVisibility(View.VISIBLE);
+        }else{
+            //在一年以内做的逻辑
+            if (position==0){
+                holder.year_text.setVisibility(View.VISIBLE);
+            }else {
+                holder.year_text.setVisibility(View.GONE);
+            }
+        }
+
+
+        //点击查看评论
         holder.show_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +111,25 @@ public class ShowCircleAdapter extends RecyclerView.Adapter<ShowCircleAdapter.Vi
 
 
     }
+
+    // 比较时间
+    public int compareDate(Date d1, Date d2) {
+        if (d1.getTime() > d2.getTime()) {
+            return 1;
+        } else if (d1.getTime() < d2.getTime()) {
+            return -1;
+        } else {// 相等
+            return 0;
+        }
+    }
+    //當前時間加1年
+    public Date getOneYear() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.YEAR, 1);
+        return c.getTime();
+    }
+
+
 
     @Override
     public int getItemCount() {
