@@ -1,6 +1,5 @@
 package com.wd.health.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.MediaType;
@@ -10,8 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,11 +24,10 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bigkoo.pickerview.TimePickerView;
-import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.request.RequestOptions;
 import com.bw.health.bean.CircleFindDepartmentBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
+import com.bw.health.core.WDActivity;
 import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
@@ -43,7 +39,6 @@ import com.suke.widget.SwitchButton;
 import com.wd.health.R;
 import com.wd.health.adapter.CircleWritBingZhengAdapter;
 import com.wd.health.adapter.CircleWritDepartmentAdapter;
-import com.wd.health.adapter.ImageAdapter;
 import com.wd.health.bean.CircleBingZhengBean;
 import com.wd.health.presenter.CircleBingZhengPresenter;
 import com.wd.health.presenter.CircleFindDepartmentPresenter;
@@ -69,7 +64,7 @@ import java.util.Map;
  * @Description: 发布病友圈
  */
 @Route(path = "/CircleWritActivity/")
-public class CircleWritActivity extends AppCompatActivity {
+public class CircleWritActivity extends WDActivity {
 
     private PopupWindow pop1;
     private PopupWindow pop2;
@@ -120,15 +115,17 @@ public class CircleWritActivity extends AppCompatActivity {
     private String sessionId;
     private Long id_user;
 
-
     private int text;
 
     private DoTaskPresenter doTaskPresenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_circle_writ);
+    protected int getLayoutId() {
+        return R.layout.activity_circle_writ;
+    }
+
+    @Override
+    protected void initView() {
 
         //获取控件
         //----------点击弹出popwindow获取科室--------------------------
@@ -156,6 +153,19 @@ public class CircleWritActivity extends AppCompatActivity {
         title_edText = findViewById(R.id.circle_writ_title_edText);
         treatmentHospital_edText = findViewById(R.id.circle_writ_yiyuan_edText);
         treatmentProcess_edText = findViewById(R.id.circle_writ_zhiliaoguocheng_edText);
+
+
+        //H币余额
+        TextView hbi_yve = findViewById(R.id.circle_writ_hbi_yve);
+        //充值
+        TextView hbi_cz = findViewById(R.id.circle_writ_hbi_chongzhi);
+
+        hbi_cz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentByRouter("/MyWallteActivity/");
+            }
+        });
 
 
         //---------------------长按为图片排序------------------------------
@@ -344,7 +354,7 @@ public class CircleWritActivity extends AppCompatActivity {
         //------------------选择H币------------------------------------------
 
         CheckBox tv_hbi1 = findViewById(R.id.circle_writ_hbi1);
-        CheckBox tv_hbi2= findViewById(R.id.circle_writ_hbi2);
+        CheckBox tv_hbi2 = findViewById(R.id.circle_writ_hbi2);
         CheckBox tv_hbi3 = findViewById(R.id.circle_writ_hbi3);
         CheckBox tv_hbi_zd = findViewById(R.id.circle_writ_hbi_zd);
 
@@ -416,7 +426,7 @@ public class CircleWritActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         String pop_edText = editText_pop.getText().toString();
-                        text=Integer.parseInt(pop_edText);
+                        text = Integer.parseInt(pop_edText);
                         tv_hbi_zd.setText(text + "H币");
                         pop.dismiss();
                     }
@@ -424,8 +434,6 @@ public class CircleWritActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
         //------------------选择H币---尾巴---------------------------------------
@@ -495,6 +503,7 @@ public class CircleWritActivity extends AppCompatActivity {
 
 
         //-------------发送我的病友圈----尾巴------------------
+
 
     }
 
@@ -573,7 +582,7 @@ public class CircleWritActivity extends AppCompatActivity {
             Integer result = data.getResult();
             //上传图片有Bug
             // wardMateSctxPresenter.reqeust(String.valueOf(id_user),sessionId,String.valueOf(result),mPicList);
-            doTaskPresenter.reqeust(id_user.intValue(),sessionId,1003);
+            doTaskPresenter.reqeust(id_user.intValue(), sessionId, 1003);
             Toast.makeText(CircleWritActivity.this, "发布成功" + result, Toast.LENGTH_SHORT).show();
 
         }
@@ -583,6 +592,7 @@ public class CircleWritActivity extends AppCompatActivity {
             String displayMessage = data.getDisplayMessage();
             if (displayMessage.equals("请先登陆")) {
                 Toast.makeText(mContext, "请先登陆", Toast.LENGTH_SHORT).show();
+                intentByRouter("/LoginActivity/");
             }
         }
     }
@@ -690,13 +700,10 @@ public class CircleWritActivity extends AppCompatActivity {
     }
 
 
-
-
-
     //------------------点击发送图片-----成功失败-----尾巴--------------------------------------
 
     //做任务
-    public class DoTask implements DataCall{
+    public class DoTask implements DataCall {
 
         @Override
         public void success(Object data, Object... args) {
@@ -708,4 +715,11 @@ public class CircleWritActivity extends AppCompatActivity {
             Toast.makeText(CircleWritActivity.this, data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    @Override
+    protected void destoryData() {
+
+    }
+
 }
