@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_10"
     android:orientation="vertical">
 
     <TextView
@@ -20,11 +21,11 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_jg_details_head"
-            android:layout_width="180px"
-            android:layout_height="180px"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
             android:paddingBottom="30px"
             android:paddingLeft="30px"
-            android:paddingTop="30px"
+
             android:visibility="gone" />
 
 
@@ -38,6 +39,7 @@
             <TextView
                 android:id="@+id/item_jg_details_tc"
                 android:layout_width="0px"
+                android:gravity="center"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:visibility="visible" />
@@ -52,7 +54,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30px"
-                    android:layout_marginTop="40px"
                     android:paddingBottom="10px"
                     android:paddingLeft="18px"
                     android:paddingRight="18px"
@@ -76,14 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
-                <TextView
-                    android:id="@+id/item_jg_details_state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:padding="8px"
-                    android:textSize="12sp"
-                    android:visibility="gone" />
+
             </LinearLayout>
 
             <TextView
@@ -97,8 +91,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_jg_details_head1"
-            android:layout_width="180px"
-            android:layout_height="180px"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
             android:paddingBottom="30px"
             android:paddingRight="30px"
             android:paddingTop="30px"

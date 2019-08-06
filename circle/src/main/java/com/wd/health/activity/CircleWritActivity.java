@@ -6,21 +6,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bigkoo.pickerview.TimePickerView;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.RequestOptions;
 import com.bw.health.bean.CircleFindDepartmentBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
@@ -28,17 +36,24 @@ import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.google.gson.Gson;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.suke.widget.SwitchButton;
 import com.wd.health.R;
 import com.wd.health.adapter.CircleWritBingZhengAdapter;
 import com.wd.health.adapter.CircleWritDepartmentAdapter;
+import com.wd.health.adapter.ImageAdapter;
 import com.wd.health.bean.CircleBingZhengBean;
 import com.wd.health.presenter.CircleBingZhengPresenter;
 import com.wd.health.presenter.CircleFindDepartmentPresenter;
 import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.PublishSickCirclePresenter;
 import com.wd.health.presenter.WardMateSctxPresenter;
+import com.wd.health.utils.GridViewAdapter;
+import com.wd.health.utils.MainConstant;
+import com.wd.health.utils.PictureSelectorConfig;
+import com.wd.health.utils.PlusImageActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,7 +96,7 @@ public class CircleWritActivity extends AppCompatActivity {
     private ImageView end_time_image;
     private EditText end_time_edText;
     private PopupWindow pop_image;
-    private GridView bingli_image1;
+    private GridView gridView;
     private String title_text;
     private String disease_text;
     private String detail_text;
@@ -93,16 +108,21 @@ public class CircleWritActivity extends AppCompatActivity {
     private EditText detail_edText;
     private EditText treatmentProcess_edText;
     private EditText title_edText;
+    //--------------上传图片--------------------------
+    private static final String TAG = "CircleWritActivity";
+    private Context mContext;
+    private ArrayList<String> mPicList = new ArrayList<>(); //上传的图片凭证的数据源
+    private GridViewAdapter mGridViewAddImgAdapter; //展示上传的图片的适配器
 
-    private int maxSelectNum = 6;
-    private List<LocalMedia> selectList = new ArrayList<>();
-    private int themeId;
 
-    private ArrayList<String> mList = new ArrayList<>();
     private WardMateSctxPresenter wardMateSctxPresenter;
 
     private String sessionId;
     private Long id_user;
+
+
+    private int text;
+
     private DoTaskPresenter doTaskPresenter;
 
     @Override
@@ -136,6 +156,20 @@ public class CircleWritActivity extends AppCompatActivity {
         title_edText = findViewById(R.id.circle_writ_title_edText);
         treatmentHospital_edText = findViewById(R.id.circle_writ_yiyuan_edText);
         treatmentProcess_edText = findViewById(R.id.circle_writ_zhiliaoguocheng_edText);
+
+
+        //---------------------长按为图片排序------------------------------
+
+        mContext = this;
+        //获取控件
+        gridView = findViewById(R.id.circle_writ_bingli_image1);
+        //关联p
+        wardMateSctxPresenter = new WardMateSctxPresenter(new SendImageViewCall());
+
+        initGridView();
+
+        //---------------------长按为图片排序--------尾巴----------------------
+
 
         doTaskPresenter = new DoTaskPresenter(new DoTask());
         //----------点击弹出popwindow获取科室--------------------------
@@ -280,19 +314,6 @@ public class CircleWritActivity extends AppCompatActivity {
 
         //----------点击弹出popwindow获取结束时间--尾巴------------------------
 
-        //---------------------长按为图片排序------------------------------
-
-
-        //获取控件
-        bingli_image1 = findViewById(R.id.circle_writ_bingli_image1);
-        //关联p
-        wardMateSctxPresenter = new WardMateSctxPresenter(new SendImageViewCall());
-
-
-
-
-
-        //---------------------长按为图片排序--------尾巴----------------------
 
         //---------------开关显示 隐藏------------------------
         LinearLayout hbi_layout = findViewById(R.id.circle_writ_layout_hbi);
@@ -320,13 +341,102 @@ public class CircleWritActivity extends AppCompatActivity {
 
         //---------------开关显示 隐藏------尾巴------------------
 
+        //------------------选择H币------------------------------------------
+
+        CheckBox tv_hbi1 = findViewById(R.id.circle_writ_hbi1);
+        CheckBox tv_hbi2= findViewById(R.id.circle_writ_hbi2);
+        CheckBox tv_hbi3 = findViewById(R.id.circle_writ_hbi3);
+        CheckBox tv_hbi_zd = findViewById(R.id.circle_writ_hbi_zd);
+
+
+        tv_hbi1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int s1 = 10;
+                if (tv_hbi1.isChecked()) {
+                    tv_hbi1.setTextColor(Color.parseColor("#FFFFFF"));
+                    tv_hbi1.setBackgroundResource(R.drawable.shape_writ_hbi_s);
+                } else {
+                    tv_hbi1.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi1.setBackgroundResource(R.drawable.shape_writ_hbi);
+                }
+                text = s1;
+                Toast.makeText(mContext, String.valueOf(text), Toast.LENGTH_SHORT).show();
+            }
+        });
+        tv_hbi2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int s2 = 20;
+                if (tv_hbi2.isChecked()) {
+                    tv_hbi2.setTextColor(Color.parseColor("#FFFFFF"));
+                    tv_hbi2.setBackgroundResource(R.drawable.shape_writ_hbi_s);
+                } else {
+                    tv_hbi2.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi2.setBackgroundResource(R.drawable.shape_writ_hbi);
+                }
+                text = s2;
+                Toast.makeText(mContext, String.valueOf(text), Toast.LENGTH_SHORT).show();
+            }
+        });
+        tv_hbi3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int s3 = 30;
+                if (tv_hbi3.isChecked()) {
+                    tv_hbi3.setTextColor(Color.parseColor("#FFFFFF"));
+                    tv_hbi3.setBackgroundResource(R.drawable.shape_writ_hbi_s);
+                } else {
+                    tv_hbi3.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi3.setBackgroundResource(R.drawable.shape_writ_hbi);
+                }
+                text = s3;
+                Toast.makeText(mContext, String.valueOf(text), Toast.LENGTH_SHORT).show();
+            }
+        });
+        tv_hbi_zd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tv_hbi_zd.isChecked()) {
+                    tv_hbi_zd.setTextColor(Color.parseColor("#FFFFFF"));
+                    tv_hbi_zd.setBackgroundResource(R.drawable.shape_writ_hbi_s);
+                } else {
+                    tv_hbi_zd.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi_zd.setBackgroundResource(R.drawable.shape_writ_hbi);
+                }
+                View view = View.inflate(CircleWritActivity.this, R.layout.pop_zidingyi_hbi, null);
+                PopupWindow pop = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                pop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                pop.setOutsideTouchable(true);
+                pop.setTouchable(true);
+                pop.setFocusable(true);
+                pop.showAsDropDown(tv_hbi_zd);
+                final EditText editText_pop = view.findViewById(R.id.pop_zidingyi_edText);
+                editText_pop.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String pop_edText = editText_pop.getText().toString();
+                        text=Integer.parseInt(pop_edText);
+                        tv_hbi_zd.setText(text + "H币");
+                        pop.dismiss();
+                    }
+                });
+
+            }
+        });
+
+
+
+
+        //------------------选择H币---尾巴---------------------------------------
+
 
         //-------------发送我的病友圈----------------------
         //数据库
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(CircleWritActivity.this, LoginBeanDao.TABLENAME).getLoginBeanDao();
 
-           id_user = loginBeanDao.loadAll().get(0).getId();
-         sessionId = loginBeanDao.loadAll().get(0).getSessionId();
+        id_user = loginBeanDao.loadAll().get(0).getId();
+        sessionId = loginBeanDao.loadAll().get(0).getSessionId();
 
 
         //发送
@@ -368,7 +478,7 @@ public class CircleWritActivity extends AppCompatActivity {
                 map.put("treatmentStartTime", treatmentStartTime_text);
                 map.put("treatmentEndTime", treatmentEndTime_text);
                 map.put("treatmentProcess", treatmentProcess_text);
-                map.put("amount", String.valueOf(10));
+                map.put("amount", String.valueOf(text));
 
                 //String ctions = JsonUtil.parseMapToJson(map);
                 Gson gson = new Gson();
@@ -379,6 +489,7 @@ public class CircleWritActivity extends AppCompatActivity {
                 PublishSickCirclePresenter publishSickCirclePresenter = new PublishSickCirclePresenter(new SendCircleCall());
                 publishSickCirclePresenter.reqeust(String.valueOf(id_user), sessionId, body);
 
+                finish();
             }
         });
 
@@ -460,15 +571,19 @@ public class CircleWritActivity extends AppCompatActivity {
         @Override
         public void success(Result<Integer> data, Object... args) {
             Integer result = data.getResult();
+            //上传图片有Bug
+            // wardMateSctxPresenter.reqeust(String.valueOf(id_user),sessionId,String.valueOf(result),mPicList);
             doTaskPresenter.reqeust(id_user.intValue(),sessionId,1003);
-            wardMateSctxPresenter.reqeust(String.valueOf(id_user),sessionId,String.valueOf(result),mList);
             Toast.makeText(CircleWritActivity.this, "发布成功" + result, Toast.LENGTH_SHORT).show();
 
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
-
+            String displayMessage = data.getDisplayMessage();
+            if (displayMessage.equals("请先登陆")) {
+                Toast.makeText(mContext, "请先登陆", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -477,12 +592,90 @@ public class CircleWritActivity extends AppCompatActivity {
     //------------------点击发送图片-----------------------------------------------------
 
 
+    //初始化展示上传图片的GridView
+    private void initGridView() {
+        mGridViewAddImgAdapter = new GridViewAdapter(mContext, mPicList);
+        gridView.setAdapter(mGridViewAddImgAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                if (position == parent.getChildCount() - 1) {
+                    //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过5张，才能点击
+                    if (mPicList.size() == MainConstant.MAX_SELECT_PIC_NUM) {
+                        //最多添加5张图片
+                        viewPluImg(position);
+                    } else {
+                        //添加凭证图片
+                        selectPic(MainConstant.MAX_SELECT_PIC_NUM - mPicList.size());
+                    }
+                } else {
+                    viewPluImg(position);
+                }
+            }
+        });
+    }
+
+    //查看大图
+    private void viewPluImg(int position) {
+        Intent intent = new Intent(mContext, PlusImageActivity.class);
+        intent.putStringArrayListExtra(MainConstant.IMG_LIST, mPicList);
+        intent.putExtra(MainConstant.POSITION, position);
+        startActivityForResult(intent, MainConstant.REQUEST_CODE_MAIN);
+    }
+
+    /**
+     * 打开相册或者照相机选择凭证图片，最多5张
+     *
+     * @param maxTotal 最多选择的图片的数量
+     */
+    private void selectPic(int maxTotal) {
+        PictureSelectorConfig.initMultiConfig(this, maxTotal);
+    }
+
+    // 处理选择的照片的地址
+    private void refreshAdapter(List<LocalMedia> picList) {
+        for (LocalMedia localMedia : picList) {
+            //被压缩后的图片路径
+            if (localMedia.isCompressed()) {
+                String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
+                mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
+                mGridViewAddImgAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片选择结果回调
+                    refreshAdapter(PictureSelector.obtainMultipleResult(data));
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
+                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                    break;
+            }
+        }
+        if (requestCode == MainConstant.REQUEST_CODE_MAIN && resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
+            //查看大图页面删除了图片
+            ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
+            mPicList.clear();
+            mPicList.addAll(toDeletePicList);
+            mGridViewAddImgAdapter.notifyDataSetChanged();
+        }
+    }
+
 
     //------------------点击发送图片----------尾巴-------------------------------------------
 
     //------------------点击发送图片-----成功失败-------------------------------------------
 
-    class SendImageViewCall implements DataCall<Result>{
+    class SendImageViewCall implements DataCall<Result> {
 
         @Override
         public void success(Result data, Object... args) {

@@ -504,7 +504,8 @@
                         android:paddingLeft="@dimen/dp_20"
                         android:paddingRight="@dimen/dp_20">
 
-                        <TextView
+                        <CheckBox
+                            android:button="@null"
                             android:id="@+id/circle_writ_hbi1"
                             android:layout_width="@dimen/dp_100"
                             android:layout_height="@dimen/dp_52"
@@ -514,7 +515,8 @@
                             android:textColor="#999999"
                             android:textSize="@dimen/sp_16" />
 
-                        <TextView
+                        <CheckBox
+                            android:button="@null"
                             android:id="@+id/circle_writ_hbi2"
                             android:layout_width="@dimen/dp_100"
                             android:layout_height="@dimen/dp_52"
@@ -525,7 +527,8 @@
                             android:textColor="#999999"
                             android:textSize="@dimen/sp_16" />
 
-                        <TextView
+                        <CheckBox
+                            android:button="@null"
                             android:id="@+id/circle_writ_hbi3"
                             android:layout_width="@dimen/dp_100"
                             android:layout_height="@dimen/dp_52"
@@ -548,8 +551,9 @@
                         android:paddingLeft="@dimen/dp_20"
                         android:paddingRight="@dimen/dp_20">
 
-                        <TextView
-                            android:id="@+id/circle_writ_hbi"
+                        <CheckBox
+                            android:button="@null"
+                            android:id="@+id/circle_writ_hbi_zd"
                             android:layout_width="@dimen/dp_100"
                             android:layout_height="@dimen/dp_52"
                             android:background="@drawable/shape_circle_writ_kuang_zhi"

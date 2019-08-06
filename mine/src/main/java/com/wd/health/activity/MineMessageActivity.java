@@ -44,6 +44,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -229,6 +231,16 @@ public class MineMessageActivity extends WDActivity {
                     MultipartBody.Part.createFormData("image", file1.getName(), requestFile);
 
             modifyHeadPicPresenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(), MultipartFile);
+            JMessageClient.updateUserAvatar(file1, new BasicCallback() {
+                @Override
+                public void gotResult(int i, String s) {
+                    if (i==0){
+                        Toast.makeText(MineMessageActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(MineMessageActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         } else if (requestCode == 200) {
             String realPathFromUri = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
             if (realPathFromUri != null) {
@@ -241,6 +253,16 @@ public class MineMessageActivity extends WDActivity {
                 MultipartBody.Part MultipartFile =
                         MultipartBody.Part.createFormData("image", file1.getName(), requestFile);
                 modifyHeadPicPresenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(), MultipartFile);
+                JMessageClient.updateUserAvatar(file1, new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                        if (i==0){
+                            Toast.makeText(MineMessageActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(MineMessageActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
 
 

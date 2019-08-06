@@ -19,6 +19,7 @@ import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.content.ImageContent;
 import cn.jpush.im.android.api.content.PromptContent;
 import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.content.VoiceContent;
 import cn.jpush.im.android.api.model.Message;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,13 +57,13 @@ public class JG_details_holder extends BaseViewHolder implements View.OnClickLis
         MyTV_Time = view.findViewById(R.id.item_jg_details_time); // 时间
         My_tc = view.findViewById(R.id.item_jg_details_tc);
         My_tc1 = view.findViewById(R.id.item_jg_details_tc1);
-        My_Tv_state = view.findViewById(R.id.item_jg_details_state);
+
 
         MyImg.setOnClickListener(this);
         MyHead.setOnClickListener(this);
         MyTv_content.setOnClickListener(this);
         MyTV_Time.setOnClickListener(this);
-        My_Tv_state.setOnClickListener(this);
+
 
     }
 
@@ -86,24 +87,15 @@ public class JG_details_holder extends BaseViewHolder implements View.OnClickLis
                     MyTv_content.setTextColor(MyContext.getColor(R.color.black));
                     My_tc.setVisibility(View.VISIBLE);//权重挤压
                     My_tc1.setVisibility(View.GONE);
-                    //对方是否未读
-                    My_Tv_state.setVisibility(View.VISIBLE);
-                    if (bean.haveRead()) {
-                        My_Tv_state.setText("已读");
-                        My_Tv_state.setTextColor(MyContext.getColor(R.color.blue));
-                    }
-                    {
-                        My_Tv_state.setText("未读");
-                        My_Tv_state.setTextColor(MyContext.getColor(R.color.red));
 
-                    }
+
 
                 } else {
-                    My_Tv_state.setVisibility(View.GONE);//对方是否未读
+
                     MyHead = view.findViewById(R.id.item_jg_details_head);  //头像
                     MyHead.setVisibility(View.VISIBLE);//头像显示隐藏
                     view.findViewById(R.id.item_jg_details_head1).setVisibility(View.GONE);
-
+                    MyHead.setImageResource(R.mipmap.doctor);
                     MyTv_content.setBackgroundResource(R.drawable.left);
                     MyTv_content.setTextColor(MyContext.getColor(R.color.black));
                     My_tc.setVisibility(View.GONE);
@@ -152,7 +144,15 @@ public class JG_details_holder extends BaseViewHolder implements View.OnClickLis
                         String promptText = promptContent.getPromptText();
                         MyTV_Time.setText(promptText);
                         break;
-
+                    case voice:
+                        VoiceContent voiceContent = (VoiceContent) bean.getContent();
+                         String localPath = voiceContent.getLocalPath();
+                        Log.i("voice", "setHolderData: "+localPath);
+                        MyTv_content.setVisibility(View.VISIBLE);
+                        MyTV_Time.setVisibility(View.GONE);
+                        MyImg.setVisibility(View.GONE);
+                        MyTv_content.setText(localPath);
+                        break;
                 }
             }
 

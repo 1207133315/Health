@@ -32,6 +32,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        packagingOptions {
+            exclude 'META-INF/rxjava.properties'
+        }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -71,7 +76,9 @@ dependencies {
     api 'com.alibaba:arouter-api:1.4.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
     api 'org.greenrobot:eventbus:3.1.1'
+
     //-------病友圈依赖-----------------------------
+
     //TabLayout
     api 'com.google.android.material:material:1.1.0-alpha08'
     //开关按钮
@@ -79,10 +86,12 @@ dependencies {
     //时间选择器
     api 'com.contrarywind:Android-PickerView:3.2.7'
     //上传图片
-    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.1'
 
     //-------病友圈依赖-----------------------------
+
     api 'com.github.bumptech.glide:glide:4.9.0'
+    //api 'com.github.bumptech.glide:glide:3.7.0'
     api 'cn.jzvd:jiaozivideoplayer:6.2.12'
     api 'com.danikula:videocache:2.7.1'
     api 'com.kd.easybarrage:library:0.0.1'
@@ -90,6 +99,9 @@ dependencies {
     api files('libs/universal-image-loader-1.9.4-with-sources.jar')
     api 'com.google.android.material:material:1.1.0-alpha08'
     api 'com.contrarywind:Android-PickerView:3.2.7'
+
+
+
     //ImagePickers
     api 'com.jaikydota.imagespickers:imagespickers:1.0.6'
     api files('libs/jcore-android-2.1.2.jar')
