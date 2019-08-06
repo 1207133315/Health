@@ -34,6 +34,7 @@ import com.jaiky.imagespickers.ImageConfig;
 import com.jaiky.imagespickers.ImageSelector;
 import com.jaiky.imagespickers.ImageSelectorActivity;
 import com.wd.health.R;
+import com.wd.health.adapter.ImageAdapter;
 import com.wd.health.bean.UserArchivesBean;
 import com.wd.health.presenter.UpArchivesPicPresenter;
 import com.wd.health.presenter.UpdateArchivesPresenter;

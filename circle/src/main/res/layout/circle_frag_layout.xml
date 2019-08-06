@@ -114,10 +114,11 @@
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp">
 
-                        <ImageView
+                        <com.facebook.drawee.view.SimpleDraweeView
                             android:id="@+id/circle_image_head"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
+                            app:roundAsCircle="true"
                             app:srcCompat="@mipmap/girl" />
 
                         <TextView
