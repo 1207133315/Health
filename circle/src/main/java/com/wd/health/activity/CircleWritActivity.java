@@ -460,6 +460,7 @@ public class CircleWritActivity extends AppCompatActivity {
         @Override
         public void success(Result<Integer> data, Object... args) {
             Integer result = data.getResult();
+            doTaskPresenter.reqeust(id_user.intValue(),sessionId,1003);
             wardMateSctxPresenter.reqeust(String.valueOf(id_user),sessionId,String.valueOf(result),mList);
             Toast.makeText(CircleWritActivity.this, "发布成功" + result, Toast.LENGTH_SHORT).show();
 

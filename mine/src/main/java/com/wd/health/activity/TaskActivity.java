@@ -100,7 +100,7 @@ public class TaskActivity extends WDActivity {
         sessionId = list1.get(0).getSessionId();
 
         findUserSignPresenter = new FindUserSignPresenter(new FindUserSign());
-        findUserSignPresenter.reqeust(id.intValue(), sessionId);
+
 
         findUserTaskListPresenter = new FindUserTaskListPresenter(new FindUserTaskList());
         receiveRewardPresenter = new ReceiveRewardPresenter(new ReceiveReward());
@@ -110,6 +110,7 @@ public class TaskActivity extends WDActivity {
     protected void onResume() {
         super.onResume();
         findUserTaskListPresenter.reqeust(id.intValue(), sessionId);
+        findUserSignPresenter.reqeust(id.intValue(), sessionId);
     }
 
     @Override
