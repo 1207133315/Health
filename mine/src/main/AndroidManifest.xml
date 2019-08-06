@@ -33,12 +33,13 @@
         <activity android:name=".activity.UpdateSexActivity" />
         <activity android:name=".activity.SignActivity" />
         <activity android:name=".activity.UpdateNicknameActivity" />
-        <activity android:name=".activity.BeAdoptedActivity"></activity>
+        <activity android:name=".activity.BeAdoptedActivity" />
         <activity android:name=".activity.UpdateSexActivity" />
         <activity android:name=".activity.AddFileActivity" />
         <activity android:name=".activity.SignActivity" />
         <activity android:name=".activity.UpdateNicknameActivity" />
-        <activity android:name=".activity.TaskActivity"></activity>
+        <activity android:name=".activity.TaskActivity" />
+        <activity android:name=".activity.CepingActivity"></activity>
     </application>
 
 </manifest>
