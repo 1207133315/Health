@@ -19,6 +19,7 @@ import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.PerfectUserInfoPresenter;
 import com.wd.health.view.Qipao;
 
@@ -52,7 +53,7 @@ public class SignActivity extends WDActivity {
     private int age;
     private int height;
     private int weight;
-
+    private DoTaskPresenter presenter;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_sign;
@@ -77,7 +78,7 @@ public class SignActivity extends WDActivity {
         text3.setText(weight +"岁");
         setDistance(qipao3,(age -18)*100/102);
         perfectUserInfoPresenter = new PerfectUserInfoPresenter(new PerfectUserInfo());
-
+        presenter = new DoTaskPresenter(new DoTask());
         shengaoseekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -173,6 +174,20 @@ public class SignActivity extends WDActivity {
             GetDaoUtil.getGetDaoUtil().getUserDao().insertOrReplace(list.get(0));
             Result result= (Result) data;
             Toast.makeText(SignActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+            presenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(),1004);
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
+    public class DoTask implements DataCall{
+
+        @Override
+        public void success(Object data, Object... args) {
+            Result result= (Result) data;
+            Toast.makeText(SignActivity.this,  result.getResult().toString(), Toast.LENGTH_SHORT).show();
         }
 
         @Override

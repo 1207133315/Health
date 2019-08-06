@@ -2,6 +2,7 @@ package com.wd.health.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.R;
 import com.wd.health.R2;
 import com.wd.health.presenter.AddSignPresenter;
+import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.WhetherSignTodayPresenter;
 
 import java.util.List;
@@ -77,6 +79,7 @@ public class MineActivity extends WDActivity {
     private AddSignPresenter addSignPresenter;
     private List<LoginBean> list;
     private LoginBean loginBean;
+    private DoTaskPresenter doTaskPresenter;
 
     @Override
     protected int getLayoutId() {
@@ -87,13 +90,14 @@ public class MineActivity extends WDActivity {
     protected void initView() {
         whetherSignTodayPresenter = new WhetherSignTodayPresenter(new WhetherSignToday());
         addSignPresenter = new AddSignPresenter(new AddSign());
+        doTaskPresenter = new DoTaskPresenter(new Dotask());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
-        list = loginBeanDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).list();
+        list = loginBeanDao.queryBuilder().list();
         if (list != null&&list.size()>0) {
             loginBean = list.get(0);
             String headPic = loginBean.getHeadPic();
@@ -154,6 +158,7 @@ public class MineActivity extends WDActivity {
 
         } else if (i == R.id.qd) {
             if (qd.getText().equals("已签到")){
+
                 Toast.makeText(this, "您今日已签到，不能重复签到", Toast.LENGTH_SHORT).show();
             }else {
                 if (list!=null&&list.size()>0){
@@ -192,6 +197,7 @@ public class MineActivity extends WDActivity {
             Result result = (Result) data;
             Toast.makeText(MineActivity.this,result.getMessage(), Toast.LENGTH_SHORT).show();
             qd.setText("已签到");
+            doTaskPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId(),1001);
         }
 
         @Override
@@ -202,5 +208,18 @@ public class MineActivity extends WDActivity {
             }
         }
 
+    }
+    //做任务
+    public class Dotask implements DataCall{
+
+        @Override
+        public void success(Object data, Object... args) {
+
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
     }
 }

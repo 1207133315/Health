@@ -2,11 +2,13 @@ package com.wd.health;
 
 import com.bw.health.bean.MationBean;
 import com.bw.health.bean.Result;
+import com.wd.health.activity.TaskActivity;
 import com.wd.health.bean.BeAdoptedBean;
 import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.CollectCircleBean;
 import com.wd.health.bean.CollectVideoBean;
 import com.wd.health.bean.DoctorBean;
+import com.wd.health.bean.FindUserTaskListBean;
 import com.wd.health.bean.MySickCircleCommentListBean;
 import com.wd.health.bean.PatientsCircleBean;
 import com.wd.health.bean.RecordListBean;
@@ -197,6 +199,32 @@ public interface Minerequest {
                                        @Query("height") int height,
                                        @Query("weight") int weight);
 
+    //查询用户连续签到天数
+    @GET("user/verify/v1/findUserSign")
+    Observable<Result> findUserSign(@Header("userId") int userId,
+                                    @Header("sessionId") String sessionId);
+
+    //做任务
+    @POST("user/verify/v1/doTask")
+    Observable<Result> doTask(@Header("userId") int userId,
+                              @Header("sessionId") String sessionId,
+                              @Query("taskId") int taskId);
+
+    //查询用户任务列表
+    @GET("user/verify/v1/findUserTaskList")
+    Observable<Result<List<FindUserTaskListBean>>> findUserTaskList(@Header("userId") int userId,
+                                                                    @Header("sessionId") String sessionId);
+
+    //领取任务奖励
+    @POST("user/verify/v1/receiveReward")
+    Observable<Result> receiveReward(@Header("userId") int userId,
+                                     @Header("sessionId") String sessionId,
+                                     @Query("taskId") int taskId);
+
+    //查询健康检测跳转URL
+    @GET("user/verify/v1/userHealthTest")
+    Observable<Result> userHealthTest(@Header("userId") int userId,
+                                      @Header("sessionId") String sessionId);
     /***刘浩---------------------------------------------**/
 
 
@@ -228,20 +256,18 @@ public interface Minerequest {
     //查询我的病友圈帖子的评论列表
     @GET("user/sickCircle/verify/v1/findMySickCircleCommentList")
     Observable<Result<MySickCircleCommentListBean>> findMySickCircleCommentList(@Header("userId") String userId,
-                                                                               @Header("sessionId") String sessionId,
-                                                                               @Query("sickCircleId") String sickCircleId,
-                                                                               @Query("page") String page,
-                                                                               @Query("count") String count);
-
-
+                                                                                @Header("sessionId") String sessionId,
+                                                                                @Query("sickCircleId") String sickCircleId,
+                                                                                @Query("page") String page,
+                                                                                @Query("count") String count);
 
 
     //查询我的被采纳的建议
     @GET("user/verify/v1/findMyAdoptedCommentList")
     Observable<Result<List<BeAdoptedBean>>> findMyAdoptedCommentList(@Header("userId") String userId,
-                                                               @Header("sessionId") String sessionId,
-                                                               @Query("page") String page,
-                                                               @Query("count") String count);
+                                                                     @Header("sessionId") String sessionId,
+                                                                     @Query("page") String page,
+                                                                     @Query("count") String count);
 
     /***郭亚杰---------------------------------------------**/
 

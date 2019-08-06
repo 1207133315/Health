@@ -291,8 +291,7 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
             //医生详情
             Intent intent = new Intent(this, DoctordetailActivity.class);
             intent.putExtra("bean", list1.get(position).getDoctorId());
-            Log.d("DoctorlistActivity6", list1.get(position).getDoctorName());
-            //startActivity(intent);
+            startActivity(intent);
         }
         else if (i==R.id.zixun){
            doctorId= list1.get(position).getDoctorId();
