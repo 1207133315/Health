@@ -1,4 +1,4 @@
-package com.wd.health;
+package com.bw.health;
 
 import android.graphics.Rect;
 import android.view.View;

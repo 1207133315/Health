@@ -38,6 +38,6 @@ dependencies {
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     implementation project(':common')
-    compile project(path: ':circle')
+    implementation project(path: ':circle')
 
 }

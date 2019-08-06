@@ -1,21 +1,11 @@
 package com.wd.health;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,15 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.facade.template.IProvider;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.bw.health.HomeFrag;
+import com.bw.health.SoftKeyBoardListener;
 import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDFragment;
-import com.bw.health.dao.DaoMaster;
-import com.bw.health.dao.DaoSession;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
@@ -44,18 +30,15 @@ import com.kd.easybarrage.Barrage;
 import com.kd.easybarrage.BarrageView;
 import com.wd.health.adapter.CategoryListAdapter;
 import com.wd.health.adapter.VideoAdapter;
-import com.wd.health.bean.CommentBean;
 import com.wd.health.bean.LeimuBean;
 import com.wd.health.bean.VideoBean;
 
 import com.wd.health.presenter.AddCommonPresenter;
 import com.wd.health.presenter.AddVideoPresenter;
 import com.wd.health.presenter.CategoryListPresenter;
-import com.wd.health.presenter.CommentListPresenter;
 import com.wd.health.presenter.MyHBPresenter;
 import com.wd.health.presenter.VideoBuyPresenter;
 import com.wd.health.presenter.VideoListPresenter;
-import com.wd.health.view.MyLinearLayoutManager;
 import com.wd.health.view.MyShowBottomView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -63,7 +46,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -344,7 +326,7 @@ public class ShiPinFragment extends WDFragment {
         super.onResume();
 
 
-        final LoginBeanDao userDao = GetDaoUtil.getGetDaoUtil().getUserDao();
+         LoginBeanDao userDao = GetDaoUtil.getGetDaoUtil().getUserDao();
         //user = userDao.queryBuilder().where(LoginBeanDao.Properties.Islogin.eq(true)).unique();
         final List<LoginBean> loginBeans = userDao.loadAll();
         if (loginBeans.size()>0){
