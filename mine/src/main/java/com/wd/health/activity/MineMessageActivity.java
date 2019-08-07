@@ -221,6 +221,8 @@ public class MineMessageActivity extends WDActivity {
         } else if (i == R.id.bdwx) {
         } else if (i == R.id.shimingrenzheng) {
         } else if (i == R.id.bdyhk) {
+            final Intent intent = new Intent(MineMessageActivity.this, BindCardActivity.class);
+            startActivity(intent);
         }else if (i==R.id.back){
             finish();
         }else if (i==R.id.tz){
