@@ -4,17 +4,22 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.platform.comapi.map.E;
 import com.bw.health.bean.CircleFindDepartmentBean;
 import com.bw.health.bean.CircleListBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDFragment;
+import com.bw.health.dao.DaoMaster;
+import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wd.health.R;
@@ -43,7 +48,7 @@ public class CircleFrag extends WDFragment {
     private CircleListPresenter circleListPresenter;
     private CircleListAdapter circleListAdapter;
     private TextView circle_frag_keshi;
-    public int page=1;
+    public int page = 1;
     private int id_s;
 
     @Override
@@ -58,7 +63,7 @@ public class CircleFrag extends WDFragment {
     }
 
     @Override
-    public void onSaveInstanceState( Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
     }
@@ -72,6 +77,33 @@ public class CircleFrag extends WDFragment {
         mTextView = getView().findViewById(R.id.tv_info);
         mFLayout = getView().findViewById(R.id.fl_layout);
         final LinearLayout linearLayout = getView().findViewById(R.id.edit_dd);
+
+        //头像
+        SimpleDraweeView image_headpic = getView().findViewById(R.id.circle_image_head);
+        //跳转到搜索页面
+        EditText jump_search = getView().findViewById(R.id.circle_search_jump);
+
+
+        //数据库
+        LoginBeanDao loginBeanDao = DaoMaster.newDevSession(getActivity(), LoginBeanDao.TABLENAME).getLoginBeanDao();
+        String headPic = loginBeanDao.loadAll().get(0).getHeadPic();
+        image_headpic.setImageURI(headPic);
+        image_headpic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentByRouter("/MineActivity/");
+
+            }
+        });
+
+        jump_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentByRouter("/FindSickCircleInfoActivity/");
+            }
+        });
+
+
 
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
@@ -123,7 +155,7 @@ public class CircleFrag extends WDFragment {
             @Override
             public void showCall(int id, String name) {
                 id_s = id;
-                circleListPresenter.reqeust(String.valueOf(id),page+"","5");
+                circleListPresenter.reqeust(String.valueOf(id), page + "", "5");
                 circle_frag_keshi.setText(name);
             }
         });
@@ -147,9 +179,9 @@ public class CircleFrag extends WDFragment {
         rc2 = getView().findViewById(R.id.circlr_frag_rc2);
         //关联presenter
         circleListPresenter = new CircleListPresenter(new CircleListCall());
-        circleListPresenter.reqeust("7",page+"","5");
+        circleListPresenter.reqeust("7", page + "", "5");
         //布局管理器
-        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rc2.setLayoutManager(linearLayoutManager1);
         //适配器
         circleListAdapter = new CircleListAdapter(getActivity());
@@ -158,15 +190,15 @@ public class CircleFrag extends WDFragment {
         rc2.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-             page=1;
-             circleListPresenter.reqeust(String.valueOf(id_s),page+"","5");
+                page = 1;
+                circleListPresenter.reqeust(String.valueOf(id_s), page + "", "5");
 
             }
 
             @Override
             public void onLoadMore() {
-             page++;
-                circleListPresenter.reqeust(String.valueOf(id_s),""+page++,"5");
+                page++;
+                circleListPresenter.reqeust(String.valueOf(id_s), "" + page++, "5");
 
 
             }
@@ -204,7 +236,7 @@ public class CircleFrag extends WDFragment {
             List<CircleListBean> result = data.getResult();
             rc2.loadMoreComplete();
             rc2.refreshComplete();
-            if (page==1){
+            if (page == 1) {
                 circleListAdapter.getDatt(result);
             }
             circleListAdapter.getDatt(result);

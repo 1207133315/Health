@@ -1,18 +1,13 @@
 package com.wd.health.frag;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.bw.health.bean.CircleListBean;
 import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
@@ -32,7 +26,10 @@ import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wd.health.R;
+import com.wd.health.activity.CircleWritActivity;
+import com.wd.health.activity.FindSickCircleInfoActivity;
 import com.wd.health.adapter.CircleCommentListAdapter;
+import com.wd.health.adapter.ImageAdapter;
 import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.CircleInfoBean;
 import com.wd.health.bean.WaiBuBean;
@@ -40,19 +37,20 @@ import com.wd.health.presenter.CircleCancelShouCangPresenter;
 import com.wd.health.presenter.CircleCommentListPresenter;
 import com.wd.health.presenter.CircleInfoPresenter;
 import com.wd.health.presenter.CircleShouCangPresenter;
+import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.PublishCommentPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.greenrobot.greendao.AbstractDaoSession;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -90,10 +88,12 @@ public class FindSickCircleInfoFrag extends WDFragment {
     private RelativeLayout circle_pop_youpinglun_layout;
     private int sickCircleId;
     private int sickCircleId1;
+    private DoTaskPresenter presenter;
+    private RecyclerView image_bingli;
 
 
     //----病友圈详情--------------------------
-
+    private List<ImageView> mList = new ArrayList<>();
 
     @Override
     public String getPageName() {
@@ -108,9 +108,9 @@ public class FindSickCircleInfoFrag extends WDFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (hidden){
+        if (hidden) {
             SharedPreferences flag = getActivity().getSharedPreferences("flag", MODE_PRIVATE);
-            flag.edit().putBoolean("flag",false).commit();
+            flag.edit().putBoolean("flag", false).commit();
         }
     }
 
@@ -139,7 +139,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
         //治疗结果
         zhiliaojingli = getView().findViewById(R.id.circleinfo_farg_zhiliaojinli);
         //相关图片
-        ImageView image_bingli = getView().findViewById(R.id.circleinfo_farg_bingli);
+        image_bingli = getView().findViewById(R.id.circleinfo_farg_bingli);
         //收藏
         shoucang = getView().findViewById(R.id.circleinfo_farg_shoucang);
         //收藏数
@@ -158,6 +158,8 @@ public class FindSickCircleInfoFrag extends WDFragment {
         //采纳建议
         TextView caina_info = getView().findViewById(R.id.circleinfo_farg_caina_info);
 
+        //做任务
+        presenter = new DoTaskPresenter(new DoTask());
 
         //关联presenter -----获取病友圈id------
         circleInfoPresenter = new CircleInfoPresenter(new CircleInfoCall());
@@ -262,7 +264,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
                     @Override
                     public void onClick(View v) {
                         edText_pinglun = ed_pinglun.getText().toString().trim();
-                        publishCommentPresenter.reqeust(String.valueOf(id_user), sessionId, String.valueOf(sickCircleId1) , edText_pinglun);
+                        publishCommentPresenter.reqeust(String.valueOf(id_user), sessionId, String.valueOf(sickCircleId1), edText_pinglun);
                         ed_pinglun.setText("");
                     }
                 });
@@ -393,6 +395,26 @@ public class FindSickCircleInfoFrag extends WDFragment {
             //病友圈id
             sickCircleId = result_info.getSickCircleId();
 
+            if (picture != null) {
+                String[] images = picture.split(",");
+                int imageCount = images.length;
+                int colNum;//列数
+                if (imageCount == 1) {
+                    colNum = 1;
+                } else if (imageCount == 2 || imageCount == 4) {
+                    colNum = 2;
+                } else {
+                    colNum = 3;
+                }
+                ImageAdapter imageAdapter = new ImageAdapter();
+                imageAdapter.addAll(Arrays.<Object>asList(images));
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+                gridLayoutManager.setSpanCount(colNum);
+                image_bingli.setLayoutManager(gridLayoutManager);
+                image_bingli.setAdapter(imageAdapter);
+            }
+
+
             //--------------收藏----取消收藏------------------------------
           /*  if (collectionFlag==1){
                 shoucang.setBackgroundResource(R.drawable.common_button_collection_small_n);
@@ -453,7 +475,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
         public void success(Result<List<CircleCommentListBean>> data, Object... args) {
             comment_result = data.getResult();
 
-            if (comment_result.size() == 0  && page==1) {
+            if (comment_result.size() == 0 && page == 1) {
                 circle_pop_wupinglun_layout.setVisibility(View.VISIBLE);
                 circle_pop_youpinglun_layout.setVisibility(View.GONE);
             } else {
@@ -489,7 +511,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
         public void success(Result data, Object... args) {
             Toast.makeText(getActivity(), "发表评论成功！", Toast.LENGTH_SHORT).show();
             // circleCommentListPresenter.reqeust(sickCircleId_jj + "");
-
+            presenter.reqeust(id_user.intValue(), sessionId,1002);
         }
 
         @Override
@@ -540,7 +562,20 @@ public class FindSickCircleInfoFrag extends WDFragment {
     }
     //----------取消收藏-----成功----失败----尾巴---------------------
 
+    public class DoTask implements DataCall{
 
+        @Override
+        public void success(Object data, Object... args) {
+            Result result= (Result) data;
+
+            Toast.makeText(getActivity(),  result.getResult().toString(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

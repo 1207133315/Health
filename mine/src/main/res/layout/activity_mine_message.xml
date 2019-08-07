@@ -287,6 +287,7 @@
                 app:srcCompat="@mipmap/my_icon_next_n"
                 android:layout_marginRight="@dimen/dp_27"/>
             <TextView
+                android:id="@+id/vxbd"
                 android:layout_width="wrap_content"
                 android:text="去绑定"
                 android:textColor="#333333"
@@ -326,6 +327,7 @@
                 app:srcCompat="@mipmap/my_icon_next_n"
                 android:layout_marginRight="@dimen/dp_27"/>
             <TextView
+                android:id="@+id/rzbd"
                 android:layout_width="wrap_content"
                 android:text="去认证"
                 android:textColor="#333333"
@@ -363,6 +365,7 @@
                 app:srcCompat="@mipmap/my_icon_next_n"
                 android:layout_marginRight="@dimen/dp_27"/>
             <TextView
+                android:id="@+id/yhkbd"
                 android:layout_width="wrap_content"
                 android:text="去绑定"
                 android:textColor="#333333"

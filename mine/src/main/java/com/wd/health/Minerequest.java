@@ -3,12 +3,14 @@ package com.wd.health;
 import com.bw.health.bean.MationBean;
 import com.bw.health.bean.Result;
 import com.wd.health.activity.TaskActivity;
+import com.wd.health.bean.BankCardBean;
 import com.wd.health.bean.BeAdoptedBean;
 import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.CollectCircleBean;
 import com.wd.health.bean.CollectVideoBean;
 import com.wd.health.bean.DoctorBean;
 import com.wd.health.bean.FindUserTaskListBean;
+import com.wd.health.bean.IDCardBean;
 import com.wd.health.bean.MySickCircleCommentListBean;
 import com.wd.health.bean.PatientsCircleBean;
 import com.wd.health.bean.RecordListBean;
@@ -236,6 +238,16 @@ public interface Minerequest {
     @GET("user/verify/v1/userHealthTest")
     Observable<Result> userHealthTest(@Header("userId") int userId,
                                       @Header("sessionId") String sessionId);
+
+    //查询绑定银行卡信息
+    @GET("user/verify/v1/findUserBankCardByUserId")
+    Observable<Result<BankCardBean>> findUserBankCardByUserId(@Header("userId") int userId,
+                                                              @Header("sessionId") String sessionId);
+    //查询用户身份证信息
+    @GET("user/verify/v1/findUserIdCard")
+    Observable<Result<IDCardBean>> findUserIdCard(@Header("userId") int userId,
+                                                            @Header("sessionId") String sessionId);
+
     /***刘浩---------------------------------------------**/
 
 
