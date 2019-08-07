@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +31,11 @@ import com.bw.health.util.GetDaoUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.bean.BankCardBean;
+import com.wd.health.bean.IDCardBean;
 import com.wd.health.presenter.DoTaskPresenter;
+import com.wd.health.presenter.FindUserBankCardByUserIdPresenter;
+import com.wd.health.presenter.FindUserIdCardPresenter;
 import com.wd.health.presenter.ModifyHeadPicPresenter;
 import com.wd.health.utils.getPhotoFromPhotoAlbum;
 
@@ -117,6 +122,10 @@ public class MineMessageActivity extends WDActivity {
         super.onResume();
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         list = loginBeanDao.queryBuilder().list();
+        FindUserBankCardByUserIdPresenter findUserBankCardByUserIdPresenter = new FindUserBankCardByUserIdPresenter(new FindUserBankCardByUserId());
+        findUserBankCardByUserIdPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
+        FindUserIdCardPresenter findUserIdCardPresenter = new FindUserIdCardPresenter(new FindUserIdCard());
+        findUserIdCardPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
         if (list != null && list.size() > 0) {
             name.setText(list.get(0).getNickName());
             head.setImageURI(list.get(0).getHeadPic());
@@ -137,8 +146,11 @@ public class MineMessageActivity extends WDActivity {
                 email.setText(list.get(0).getEmail());
             }
             int whetherBingWeChat = list.get(0).getWhetherBingWeChat();
+            Log.d("MineMessageActivity", list.get(0).getSessionId());
             if (whetherBingWeChat == 1) {
                 vxbd.setText("已绑定");
+            }else {
+                vxbd.setText("未绑定");
             }
         } else {
             intentByRouter("/LoginActivity/");
@@ -280,13 +292,6 @@ public class MineMessageActivity extends WDActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     public class updateheadpic implements DataCall {
 
         @Override
@@ -336,6 +341,40 @@ public class MineMessageActivity extends WDActivity {
         return file;
     }
 
+    public class FindUserIdCard implements DataCall {
+
+        @Override
+        public void success(Object data, Object... args) {
+            Result<IDCardBean> result= (Result<IDCardBean>) data;
+            if (result.getResult()!=null){
+                rzbd.setText("已认证");
+            }else {
+                rzbd.setText("未认证");
+            }
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
+    public class FindUserBankCardByUserId implements DataCall {
+
+        @Override
+        public void success(Object data, Object... args) {
+            Result<BankCardBean> result= (Result<BankCardBean>) data;
+            if (result.getResult()!=null){
+                yhkbd.setText("已绑定");
+            }else {
+                yhkbd.setText("未绑定");
+            }
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
     public class DoTask implements DataCall {
 
         @Override
