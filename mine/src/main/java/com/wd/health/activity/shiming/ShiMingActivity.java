@@ -20,7 +20,8 @@ import android.widget.Toast;
 
 import com.bw.health.core.WDActivity;
 import com.bw.health.util.PermissionsUtils;
-import com.googlecode.tesseract.android.TessBaseAPI;
+
+
 import com.wd.health.R;
 import com.wd.health.R2;
 import com.wd.health.activity.MineMessageActivity;
@@ -167,7 +168,7 @@ public class ShiMingActivity extends WDActivity {
             }else {
                 contrary.setImageBitmap(bm);
             }
-            localre(mTempPhotoPath);
+
         } else if (requestCode == 200) {
             String realPathFromUri = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
             if (realPathFromUri != null) {
@@ -190,42 +191,7 @@ public class ShiMingActivity extends WDActivity {
     //识别语言简体中文
     static final String CHINESE_LANGUAGE = "chi_sim";
 
-    /**
-     * 传SD卡图片路径（当然你们也可以传Bitmap）
-     * @param url
-     */
-    private void localre(String url) {
-        final File file = new File(TESSBASE_PATH);
-        if (!file.exists()){
-            file.mkdirs();
-        }
-        //把图片转为Bitmap
-        Bitmap bmp = BitmapFactory.decodeFile(url);
-        //创建Tess
-        final TessBaseAPI baseApi = new TessBaseAPI();
-        //下面这一块代码为裁取身份证号码区域（否则识别乱码，不准确）
-        int x, y, w, h;
-        x = (int) (bmp.getWidth() * 0.340);
-        y = (int) (bmp.getHeight() * 0.800);
-        w = (int) (bmp.getWidth() * 0.6 + 0.5f);
-        h = (int) (bmp.getHeight() * 0.12 + 0.5f);
-        Bitmap bit_hm = Bitmap.createBitmap(bmp, x, y, w, h);
 
-        //初始化OCR的训练数据路径与语言
-        baseApi.init(TESSBASE_PATH, DEFAULT_LANGUAGE);
-        //设置识别模式
-        baseApi.setPageSegMode(TessBaseAPI.PageSegMode.PSM_SINGLE_LINE);
-        //设置要识别的图片
-        baseApi.setImage(bit_hm);
-        //设置字典白名单
-        baseApi.setVariable("tessedit_char_whitelist", "0123456789Xx");
-        //把识别内容设置到EditText里
-       // tv_result.setText(baseApi.getUTF8Text());
-        Log.i("aaa", ""+baseApi.getUTF8Text());
-        //收尾
-        baseApi.clear();
-        baseApi.end();
-    }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,  int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

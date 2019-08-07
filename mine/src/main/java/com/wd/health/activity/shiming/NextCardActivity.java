@@ -201,6 +201,7 @@ public boolean isChoice;
                         public void onError(OCRError error) {
                            // isChoice = true;
                             Log.d("MainActivity", "onError: " + error.getMessage());
+                            Toast.makeText(NextCardActivity.this, "扫描失败", Toast.LENGTH_SHORT).show();
                         }
                     });
 

@@ -1,5 +1,6 @@
 package com.wd.health.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +29,7 @@ import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
+import com.bw.health.util.PermissionsUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.R;
 import com.wd.health.R2;
@@ -35,6 +38,8 @@ import com.wd.health.bean.IDCardBean;
 import com.wd.health.activity.shiming.BindCardActivity;
 import com.wd.health.activity.shiming.ShiMingActivity;
 import com.wd.health.presenter.DoTaskPresenter;
+import com.wd.health.presenter.FindUserBankCardByUserIdPresenter;
+import com.wd.health.presenter.FindUserIdCardPresenter;
 import com.wd.health.presenter.ModifyHeadPicPresenter;
 import com.wd.health.utils.getPhotoFromPhotoAlbum;
 
