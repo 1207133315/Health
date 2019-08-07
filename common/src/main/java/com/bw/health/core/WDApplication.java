@@ -4,9 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.StrictMode;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -149,6 +151,10 @@ public class WDApplication extends Application {
         //定位
         //推送
         //统计
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        { StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+        }
     }
 
     @Override

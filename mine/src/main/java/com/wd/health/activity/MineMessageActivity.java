@@ -1,5 +1,6 @@
 package com.wd.health.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -27,10 +29,17 @@ import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
+import com.bw.health.util.PermissionsUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.bean.BankCardBean;
+import com.wd.health.bean.IDCardBean;
+import com.wd.health.activity.shiming.BindCardActivity;
+import com.wd.health.activity.shiming.ShiMingActivity;
 import com.wd.health.presenter.DoTaskPresenter;
+import com.wd.health.presenter.FindUserBankCardByUserIdPresenter;
+import com.wd.health.presenter.FindUserIdCardPresenter;
 import com.wd.health.presenter.ModifyHeadPicPresenter;
 import com.wd.health.utils.getPhotoFromPhotoAlbum;
 
@@ -84,6 +93,12 @@ public class MineMessageActivity extends WDActivity {
     TextView email;
     @BindView(R2.id.back)
     ImageView back;
+    @BindView(R2.id.vxbd)
+    TextView vxbd;
+    @BindView(R2.id.rzbd)
+    TextView rzbd;
+    @BindView(R2.id.yhkbd)
+    TextView yhkbd;
     private List<LoginBean> list;
     // 拍照的照片的存储位置
     private String mTempPhotoPath;
@@ -92,7 +107,20 @@ public class MineMessageActivity extends WDActivity {
     private ModifyHeadPicPresenter modifyHeadPicPresenter;
     private PopupWindow popupWindow;
     private DoTaskPresenter presenter;
+    String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    //创建监听权限的接口对象
+    PermissionsUtils.IPermissionsResult permissionsResult = new PermissionsUtils.IPermissionsResult() {
+        @Override
+        public void passPermissons() {
+            //Toast.makeText(MessiageActivity.this, "权限通过，可以做其他事情!", Toast.LENGTH_SHORT).show();
+        }
 
+        @Override
+        public void forbitPermissons() {
+//            finish();
+            // Toast.makeText(MessiageActivity.this, "权限不通过!", Toast.LENGTH_SHORT).show();
+        }
+    };
     @Override
     protected int getLayoutId() {
         return R.layout.activity_mine_message;
@@ -110,6 +138,10 @@ public class MineMessageActivity extends WDActivity {
         super.onResume();
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         list = loginBeanDao.queryBuilder().list();
+        FindUserBankCardByUserIdPresenter findUserBankCardByUserIdPresenter = new FindUserBankCardByUserIdPresenter(new FindUserBankCardByUserId());
+        findUserBankCardByUserIdPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
+        FindUserIdCardPresenter findUserIdCardPresenter = new FindUserIdCardPresenter(new FindUserIdCard());
+        findUserIdCardPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
         if (list != null && list.size() > 0) {
             name.setText(list.get(0).getNickName());
             head.setImageURI(list.get(0).getHeadPic());
@@ -129,6 +161,13 @@ public class MineMessageActivity extends WDActivity {
             if (list.get(0).getEmail() != "" && list.get(0).getEmail() != null) {
                 email.setText(list.get(0).getEmail());
             }
+            int whetherBingWeChat = list.get(0).getWhetherBingWeChat();
+            Log.d("MineMessageActivity", list.get(0).getSessionId());
+            if (whetherBingWeChat == 1) {
+                vxbd.setText("已绑定");
+            }else {
+                vxbd.setText("未绑定");
+            }
         } else {
             intentByRouter("/LoginActivity/");
         }
@@ -139,7 +178,7 @@ public class MineMessageActivity extends WDActivity {
 
     }
 
-    @OnClick({R2.id.touxiang, R2.id.nc, R2.id.xingbie, R2.id.youxiang, R2.id.bdwx, R2.id.shimingrenzheng, R2.id.bdyhk,R2.id.back,R2.id.tz})
+    @OnClick({R2.id.touxiang, R2.id.nc, R2.id.xingbie, R2.id.youxiang, R2.id.bdwx, R2.id.shimingrenzheng, R2.id.bdyhk, R2.id.back, R2.id.tz})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.touxiang) {
@@ -172,16 +211,18 @@ public class MineMessageActivity extends WDActivity {
             });
 
         } else if (i == R.id.nc) {
-            Intent intent=new Intent(this,UpdateNicknameActivity.class);
-            intent.putExtra("name",list.get(0).getNickName());
+            Intent intent = new Intent(this, UpdateNicknameActivity.class);
+            intent.putExtra("name", list.get(0).getNickName());
             startActivity(intent);
         } else if (i == R.id.xingbie) {
-            Intent intent=new Intent(this,UpdateSexActivity.class);
+            Intent intent = new Intent(this, UpdateSexActivity.class);
             startActivity(intent);
         } else if (i == R.id.youxiang) {
         } else if (i == R.id.bdwx) {
         } else if (i == R.id.shimingrenzheng) {
         } else if (i == R.id.bdyhk) {
+            final Intent intent = new Intent(MineMessageActivity.this, BindCardActivity.class);
+            startActivity(intent);
         }else if (i==R.id.back){
             finish();
         }else if (i==R.id.tz){
@@ -317,7 +358,42 @@ public class MineMessageActivity extends WDActivity {
         }
         return file;
     }
-    public class DoTask implements DataCall{
+
+    public class FindUserIdCard implements DataCall {
+
+        @Override
+        public void success(Object data, Object... args) {
+            Result<IDCardBean> result= (Result<IDCardBean>) data;
+            if (result.getResult()!=null){
+                rzbd.setText("已认证");
+            }else {
+                rzbd.setText("未认证");
+            }
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
+    public class FindUserBankCardByUserId implements DataCall {
+
+        @Override
+        public void success(Object data, Object... args) {
+            Result<BankCardBean> result= (Result<BankCardBean>) data;
+            if (result.getResult()!=null){
+                yhkbd.setText("已绑定");
+            }else {
+                yhkbd.setText("未绑定");
+            }
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
+    public class DoTask implements DataCall {
 
         @Override
         public void success(Object data, Object... args) {
@@ -329,5 +405,12 @@ public class MineMessageActivity extends WDActivity {
         public void fail(ApiException data, Object... args) {
 
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,  int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //就多一个参数this
+        PermissionsUtils.getInstance().onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 }
