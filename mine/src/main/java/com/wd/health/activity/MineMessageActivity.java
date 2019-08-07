@@ -49,6 +49,7 @@ import cn.jpush.im.api.BasicCallback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+
 @Route(path = "/MineMessageActivity/")
 public class MineMessageActivity extends WDActivity {
 
@@ -84,6 +85,12 @@ public class MineMessageActivity extends WDActivity {
     TextView email;
     @BindView(R2.id.back)
     ImageView back;
+    @BindView(R2.id.vxbd)
+    TextView vxbd;
+    @BindView(R2.id.rzbd)
+    TextView rzbd;
+    @BindView(R2.id.yhkbd)
+    TextView yhkbd;
     private List<LoginBean> list;
     // 拍照的照片的存储位置
     private String mTempPhotoPath;
@@ -129,6 +136,10 @@ public class MineMessageActivity extends WDActivity {
             if (list.get(0).getEmail() != "" && list.get(0).getEmail() != null) {
                 email.setText(list.get(0).getEmail());
             }
+            int whetherBingWeChat = list.get(0).getWhetherBingWeChat();
+            if (whetherBingWeChat == 1) {
+                vxbd.setText("已绑定");
+            }
         } else {
             intentByRouter("/LoginActivity/");
         }
@@ -139,7 +150,7 @@ public class MineMessageActivity extends WDActivity {
 
     }
 
-    @OnClick({R2.id.touxiang, R2.id.nc, R2.id.xingbie, R2.id.youxiang, R2.id.bdwx, R2.id.shimingrenzheng, R2.id.bdyhk,R2.id.back,R2.id.tz})
+    @OnClick({R2.id.touxiang, R2.id.nc, R2.id.xingbie, R2.id.youxiang, R2.id.bdwx, R2.id.shimingrenzheng, R2.id.bdyhk, R2.id.back, R2.id.tz})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.touxiang) {
@@ -172,20 +183,20 @@ public class MineMessageActivity extends WDActivity {
             });
 
         } else if (i == R.id.nc) {
-            Intent intent=new Intent(this,UpdateNicknameActivity.class);
-            intent.putExtra("name",list.get(0).getNickName());
+            Intent intent = new Intent(this, UpdateNicknameActivity.class);
+            intent.putExtra("name", list.get(0).getNickName());
             startActivity(intent);
         } else if (i == R.id.xingbie) {
-            Intent intent=new Intent(this,UpdateSexActivity.class);
+            Intent intent = new Intent(this, UpdateSexActivity.class);
             startActivity(intent);
         } else if (i == R.id.youxiang) {
         } else if (i == R.id.bdwx) {
         } else if (i == R.id.shimingrenzheng) {
         } else if (i == R.id.bdyhk) {
-        }else if (i==R.id.back){
+        } else if (i == R.id.back) {
             finish();
-        }else if (i==R.id.tz){
-            Intent intent=new Intent(this,SignActivity.class);
+        } else if (i == R.id.tz) {
+            Intent intent = new Intent(this, SignActivity.class);
             startActivity(intent);
         }
     }
@@ -234,9 +245,9 @@ public class MineMessageActivity extends WDActivity {
             JMessageClient.updateUserAvatar(file1, new BasicCallback() {
                 @Override
                 public void gotResult(int i, String s) {
-                    if (i==0){
+                    if (i == 0) {
                         Toast.makeText(MineMessageActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         Toast.makeText(MineMessageActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -256,9 +267,9 @@ public class MineMessageActivity extends WDActivity {
                 JMessageClient.updateUserAvatar(file1, new BasicCallback() {
                     @Override
                     public void gotResult(int i, String s) {
-                        if (i==0){
+                        if (i == 0) {
                             Toast.makeText(MineMessageActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
                             Toast.makeText(MineMessageActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -267,6 +278,13 @@ public class MineMessageActivity extends WDActivity {
 
 
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
     public class updateheadpic implements DataCall {
@@ -286,7 +304,7 @@ public class MineMessageActivity extends WDActivity {
                     userDao.insertOrReplace(loginBean);
                     head.setImageURI(loginBean.getHeadPic());
                 }
-                presenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(),1004);
+                presenter.reqeust(list.get(0).getId().intValue(), list.get(0).getSessionId(), 1004);
             }
             popupWindow.dismiss();
         }
@@ -317,11 +335,12 @@ public class MineMessageActivity extends WDActivity {
         }
         return file;
     }
-    public class DoTask implements DataCall{
+
+    public class DoTask implements DataCall {
 
         @Override
         public void success(Object data, Object... args) {
-            Result result= (Result) data;
+            Result result = (Result) data;
             Toast.makeText(MineMessageActivity.this, "result.getResult():" + result.getResult(), Toast.LENGTH_SHORT).show();
         }
 

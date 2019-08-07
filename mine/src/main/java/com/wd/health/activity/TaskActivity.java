@@ -142,7 +142,7 @@ public class TaskActivity extends WDActivity {
                 ARouter.getInstance().build("/HomeActivity/")
                         .withBoolean("istask", true)
                         .navigation();
-                //intentByRouter("/HomeActivity/");
+
             }else if (bingyouquanshouping.getText().equals("领H币")){
                 receiveRewardPresenter.reqeust(id.intValue(),sessionId,1002);
             }
@@ -313,6 +313,7 @@ public class TaskActivity extends WDActivity {
         @Override
         public void success(Object data, Object... args) {
             findUserTaskListPresenter.reqeust(id.intValue(), sessionId);
+            
         }
 
         @Override
