@@ -1,5 +1,6 @@
 package com.wd.health.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -27,9 +29,12 @@ import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
+import com.bw.health.util.PermissionsUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.activity.shiming.BindCardActivity;
+import com.wd.health.activity.shiming.ShiMingActivity;
 import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.ModifyHeadPicPresenter;
 import com.wd.health.utils.getPhotoFromPhotoAlbum;
@@ -92,7 +97,20 @@ public class MineMessageActivity extends WDActivity {
     private ModifyHeadPicPresenter modifyHeadPicPresenter;
     private PopupWindow popupWindow;
     private DoTaskPresenter presenter;
+    String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    //创建监听权限的接口对象
+    PermissionsUtils.IPermissionsResult permissionsResult = new PermissionsUtils.IPermissionsResult() {
+        @Override
+        public void passPermissons() {
+            //Toast.makeText(MessiageActivity.this, "权限通过，可以做其他事情!", Toast.LENGTH_SHORT).show();
+        }
 
+        @Override
+        public void forbitPermissons() {
+//            finish();
+            // Toast.makeText(MessiageActivity.this, "权限不通过!", Toast.LENGTH_SHORT).show();
+        }
+    };
     @Override
     protected int getLayoutId() {
         return R.layout.activity_mine_message;
@@ -100,9 +118,12 @@ public class MineMessageActivity extends WDActivity {
 
     @Override
     protected void initView() {
+
         modifyHeadPicPresenter = new ModifyHeadPicPresenter(new updateheadpic());
         presenter = new DoTaskPresenter(new DoTask());
-
+        PermissionsUtils.showSystemSetting = false;//是否支持显示系统设置权限设置窗口跳转
+        //这里的this不是上下文，是Activity对象！
+        PermissionsUtils.getInstance().chekPermissions(this, permissions, permissionsResult);
     }
 
     @Override
@@ -181,7 +202,9 @@ public class MineMessageActivity extends WDActivity {
         } else if (i == R.id.youxiang) {
         } else if (i == R.id.bdwx) {
         } else if (i == R.id.shimingrenzheng) {
+            startActivity(new Intent(MineMessageActivity.this,ShiMingActivity.class));
         } else if (i == R.id.bdyhk) {
+            startActivity(new Intent(MineMessageActivity.this,BindCardActivity.class));
         }else if (i==R.id.back){
             finish();
         }else if (i==R.id.tz){
@@ -329,5 +352,12 @@ public class MineMessageActivity extends WDActivity {
         public void fail(ApiException data, Object... args) {
 
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,  int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //就多一个参数this
+        PermissionsUtils.getInstance().onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 }

@@ -190,10 +190,11 @@ public class IMActivity extends WDActivity implements View.OnClickListener {
                 RelativeLayout.LayoutParams buttonLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 144);
                 buttonLayoutParams.setMargins(0, height-height1-144, 0, 0);
                 edit.setLayoutParams(buttonLayoutParams);
-                RelativeLayout.LayoutParams recyclerLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+               /* RelativeLayout.LayoutParams recyclerLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
                 recyclerLayoutParams.setMargins(0, top.getLayoutParams().height+18, 0, height1+144);
                 recyclerView.setLayoutParams(recyclerLayoutParams);
-                recyclerView.smoothScrollToPosition(mConversation.getAllMessage().size() );
+                recyclerView.smoothScrollToPosition(mConversation.getAllMessage().size() -1);*/
+                //Toast.makeText(IMActivity.this, height+"-----"+height1, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -204,6 +205,7 @@ public class IMActivity extends WDActivity implements View.OnClickListener {
                 RelativeLayout.LayoutParams recyclerLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
                 recyclerLayoutParams.setMargins(0, top.getLayoutParams().height+18, 0, 144);
                 recyclerView.setLayoutParams(recyclerLayoutParams);
+                //Toast.makeText(IMActivity.this, ""+height1, Toast.LENGTH_SHORT).show();
             }
         });
         final List<LoginBean> loginBeans = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll();

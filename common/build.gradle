@@ -80,7 +80,6 @@ dependencies {
     api 'com.contrarywind:Android-PickerView:3.2.7'
     //上传图片
     api 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
-
     //-------病友圈依赖-----------------------------
     api 'com.github.bumptech.glide:glide:4.9.0'
     api 'cn.jzvd:jiaozivideoplayer:6.2.12'
@@ -100,10 +99,10 @@ dependencies {
     api files('libs/core-3.2.1.jar')
     api files('libs/picasso-2.5.2.jar')
     api files('libs/pinyin4j-2.5.0.jar')
-// 头像切圆
+    // 头像切圆
     api 'de.hdodenhof:circleimageview:2.2.0'
-//圆角图片
+    //圆角图片
     api 'com.makeramen:roundedimageview:2.2.1'
-
+    api 'com.rmtheis:tess-two:6.0.0'
 
 }

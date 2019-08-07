@@ -187,6 +187,17 @@ public interface Minerequest {
     Observable<Result> updateArchives(@Header("userId") long userId,
                                       @Header("sessionId") String sessionId,
                                       @Body RequestBody body);
+
+    //绑定银行卡
+    @POST("user/verify/v1/bindUserBankCard")
+    @FormUrlEncoded
+    Observable<Result> bingCard(@Header("userId") long userId,
+                                @Header("sessionId") String sessionId,
+                                @Field("bankCardNumber") String bankCardNumber,
+                                @Field("bankName")String bankName,
+                                @Field("bankCardType")int bankCardType
+                                );
+
     /***李宁康---------------------------------------------**/
 
 
