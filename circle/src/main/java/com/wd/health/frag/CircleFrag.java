@@ -4,11 +4,13 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.platform.comapi.map.E;
 import com.bw.health.bean.CircleFindDepartmentBean;
 import com.bw.health.bean.CircleListBean;
 import com.bw.health.bean.Result;
@@ -78,6 +80,10 @@ public class CircleFrag extends WDFragment {
 
         //头像
         SimpleDraweeView image_headpic = getView().findViewById(R.id.circle_image_head);
+        //跳转到搜索页面
+        EditText jump_search = getView().findViewById(R.id.circle_search_jump);
+
+
         //数据库
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(getActivity(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         String headPic = loginBeanDao.loadAll().get(0).getHeadPic();
@@ -89,6 +95,15 @@ public class CircleFrag extends WDFragment {
 
             }
         });
+
+        jump_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentByRouter("/FindSickCircleInfoActivity/");
+            }
+        });
+
+
 
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override

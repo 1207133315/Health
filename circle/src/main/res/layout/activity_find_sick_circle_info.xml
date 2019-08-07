@@ -34,7 +34,8 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_weight="1"
                 android:background="@drawable/shape_circle_search"
-                android:hint="    请输入病症名称或标题关键字"
+                android:hint="请输入病症名称或标题关键字"
+                android:paddingLeft="@dimen/dp_15"
                 android:textColor="#999999"
                 android:textColorHint="#999999"
                 android:textSize="@dimen/sp_12" />

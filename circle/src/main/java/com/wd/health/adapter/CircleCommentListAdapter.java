@@ -37,7 +37,7 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
     private MyViewHolder myViewHolder;
     private String sessionId;
     private Long id_user;
-    private int opinion;
+
 
     public CircleCommentListAdapter(Context context) {
         this.context = context;
@@ -61,12 +61,10 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
         String content = commentlistBean.getContent();
         long commentTime = commentlistBean.getCommentTime();
         int whetherDoctor = commentlistBean.getWhetherDoctor();
-        int supportNum = commentlistBean.getSupportNum();
-        int opposeNum = commentlistBean.getOpposeNum();
+         int supportNum = commentlistBean.getSupportNum();
+         int opposeNum = commentlistBean.getOpposeNum();
         int commentUserId = commentlistBean.getCommentUserId();
         int commentId = commentlistBean.getCommentId();
-        //赞同、反对
-        opinion = commentlistBean.getOpinion();
 
 
         myViewHolder.simp_image.setImageURI(headPic);
@@ -79,7 +77,7 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
         myViewHolder.tv_goods1_num.setText(supportNum + "");
         myViewHolder.tv_goods2_num.setText(opposeNum + "");
 
-
+        //判断是否为医生
         if (whetherDoctor == 1) {
             myViewHolder.biaoshi_image.setVisibility(View.VISIBLE);
             myViewHolder.renzheng_image.setVisibility(View.VISIBLE);
@@ -89,7 +87,7 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
             myViewHolder.renzheng_image.setVisibility(View.GONE);
 
         }
-        //判断是否为支持
+      /*  //判断是否为支持
         if (supportNum == 1) {
             myViewHolder.tv_goods1.setBackgroundResource(R.drawable.common_icon_agree_s);
         } else {
@@ -102,7 +100,7 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
         } else {
             myViewHolder.tv_goods2.setBackgroundResource(R.drawable.common_icon_disagree_n);
 
-        }
+        }*/
 
 
         //---------- 发表支持的观点-----------------------
@@ -111,10 +109,71 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
         sessionId = loginBeanDao.loadAll().get(0).getSessionId();
         id_user = loginBeanDao.loadAll().get(0).getId();
 
+        //赞同、反对
+        int opinion = commentlistBean.getOpinion();
+        ExpressOpinionPresenter expressOpinionPresenter = new ExpressOpinionPresenter(new ExpressOpinionCall());
+
+        switch (opinion) {
+            case 0:
+                //支持
+                holder.tv_goods1.setOnClickListener(new View.OnClickListener() {
+                    private int str;
+
+                    @Override
+                    public void onClick(View v) {
+                        str = 1;
+                        //点赞数
+                        int supportNum = commentlistBean.getSupportNum();
+                        supportNum++;
+                        commentlistBean.setOpinion(1);
+                        commentlistBean.setSupportNum(supportNum);
+                        expressOpinionPresenter.reqeust(String.valueOf(id_user), sessionId, String.valueOf(commentId), "1");
+                        notifyDataSetChanged();
+                    }
+                });
+                //反对
+                holder.tv_goods2.setOnClickListener(new View.OnClickListener() {
+                    private int str;
+
+                    @Override
+                    public void onClick(View v) {
+                        str = 2;
+                        //反对数
+                        int opposeNum = commentlistBean.getOpposeNum();
+                        opposeNum++;
+                        commentlistBean.setOpinion(2);
+                        commentlistBean.setOpposeNum(opposeNum);
+                        expressOpinionPresenter.reqeust(String.valueOf(id_user), sessionId, String.valueOf(commentId), "2");
+                        notifyDataSetChanged();
+                    }
+                });
+                break;
+
+
+            case 1:
+                holder.tv_goods1.setChecked(true);
+                holder.tv_goods2.setChecked(false);
+                holder.tv_goods1.setClickable(false);
+                holder.tv_goods2.setClickable(false);
+                break;
+
+            case 2:
+                holder.tv_goods1.setChecked(false);
+                holder.tv_goods2.setChecked(true);
+                holder.tv_goods1.setClickable(false);
+                holder.tv_goods2.setClickable(false);
+                break;
+        }
+
+
+
+
+
+
        /* Log.i("login", sessionId);
         Log.i("login", id_user + "");*/
 
-        if (opinion == 1) {
+       /* if (opinion == 1) {
             myViewHolder.tv_goods1.setChecked(true);
             myViewHolder.tv_goods1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,16 +197,12 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
             });
 
         }
-
-
-
+*/
 
 
         //---------- 发表支持的观点-------尾巴-----------------
 
         //---------- 发表反对的观点----------------------------
-
-
 
 
         //---------- 发表反对的观点---------尾巴---------------
@@ -240,12 +295,8 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
 
         @Override
         public void success(Result data, Object... args) {
-            Object result = data.getResult();
 
-            Toast.makeText(context, "赞同", Toast.LENGTH_SHORT).show();
-
-            //  Toast.makeText(context, "反对", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(context, "成功", Toast.LENGTH_SHORT).show();
         }
 
         @Override

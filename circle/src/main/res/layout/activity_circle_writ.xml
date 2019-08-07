@@ -564,6 +564,7 @@
 
 
                         <TextView
+                            android:id="@+id/circle_writ_hbi_yve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_6"
@@ -573,6 +574,7 @@
                             android:textSize="@dimen/sp_12" />
 
                         <TextView
+                            android:id="@+id/circle_writ_hbi_chongzhi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_15"
