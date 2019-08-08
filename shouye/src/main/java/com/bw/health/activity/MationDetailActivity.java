@@ -238,4 +238,10 @@ public class MationDetailActivity extends WDActivity {
 
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler=null;
+    }
 }

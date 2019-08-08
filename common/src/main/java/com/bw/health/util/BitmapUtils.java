@@ -1,10 +1,14 @@
 package com.bw.health.util;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+
+import java.io.InputStream;
 
 /**
  * Created by anlia on 2017/12/11.
@@ -13,6 +17,7 @@ import android.graphics.drawable.Drawable;
 public class BitmapUtils {
     /**
      * drawable图片资源转bitmap
+     *
      * @param drawable
      * @return
      */
@@ -28,8 +33,19 @@ public class BitmapUtils {
         return bitmap;
     }
 
+    public static Bitmap readBitMap(Context context, int resId) {
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        opt.inPreferredConfig = Bitmap.Config.RGB_565;
+        opt.inPurgeable = true;
+        opt.inInputShareable = true;
+        //获取资源图片  
+        InputStream is = context.getResources().openRawResource(resId);
+        return BitmapFactory.decodeStream(is, null, opt);
+    }
+
     /**
      * drawable图片资源转bitmap并重置宽高
+     *
      * @param drawable
      * @param newW
      * @param newH
@@ -44,14 +60,15 @@ public class BitmapUtils {
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
         drawable.draw(canvas);
-        return changeBitmapSize(bitmap,newW,newH);
+        return changeBitmapSize(bitmap, newW, newH);
     }
 
     /**
      * 改变bitmap的大小
+     *
      * @param bitmap 目标bitmap
-     * @param newW 目标宽度
-     * @param newH 目标高度
+     * @param newW   目标宽度
+     * @param newH   目标高度
      * @return
      */
     public static Bitmap changeBitmapSize(Bitmap bitmap, int newW, int newH) {

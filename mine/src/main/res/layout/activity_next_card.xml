@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:id="@+id/aaa"
     android:layout_height="match_parent"
     tools:context=".activity.shiming.BindCardActivity">
     <RelativeLayout
@@ -49,7 +50,7 @@
             android:src="@mipmap/common_icon_close_n"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_50"
-            android:layout_marginTop="@dimen/dp_70"
+            android:layout_marginTop="@dimen/dp_55"
             android:id="@+id/close"
             />
         <TextView

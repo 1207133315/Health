@@ -65,7 +65,7 @@ import java.util.Map;
  */
 @Route(path = "/CircleWritActivity/")
 public class CircleWritActivity extends WDActivity {
-
+    private Map<String, String> map;
     private PopupWindow pop1;
     private PopupWindow pop2;
     private RecyclerView pop_writ_keshi_rc1;
@@ -450,6 +450,9 @@ public class CircleWritActivity extends WDActivity {
         //发送
         Button circle_writ_send = findViewById(R.id.circle_writ_send);
         circle_writ_send.setOnClickListener(new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View v) {
                 title_text = title_edText.getText().toString();
@@ -477,7 +480,7 @@ public class CircleWritActivity extends WDActivity {
                 //悬赏额度无时为0
 
 
-                Map<String, String> map = new HashMap<>();
+                map = new HashMap<>();
                 map.put("title", title_text);
                 map.put("departmentId", String.valueOf(id_bingzheng));
                 map.put("disease", disease_text);
@@ -722,4 +725,9 @@ public class CircleWritActivity extends WDActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        map=null;
+    }
 }

@@ -55,6 +55,7 @@ public class SetupActivity extends WDActivity {
     ImageView back;
     private List<LoginBean> list;
     private LoginBean loginBean;
+    private Intent intent;
 
     @Override
     protected int getLayoutId() {
@@ -102,8 +103,9 @@ public class SetupActivity extends WDActivity {
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.grxx) {
-            Intent intent = new Intent(this, MineMessageActivity.class);
+            intent = new Intent(this, MineMessageActivity.class);
             startActivity(intent);
+            finish();
         } else if (i == R.id.xgmm) {
 
         } else if (i == R.id.qchc) {
@@ -122,7 +124,7 @@ public class SetupActivity extends WDActivity {
                     .setNegativeButton("取消", null)
                     .show();
         } else if (i == R.id.pmld) {
-            Intent intent = new Intent(SetupActivity.this, PingmuActivity.class);
+             intent = new Intent(SetupActivity.this, PingmuActivity.class);
             startActivity(intent);
         } else if (i == R.id.bbjc) {
         } else if (i == R.id.bzzx) {
@@ -152,5 +154,11 @@ public class SetupActivity extends WDActivity {
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+         list=null;
+         loginBean=null;
+         intent=null;
+    }
 }

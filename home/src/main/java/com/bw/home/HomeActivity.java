@@ -28,6 +28,7 @@ import com.bw.health.HomeFrag;
 import com.bw.health.bean.CircleListBean;
 import com.bw.health.core.WDActivity;
 
+import com.bw.health.core.WDApplication;
 import com.wd.health.ShiPinFragment;
 import com.wd.health.adapter.CircleListAdapter;
 
@@ -73,6 +74,7 @@ public class HomeActivity extends WDActivity {
     private ShiPinFragment shiPinFragment;
     private boolean flag1;
     private SharedPreferences flag;
+    private CircleListAdapter.Call call;
 
 
     @Override
@@ -108,15 +110,15 @@ public class HomeActivity extends WDActivity {
             home.setChecked(true);
         }
 
+        call = new CircleListAdapter.Call() {
+           @Override
+           public void showCall(CircleListBean circleListBean) {
+               showFragment(findSickCircleInfoFrag);
+               EventBus.getDefault().postSticky(circleListBean);
+           }
+       };
+         CircleListAdapter.setCall(call);
 
-        CircleListAdapter.setCall(new CircleListAdapter.Call() {
-            @Override
-            public void showCall(CircleListBean circleListBean) {
-                showFragment(findSickCircleInfoFrag);
-                EventBus.getDefault().postSticky(circleListBean);
-            }
-        });
-        EventBus.getDefault().register(this);
        /* shiPinFragment.setiSkill(new ShiPinFragment.ISkill() {
             @Override
             public void eat(boolean isShow) {
@@ -138,7 +140,7 @@ public class HomeActivity extends WDActivity {
 
     }
 
-    private Handler handler = new Handler() {
+    private Handler handler= new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
@@ -229,6 +231,11 @@ public class HomeActivity extends WDActivity {
     protected void onDestroy() {
         super.onDestroy();
         handler.removeMessages(1);
+        CircleListAdapter.dataCall=null;
+        call=null;
+        handler=null;
+        //解除注册
+        EventBus.getDefault().unregister(this);
     }
 
     private static boolean mBackKeyPressed = false;//记录是否有首次按键
@@ -249,5 +256,4 @@ public class HomeActivity extends WDActivity {
             System.exit(0);
         }
     }
-
 }

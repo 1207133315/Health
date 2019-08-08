@@ -366,4 +366,11 @@ public class AddFileActivity extends WDActivity implements View.OnClickListener 
         //就多一个参数this
         PermissionsUtils.getInstance().onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        permissions=null;
+        permissionsResult=null;
+    }
 }

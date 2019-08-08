@@ -1,6 +1,7 @@
 package com.wd.health.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.DaoSession;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
+import com.bw.health.util.BitmapUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.R;
 import com.wd.health.R2;
@@ -80,6 +82,8 @@ public class MineActivity extends WDActivity {
     private List<LoginBean> list;
     private LoginBean loginBean;
     private DoTaskPresenter doTaskPresenter;
+    private Intent intent;
+    private Bitmap bitmap;
 
     @Override
     protected int getLayoutId() {
@@ -105,7 +109,8 @@ public class MineActivity extends WDActivity {
             name.setText(loginBean.getNickName());
             whetherSignTodayPresenter.reqeust(loginBean.getId().intValue(), loginBean.getSessionId());
         }else {
-            head.setImageResource(R.mipmap.common_icon_boy_n);
+            bitmap = BitmapUtils.readBitMap(WDApplication.getContext(), R.mipmap.common_icon_boy_n);
+            head.setImageBitmap(bitmap);
         }
     }
 
@@ -119,6 +124,7 @@ public class MineActivity extends WDActivity {
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.back) {
+            intentByRouter("/HomeActivity/");
             finish();
         } else if (i == R.id.lingdang) {
 
@@ -128,17 +134,17 @@ public class MineActivity extends WDActivity {
             intentByRouter("/GuanzhuActivity/");
 
         } else if (i == R.id.renwu) {
-            Intent intent=new Intent(MineActivity.this,TaskActivity.class);
+            intent = new Intent(MineActivity.this,TaskActivity.class);
             startActivity(intent);
         } else if (i == R.id.shezhiguanli) {
-            Intent intent=new Intent(MineActivity.this,SetupActivity.class);
+             intent=new Intent(MineActivity.this,SetupActivity.class);
             startActivity(intent);
         } else if (i == R.id.jianyi) {
             //查询我的被采纳的建议
             intentByRouter("/BeAdoptedActivity/");
 
         } else if (i == R.id.shipin) {
-            Intent intent=new Intent(MineActivity.this,MyVideoActivity.class);
+            intent=new Intent(MineActivity.this,MyVideoActivity.class);
             startActivity(intent);
         } else if (i == R.id.bingyouquan) {
             //跳转我的病友圈
@@ -146,12 +152,12 @@ public class MineActivity extends WDActivity {
 
         } else if (i == R.id.second) {
         } else if (i == R.id.dangan) {
-            Intent intent=new Intent(MineActivity.this,MyFileActivity.class);
+            intent=new Intent(MineActivity.this,MyFileActivity.class);
             startActivity(intent);
         } else if (i == R.id.qianbao) {
             startActivity(new Intent(MineActivity.this,MyWallteActivity.class));
         } else if (i == R.id.shoucang) {
-            Intent intent=new Intent(MineActivity.this,MyCollectActivity.class);
+             intent=new Intent(MineActivity.this,MyCollectActivity.class);
             startActivity(intent);
         } else if (i == R.id.dangqian) {
         } else if (i == R.id.lishi) {
@@ -221,5 +227,20 @@ public class MineActivity extends WDActivity {
         public void fail(ApiException data, Object... args) {
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        whetherSignTodayPresenter.dataCall=null;
+        whetherSignTodayPresenter=null;
+       addSignPresenter.dataCall=null;
+       addSignPresenter=null;
+        list=null;
+         loginBean=null;
+         doTaskPresenter.dataCall=null;
+         doTaskPresenter=null;
+        intent=null;
+        bitmap=null;
     }
 }
