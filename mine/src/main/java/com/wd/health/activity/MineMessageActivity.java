@@ -386,7 +386,8 @@ public class MineMessageActivity extends WDActivity {
         @Override
         public void success(Object data, Object... args) {
             Result<IDCardBean> result= (Result<IDCardBean>) data;
-            if (result.getResult()!=null){
+            Log.d("FindUserIdCard", "result.getResult():" + result.getResult());
+            if (result.getResult().getIdNumber()!=null){
                 rzbd.setText("已认证");
             }else {
                 rzbd.setText("未认证");

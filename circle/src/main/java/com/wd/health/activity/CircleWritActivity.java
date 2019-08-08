@@ -363,13 +363,20 @@ public class CircleWritActivity extends WDActivity {
             @Override
             public void onClick(View v) {
                 int s1 = 10;
-                if (tv_hbi1.isChecked()) {
+
                     tv_hbi1.setTextColor(Color.parseColor("#FFFFFF"));
                     tv_hbi1.setBackgroundResource(R.drawable.shape_writ_hbi_s);
-                } else {
-                    tv_hbi1.setTextColor(Color.parseColor("#999999"));
-                    tv_hbi1.setBackgroundResource(R.drawable.shape_writ_hbi);
-                }
+
+                    tv_hbi2.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi2.setBackgroundResource(R.drawable.shape_writ_hbi);
+
+
+                    tv_hbi3.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi3.setBackgroundResource(R.drawable.shape_writ_hbi);
+
+                    tv_hbi_zd.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi_zd.setBackgroundResource(R.drawable.shape_writ_hbi);
+
                 text = s1;
                 Toast.makeText(mContext, String.valueOf(text), Toast.LENGTH_SHORT).show();
             }
@@ -378,13 +385,20 @@ public class CircleWritActivity extends WDActivity {
             @Override
             public void onClick(View v) {
                 int s2 = 20;
-                if (tv_hbi2.isChecked()) {
+
                     tv_hbi2.setTextColor(Color.parseColor("#FFFFFF"));
                     tv_hbi2.setBackgroundResource(R.drawable.shape_writ_hbi_s);
-                } else {
-                    tv_hbi2.setTextColor(Color.parseColor("#999999"));
-                    tv_hbi2.setBackgroundResource(R.drawable.shape_writ_hbi);
-                }
+
+
+                    tv_hbi1.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi1.setBackgroundResource(R.drawable.shape_writ_hbi);
+
+                    tv_hbi3.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi3.setBackgroundResource(R.drawable.shape_writ_hbi);
+
+                    tv_hbi_zd.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi_zd.setBackgroundResource(R.drawable.shape_writ_hbi);
+
                 text = s2;
                 Toast.makeText(mContext, String.valueOf(text), Toast.LENGTH_SHORT).show();
             }
@@ -393,13 +407,19 @@ public class CircleWritActivity extends WDActivity {
             @Override
             public void onClick(View v) {
                 int s3 = 30;
-                if (tv_hbi3.isChecked()) {
+
                     tv_hbi3.setTextColor(Color.parseColor("#FFFFFF"));
                     tv_hbi3.setBackgroundResource(R.drawable.shape_writ_hbi_s);
-                } else {
-                    tv_hbi3.setTextColor(Color.parseColor("#999999"));
-                    tv_hbi3.setBackgroundResource(R.drawable.shape_writ_hbi);
-                }
+
+                    tv_hbi1.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi1.setBackgroundResource(R.drawable.shape_writ_hbi);
+
+                    tv_hbi2.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi2.setBackgroundResource(R.drawable.shape_writ_hbi);
+
+                    tv_hbi_zd.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi_zd.setBackgroundResource(R.drawable.shape_writ_hbi);
+
                 text = s3;
                 Toast.makeText(mContext, String.valueOf(text), Toast.LENGTH_SHORT).show();
             }
@@ -407,13 +427,19 @@ public class CircleWritActivity extends WDActivity {
         tv_hbi_zd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tv_hbi_zd.isChecked()) {
+
                     tv_hbi_zd.setTextColor(Color.parseColor("#FFFFFF"));
                     tv_hbi_zd.setBackgroundResource(R.drawable.shape_writ_hbi_s);
-                } else {
-                    tv_hbi_zd.setTextColor(Color.parseColor("#999999"));
-                    tv_hbi_zd.setBackgroundResource(R.drawable.shape_writ_hbi);
-                }
+
+                    tv_hbi1.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi1.setBackgroundResource(R.drawable.shape_writ_hbi);
+
+                    tv_hbi2.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi2.setBackgroundResource(R.drawable.shape_writ_hbi);
+
+                    tv_hbi3.setTextColor(Color.parseColor("#999999"));
+                    tv_hbi3.setBackgroundResource(R.drawable.shape_writ_hbi);
+
                 View view = View.inflate(CircleWritActivity.this, R.layout.pop_zidingyi_hbi, null);
                 PopupWindow pop = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 pop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -445,6 +471,8 @@ public class CircleWritActivity extends WDActivity {
 
         id_user = loginBeanDao.loadAll().get(0).getId();
         sessionId = loginBeanDao.loadAll().get(0).getSessionId();
+
+        Log.i("sessionId",sessionId);
 
 
         //发送
