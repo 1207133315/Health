@@ -27,10 +27,8 @@ import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wd.health.R;
-import com.wd.health.activity.CircleWritActivity;
-import com.wd.health.activity.FindSickCircleInfoActivity;
 import com.wd.health.adapter.CircleCommentListAdapter;
-import com.wd.health.adapter.ImageAdapter;
+
 import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.CircleInfoBean;
 import com.wd.health.bean.WaiBuBean;
@@ -40,6 +38,7 @@ import com.wd.health.presenter.CircleInfoPresenter;
 import com.wd.health.presenter.CircleShouCangPresenter;
 import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.PublishCommentPresenter;
+import com.wd.health.utils.ImageAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -397,24 +396,6 @@ public class FindSickCircleInfoFrag extends WDFragment {
             //病友圈id
             sickCircleId = result_info.getSickCircleId();
 
-            if (picture != null) {
-                String[] images = picture.split(",");
-                int imageCount = images.length;
-                int colNum;//列数
-                if (imageCount == 1) {
-                    colNum = 1;
-                } else if (imageCount == 2 || imageCount == 4) {
-                    colNum = 2;
-                } else {
-                    colNum = 3;
-                }
-                ImageAdapter imageAdapter = new ImageAdapter();
-                imageAdapter.addAll((Object) Arrays.asList(images));
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(WDApplication.getContext(), 3);
-                gridLayoutManager.setSpanCount(colNum);
-                image_bingli.setLayoutManager(gridLayoutManager);
-                image_bingli.setAdapter(imageAdapter);
-            }
 
 
             //--------------收藏----取消收藏------------------------------
@@ -455,6 +436,26 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
 
             //--------------收藏----取消收藏---------尾巴---------------------
+
+            if (picture != null) {
+                String[] images = picture.split(",");
+                int imageCount = images.length;
+                int colNum;//列数
+                if (imageCount == 1) {
+                    colNum = 1;
+                } else if (imageCount == 2 || imageCount == 4) {
+                    colNum = 2;
+                } else {
+                    colNum = 3;
+                }
+                ImageAdapter imageAdapter1 = new ImageAdapter();
+                imageAdapter1.addAll(Arrays.<Object>asList(images));
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+                gridLayoutManager.setSpanCount(colNum);
+                image_bingli.setLayoutManager(gridLayoutManager);
+                image_bingli.setAdapter(imageAdapter1);
+
+            }
 
 
         }

@@ -436,13 +436,13 @@ public class CircleWritActivity extends WDActivity {
                 pop.setFocusable(true);
                 pop.setTouchable(true);
                 pop.showAtLocation(view, Gravity.BOTTOM, 0, 0);
-                final EditText editText_pop = view.findViewById(R.id.pop_zidingyi_edText);
+                EditText editText_pop = view.findViewById(R.id.pop_zidingyi_edText);
                 editText_pop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String pop_edText = editText_pop.getText().toString();
+                        String pop_edText = editText_pop.getText().toString().trim();
                         text = Integer.parseInt(pop_edText);
-                        tv_hbi_zd.setText(text + "H币");
+                        tv_hbi_zd.setText(pop_edText + "H币");
 
                         pop.dismiss();
 

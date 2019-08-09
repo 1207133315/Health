@@ -11,9 +11,9 @@
 
     <EditText
         android:id="@+id/pop_zidingyi_edText"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_200"
         android:layout_height="wrap_content"
-        android:hint="自定义H币"
+        android:hint="请输入自定义H币"
         android:imeOptions="actionSearch"
         android:singleLine="true"
         android:paddingLeft="@dimen/dp_10"

@@ -34,7 +34,7 @@
                 android:layout_weight="1" />
 
             <ImageView
-                android:id="@+id/circle_list_hbi"
+                android:id="@+id/circle_list_hbi1"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 app:srcCompat="@mipmap/h_currency" />

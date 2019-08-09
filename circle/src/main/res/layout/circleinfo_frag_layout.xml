@@ -178,7 +178,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/circleinfo_farg_bingli"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_154"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_6"
                     app:srcCompat="@mipmap/circle_bingli" />
 

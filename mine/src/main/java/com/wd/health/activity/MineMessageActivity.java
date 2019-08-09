@@ -150,11 +150,12 @@ public class MineMessageActivity extends WDActivity {
         super.onResume();
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         list = loginBeanDao.queryBuilder().list();
-        findUserBankCardByUserIdPresenter = new FindUserBankCardByUserIdPresenter(new FindUserBankCardByUserId());
-        findUserBankCardByUserIdPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
-        findUserIdCardPresenter = new FindUserIdCardPresenter(new FindUserIdCard());
-        findUserIdCardPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
+
         if (list != null && list.size() > 0) {
+            findUserBankCardByUserIdPresenter = new FindUserBankCardByUserIdPresenter(new FindUserBankCardByUserId());
+            findUserBankCardByUserIdPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
+            findUserIdCardPresenter = new FindUserIdCardPresenter(new FindUserIdCard());
+            findUserIdCardPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
             name.setText(list.get(0).getNickName());
             head.setImageURI(list.get(0).getHeadPic());
             int sex1 = list.get(0).getSex();

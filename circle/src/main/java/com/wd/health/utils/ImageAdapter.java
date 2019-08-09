@@ -1,4 +1,4 @@
-package com.wd.health.adapter;
+package com.wd.health.utils;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import com.bw.health.core.WDActivity;
 import com.bw.health.util.UIUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import com.wd.health.R;
 
 

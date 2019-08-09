@@ -32,8 +32,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
+
 import com.wd.health.R;
 
 import java.io.File;
@@ -131,17 +130,17 @@ public class WDApplication extends Application {
     public static String getRegistrationID() {
         return registrationID;
     }
-    private RefWatcher refWatcher;
+  /*  private RefWatcher refWatcher;
     public static  RefWatcher getRefWatcher(){
         WDApplication application= (WDApplication) context.getApplicationContext();
         return application.refWatcher;
-    }
+    }*/
 
     @Override
     public void onCreate() {
         super.onCreate();
-        refWatcher=LeakCanary.install(this);
-        CrashHandler.getInstance().init(this);
+      //  refWatcher=LeakCanary.install(this);
+      //  CrashHandler.getInstance().init(this);
         initImageloader();
         context = this;
         JPushInterface.setDebugMode(true);//正式版的时候设置false，关闭调试
