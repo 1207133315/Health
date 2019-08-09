@@ -202,4 +202,10 @@ public class AddActivity extends WDActivity implements View.OnClickListener {
         } else {
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler=null;
+    }
 }

@@ -42,6 +42,8 @@ public class BandShowActivity extends WDActivity implements View.OnClickListener
     private TextView iv_bank_sure;
     private BindCardPresenter bindCardPresenter;
     private String path;
+    private Bitmap bitmap;
+    private File file;
 
 
     @Override
@@ -69,13 +71,14 @@ public class BandShowActivity extends WDActivity implements View.OnClickListener
             if (!TextUtils.isEmpty(path)) {
                 try {
 
-                    File file = new File(path);
+                    file = new File(path);
                     FileInputStream inStream = null;
 
                     inStream = new FileInputStream(file);
-                    Bitmap bitmap = BitmapFactory.decodeStream(inStream);
+                    bitmap = BitmapFactory.decodeStream(inStream);
 
                     iv_mg.setImageBitmap(bitmap);
+
                     inStream.close();
 
                     sp.edit().putString("bank_front", path).commit();
@@ -94,6 +97,9 @@ public class BandShowActivity extends WDActivity implements View.OnClickListener
         @Override
         public void success(Result data, Object... args) {
             Toast.makeText(context, ""+data.getMessage(), Toast.LENGTH_SHORT).show();
+            final Intent intent = new Intent(BandShowActivity.this, CardDetailActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         @Override
@@ -114,7 +120,13 @@ public class BandShowActivity extends WDActivity implements View.OnClickListener
 
     @Override
     protected void destoryData() {
+        sp=null;
+        activity=null;
 
+         bindCardPresenter.dataCall=null;
+         path=null;
+        bitmap=null;
+         file=null;
     }
     public int i;
     @Override
@@ -143,5 +155,12 @@ public class BandShowActivity extends WDActivity implements View.OnClickListener
         } else {
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bitmap=null;
+        file=null;
     }
 }

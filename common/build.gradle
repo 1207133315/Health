@@ -111,5 +111,5 @@ dependencies {
 //圆角图片
     api 'com.makeramen:roundedimageview:2.2.1'
 
-
+    api 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
 }

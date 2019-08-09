@@ -9,11 +9,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -107,6 +110,8 @@ public class BindCardActivity extends WDActivity {
     private PopupWindow popupWindow;
     private String mTempPhotoPath;
     private Uri imageUri;
+    private byte[] bytes;
+    private Bitmap bm;
 
     @Override
     protected int getLayoutId() {
@@ -114,19 +119,17 @@ public class BindCardActivity extends WDActivity {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        outState.putString("url",mTempPhotoPath);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
     protected void initView() {
         context = this;
-        sp = PreferenceManager.getDefaultSharedPreferences(context);
 
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.from.call.back.id.card.front");
-        intentFilter.addAction("com.from.call.back.id.card.back");
-        intentFilter.addAction("com.from.call.back.bank.front");
-        registerReceiver(myBroadcastReceiver, intentFilter);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-        } else {
-            requestPermission();
-        }
+
+
      getOcrSing();
 
 
@@ -238,21 +241,30 @@ public class BindCardActivity extends WDActivity {
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.back) {
+            finish();
         } else if (i == R.id.yh_card) {
             showPop();
 
         } else if (i == R.id.yes) {
             Bitmap bitmap = ((BitmapDrawable)yh_card.getDrawable()).getBitmap();
+            Matrix matrix = new Matrix();
+            matrix.setScale(0.5f, 0.5f);
+           Bitmap bm = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                   bitmap.getHeight(), matrix, true);
+
+
             if (isPai){
                 if (bitmap!=null){
-                    byte[] bytes = Bitmap2Bytes(bitmap);
+                    bytes = Bitmap2Bytes(bm);
                     Intent intent = new Intent(BindCardActivity.this, NextCardActivity.class);
-                    intent.putExtra("img",bytes);
+                    intent.putExtra("img", bytes);
                     startActivity(intent);
+                    finish();
                 }
             } else {
                 Toast.makeText(context, "请先拍照", Toast.LENGTH_SHORT).show();
             }
+
         } else {
         }
     }
@@ -268,22 +280,24 @@ public class BindCardActivity extends WDActivity {
 
         if (requestCode == 100) {
             BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 4;
-            Bitmap bm = BitmapFactory.decodeFile(mTempPhotoPath, options);
+            options.inSampleSize = 6;
+            bm = BitmapFactory.decodeFile(mTempPhotoPath, options);
             //localre(mTempPhotoPath);
             yh_card.setImageBitmap(bm);
             isPai=true;
+
         } else if (requestCode == 200) {
             String realPathFromUri = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
             if (realPathFromUri != null) {
                 BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 4;
-                Bitmap bm = BitmapFactory.decodeFile(realPathFromUri, options);
+                options.inSampleSize = 6;
+                bm = BitmapFactory.decodeFile(realPathFromUri, options);
                 // localre(realPathFromUri);
                 yh_card.setImageBitmap(bm);
                 isPai=true;
             }
         }
+        popupWindow.dismiss();
     }
 
     private void getOcrSing() {
@@ -303,42 +317,7 @@ public class BindCardActivity extends WDActivity {
         }, getApplicationContext(),"wQNqXZhaLNZxQERSiblGQ2Xc","GeIBuVjpKXIKEPGZcIHKrqt6eZpeK7HK");
     }
 
-    //请求权限(相机和读写)
-    private void requestPermission() {
-        Log.i("permission", "检查权限是否被受理！");
-        // 检查是否想要的权限申请是否弹框。如果是第一次申请，用户不通过，
-        // 那么第二次申请的话，就要给用户说明为什么需要申请这个权限
-        if (!getCameraPermission()) {
-            // 权限未被授予
-            requestCameraPermission();
-        } else {
-            Log.i("permission", "相机权限已经被受理，开始检查SD卡读写权限！");
-            myPermission();
-        }
-    }
 
-    /**
-     * 申请相机权限
-     */
-    private void requestCameraPermission() {
-        Log.i("permission", "相机权限未被授予，需要申请！");
-        Log.v("permission", ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.CAMERA) + "相机权限未被授予，需要申请！");
-        // 相机权限未被授予，需要申请！
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.CAMERA)) {
-            // 如果访问了，但是没有被授予权限，则需要告诉用户，使用此权限的好处
-            Log.i("permission", "申请权限说明！");
-            // 这里重新申请权限
-            ActivityCompat.requestPermissions(BindCardActivity.this,
-                    new String[]{Manifest.permission.CAMERA},
-                    REQUEST_CAMERA);
-        } else {
-            // 第一次申请，就直接申请
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                    REQUEST_CAMERA);
-        }
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -362,4 +341,10 @@ public class BindCardActivity extends WDActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bm=null;
+        myBroadcastReceiver=null;
+    }
 }

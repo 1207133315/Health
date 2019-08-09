@@ -19,6 +19,7 @@ import com.bw.health.SoftKeyBoardListener;
 import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
+import com.bw.health.core.WDApplication;
 import com.bw.health.core.WDFragment;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
@@ -336,7 +337,7 @@ public class ShiPinFragment extends WDFragment {
         //发表评论
 
 
-        SoftKeyBoardListener.setListener((AppCompatActivity) getActivity(), new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
+        SoftKeyBoardListener.setListener((AppCompatActivity)getActivity(), new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
             @Override
             public void keyBoardShow(int height1) {
                 //2 获取父控件的属性并且设置好属性
@@ -368,7 +369,7 @@ public class ShiPinFragment extends WDFragment {
                         public void onClick(View view) {
                             String s = content.getText().toString();
                             if (s.length()<0||s.equals("")){
-                                Toast.makeText(getActivity(), "评论内容不能为空", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(WDApplication.getContext(), "评论内容不能为空", Toast.LENGTH_SHORT).show();
                             }else {
                                 addCommonPresenter.reqeust(user.getId(),user.getSessionId(),videoBean.id,s);
                                 barrageView.addBarrage(new Barrage(s,R.color.colorAccent));
@@ -444,7 +445,7 @@ public class ShiPinFragment extends WDFragment {
                 if (myHb>=videoBean.price) {
                     videoBuyPresenter.reqeust(userInfo.getId(), userInfo.getSessionId(), videoBean.id, (int)videoBean.price);
                 }else {
-                    Toast.makeText(getActivity(), "余额不足,请充值", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WDApplication.getContext(), "余额不足,请充值", Toast.LENGTH_SHORT).show();
                 }
                 mVideoBean=videoBean;
             }

@@ -28,11 +28,13 @@ import com.bw.health.core.WDApplication;
 import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
+import com.bw.health.util.BitmapUtils;
 import com.bw.health.util.GetDaoUtil;
 import com.bw.health.util.PermissionsUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.activity.shiming.CardDetailActivity;
 import com.wd.health.bean.BankCardBean;
 import com.wd.health.bean.IDCardBean;
 import com.wd.health.activity.shiming.BindCardActivity;
@@ -99,14 +101,7 @@ public class MineMessageActivity extends WDActivity {
     TextView rzbd;
     @BindView(R2.id.yhkbd)
     TextView yhkbd;
-    private List<LoginBean> list;
-    // 拍照的照片的存储位置
-    private String mTempPhotoPath;
-    // 照片所在的Uri地址
-    private Uri imageUri;
-    private ModifyHeadPicPresenter modifyHeadPicPresenter;
-    private PopupWindow popupWindow;
-    private DoTaskPresenter presenter;
+
     String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     //创建监听权限的接口对象
     PermissionsUtils.IPermissionsResult permissionsResult = new PermissionsUtils.IPermissionsResult() {
@@ -121,6 +116,21 @@ public class MineMessageActivity extends WDActivity {
             // Toast.makeText(MessiageActivity.this, "权限不通过!", Toast.LENGTH_SHORT).show();
         }
     };
+    private Intent intent;
+    private String s;
+    private FindUserBankCardByUserIdPresenter findUserBankCardByUserIdPresenter;
+    private FindUserIdCardPresenter findUserIdCardPresenter;
+    private Bitmap bm;
+    private File file;
+    private Bitmap bitmap;
+    private List<LoginBean> list;
+    // 拍照的照片的存储位置
+    private String mTempPhotoPath;
+    // 照片所在的Uri地址
+    private Uri imageUri;
+    private ModifyHeadPicPresenter modifyHeadPicPresenter;
+    private PopupWindow popupWindow;
+    private DoTaskPresenter presenter;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_mine_message;
@@ -130,7 +140,9 @@ public class MineMessageActivity extends WDActivity {
     protected void initView() {
         modifyHeadPicPresenter = new ModifyHeadPicPresenter(new updateheadpic());
         presenter = new DoTaskPresenter(new DoTask());
-
+        PermissionsUtils.showSystemSetting = true;//是否支持显示系统设置权限设置窗口跳转
+        //        //这里的this不是上下文，是Activity对象！
+        PermissionsUtils.getInstance().chekPermissions(this, permissions, permissionsResult);
     }
 
     @Override
@@ -138,18 +150,20 @@ public class MineMessageActivity extends WDActivity {
         super.onResume();
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         list = loginBeanDao.queryBuilder().list();
-        FindUserBankCardByUserIdPresenter findUserBankCardByUserIdPresenter = new FindUserBankCardByUserIdPresenter(new FindUserBankCardByUserId());
+        findUserBankCardByUserIdPresenter = new FindUserBankCardByUserIdPresenter(new FindUserBankCardByUserId());
         findUserBankCardByUserIdPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
-        FindUserIdCardPresenter findUserIdCardPresenter = new FindUserIdCardPresenter(new FindUserIdCard());
+        findUserIdCardPresenter = new FindUserIdCardPresenter(new FindUserIdCard());
         findUserIdCardPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
         if (list != null && list.size() > 0) {
             name.setText(list.get(0).getNickName());
             head.setImageURI(list.get(0).getHeadPic());
             int sex1 = list.get(0).getSex();
             if (sex1 == 1) {
-                sex.setImageResource(R.mipmap.common_icon_boy_n);
+                bitmap = BitmapUtils.readBitMap(WDApplication.getContext(), R.mipmap.common_icon_boy_n);
+                sex.setImageBitmap(bitmap);
             } else {
-                sex.setImageResource(R.mipmap.common_icon_girl_n);
+                bitmap = BitmapUtils.readBitMap(WDApplication.getContext(), R.mipmap.common_icon_girl_n);
+                sex.setImageBitmap(bitmap);
             }
             int height = list.get(0).getHeight();
             int weight = list.get(0).getWeight();
@@ -211,7 +225,7 @@ public class MineMessageActivity extends WDActivity {
             });
 
         } else if (i == R.id.nc) {
-            Intent intent = new Intent(this, UpdateNicknameActivity.class);
+             intent = new Intent(this, UpdateNicknameActivity.class);
             intent.putExtra("name", list.get(0).getNickName());
             startActivity(intent);
         } else if (i == R.id.xingbie) {
@@ -221,8 +235,15 @@ public class MineMessageActivity extends WDActivity {
         } else if (i == R.id.bdwx) {
         } else if (i == R.id.shimingrenzheng) {
         } else if (i == R.id.bdyhk) {
-            final Intent intent = new Intent(MineMessageActivity.this, BindCardActivity.class);
-            startActivity(intent);
+            s = yhkbd.getText().toString();
+            if (s.equals("已绑定")){
+                intent = new Intent(MineMessageActivity.this, CardDetailActivity.class);
+                startActivity(intent);
+            }else {
+                  intent = new Intent(MineMessageActivity.this, BindCardActivity.class);
+                startActivity(intent);
+            }
+
         }else if (i==R.id.back){
             finish();
         }else if (i==R.id.tz){
@@ -264,7 +285,7 @@ public class MineMessageActivity extends WDActivity {
         if (requestCode == 100) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 4;
-            Bitmap bm = BitmapFactory.decodeFile(mTempPhotoPath, options);
+            bm = BitmapFactory.decodeFile(mTempPhotoPath, options);
             File file1 = getFile(bm);
             RequestBody requestFile =
                     RequestBody.create(MediaType.parse("multipart/form-data"), file1);
@@ -287,7 +308,7 @@ public class MineMessageActivity extends WDActivity {
             if (realPathFromUri != null) {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 4;
-                Bitmap bm = BitmapFactory.decodeFile(realPathFromUri, options);
+                 bm = BitmapFactory.decodeFile(realPathFromUri, options);
                 File file1 = getFile(bm);
                 RequestBody requestFile =
                         RequestBody.create(MediaType.parse("multipart/form-data"), file1);
@@ -342,7 +363,7 @@ public class MineMessageActivity extends WDActivity {
     public File getFile(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-        File file = new File(Environment.getExternalStorageDirectory() + "/temp.jpg");
+        file = new File(Environment.getExternalStorageDirectory() + "/temp.jpg");
         try {
             file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
@@ -352,6 +373,7 @@ public class MineMessageActivity extends WDActivity {
             while ((x = is.read(b)) != -1) {
                 fos.write(b, 0, x);
             }
+            fos.flush();
             fos.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -364,7 +386,8 @@ public class MineMessageActivity extends WDActivity {
         @Override
         public void success(Object data, Object... args) {
             Result<IDCardBean> result= (Result<IDCardBean>) data;
-            if (result.getResult()!=null){
+            Log.d("FindUserIdCard", "result.getResult():" + result.getResult());
+            if (result.getResult().getIdNumber()!=null){
                 rzbd.setText("已认证");
             }else {
                 rzbd.setText("未认证");
@@ -412,5 +435,33 @@ public class MineMessageActivity extends WDActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //就多一个参数this
         PermissionsUtils.getInstance().onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bm=null;
+        permissions=null;
+        permissionsResult=null;
+
+        intent=null;
+         s=null;
+         findUserBankCardByUserIdPresenter.dataCall=null;
+         findUserBankCardByUserIdPresenter=null;
+         findUserIdCardPresenter.dataCall=null;
+         findUserIdCardPresenter=null;
+
+       file=null;
+        bitmap=null;
+        list=null;
+        // 拍照的照片的存储位置
+         mTempPhotoPath=null;
+        // 照片所在的Uri地址
+        imageUri=null;
+         modifyHeadPicPresenter.dataCall=null;
+         modifyHeadPicPresenter=null;
+        popupWindow=null;
+         presenter.dataCall=null;
+         presenter=null;
     }
 }

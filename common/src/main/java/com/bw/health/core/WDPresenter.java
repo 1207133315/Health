@@ -32,7 +32,7 @@ public abstract class WDPresenter<T> {
     public final static int RESPONSE_TYPE_DEFAULT = 0;
     public final static int RESPONSE_TYPE_SDK_BD = 100;////例：这个为请求百度的接口，接口结构为另外一种
 
-    private DataCall dataCall;
+    public DataCall dataCall;
 
     private boolean running;//是否运行，防止重复请求，这里没有用rxjava的重复过滤（个人感觉重复过滤用在多次点击上比较好，请求从体验角度最好不要间隔过滤）
     private Disposable disposable;//rxjava层取消请求DataCall

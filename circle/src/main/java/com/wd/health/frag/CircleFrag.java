@@ -15,6 +15,7 @@ import com.bw.health.bean.CircleFindDepartmentBean;
 import com.bw.health.bean.CircleListBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
+import com.bw.health.core.WDApplication;
 import com.bw.health.core.WDFragment;
 import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
@@ -70,7 +71,7 @@ public class CircleFrag extends WDFragment {
 
     @Override
     protected void initView() {
-        ViewUtils.setImmersionStateMode((AppCompatActivity) getActivity());
+        ViewUtils.setImmersionStateMode((AppCompatActivity)getActivity());
 
         AppBarLayout mAppBarLayout = getView().findViewById(R.id.appbar);
         View linear_layout = getView().findViewById(R.id.circle_linearlayout1);
@@ -85,7 +86,7 @@ public class CircleFrag extends WDFragment {
 
 
         //数据库
-        LoginBeanDao loginBeanDao = DaoMaster.newDevSession(getActivity(), LoginBeanDao.TABLENAME).getLoginBeanDao();
+        LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         String headPic = loginBeanDao.loadAll().get(0).getHeadPic();
         image_headpic.setImageURI(headPic);
         image_headpic.setOnClickListener(new View.OnClickListener() {
@@ -144,11 +145,11 @@ public class CircleFrag extends WDFragment {
 
         rc1 = getView().findViewById(R.id.circlr_frag_rc1);
         //布局管理器
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(WDApplication.getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rc1.setLayoutManager(linearLayoutManager);
         //适配器
-        circleFindDepartmentAdapter = new CircleFindDepartmentAdapter(getActivity());
+        circleFindDepartmentAdapter = new CircleFindDepartmentAdapter(WDApplication.getContext());
         rc1.setAdapter(circleFindDepartmentAdapter);
         circleFindDepartmentAdapter.setCall(new CircleFindDepartmentAdapter.Call() {
 
@@ -181,10 +182,10 @@ public class CircleFrag extends WDFragment {
         circleListPresenter = new CircleListPresenter(new CircleListCall());
         circleListPresenter.reqeust("7", page + "", "5");
         //布局管理器
-        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(WDApplication.getContext(), RecyclerView.VERTICAL, false);
         rc2.setLayoutManager(linearLayoutManager1);
         //适配器
-        circleListAdapter = new CircleListAdapter(getActivity());
+        circleListAdapter = new CircleListAdapter(WDApplication.getContext());
         rc2.setAdapter(circleListAdapter);
 
         rc2.setLoadingListener(new XRecyclerView.LoadingListener() {
@@ -253,4 +254,17 @@ public class CircleFrag extends WDFragment {
     //-----病友圈列表展示-----------成功--失败---的方法-----------------------
 
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            CircleListAdapter.dataCall=null;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        CircleListAdapter.dataCall=null;
+    }
 }
