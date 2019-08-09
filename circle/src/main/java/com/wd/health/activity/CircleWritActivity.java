@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -427,26 +429,13 @@ public class CircleWritActivity extends WDActivity {
         tv_hbi_zd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    tv_hbi_zd.setTextColor(Color.parseColor("#FFFFFF"));
-                    tv_hbi_zd.setBackgroundResource(R.drawable.shape_writ_hbi_s);
-
-                    tv_hbi1.setTextColor(Color.parseColor("#999999"));
-                    tv_hbi1.setBackgroundResource(R.drawable.shape_writ_hbi);
-
-                    tv_hbi2.setTextColor(Color.parseColor("#999999"));
-                    tv_hbi2.setBackgroundResource(R.drawable.shape_writ_hbi);
-
-                    tv_hbi3.setTextColor(Color.parseColor("#999999"));
-                    tv_hbi3.setBackgroundResource(R.drawable.shape_writ_hbi);
-
                 View view = View.inflate(CircleWritActivity.this, R.layout.pop_zidingyi_hbi, null);
                 PopupWindow pop = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 pop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 pop.setOutsideTouchable(true);
-                pop.setTouchable(true);
                 pop.setFocusable(true);
-                pop.showAsDropDown(tv_hbi_zd);
+                pop.setTouchable(true);
+                pop.showAtLocation(view, Gravity.BOTTOM, 0, 0);
                 final EditText editText_pop = view.findViewById(R.id.pop_zidingyi_edText);
                 editText_pop.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -454,7 +443,20 @@ public class CircleWritActivity extends WDActivity {
                         String pop_edText = editText_pop.getText().toString();
                         text = Integer.parseInt(pop_edText);
                         tv_hbi_zd.setText(text + "H币");
+
                         pop.dismiss();
+
+                        tv_hbi_zd.setTextColor(Color.parseColor("#FFFFFF"));
+                        tv_hbi_zd.setBackgroundResource(R.drawable.shape_writ_hbi_s);
+
+                        tv_hbi1.setTextColor(Color.parseColor("#999999"));
+                        tv_hbi1.setBackgroundResource(R.drawable.shape_writ_hbi);
+
+                        tv_hbi2.setTextColor(Color.parseColor("#999999"));
+                        tv_hbi2.setBackgroundResource(R.drawable.shape_writ_hbi);
+
+                        tv_hbi3.setTextColor(Color.parseColor("#999999"));
+                        tv_hbi3.setBackgroundResource(R.drawable.shape_writ_hbi);
                     }
                 });
 
@@ -639,9 +641,9 @@ public class CircleWritActivity extends WDActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 if (position == parent.getChildCount() - 1) {
-                    //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过5张，才能点击
+                    //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过6张，才能点击
                     if (mPicList.size() == MainConstant.MAX_SELECT_PIC_NUM) {
-                        //最多添加5张图片
+                        //最多添加6张图片
                         viewPluImg(position);
                     } else {
                         //添加凭证图片
@@ -663,7 +665,7 @@ public class CircleWritActivity extends WDActivity {
     }
 
     /**
-     * 打开相册或者照相机选择凭证图片，最多5张
+     * 打开相册或者照相机选择凭证图片，最多6张
      *
      * @param maxTotal 最多选择的图片的数量
      */
