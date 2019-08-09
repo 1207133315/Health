@@ -28,11 +28,13 @@ import com.bw.health.core.WDApplication;
 import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
+import com.bw.health.util.BitmapUtils;
 import com.bw.health.util.GetDaoUtil;
 import com.bw.health.util.PermissionsUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.activity.shiming.CardDetailActivity;
 import com.wd.health.bean.BankCardBean;
 import com.wd.health.bean.IDCardBean;
 import com.wd.health.activity.shiming.BindCardActivity;
@@ -99,14 +101,7 @@ public class MineMessageActivity extends WDActivity {
     TextView rzbd;
     @BindView(R2.id.yhkbd)
     TextView yhkbd;
-    private List<LoginBean> list;
-    // 拍照的照片的存储位置
-    private String mTempPhotoPath;
-    // 照片所在的Uri地址
-    private Uri imageUri;
-    private ModifyHeadPicPresenter modifyHeadPicPresenter;
-    private PopupWindow popupWindow;
-    private DoTaskPresenter presenter;
+
     String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     //创建监听权限的接口对象
     PermissionsUtils.IPermissionsResult permissionsResult = new PermissionsUtils.IPermissionsResult() {
@@ -121,6 +116,21 @@ public class MineMessageActivity extends WDActivity {
             // Toast.makeText(MessiageActivity.this, "权限不通过!", Toast.LENGTH_SHORT).show();
         }
     };
+    private Intent intent;
+    private String s;
+    private FindUserBankCardByUserIdPresenter findUserBankCardByUserIdPresenter;
+    private FindUserIdCardPresenter findUserIdCardPresenter;
+    private Bitmap bm;
+    private File file;
+    private Bitmap bitmap;
+    private List<LoginBean> list;
+    // 拍照的照片的存储位置
+    private String mTempPhotoPath;
+    // 照片所在的Uri地址
+    private Uri imageUri;
+    private ModifyHeadPicPresenter modifyHeadPicPresenter;
+    private PopupWindow popupWindow;
+    private DoTaskPresenter presenter;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_mine_message;
@@ -130,7 +140,9 @@ public class MineMessageActivity extends WDActivity {
     protected void initView() {
         modifyHeadPicPresenter = new ModifyHeadPicPresenter(new updateheadpic());
         presenter = new DoTaskPresenter(new DoTask());
-
+        PermissionsUtils.showSystemSetting = true;//是否支持显示系统设置权限设置窗口跳转
+        //        //这里的this不是上下文，是Activity对象！
+        PermissionsUtils.getInstance().chekPermissions(this, permissions, permissionsResult);
     }
 
     @Override
@@ -148,9 +160,11 @@ public class MineMessageActivity extends WDActivity {
             head.setImageURI(list.get(0).getHeadPic());
             int sex1 = list.get(0).getSex();
             if (sex1 == 1) {
-                sex.setImageResource(R.mipmap.common_icon_boy_n);
+                bitmap = BitmapUtils.readBitMap(WDApplication.getContext(), R.mipmap.common_icon_boy_n);
+                sex.setImageBitmap(bitmap);
             } else {
-                sex.setImageResource(R.mipmap.common_icon_girl_n);
+                bitmap = BitmapUtils.readBitMap(WDApplication.getContext(), R.mipmap.common_icon_girl_n);
+                sex.setImageBitmap(bitmap);
             }
             int height = list.get(0).getHeight();
             int weight = list.get(0).getWeight();

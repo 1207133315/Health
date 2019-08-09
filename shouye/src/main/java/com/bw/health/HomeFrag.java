@@ -281,6 +281,7 @@ public class HomeFrag extends WDFragment {
             intentByRouter("/YpOrBzActivity/",bundle);
         }else if (id==R.id.head){
             intentByRouter("/MineActivity/");
+            getActivity().finish();
         }
     }
 
@@ -368,5 +369,6 @@ public class HomeFrag extends WDFragment {
     public void onDestroy() {
         super.onDestroy();
         handler.removeMessages(0);
+        handler=null;
     }
 }

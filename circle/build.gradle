@@ -37,5 +37,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
     implementation project(':common')
-
+    //上传图片
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.1'
 }

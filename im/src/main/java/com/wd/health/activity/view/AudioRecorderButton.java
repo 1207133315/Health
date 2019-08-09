@@ -84,7 +84,7 @@ public class AudioRecorderButton extends AppCompatButton {
         }
     };
 
-    private Handler mHandler = new Handler() {
+    public Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {

@@ -420,6 +420,7 @@ public class IMActivity extends WDActivity implements View.OnClickListener {
         JMessageClient.exitConversation();
         GlobalEventListener.setJG(null,false);
         JMessageClient.unRegisterEventReceiver(this);
+
         super.onDestroy();
     }
 

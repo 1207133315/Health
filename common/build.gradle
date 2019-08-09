@@ -18,7 +18,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
         ndk {
@@ -70,6 +70,7 @@ dependencies {
     api 'org.greenrobot:greendao-generator:3.2.2'
     api 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2'
     api 'com.facebook.fresco:fresco:1.11.0'
+
     api 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     api 'pub.devrel:easypermissions:2.0.0'
     //api 'com.github.bumptech.glide:glide:4.9.0'
@@ -85,8 +86,6 @@ dependencies {
     api 'com.github.zcweng:switch-button:0.0.3@aar'
     //时间选择器
     api 'com.contrarywind:Android-PickerView:3.2.7'
-    //上传图片
-    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.1'
 
     //-------病友圈依赖-----------------------------
     api 'com.github.bumptech.glide:glide:4.9.0'
@@ -112,5 +111,5 @@ dependencies {
 //圆角图片
     api 'com.makeramen:roundedimageview:2.2.1'
 
-
+    api 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
 }

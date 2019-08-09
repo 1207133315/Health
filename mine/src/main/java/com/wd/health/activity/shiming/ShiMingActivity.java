@@ -66,6 +66,8 @@ public class ShiMingActivity extends WDActivity {
             // Toast.makeText(MessiageActivity.this, "权限不通过!", Toast.LENGTH_SHORT).show();
         }
     };
+    private Bitmap bm;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_shi_ming;
@@ -161,7 +163,7 @@ public class ShiMingActivity extends WDActivity {
         if (requestCode == 100) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 4;
-            Bitmap bm = BitmapFactory.decodeFile(mTempPhotoPath, options);
+             bm = BitmapFactory.decodeFile(mTempPhotoPath, options);
             //localre(mTempPhotoPath);
             if (isFront){
                 front.setImageBitmap(bm);
@@ -174,7 +176,7 @@ public class ShiMingActivity extends WDActivity {
             if (realPathFromUri != null) {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 4;
-                Bitmap bm = BitmapFactory.decodeFile(realPathFromUri, options);
+                bm = BitmapFactory.decodeFile(realPathFromUri, options);
                // localre(realPathFromUri);
                 if (isFront){
                     front.setImageBitmap(bm);
@@ -197,5 +199,13 @@ public class ShiMingActivity extends WDActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //就多一个参数this
         PermissionsUtils.getInstance().onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bm=null;
+        permissions=null;
+        permissionsResult=null;
     }
 }

@@ -189,4 +189,10 @@ public class RegisterActivity extends WDActivity {
             Toast.makeText(RegisterActivity.this, data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler=null;
+    }
 }

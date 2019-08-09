@@ -8,15 +8,23 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
+import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +34,12 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.BankCardParams;
 import com.baidu.ocr.sdk.model.BankCardResult;
 import com.bw.health.core.WDActivity;
+import com.bw.health.core.WDApplication;
+import com.bw.health.util.BitmapUtils;
 import com.bw.health.util.PermissionsUtils;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.utils.getPhotoFromPhotoAlbum;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -66,6 +77,12 @@ public class NextCardActivity extends WDActivity {
             // Toast.makeText(MessiageActivity.this, "权限不通过!", Toast.LENGTH_SHORT).show();
         }
     };
+    private String mTempPhotoPath;
+    private Uri imageUri;
+    private PopupWindow popupWindow;
+    private Bitmap bm;
+    private Bitmap bitmap1;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_next_card;
@@ -105,20 +122,107 @@ public class NextCardActivity extends WDActivity {
         if (i == R.id.back) {
             finish();
         } else if (i == R.id.yh_card) {
+            showPop();
         } else if (i == R.id.close) {
-            yh_card.setImageResource(R.drawable.bank_card_front);
+            bitmap1 = BitmapUtils.readBitMap(WDApplication.getContext(), R.drawable.bank_card_front);
+            yh_card.setImageBitmap(bitmap1);
+
+            isPai=false;
         } else if (i == R.id.yes) {
-            if (bitmap!=null){
-                onPreviewFrame();
-                alertDialog = new ProgressDialog.Builder(this)
-                        .setMessage("扫描中...")
-                        .show();
+            if (isPai){
+                if (bitmap!=null){
+                    onPreviewFrame();
+                    alertDialog = new ProgressDialog.Builder(this)
+                            .setMessage("扫描中...")
+                            .show();
+                }
+            }else {
+                Toast.makeText(this, "请上传身份证", Toast.LENGTH_SHORT).show();
             }
+
         } else {
         }
     }
+    public boolean isPai=true;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == 100) {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 6;
+            bm = BitmapFactory.decodeFile(mTempPhotoPath, options);
+            //localre(mTempPhotoPath);
+            yh_card.setImageBitmap(bm);
+            isPai=true;
+        } else if (requestCode == 200) {
+            String realPathFromUri = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
+            if (realPathFromUri != null) {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 6;
+                bm = BitmapFactory.decodeFile(realPathFromUri, options);
+                // localre(realPathFromUri);
+                yh_card.setImageBitmap(bm);
 
+            }
+            isPai=true;
+        }
+        popupWindow.dismiss();
+    }
+    public void showPop(){
+        View view1 = View.inflate(this, R.layout.popwindow, null);
+        popupWindow = new PopupWindow(view1,
+                  LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
+        popupWindow.showAtLocation(NextCardActivity.this.findViewById(R.id.aaa),
+                Gravity.CENTER, 0, 0);
+        Button viewById = view1.findViewById(R.id.quxiao);
+        viewById.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+        TextView paizhao = view1.findViewById(R.id.paizhao);
+        TextView xiangce = view1.findViewById(R.id.xiangce);
+        paizhao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                takePhoto();
+            }
+        });
+        xiangce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choosePhoto();
+            }
+        });
+    }
+
+    //相机
+    private void takePhoto() {
+        // 跳转到系统的拍照界面
+        Intent intentToTakePhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // 指定照片存储位置为sd卡本目录下
+        // 这里设置为固定名字 这样就只会只有一张temp图 如果要所有中间图片都保存可以通过时间或者加其他东西设置图片的名称
+        // File.separator为系统自带的分隔符 是一个固定的常量
+        mTempPhotoPath = Environment.getExternalStorageDirectory() + "/photo.png";
+        // 获取图片所在位置的Uri路径    *****这里为什么这么做参考问题2*****
+        imageUri = Uri.fromFile(new File(mTempPhotoPath));
+        /*imageUri = FileProvider.getUriForFile(MessiageActivity.this,
+                MessiageActivity.this.getApplicationContext().getPackageName() +".my.provider",
+                new File(mTempPhotoPath));*/
+        //下面这句指定调用相机拍照后的照片存储的路径
+        intentToTakePhoto.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intentToTakePhoto, 100);
+    }
+    //相册
+    private void choosePhoto() {
+        Intent intentToPickPic = new Intent(Intent.ACTION_PICK, null);
+        // 如果限制上传到服务器的图片类型时可以直接写如："image/jpeg 、 image/png等的类型" 所有类型则写 "image/*"
+        intentToPickPic.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intentToPickPic, 200);
+    }
 public boolean isChoice;
     public void onPreviewFrame() {
 //        Log.i("onPreviewFrame","isChoice:" + isChoice);
@@ -140,12 +244,17 @@ public boolean isChoice;
 
 
                 FileOutputStream outStream = null;
+                Bitmap bitmap = ((BitmapDrawable)yh_card.getDrawable()).getBitmap();
+                Matrix matrix = new Matrix();
+                matrix.setScale(0.5f, 0.5f);
 
                 try {
+                    Bitmap bm = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                            bitmap.getHeight(), matrix, true);
                     // 打开指定文件对应的输出流
                     outStream = new FileOutputStream(path);
                         // 把位图输出到指定文件中
-                        bitmap.compress(Bitmap.CompressFormat.PNG,
+                        bm.compress(Bitmap.CompressFormat.PNG,
                                 100, outStream);
                         outStream.close();
                     //解析银行卡图片
@@ -241,4 +350,13 @@ public boolean isChoice;
 
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bitmap=null;
+        bm=null;
+        permissions=null;
+        permissionsResult=null;
     }
+}

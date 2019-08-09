@@ -20,6 +20,7 @@ import com.bw.health.bean.CircleListBean;
 import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
+import com.bw.health.core.WDApplication;
 import com.bw.health.core.WDFragment;
 import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
@@ -109,7 +110,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (hidden) {
-            SharedPreferences flag = getActivity().getSharedPreferences("flag", MODE_PRIVATE);
+            SharedPreferences flag = WDApplication.getContext().getSharedPreferences("flag", MODE_PRIVATE);
             flag.edit().putBoolean("flag", false).commit();
         }
     }
@@ -173,7 +174,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
             @Override
             public void onClick(View v) {
-                View view = View.inflate(getActivity(), R.layout.circle_pop_layout, null);
+                View view = View.inflate(WDApplication.getContext(), R.layout.circle_pop_layout, null);
                 PopupWindow pop = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 pop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 pop.setFocusable(true);
@@ -203,6 +204,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
                     @Override
                     public void onClick(View v) {
                         pop.dismiss();
+
                     }
                 });
 
@@ -221,10 +223,10 @@ public class FindSickCircleInfoFrag extends WDFragment {
                 circleCommentListPresenter.reqeust(sickCircleId1 + "", page + "", "10");
 
                 //布局管理器
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(WDApplication.getContext());
                 circle_pop_rc1.setLayoutManager(linearLayoutManager);
                 //适配器
-                circleCommentListAdapter = new CircleCommentListAdapter(getActivity());
+                circleCommentListAdapter = new CircleCommentListAdapter(WDApplication.getContext());
                 circle_pop_rc1.setAdapter(circleCommentListAdapter);
                 circleCommentListAdapter.setCall(new CircleCommentListAdapter.Call() {
                     @Override
@@ -233,7 +235,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
                     }
                 });
 
-                circleCommentListAdapter.setDatas(new CircleCommentListAdapter.Data() {
+                circleCommentListAdapter.setDatas(new CircleCommentListAdapter.Data(){
                     @Override
                     public void showData() {
                         intentByRouter("/LoginActivity/");
@@ -277,7 +279,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
         //----------------发表评论---------头部------------------
         //获取数据库
-        LoginBeanDao loginBeanDao = DaoMaster.newDevSession(getActivity(), LoginBeanDao.TABLENAME).getLoginBeanDao();
+        LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         List<LoginBean> loginBeans = loginBeanDao.loadAll();
         sessionId = loginBeans.get(0).getSessionId();
         id_user = loginBeans.get(0).getId();
@@ -297,7 +299,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
         //---------新手浮层引导-----------头部----------------------------------------
         RelativeLayout yindao = getView().findViewById(R.id.circleinfo_farg_yindao1);
         //1.获取sp 对象（ 存储文件的名字，存储的文件权限）
-        SharedPreferences sp = getActivity().getSharedPreferences("ydy", Context.MODE_PRIVATE);
+        SharedPreferences sp = WDApplication.getContext().getSharedPreferences("ydy", Context.MODE_PRIVATE);
         //5判断是不是第一次
         if (sp.getBoolean("第一次", false)) {
             yindao.setVisibility(View.GONE);
@@ -407,8 +409,8 @@ public class FindSickCircleInfoFrag extends WDFragment {
                     colNum = 3;
                 }
                 ImageAdapter imageAdapter = new ImageAdapter();
-                imageAdapter.addAll(Arrays.<Object>asList(images));
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+                imageAdapter.addAll((Object) Arrays.asList(images));
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(WDApplication.getContext(), 3);
                 gridLayoutManager.setSpanCount(colNum);
                 image_bingli.setLayoutManager(gridLayoutManager);
                 image_bingli.setAdapter(imageAdapter);
@@ -445,7 +447,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
                         result_info.setCollectionFlag(1);
                         CircleShouCangPresenter circleShouCangPresenter = new CircleShouCangPresenter(new CircleShowCangCall());
                         circleShouCangPresenter.reqeust(String.valueOf(id_user), sessionId, sickCircleId + "");
-                        //Toast.makeText(getActivity(), "已收藏，不可重复收藏", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(WDApplication.getContext(), "已收藏，不可重复收藏", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -509,7 +511,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
         @Override
         public void success(Result data, Object... args) {
-            Toast.makeText(getActivity(), "发表评论成功！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WDApplication.getContext(), "发表评论成功！", Toast.LENGTH_SHORT).show();
             // circleCommentListPresenter.reqeust(sickCircleId_jj + "");
             presenter.reqeust(id_user.intValue(), sessionId,1002);
         }
@@ -534,8 +536,8 @@ public class FindSickCircleInfoFrag extends WDFragment {
         public void success(Result data, Object... args) {
 
             String message = data.getMessage();
-            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-            Toast.makeText(getActivity(), "病友圈收藏成功！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WDApplication.getContext(), message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(WDApplication.getContext(), "病友圈收藏成功！", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -552,7 +554,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
         @Override
         public void success(Result data, Object... args) {
-            Toast.makeText(getActivity(), "取消收藏！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WDApplication.getContext(), "取消收藏！", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -568,7 +570,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
         public void success(Object data, Object... args) {
             Result result= (Result) data;
 
-            Toast.makeText(getActivity(),  result.getResult().toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(WDApplication.getContext(),  result.getResult().toString(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -582,4 +584,5 @@ public class FindSickCircleInfoFrag extends WDFragment {
         //EventBus 反注册
         EventBus.getDefault().unregister(this);
     }
+
 }
