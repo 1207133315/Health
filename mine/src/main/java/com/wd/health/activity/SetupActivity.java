@@ -124,12 +124,14 @@ public class SetupActivity extends WDActivity {
                     .setNegativeButton("取消", null)
                     .show();
         } else if (i == R.id.pmld) {
-             intent = new Intent(SetupActivity.this, PingmuActivity.class);
+            intent = new Intent(SetupActivity.this, PingmuActivity.class);
             startActivity(intent);
         } else if (i == R.id.bbjc) {
         } else if (i == R.id.bzzx) {
         } else if (i == R.id.gywm) {
         } else if (i == R.id.yqhy) {
+            intent = new Intent(SetupActivity.this, PingmuActivity.class);
+            startActivity(intent);
         } else if (i == R.id.tcdl) {
             AlertDialog.Builder builder = new AlertDialog.Builder(SetupActivity.this);
             builder.setTitle("退出登录")
