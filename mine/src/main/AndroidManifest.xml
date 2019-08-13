@@ -48,7 +48,8 @@
         <activity android:name=".activity.shiming.BindCardActivity" />
         <activity android:name=".activity.shiming.BandShowActivity" />
         <activity android:name=".activity.shiming.NextCardActivity" />
-        <activity android:name=".activity.shiming.CardDetailActivity"></activity>
+        <activity android:name=".activity.shiming.CardDetailActivity" />
+        <activity android:name=".activity.shiming.YaoQingActivity"></activity>
     </application>
 
 </manifest>
