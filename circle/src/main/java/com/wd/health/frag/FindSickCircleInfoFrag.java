@@ -173,13 +173,14 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
             @Override
             public void onClick(View v) {
-                View view = View.inflate(WDApplication.getContext(), R.layout.circle_pop_layout, null);
+                View view = View.inflate(getActivity(), R.layout.circle_pop_layout, null);
                 PopupWindow pop = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 pop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 pop.setFocusable(true);
                 pop.setTouchable(true);
                 pop.setOutsideTouchable(true);
                 pop.showAtLocation(view, Gravity.CENTER, 0, 0);
+
 
                 //无评论页面
                 circle_pop_wupinglun_layout = view.findViewById(R.id.circle_pop_wupinglun);
