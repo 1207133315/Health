@@ -181,6 +181,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
                 pop.setOutsideTouchable(true);
                 pop.showAtLocation(view, Gravity.CENTER, 0, 0);
 
+
                 //无评论页面
                 circle_pop_wupinglun_layout = view.findViewById(R.id.circle_pop_wupinglun);
                 //有评论页面
