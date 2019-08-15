@@ -3,28 +3,19 @@ apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion 28
 
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
+
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
-        ndk {
-            //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
-        }
+
     }
 
     buildTypes {
@@ -37,19 +28,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
     implementation project(':common')
-    implementation project(path: ':circle')
-    implementation project(':messagelist')
-    implementation files('libs/ocr-sdk.jar')
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }

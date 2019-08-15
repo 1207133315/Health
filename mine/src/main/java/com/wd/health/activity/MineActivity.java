@@ -26,8 +26,10 @@ import com.bw.health.util.BitmapUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.health.R;
 import com.wd.health.R2;
+import com.wd.health.messagelist.bean.MessageBean;
 import com.wd.health.presenter.AddSignPresenter;
 import com.wd.health.presenter.DoTaskPresenter;
+import com.wd.health.presenter.FindUserNoticeReadNumPresenter;
 import com.wd.health.presenter.WhetherSignTodayPresenter;
 
 import java.util.List;
@@ -84,6 +86,7 @@ public class MineActivity extends WDActivity {
     private DoTaskPresenter doTaskPresenter;
     private Intent intent;
     private Bitmap bitmap;
+    private FindUserNoticeReadNumPresenter findUserNoticeReadNumPresenter;
 
     @Override
     protected int getLayoutId() {
@@ -95,6 +98,7 @@ public class MineActivity extends WDActivity {
         whetherSignTodayPresenter = new WhetherSignTodayPresenter(new WhetherSignToday());
         addSignPresenter = new AddSignPresenter(new AddSign());
         doTaskPresenter = new DoTaskPresenter(new Dotask());
+        findUserNoticeReadNumPresenter = new FindUserNoticeReadNumPresenter(new FindUserNoticeReadNum());
     }
 
     @Override
@@ -108,10 +112,12 @@ public class MineActivity extends WDActivity {
             head.setImageURI(headPic);
             name.setText(loginBean.getNickName());
             whetherSignTodayPresenter.reqeust(loginBean.getId().intValue(), loginBean.getSessionId());
+            findUserNoticeReadNumPresenter.reqeust(loginBean.getId().intValue(), loginBean.getSessionId());
         }else {
             bitmap = BitmapUtils.readBitMap(WDApplication.getContext(), R.mipmap.common_icon_boy_n);
             head.setImageBitmap(bitmap);
         }
+
     }
 
     @Override
@@ -127,7 +133,7 @@ public class MineActivity extends WDActivity {
             intentByRouter("/HomeActivity/");
             finish();
         } else if (i == R.id.lingdang) {
-
+            intentByRouter("/MessageActivity/");
         } else if (i == R.id.head) {
 
         } else if (i == R.id.guanzhu) {
@@ -242,5 +248,32 @@ public class MineActivity extends WDActivity {
          doTaskPresenter=null;
         intent=null;
         bitmap=null;
+    }
+    //查询用户未读消息数
+    public class FindUserNoticeReadNum implements DataCall{
+
+        @Override
+        public void success(Object data, Object... args) {
+            boolean t=false;
+            Result<List<MessageBean>> result= (Result<List<MessageBean>>) data;
+            List<MessageBean> list = result.getResult();
+            for (MessageBean messageBean : list) {
+                if (messageBean.getNotReadNum()>0){
+                    t=true;
+                    break;
+                }
+            }
+            if (t){
+                lingdang.setImageResource(R.mipmap.common_nav_message_white_s);
+            }else {
+                lingdang.setImageResource(R.mipmap.common_nav_message_white_n);
+            }
+
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
     }
 }

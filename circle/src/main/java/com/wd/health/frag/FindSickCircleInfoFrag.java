@@ -173,7 +173,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
             @Override
             public void onClick(View v) {
-                View view = View.inflate(WDApplication.getContext(), R.layout.circle_pop_layout, null);
+                View view = View.inflate(getActivity(), R.layout.circle_pop_layout, null);
                 PopupWindow pop = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 pop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 pop.setFocusable(true);
@@ -282,8 +282,8 @@ public class FindSickCircleInfoFrag extends WDFragment {
         List<LoginBean> loginBeans = loginBeanDao.loadAll();
         sessionId = loginBeans.get(0).getSessionId();
         id_user = loginBeans.get(0).getId();
-       /* Log.i("qqq", sessionId);
-        Log.i("qqq", id_user + "");*/
+        Log.i("qqq", sessionId);
+        Log.i("qqq", id_user + "");
 
         //发表病友圈评论关联p
         publishCommentPresenter = new PublishCommentPresenter(new PublishCommentCall());
