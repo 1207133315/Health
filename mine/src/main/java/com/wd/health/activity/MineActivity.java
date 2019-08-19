@@ -243,4 +243,31 @@ public class MineActivity extends WDActivity {
         intent=null;
         bitmap=null;
     }
+    //查询用户未读消息数
+    public class FindUserNoticeReadNum implements DataCall{
+
+        @Override
+        public void success(Object data, Object... args) {
+            boolean t=false;
+            Result<List<MessageBean>> result= (Result<List<MessageBean>>) data;
+            List<MessageBean> list = result.getResult();
+            for (MessageBean messageBean : list) {
+                if (messageBean.getNotReadNum()>0){
+                    t=true;
+                    break;
+                }
+            }
+            if (t){
+                lingdang.setImageResource(R.mipmap.common_nav_message_white_s);
+            }else {
+                lingdang.setImageResource(R.mipmap.common_nav_message_white_n);
+            }
+
+        }
+
+        @Override
+        public void fail(ApiException data, Object... args) {
+
+        }
+    }
 }

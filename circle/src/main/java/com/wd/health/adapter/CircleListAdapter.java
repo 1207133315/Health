@@ -55,21 +55,21 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
         int sickCircleId = listBean.getSickCircleId();
 
         myViewHolder.tv_title.setText(title);
-        myViewHolder.tv_hbi_num.setText(amount + "");
+        myViewHolder.tv_hbi_num1.setText(String.valueOf(amount));
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH:mm");
         String time = simpleDateFormat.format(new Date(releaseTime));
         myViewHolder.tv_time.setText(time + "");
         myViewHolder.tv_detail.setText(detail);
-        myViewHolder.tv_shoucang_num.setText(collectionNum + "");
-        myViewHolder.tv_jianyi_num.setText(commentNum + "");
+        myViewHolder.tv_shoucang_num.setText(String.valueOf(collectionNum));
+        myViewHolder.tv_jianyi_num.setText(String.valueOf(commentNum));
+
 
         //增加的悬赏额度,等于0则没有额外悬赏
         if (amount==0){
-            myViewHolder.tv_image_hbi.setVisibility(View.GONE);
-            myViewHolder.tv_hbi_num.setVisibility(View.GONE);
-        }else{
-            myViewHolder.tv_image_hbi.setVisibility(View.VISIBLE);
-            myViewHolder.tv_hbi_num.setVisibility(View.VISIBLE);
+            holder.tv_image_hbi1.setVisibility(View.GONE);
+            holder.tv_hbi_num1.setVisibility(View.GONE);
+        }else {
+            holder.tv_image_hbi1.setBackgroundResource(R.mipmap.h_currency);
         }
 
        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -99,8 +99,8 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
 
 
         TextView tv_title;
-        ImageView tv_image_hbi;
-        TextView tv_hbi_num;
+        ImageView tv_image_hbi1;
+        TextView tv_hbi_num1;
         TextView tv_time;
         TextView tv_detail;
         TextView tv_shoucang_num;
@@ -109,8 +109,8 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.circle_list_title);
-            tv_image_hbi = itemView.findViewById(R.id.circle_list_hbi);
-            tv_hbi_num = itemView.findViewById(R.id.circle_list_hbi_num);
+            tv_image_hbi1 = itemView.findViewById(R.id.circle_list_hbi1);
+            tv_hbi_num1 = itemView.findViewById(R.id.circle_list_hbi_num);
 
             tv_time = itemView.findViewById(R.id.circle_list_time);
             tv_detail = itemView.findViewById(R.id.circle_list_detail);

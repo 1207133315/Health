@@ -41,6 +41,7 @@ import com.wd.health.presenter.CircleInfoPresenter;
 import com.wd.health.presenter.CircleShouCangPresenter;
 import com.wd.health.presenter.DoTaskPresenter;
 import com.wd.health.presenter.PublishCommentPresenter;
+import com.wd.health.utils.ImageAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -182,6 +183,7 @@ public class FindSickCircleInfoFrag extends WDFragment {
                 pop.setTouchable(true);
                 pop.setOutsideTouchable(true);
                 pop.showAtLocation(view, Gravity.CENTER, 0, 0);
+
 
                 //无评论页面
                 circle_pop_wupinglun_layout = view.findViewById(R.id.circle_pop_wupinglun);
@@ -456,6 +458,26 @@ public class FindSickCircleInfoFrag extends WDFragment {
 
 
             //--------------收藏----取消收藏---------尾巴---------------------
+
+            if (picture != null) {
+                String[] images = picture.split(",");
+                int imageCount = images.length;
+                int colNum;//列数
+                if (imageCount == 1) {
+                    colNum = 1;
+                } else if (imageCount == 2 || imageCount == 4) {
+                    colNum = 2;
+                } else {
+                    colNum = 3;
+                }
+                ImageAdapter imageAdapter1 = new ImageAdapter();
+                imageAdapter1.addAll(Arrays.<Object>asList(images));
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+                gridLayoutManager.setSpanCount(colNum);
+                image_bingli.setLayoutManager(gridLayoutManager);
+                image_bingli.setAdapter(imageAdapter1);
+
+            }
 
 
         }

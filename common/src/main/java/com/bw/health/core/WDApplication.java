@@ -38,8 +38,6 @@ import com.wd.health.common.R;
 
 import java.io.File;
 
-import androidx.multidex.MultiDex;
-import androidx.multidex.MultiDexApplication;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 
@@ -48,7 +46,7 @@ import cn.jpush.im.android.api.JMessageClient;
  * @name: MyApplication
  * @remark:
  */
-public class WDApplication extends MultiDexApplication {
+public class WDApplication extends Application {
     /**
      * 主线程ID
      */

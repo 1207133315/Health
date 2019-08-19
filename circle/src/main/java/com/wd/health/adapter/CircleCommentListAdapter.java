@@ -215,6 +215,7 @@ public class CircleCommentListAdapter extends RecyclerView.Adapter<CircleComment
                 intent.putExtra("commentUserId", String.valueOf(commentUserId));
                 intent.putExtra("headPic", headPic);
                 intent.putExtra("nickName", nickName);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 call.showCall();
             }

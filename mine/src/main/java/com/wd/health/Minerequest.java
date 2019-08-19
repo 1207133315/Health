@@ -248,6 +248,7 @@ public interface Minerequest {
     Observable<Result<IDCardBean>> findUserIdCard(@Header("userId") int userId,
                                                             @Header("sessionId") String sessionId);
 
+
     /***刘浩---------------------------------------------**/
 
 

@@ -150,10 +150,9 @@ public class MineMessageActivity extends WDActivity {
         super.onResume();
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         list = loginBeanDao.queryBuilder().list();
-        findUserBankCardByUserIdPresenter = new FindUserBankCardByUserIdPresenter(new FindUserBankCardByUserId());
-
 
         if (list != null && list.size() > 0) {
+            findUserBankCardByUserIdPresenter = new FindUserBankCardByUserIdPresenter(new FindUserBankCardByUserId());
             findUserBankCardByUserIdPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
             findUserIdCardPresenter = new FindUserIdCardPresenter(new FindUserIdCard());
             findUserIdCardPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
@@ -417,7 +416,7 @@ public class MineMessageActivity extends WDActivity {
 
         @Override
         public void fail(ApiException data, Object... args) {
-            Toast.makeText(MineMessageActivity.this, ""+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
+
         }
     }
     public class DoTask implements DataCall {
