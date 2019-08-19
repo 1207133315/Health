@@ -16,7 +16,7 @@ import com.bw.health.exception.ApiException;
 import com.bw.health.util.DateUtils;
 import com.bw.health.util.GetDaoUtil;
 import com.google.android.material.snackbar.Snackbar;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.bean.UserArchivesBean;
 import com.wd.health.presenter.DeleteArchivesPresenter;
 import com.wd.health.presenter.UserArchivesPresenter;

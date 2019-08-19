@@ -9,7 +9,7 @@ import com.bw.health.core.WDActivity;
 import com.bw.health.util.UIUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import com.wd.health.R;
+import com.wd.health.circle.R;
 
 
 import java.util.ArrayList;

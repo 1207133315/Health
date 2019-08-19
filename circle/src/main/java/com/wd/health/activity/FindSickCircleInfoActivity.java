@@ -19,7 +19,7 @@ import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
 import com.bw.health.core.WDActivity;
 import com.bw.health.exception.ApiException;
-import com.wd.health.R;
+import com.wd.health.circle.R;
 import com.wd.health.adapter.CircleSearchAdapter;
 import com.wd.health.adapter.HistorySearchAdapter;
 import com.wd.health.bean.CircleSearchBean;

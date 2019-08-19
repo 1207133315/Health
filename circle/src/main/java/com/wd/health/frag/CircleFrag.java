@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.baidu.platform.comapi.map.E;
+
 import com.bw.health.bean.CircleFindDepartmentBean;
 import com.bw.health.bean.CircleListBean;
 import com.bw.health.bean.Result;
@@ -23,8 +23,8 @@ import com.bw.health.exception.ApiException;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.circle.R;
+import com.wd.health.circle.R2;
 import com.wd.health.adapter.CircleFindDepartmentAdapter;
 import com.wd.health.adapter.CircleListAdapter;
 import com.wd.health.presenter.CircleFindDepartmentPresenter;

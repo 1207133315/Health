@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wd.health">
+    package="com.wd.health.interrogation">
 
     <application>
-        <activity android:name=".activity.DoctorlistActivity" />
-        <activity android:name=".activity.DoctordetailActivity"></activity>
+        <activity android:name="com.wd.health.activity.DoctorlistActivity" />
+        <activity android:name="com.wd.health.activity.DoctordetailActivity"></activity>
     </application>
 
 </manifest>

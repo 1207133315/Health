@@ -14,6 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wd.health.presenter.AddCommonPresenter;
+import com.wd.health.video.R;
+import com.wd.health.video.R2;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bw.health.SoftKeyBoardListener;
 import com.bw.health.bean.LoginBean;

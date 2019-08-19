@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.bean.DoctorBean;
 
 import java.util.List;

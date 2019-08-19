@@ -32,8 +32,8 @@ import com.bw.health.util.RsaCoder;
 import com.bw.health.util.UpToken;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.login.R;
+import com.wd.health.login.R2;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

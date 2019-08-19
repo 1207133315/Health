@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.bw.health.core.WDActivity;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 public class ReduceActivity extends WDActivity {
 

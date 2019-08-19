@@ -22,8 +22,8 @@ import com.bw.health.exception.ApiException;
 import com.bw.health.prenster.RegisterPresenter;
 import com.bw.health.prenster.SendOutEmailCodePresenter;
 import com.bw.health.util.RsaCoder;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.login.R;
+import com.wd.health.login.R2;
 
 
 import butterknife.BindView;

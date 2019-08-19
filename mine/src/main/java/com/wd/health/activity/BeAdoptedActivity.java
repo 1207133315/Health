@@ -17,7 +17,7 @@ import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.nostra13.universalimageloader.utils.L;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.adapter.BeAdoptionAdapter;
 import com.wd.health.bean.BeAdoptedBean;
 import com.wd.health.presenter.BeAdoptedPresenter;

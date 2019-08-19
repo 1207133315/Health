@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.bw.health.core.WDApplication;
@@ -103,11 +104,15 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             public void run() {
                 Looper.prepare();
                 Toast.makeText(mContext, "捕获到异常", Toast.LENGTH_SHORT).show();
+                Log.i("logException", "handleException: "+e.getMessage()+e.toString());
                 Looper.loop();
+                saveErrorMessages(e);
+                collectErrorMessages();
             }
         }.start();
-        collectErrorMessages();
-        saveErrorMessages(e);
+
+
+
         return false;
     }
 
@@ -169,7 +174,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         String fileName = "crash-" + time + "-" + System.currentTimeMillis() + ".log";
         // 有无SD卡
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            String path = Environment.getExternalStorageDirectory().getPath() + "crash/";
+            String path = Environment.getExternalStorageDirectory() + "/crash/";
             File dir = new File(path);
             if (!dir.exists()) dir.mkdirs();
             FileOutputStream fos = null;

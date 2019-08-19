@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.health.bean.CircleFindDepartmentBean;
-import com.wd.health.R;
+import com.wd.health.circle.R;
 import com.wd.health.bean.CircleBingZhengBean;
 
 import java.util.ArrayList;

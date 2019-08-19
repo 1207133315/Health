@@ -2,7 +2,7 @@ package com.wd.health.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 import java.util.List;
 

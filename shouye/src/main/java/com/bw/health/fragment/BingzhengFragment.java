@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.widget.Toast;
 
-import com.bw.health.R;
-import com.bw.health.R2;
+import com.bw.health.shouye.R;
+import com.bw.health.shouye.R2;
 import com.bw.health.adapter.bingzheng.BzOneAdapter;
 import com.bw.health.adapter.bingzheng.BzTwoAdapter;
 import com.bw.health.bean.BingZhengBean;

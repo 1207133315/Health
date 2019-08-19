@@ -2,12 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 android {
     signingConfigs {
-        release {
-            keyAlias 'health'
-            keyPassword '123456'
-            storeFile file('../health.keystore')
-            storePassword '123456'
-        }
     }
     compileSdkVersion 28
     defaultConfig {
@@ -20,16 +14,16 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
-        signingConfig signingConfigs.release
+//        signingConfig signingConfigs.release
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
         }
         debug {
-            signingConfig signingConfigs.release
+          //  signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -41,8 +35,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
     api project(':common')

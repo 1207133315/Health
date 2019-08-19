@@ -10,7 +10,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 import androidx.annotation.Nullable;
 

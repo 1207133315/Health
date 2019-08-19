@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.bw.health.core.WDActivity;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.mine.R;
+import com.wd.health.mine.R2;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

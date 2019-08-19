@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wd.health">
+    package="com.wd.health.circle">
 
     <application>
-        <activity android:name=".activity.FindSickCircleInfoActivity"></activity>
-        <activity android:name=".activity.CircleUserInfoActivity" />
-        <activity android:name=".activity.CircleWritActivity"></activity>
+        <activity android:name="com.wd.health.activity.FindSickCircleInfoActivity"></activity>
+        <activity android:name="com.wd.health.activity.CircleUserInfoActivity" />
+        <activity android:name="com.wd.health.activity.CircleWritActivity"></activity>
     </application>
 
 </manifest>

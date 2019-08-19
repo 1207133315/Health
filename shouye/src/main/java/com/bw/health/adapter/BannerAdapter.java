@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bw.health.R;
-import com.bw.health.R2;
+import com.bw.health.shouye.R;
+import com.bw.health.shouye.R2;
 import com.bw.health.activity.BannerDetailActivity;
 import com.bw.health.bean.BannerBean;
 import com.facebook.drawee.view.SimpleDraweeView;

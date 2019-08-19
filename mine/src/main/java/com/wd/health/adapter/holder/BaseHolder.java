@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bw.health.bean.MationBean;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

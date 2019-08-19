@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.bw.health.bean.CircleFindDepartmentBean;
 import com.bw.health.bean.CircleListBean;
-import com.wd.health.R;
+import com.wd.health.circle.R;
 import com.wd.health.bean.WaiBuBean;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +20,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.OkHttpClient;
 
 public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.MyViewHolder> {
     Context context;
@@ -29,6 +30,7 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
     public CircleListAdapter(Context context) {
         this.context = context;
         mList = new ArrayList<>();
+
     }
 
 
@@ -119,7 +121,7 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.My
         }
     }
 
-    public interface Call {
+    public  interface Call {
         void showCall(CircleListBean circleListBean);
     }
 

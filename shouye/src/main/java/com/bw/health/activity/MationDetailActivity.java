@@ -16,8 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bw.health.R;
-import com.bw.health.R2;
+import com.bw.health.shouye.R;
+import com.bw.health.shouye.R2;
 import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.MationDetail;
 import com.bw.health.bean.Result;

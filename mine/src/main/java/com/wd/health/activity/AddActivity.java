@@ -21,14 +21,14 @@ import com.bw.health.core.DataCall;
 import com.bw.health.core.WDActivity;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.presenter.AddMoneyPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import static com.wd.health.R2.id.zhifubao;
+
 
 public class AddActivity extends WDActivity implements View.OnClickListener {
 

@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.WindowManager;
 
 
 import com.alibaba.android.arouter.launcher.ARouter;

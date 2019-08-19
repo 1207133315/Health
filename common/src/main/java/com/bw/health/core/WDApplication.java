@@ -34,10 +34,12 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
-import com.wd.health.R;
+import com.wd.health.common.R;
 
 import java.io.File;
 
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 
@@ -46,7 +48,7 @@ import cn.jpush.im.android.api.JMessageClient;
  * @name: MyApplication
  * @remark:
  */
-public class WDApplication extends Application {
+public class WDApplication extends MultiDexApplication {
     /**
      * 主线程ID
      */
@@ -140,6 +142,7 @@ public class WDApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        MultiDex.install(this); // 初始化
         refWatcher=LeakCanary.install(this);
         CrashHandler.getInstance().init(this);
         initImageloader();

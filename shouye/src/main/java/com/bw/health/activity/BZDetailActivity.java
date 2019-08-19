@@ -10,8 +10,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.bw.health.R;
-import com.bw.health.R2;
+import com.bw.health.shouye.R;
+import com.bw.health.shouye.R2;
+
 import com.bw.health.bean.BZDetailBean;
 import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;

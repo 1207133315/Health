@@ -36,8 +36,8 @@ import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.bw.health.core.WDActivity;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.mine.R;
+import com.wd.health.mine.R2;
 import com.wd.health.utils.getPhotoFromPhotoAlbum;
 
 import java.io.ByteArrayOutputStream;

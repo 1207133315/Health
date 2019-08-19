@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.health.bean.CircleListBean;
-import com.wd.health.R;
+import com.wd.health.circle.R;
 import com.wd.health.bean.CircleSearchBean;
 
 import java.text.SimpleDateFormat;

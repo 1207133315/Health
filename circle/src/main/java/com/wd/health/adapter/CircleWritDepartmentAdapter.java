@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bw.health.bean.CircleFindDepartmentBean;
-import com.wd.health.R;
+import com.wd.health.circle.R;
 
 import java.util.ArrayList;
 import java.util.List;

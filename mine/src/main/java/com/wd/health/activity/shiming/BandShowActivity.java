@@ -23,13 +23,14 @@ import com.bw.health.core.DataCall;
 import com.bw.health.core.WDActivity;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.presenter.BindCardPresenter;
 import com.wd.health.utils.DisplayUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class BandShowActivity extends WDActivity implements View.OnClickListener {
 
@@ -159,6 +160,7 @@ public class BandShowActivity extends WDActivity implements View.OnClickListener
 
     @Override
     protected void onDestroy() {
+
         super.onDestroy();
         bitmap=null;
         file=null;

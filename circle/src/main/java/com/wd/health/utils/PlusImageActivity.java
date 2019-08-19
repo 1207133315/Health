@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.wd.health.R;
+import com.wd.health.circle.R;
 
 import java.util.ArrayList;
 

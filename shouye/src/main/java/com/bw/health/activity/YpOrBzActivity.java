@@ -7,8 +7,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bw.health.R;
-import com.bw.health.R2;
+import com.bw.health.shouye.R;
+import com.bw.health.shouye.R2;
 import com.bw.health.core.WDActivity;
 import com.bw.health.fragment.BingzhengFragment;
 import com.bw.health.fragment.YaopinFragment;

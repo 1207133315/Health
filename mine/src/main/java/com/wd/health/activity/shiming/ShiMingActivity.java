@@ -4,10 +4,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -18,16 +21,25 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.BankCardParams;
+import com.baidu.ocr.sdk.model.IDCardParams;
+import com.baidu.ocr.sdk.model.IDCardResult;
+import com.baidu.ocr.sdk.model.Word;
 import com.bw.health.core.WDActivity;
 import com.bw.health.util.PermissionsUtils;
 
 
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.mine.R;
+import com.wd.health.mine.R2;
 import com.wd.health.activity.MineMessageActivity;
 import com.wd.health.utils.getPhotoFromPhotoAlbum;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +61,10 @@ public class ShiMingActivity extends WDActivity {
     ImageView contrary;
     @BindView(R2.id.yes)
     TextView yes;
+    @BindView(R2.id.close1)
+    ImageView close1;
+    @BindView(R2.id.close2)
+    ImageView close2;
     private PopupWindow popupWindow;
     private String mTempPhotoPath;
     private Uri imageUri;
@@ -67,6 +83,10 @@ public class ShiMingActivity extends WDActivity {
         }
     };
     private Bitmap bm;
+    public boolean isPai1;
+    public boolean isPai2;
+    private IDCardParams idCardParams;
+    private Bitmap bitmap;
 
     @Override
     protected int getLayoutId() {
@@ -142,7 +162,7 @@ public class ShiMingActivity extends WDActivity {
         startActivityForResult(intentToPickPic, 200);
     }
     public  boolean isFront;
-    @OnClick({R2.id.back, R2.id.front, R2.id.contrary, R2.id.yes})
+    @OnClick({R2.id.back, R2.id.front, R2.id.contrary, R2.id.yes,R2.id.close1,R2.id.close2})
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.back) {
@@ -151,8 +171,38 @@ public class ShiMingActivity extends WDActivity {
             showPop();
         } else if (i == R.id.contrary) {
             isFront=false;
+            showPop();
         } else if (i == R.id.yes) {
-        } else {
+            final String s = yes.getText().toString();
+            if (s.equals("下一步")){
+                if (isPai1!=true){
+                    Toast.makeText(this, "请上传正面照", Toast.LENGTH_SHORT).show();
+                }else if (isPai2!=true){
+                    Toast.makeText(this, "请上传背面面照", Toast.LENGTH_SHORT).show();
+                }else if (isPai1&&isPai2){
+                    close1.setVisibility(View.VISIBLE);
+                    close2.setVisibility(View.VISIBLE);
+                    yes.setText("确认");
+                }
+            }else {
+                if (isPai1!=true){
+                    Toast.makeText(this, "请上传正面照", Toast.LENGTH_SHORT).show();
+                }else if (isPai2!=true){
+                    Toast.makeText(this, "请上传背面面照", Toast.LENGTH_SHORT).show();
+                }else if (isPai1&&isPai2){
+                 // startActivity(new Intent(ShiMingActivity.this,ShiMingMessageActivity.class));
+                    onPreviewFrame();
+                }
+            }
+
+
+        }else if (i==R.id.close1){
+            isPai1=false;
+        }else if (i==R.id.close2){
+            isPai2=false;
+        }
+
+        else {
         }
     }
 
@@ -167,8 +217,10 @@ public class ShiMingActivity extends WDActivity {
             //localre(mTempPhotoPath);
             if (isFront){
                 front.setImageBitmap(bm);
+                isPai1=true;
             }else {
                 contrary.setImageBitmap(bm);
+                isPai2=true;
             }
 
         } else if (requestCode == 200) {
@@ -180,20 +232,123 @@ public class ShiMingActivity extends WDActivity {
                // localre(realPathFromUri);
                 if (isFront){
                     front.setImageBitmap(bm);
+                    isPai1=true;
                 }else {
                     contrary.setImageBitmap(bm);
+                    isPai2=true;
                 }
             }
         }
     }
-    //训练数据路径，tessdata
-    static final String TESSBASE_PATH = Environment.getExternalStorageDirectory() + "/tesseract/";
-    //识别语言英文
-    static final String DEFAULT_LANGUAGE = "eng";
-    //识别语言简体中文
-    static final String CHINESE_LANGUAGE = "chi_sim";
+    String name = null;
+    String sex = null;
+    String nation = null;
+    String num = null;
+    String address = null;
+    String birthday = null;
+    //正面
+    public void onPreviewFrame() {
+//        Log.i("onPreviewFrame","isChoice:" + isChoice);
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            //  File externalFile = getExternalFilesDir("/idcard/");
+            String filePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+            String fileName = "front.png";
+            File path = new File(filePath,fileName);
+            if (!path.exists()) {
+                try {
+                    path.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            FileOutputStream outStream = null;
+            Bitmap bitmap = ((BitmapDrawable)front.getDrawable()).getBitmap();
+            Matrix matrix = new Matrix();
+            matrix.setScale(0.5f, 0.5f);
 
 
+                try {
+                    Bitmap bm = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                            bitmap.getHeight(), matrix, true);
+                    // 打开指定文件对应的输出流
+                    outStream = new FileOutputStream(path);
+                    // 把位图输出到指定文件中
+                    bm.compress(Bitmap.CompressFormat.PNG,
+                            100, outStream);
+                    outStream.close();
+                // 打开指定文件对应的输出流
+                outStream = new FileOutputStream(path);
+                // 把位图输出到指定文件中
+                bitmap.compress(Bitmap.CompressFormat.PNG,
+                        100, outStream);
+                outStream.close();
+                idCardParams = new IDCardParams();
+                idCardParams.setImageFile(path);
+                OCR.getInstance().recognizeIDCard(idCardParams, new OnResultListener<IDCardResult>() {
+                    @Override
+                    public void onResult(IDCardResult result) {
+
+
+                        int direction = result.getDirection();
+                        String imageStatus = result.getImageStatus();
+                        Log.v("name", "direction:" + direction + "," + "imageStatus:" + imageStatus);
+
+
+                        if (result.getName() != null) {
+                            name = result.getName().toString();
+                        }
+                        if (result.getGender() != null) {
+                            sex = result.getGender().toString();
+                        }
+                        if (result.getEthnic() != null) {
+                            nation = result.getEthnic().toString();
+                        }
+                        if (result.getIdNumber() != null) {
+                            num = result.getIdNumber().toString();
+                        }
+                        if (result.getAddress() != null) {
+                            address = result.getAddress().toString();
+                        }
+
+                        if (result.getBirthday() != null) {
+                            birthday = result.getBirthday().toString();
+                        }
+
+                        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(sex) && !TextUtils.isEmpty(nation) &&
+                                !TextUtils.isEmpty(num) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(birthday)) {
+                         //跳转或请求接口
+
+                        }
+
+                        //姓名: 蔡光意,性别: 男,民族: 汉,身份证号码: 421083199403241230,住址: 湖北省洪湖市曹市镇昊口村1-70,生日:19940324,
+                        Log.d("name123", "姓名: " + name + "," +
+                                "性别: " + sex + "," +
+                                "民族: " + nation + "," +
+                                "身份证号码: " + num + "," +
+                                "住址: " + address + "," +
+                                "生日:" + birthday + ",");
+                    }
+
+                    @Override
+                    public void onError(OCRError ocrError) {
+                        Toast.makeText(ShiMingActivity.this, "扫描失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.i("aa", "onPreviewFrame: "+e);
+            }
+
+
+        } else {
+            Toast.makeText(this, "没有检测到内存卡", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,  int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

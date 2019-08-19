@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
@@ -14,10 +15,13 @@ import com.bw.health.core.WDActivity;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.DateUtils;
 import com.bw.health.util.GetDaoUtil;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.mine.R;
+import com.wd.health.mine.R2;
 import com.wd.health.bean.BankCardBean;
 import com.wd.health.presenter.FindUserBankCardByUserIdPresenter;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,8 +59,15 @@ public class CardDetailActivity extends WDActivity {
     @Override
     protected void initView() {
         findUserBankCardByUserIdPresenter = new FindUserBankCardByUserIdPresenter(new UserBankCard());
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loginBean = GetDaoUtil.getGetDaoUtil().getUserDao().loadAll().get(0);
-        findUserBankCardByUserIdPresenter.reqeust(loginBean.getId(), loginBean.getSessionId());
+        Long id = loginBean.getId();
+        findUserBankCardByUserIdPresenter.reqeust( id.intValue(), loginBean.getSessionId());
     }
 
     @Override
@@ -72,18 +83,24 @@ public class CardDetailActivity extends WDActivity {
         public void success(Result<BankCardBean> data, Object... args) {
              BankCardBean result = data.getResult();
             name.setText(result.getBankName());
-            type.setText(result.getBankCardType());
+            final int bankCardType = result.getBankCardType();
+            if (bankCardType==1){
+                type.setText("借记卡");
+            }else {
+                type.setText("储蓄卡");
+            }
              String bankCardNumber = result.getBankCardNumber();
-             num1.setText(bankCardNumber.substring(4,8));
+             num1.setText(bankCardNumber.substring(3,8));
              num2.setText(bankCardNumber.substring(bankCardNumber.length()-4,bankCardNumber.length()));
              long bindTime = result.getBindTime();
              String s = DateUtils.timeStamp2Date(bindTime, "yyyy-MM-dd");
-            time.setText(s);
+            time.setText("绑卡时间:"+s);
+
         }
 
         @Override
         public void fail(ApiException data, Object... args) {
-
+            Toast.makeText(CardDetailActivity.this, ""+data.getDisplayMessage()+data.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

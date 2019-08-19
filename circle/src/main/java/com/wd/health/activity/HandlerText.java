@@ -2,7 +2,7 @@ package com.wd.health.activity;
 
 import android.os.Message;
 
-import com.wd.health.R;
+import com.wd.health.circle.R;
 
 public class HandlerText  {
 

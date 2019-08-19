@@ -4,8 +4,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.health.core.WDFragment;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.login.R;
+import com.wd.health.login.R2;
 
 
 import butterknife.BindView;

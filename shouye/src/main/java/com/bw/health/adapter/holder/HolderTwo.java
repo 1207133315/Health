@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bw.health.R;
+import com.bw.health.shouye.R;
 import com.bw.health.bean.MationBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 

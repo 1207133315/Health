@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.wd.health.R;
+import com.wd.health.interrogation.R;
 import com.wd.health.bean.DoctordetailBean;
 
 import java.util.List;

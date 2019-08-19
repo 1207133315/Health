@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.wd.health">
+    package="com.wd.health.mine">
 
     <uses-feature android:name="android.hardware.camera2" />
 
@@ -20,35 +20,36 @@
         tools:ignore="ProtectedPermissions" />
 
     <application>
-        <activity android:name=".activity.MineActivity" />
-        <activity android:name=".activity.SetupActivity" />
-        <activity android:name=".activity.PingmuActivity" />
-        <activity android:name=".activity.MineMessageActivity" />
-        <activity android:name=".activity.GuanzhuActivity" />
+        <activity android:name="com.wd.health.activity.MineActivity" />
+        <activity android:name="com.wd.health.activity.SetupActivity" />
+        <activity android:name="com.wd.health.activity.PingmuActivity" />
+        <activity android:name="com.wd.health.activity.MineMessageActivity" />
+        <activity android:name="com.wd.health.activity.GuanzhuActivity" />
         <activity
-            android:name=".activity.MyCollectActivity"
+            android:name="com.wd.health.activity.MyCollectActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MyWallteActivity" />
-        <activity android:name=".activity.AddActivity" />
-        <activity android:name=".activity.PatientsCircleActivity" />
-        <activity android:name=".activity.ReduceActivity" />
-        <activity android:name=".activity.MyVideoActivity" />
-        <activity android:name=".activity.MyFileActivity" />
-        <activity android:name=".activity.AddFileActivity" />
-        <activity android:name=".activity.CircleCommentActivity" />
-        <activity android:name=".activity.UpdateFileActivity" />
-        <activity android:name=".activity.UpdateSexActivity" />
-        <activity android:name=".activity.SignActivity" />
-        <activity android:name=".activity.UpdateNicknameActivity" />
-        <activity android:name=".activity.BeAdoptedActivity" />
-        <activity android:name=".activity.TaskActivity" />
-        <activity android:name=".activity.CepingActivity" />
-        <activity android:name=".activity.shiming.ShiMingActivity" />
-        <activity android:name=".activity.shiming.BindCardActivity" />
-        <activity android:name=".activity.shiming.BandShowActivity" />
-        <activity android:name=".activity.shiming.NextCardActivity" />
-        <activity android:name=".activity.shiming.CardDetailActivity"></activity>
+        <activity android:name="com.wd.health.activity.MyWallteActivity" />
+        <activity android:name="com.wd.health.activity.AddActivity" />
+        <activity android:name="com.wd.health.activity.PatientsCircleActivity" />
+        <activity android:name="com.wd.health.activity.ReduceActivity" />
+        <activity android:name="com.wd.health.activity.MyVideoActivity" />
+        <activity android:name="com.wd.health.activity.MyFileActivity" />
+        <activity android:name="com.wd.health.activity.AddFileActivity" />
+        <activity android:name="com.wd.health.activity.CircleCommentActivity" />
+        <activity android:name="com.wd.health.activity.UpdateFileActivity" />
+        <activity android:name="com.wd.health.activity.UpdateSexActivity" />
+        <activity android:name="com.wd.health.activity.SignActivity" />
+        <activity android:name="com.wd.health.activity.UpdateNicknameActivity" />
+        <activity android:name="com.wd.health.activity.BeAdoptedActivity" />
+        <activity android:name="com.wd.health.activity.TaskActivity" />
+        <activity android:name="com.wd.health.activity.CepingActivity" />
+        <activity android:name="com.wd.health.activity.shiming.ShiMingActivity" />
+        <activity android:name="com.wd.health.activity.shiming.BindCardActivity" />
+        <activity android:name="com.wd.health.activity.shiming.BandShowActivity" />
+        <activity android:name="com.wd.health.activity.shiming.NextCardActivity" />
+        <activity android:name="com.wd.health.activity.shiming.CardDetailActivity" />
+        <activity android:name="com.wd.health.activity.shiming.ShiMingMessageActivity"></activity>
     </application>
 
 </manifest>

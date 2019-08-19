@@ -32,8 +32,8 @@ import com.bw.health.util.BitmapUtils;
 import com.bw.health.util.GetDaoUtil;
 import com.bw.health.util.PermissionsUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.mine.R;
+import com.wd.health.mine.R2;
 import com.wd.health.activity.shiming.CardDetailActivity;
 import com.wd.health.bean.BankCardBean;
 import com.wd.health.bean.IDCardBean;
@@ -151,10 +151,12 @@ public class MineMessageActivity extends WDActivity {
         LoginBeanDao loginBeanDao = DaoMaster.newDevSession(WDApplication.getContext(), LoginBeanDao.TABLENAME).getLoginBeanDao();
         list = loginBeanDao.queryBuilder().list();
         findUserBankCardByUserIdPresenter = new FindUserBankCardByUserIdPresenter(new FindUserBankCardByUserId());
-        findUserBankCardByUserIdPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
-        findUserIdCardPresenter = new FindUserIdCardPresenter(new FindUserIdCard());
-        findUserIdCardPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
+
+
         if (list != null && list.size() > 0) {
+            findUserBankCardByUserIdPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
+            findUserIdCardPresenter = new FindUserIdCardPresenter(new FindUserIdCard());
+            findUserIdCardPresenter.reqeust(list.get(0).getId().intValue(),list.get(0).getSessionId());
             name.setText(list.get(0).getNickName());
             head.setImageURI(list.get(0).getHeadPic());
             int sex1 = list.get(0).getSex();
@@ -234,6 +236,8 @@ public class MineMessageActivity extends WDActivity {
         } else if (i == R.id.youxiang) {
         } else if (i == R.id.bdwx) {
         } else if (i == R.id.shimingrenzheng) {
+            intent=new Intent(MineMessageActivity.this,ShiMingActivity.class);
+            startActivity(intent);
         } else if (i == R.id.bdyhk) {
             s = yhkbd.getText().toString();
             if (s.equals("已绑定")){
@@ -413,7 +417,7 @@ public class MineMessageActivity extends WDActivity {
 
         @Override
         public void fail(ApiException data, Object... args) {
-
+            Toast.makeText(MineMessageActivity.this, ""+data.getDisplayMessage(), Toast.LENGTH_SHORT).show();
         }
     }
     public class DoTask implements DataCall {

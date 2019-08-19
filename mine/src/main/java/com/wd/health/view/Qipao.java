@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 public class Qipao extends RelativeLayout {
     public Qipao(Context context) {

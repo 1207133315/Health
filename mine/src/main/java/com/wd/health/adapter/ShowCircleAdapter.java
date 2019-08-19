@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.bw.health.core.WDApplication;
 import com.bw.health.util.DateUtils;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.activity.CircleCommentActivity;
 import com.wd.health.bean.PatientsCircleBean;
 import com.wd.health.bean.RecordListBean;

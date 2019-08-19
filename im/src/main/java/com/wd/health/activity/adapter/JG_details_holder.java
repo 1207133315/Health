@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bw.health.bean.LoginBean;
 import com.bw.health.util.GetDaoUtil;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.wd.health.R;
+import com.wd.health.im.R;
 
 import androidx.annotation.RequiresApi;
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;

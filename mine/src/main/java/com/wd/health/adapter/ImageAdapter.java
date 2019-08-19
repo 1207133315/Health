@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

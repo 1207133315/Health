@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bw.health.R;
-import com.bw.health.R2;
+import com.bw.health.shouye.R;
+import com.bw.health.shouye.R2;
 import com.bw.health.adapter.MationListAdapter;
 import com.bw.health.bean.MationBean;
 import com.bw.health.bean.Result;

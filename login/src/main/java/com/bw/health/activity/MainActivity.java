@@ -24,7 +24,7 @@ import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.DaoSession;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.fragment.Yindao1;
-import com.wd.health.R;
+import com.wd.health.login.R;
 
 import java.util.ArrayList;
 import java.util.List;

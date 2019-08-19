@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.wd.health">
+    package="com.wd.health.im">
     <uses-permission android:name="com.wd.health.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
 
@@ -19,13 +19,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application>
-        <activity android:name=".activity.activity.IMActivity" ></activity>
+        <activity android:name="com.wd.health.activity.activity.IMActivity" ></activity>
         <service android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" >
         </service>
         <service
-            android:name=".activity.service.PushService"
+            android:name="com.wd.health.activity.service.PushService"
             android:enabled="true"
             android:exported="false"
             android:process=":pushcore"
@@ -39,7 +39,7 @@
         <!-- 3.3.0开始所有事件将通过该类回调 -->
         <!-- 该广播需要继承 JPush 提供的 JPushMessageReceiver 类, 并如下新增一个 Intent-Filter -->
         <receiver
-            android:name=".activity.service.PushReceiver"
+            android:name="com.wd.health.activity.service.PushReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.wd.health.R;
+import com.wd.health.circle.R;
 
 import java.util.List;
 

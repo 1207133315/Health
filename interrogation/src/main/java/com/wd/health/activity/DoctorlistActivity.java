@@ -23,7 +23,7 @@ import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.wd.health.R;
+import com.wd.health.interrogation.R;
 import com.wd.health.activity.bean.UserRecordBean;
 import com.wd.health.activity.presenter.EndWZPresenter;
 import com.wd.health.activity.presenter.NowWZPresenter;
@@ -32,7 +32,7 @@ import com.wd.health.adapter.MylistAdapter;
 import com.wd.health.bean.DepartmentBean;
 import com.wd.health.bean.Doctor;
 import com.wd.health.Myrecycler;
-import com.wd.health.R2;
+import com.wd.health.interrogation.R2;
 import com.wd.health.presenter.ConsultDoctorPresenter;
 import com.wd.health.presenter.FindDepartmentPresenter;
 import com.wd.health.presenter.FindDoctorListPresenter;
@@ -493,7 +493,7 @@ public class DoctorlistActivity extends WDActivity implements View.OnClickListen
                 } else if(list1.size()>1){
                     list1.get(1).setSelect(true);
                     recy2.setLayoutManager(new LinearLayoutManager(DoctorlistActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                    myadapter = new Myadapter(com.wd.health.R.layout.item, list1);
+                    myadapter = new Myadapter(R.layout.item, list1);
                     recy2.setAdapter(myadapter);
                     dang.setText("1");
                     zong.setText("1");

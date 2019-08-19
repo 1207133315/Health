@@ -41,15 +41,16 @@ import com.bw.health.presenter.DepartmentPresenter;
 import com.bw.health.presenter.MationListPresenter;
 import com.bw.health.presenter.PlateListPresenter;
 import com.bw.health.presenter.ShowBannerPresenter;
+
 import com.bw.health.util.GetDaoUtil;
 import com.bw.health.view.MyImageView;
 import com.bw.health.view.MyTextView;
 import com.bw.health.view.NoslideRecyclerview;
 import com.bw.health.view.ViewPagerStop;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import com.bw.health.shouye.R;
+import com.bw.health.shouye.R2;
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -264,7 +265,7 @@ public class HomeFrag extends WDFragment {
                      .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                      .into(head);
          }else {
-             head.setImageResource(R.mipmap.common_icon_boy_n);
+             head.setImageResource(R.mipmap.icon_photo);
          }
 
     }

@@ -2,6 +2,8 @@ package com.wd.health.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bw.health.adapter.PlateListAdapter;
+
 import com.bw.health.bean.LoginBean;
 import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
@@ -24,8 +26,8 @@ import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
 import com.kd.easybarrage.Barrage;
 import com.kd.easybarrage.BarrageView;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.video.R;
+import com.wd.health.video.R2;
 import com.wd.health.ShiPinFragment;
 import com.wd.health.bean.CommentBean;
 import com.wd.health.bean.VideoBean;
@@ -41,6 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayerStandard;
+import okhttp3.OkHttpClient;
 
 /**
  * com.wd.health.adapter
@@ -85,6 +88,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         VideoBean videoBean = list.get(position);
 
 
+
         if (videoBean.whetherBuy == 2) {
             url = videoBean.shearUrl;
             holder.buy2.setVisibility(View.VISIBLE);
@@ -96,7 +100,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             holder.buy2.setVisibility(View.INVISIBLE);
             holder.buy.setVisibility(View.GONE);
             holder.pinglun.setVisibility(View.VISIBLE);
-
         }
         holder.video.setUp(url,
                 JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL,

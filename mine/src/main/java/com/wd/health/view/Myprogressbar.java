@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 public class Myprogressbar extends RelativeLayout {
 

@@ -25,7 +25,7 @@ import com.bw.health.util.PermissionsUtils;
 import com.bw.health.util.RsaCoder;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.wd.health.R;
+import com.wd.health.im.R;
 import com.wd.health.activity.adapter.JG_details_Adapter;
 import com.wd.health.activity.bean.MessageBean;
 import com.wd.health.activity.bean.UserRecordBean;

@@ -37,6 +37,7 @@
         android:layout_marginTop="@dimen/dp_6"
         >
 
+
         <ImageView
             android:id="@+id/front"
             android:layout_width="match_parent"
@@ -47,6 +48,14 @@
             android:layout_marginTop="@dimen/dp_50"
              />
         <ImageView
+            android:id="@+id/close1"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignTop="@+id/front"
+            android:layout_alignEnd="@+id/front"
+            android:visibility="gone"
+            android:src="@mipmap/common_icon_close_n" />
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_160"
             android:layout_below="@+id/front"
@@ -55,12 +64,21 @@
             android:src="@mipmap/id_card_back"
             android:id="@+id/contrary"
             />
+
+        <ImageView
+            android:id="@+id/close2"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:visibility="gone"
+            android:layout_alignTop="@+id/contrary"
+            android:layout_alignEnd="@+id/front"
+            android:src="@mipmap/common_icon_close_n" />
         <TextView
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/dp_60"
             android:layout_marginHorizontal="@dimen/dp_40"
-            android:text="确定"
+            android:text="下一步"
             android:textSize="@dimen/sp_14"
             android:textColor="#fff"
             android:gravity="center"

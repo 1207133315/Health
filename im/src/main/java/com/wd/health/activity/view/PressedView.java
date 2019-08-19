@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bw.health.util.DensityUtil;
-import com.wd.health.R;
+import com.wd.health.im.R;
 
 import io.reactivex.annotations.Nullable;
 

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 import java.util.ArrayList;
 import java.util.List;

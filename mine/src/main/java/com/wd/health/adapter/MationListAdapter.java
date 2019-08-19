@@ -14,7 +14,7 @@ import com.bw.health.bean.Result;
 import com.bw.health.core.DataCall;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.adapter.holder.BaseHolder;
 import com.wd.health.adapter.holder.HolderOne;
 import com.wd.health.adapter.holder.HolderThree;

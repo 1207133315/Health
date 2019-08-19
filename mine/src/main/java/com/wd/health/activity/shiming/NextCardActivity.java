@@ -37,8 +37,8 @@ import com.bw.health.core.WDActivity;
 import com.bw.health.core.WDApplication;
 import com.bw.health.util.BitmapUtils;
 import com.bw.health.util.PermissionsUtils;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.mine.R;
+import com.wd.health.mine.R2;
 import com.wd.health.utils.getPhotoFromPhotoAlbum;
 
 import java.io.ByteArrayOutputStream;

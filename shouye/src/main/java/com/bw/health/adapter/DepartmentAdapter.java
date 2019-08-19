@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bw.health.R;
-import com.bw.health.R2;
+import com.bw.health.shouye.R;
+import com.bw.health.shouye.R2;
 import com.bw.health.activity.YpOrBzActivity;
 import com.bw.health.bean.DepartmentBean;
 import com.bw.health.bean.InedxOrId;

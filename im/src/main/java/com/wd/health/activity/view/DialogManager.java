@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wd.health.R;
+import com.wd.health.im.R;
 
 import androidx.appcompat.app.AlertDialog;
 

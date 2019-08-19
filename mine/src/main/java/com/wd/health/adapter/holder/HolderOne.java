@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bw.health.bean.MationBean;
 import com.bw.health.util.DateUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

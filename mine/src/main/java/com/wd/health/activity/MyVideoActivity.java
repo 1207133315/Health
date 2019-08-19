@@ -18,7 +18,7 @@ import com.bw.health.core.WDActivity;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.adapter.BuyVideoListAdapter;
 import com.wd.health.adapter.CollectVideoAdapter;
 import com.wd.health.bean.CollectVideoBean;

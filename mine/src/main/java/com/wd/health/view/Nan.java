@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 import androidx.annotation.Nullable;
 

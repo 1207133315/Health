@@ -15,7 +15,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [ AROUTER_MODULE_NAME : project.getName() ]
@@ -51,7 +51,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.jar'], dir: 'libs')
     api 'androidx.appcompat:appcompat:1.0.0-beta01'
     api 'androidx.recyclerview:recyclerview:1.0.0'
     //api 'com.google.android.material:material:1.1.0-alpha07'
@@ -97,6 +97,7 @@ dependencies {
     api files('libs/universal-image-loader-1.9.4-with-sources.jar')
     api 'com.google.android.material:material:1.1.0-alpha08'
     api 'com.contrarywind:Android-PickerView:3.2.7'
+
     //ImagePickers
     api 'com.jaikydota.imagespickers:imagespickers:1.0.6'
     api files('libs/jcore-android-2.1.2.jar')
@@ -107,10 +108,15 @@ dependencies {
     api files('libs/core-3.2.1.jar')
     api files('libs/picasso-2.5.2.jar')
     api files('libs/pinyin4j-2.5.0.jar')
-// 头像切圆
+    // 头像切圆
     api 'de.hdodenhof:circleimageview:2.2.0'
-//圆角图片
+    //圆角图片
     api 'com.makeramen:roundedimageview:2.2.1'
 
     api 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
+    //方法超过64k
+    api 'androidx.multidex:multidex:2.0.0'
 }

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.wd.health.R;
+import com.wd.health.circle.R;
 
 /**
  * 取消或者确认类型的Dialog

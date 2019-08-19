@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.wd.health.R;
+import com.wd.health.im.R;
 
 import androidx.appcompat.widget.AppCompatButton;
 

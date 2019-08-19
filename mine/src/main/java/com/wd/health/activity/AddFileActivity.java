@@ -35,7 +35,7 @@ import com.google.gson.Gson;
 import com.jaiky.imagespickers.ImageConfig;
 import com.jaiky.imagespickers.ImageSelector;
 import com.jaiky.imagespickers.ImageSelectorActivity;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.presenter.UpArchivesPicPresenter;
 import com.wd.health.presenter.UpArchivesPresenter;
 import com.wd.health.utils.getPhotoFromPhotoAlbum;

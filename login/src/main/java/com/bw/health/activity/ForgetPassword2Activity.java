@@ -1,6 +1,7 @@
 package com.bw.health.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -23,8 +24,8 @@ import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.bw.health.prenster.UpdateUserPwdPresenter;
 import com.bw.health.util.RsaCoder;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.login.R;
+import com.wd.health.login.R2;
 
 
 import java.util.List;
@@ -61,6 +62,7 @@ public class ForgetPassword2Activity extends WDActivity {
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         String yzm = intent.getStringExtra("yzm");
+
     }
 
     @Override
@@ -73,6 +75,7 @@ public class ForgetPassword2Activity extends WDActivity {
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.back) {
+
             finish();
         } else if (i == R.id.pwd1eye) {
             if (EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD == pwd.getInputType()) {

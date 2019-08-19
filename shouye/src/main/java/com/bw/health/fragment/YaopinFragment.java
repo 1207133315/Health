@@ -2,8 +2,8 @@ package com.bw.health.fragment;
 
 import android.annotation.SuppressLint;
 
-import com.bw.health.R;
-import com.bw.health.R2;
+import com.bw.health.shouye.R;
+import com.bw.health.shouye.R2;
 import com.bw.health.adapter.yaopin.YpOneAdapter;
 import com.bw.health.adapter.yaopin.YpTwoAdapter;
 import com.bw.health.bean.Result;

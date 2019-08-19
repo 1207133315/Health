@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.video.R;
+import com.wd.health.video.R2;
 import com.wd.health.bean.LeimuBean;
 
 import java.util.ArrayList;

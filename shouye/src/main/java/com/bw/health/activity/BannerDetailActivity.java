@@ -5,9 +5,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.bw.health.R;
-import com.bw.health.R2;
+
 import com.bw.health.core.WDActivity;
+import com.bw.health.shouye.R;
+import com.bw.health.shouye.R2;
 
 import butterknife.BindView;
 

@@ -14,7 +14,7 @@ import com.bw.health.dao.DaoMaster;
 import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.bean.BeAdoptedBean;
 import com.wd.health.bean.CircleCommentListBean;
 import com.wd.health.bean.OutsideBean;

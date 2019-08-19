@@ -36,7 +36,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.suke.widget.SwitchButton;
-import com.wd.health.R;
+import com.wd.health.circle.R;
 import com.wd.health.adapter.CircleWritBingZhengAdapter;
 import com.wd.health.adapter.CircleWritDepartmentAdapter;
 import com.wd.health.bean.CircleBingZhengBean;

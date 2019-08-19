@@ -7,8 +7,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 
 import com.bw.health.core.WDActivity;
-import com.wd.health.R;
-import com.wd.health.R2;
+import com.wd.health.mine.R;
+import com.wd.health.mine.R2;
 import com.wd.health.fragment.CircleFragment;
 
 import com.wd.health.fragment.VideoFragment;

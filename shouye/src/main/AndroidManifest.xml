@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bw.health">
+    package="com.bw.health.shouye">
 
     <application>
-        <activity android:name=".activity.ZiXunActivity" >
+        <activity android:name="com.bw.health.activity.ZiXunActivity" >
 
         </activity>
-        <activity android:name=".activity.YpOrBzActivity" />
-        <activity android:name=".activity.MationDetailActivity" />
-        <activity android:name=".activity.BannerDetailActivity" />
-        <activity android:name=".activity.BZDetailActivity" />
-        <activity android:name=".activity.YPDetailActivity" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name="com.bw.health.activity.YpOrBzActivity" />
+        <activity android:name="com.bw.health.activity.MationDetailActivity" />
+        <activity android:name="com.bw.health.activity.BannerDetailActivity" />
+        <activity android:name="com.bw.health.activity.BZDetailActivity" />
+        <activity android:name="com.bw.health.activity.YPDetailActivity" />
+        <activity android:name="com.bw.health.activity.SearchActivity"></activity>
     </application>
 
 </manifest>

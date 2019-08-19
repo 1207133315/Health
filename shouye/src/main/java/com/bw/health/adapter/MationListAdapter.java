@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bw.health.R;
+import com.bw.health.shouye.R;
 import com.bw.health.activity.MationDetailActivity;
 
 import com.bw.health.adapter.holder.HolderOne;

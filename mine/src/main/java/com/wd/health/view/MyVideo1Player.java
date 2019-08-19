@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.bw.health.core.WDApplication;
 import com.danikula.videocache.HttpProxyCacheServer;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 import cn.jzvd.JZMediaManager;
 import cn.jzvd.JZUtils;

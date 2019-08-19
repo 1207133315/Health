@@ -22,7 +22,7 @@ import com.bw.health.dao.LoginBeanDao;
 import com.bw.health.exception.ApiException;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.adapter.CircleCommentAdapter;
 import com.wd.health.adapter.CircleElseCommentAdapter;
 import com.wd.health.bean.CircleCommentListBean;

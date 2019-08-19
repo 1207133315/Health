@@ -16,7 +16,7 @@ import com.bw.health.core.WDActivity;
 import com.bw.health.exception.ApiException;
 import com.bw.health.util.GetDaoUtil;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.wd.health.R;
+import com.wd.health.mine.R;
 import com.wd.health.adapter.RecordListAdapter;
 import com.wd.health.bean.RecordListBean;
 import com.wd.health.presenter.MyHBPresenter;

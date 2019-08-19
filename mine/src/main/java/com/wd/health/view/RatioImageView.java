@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
-import com.wd.health.R;
+import com.wd.health.mine.R;
 
 import androidx.appcompat.widget.AppCompatImageView;
 

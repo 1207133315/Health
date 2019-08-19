@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.bw.health.core.WDApplication;
 import com.danikula.videocache.HttpProxyCacheServer;
-import com.wd.health.R;
+import com.wd.health.video.R;
 
 
 import cn.jzvd.JZMediaManager;

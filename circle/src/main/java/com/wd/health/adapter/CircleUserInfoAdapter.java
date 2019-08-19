@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wd.health.R;
+import com.wd.health.circle.R;
 import com.wd.health.bean.CircleUserInfoBean;
 
 import java.text.SimpleDateFormat;
